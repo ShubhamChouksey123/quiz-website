@@ -1,7 +1,10 @@
 package com.shubham.app.config;
 
+import java.beans.PropertyVetoException;
+import java.util.Properties;
+import java.util.logging.Logger;
+import javax.sql.DataSource;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,21 +19,18 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.sql.DataSource;
-import java.beans.PropertyVetoException;
-import java.util.Properties;
-import java.util.logging.Logger;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
-@ComponentScan("com.bank.transactions")
+@ComponentScan("com.shubham.app")
 @EnableTransactionManagement
-@PropertySource({"classpath:hibernate.properties"})
+@PropertySource({ "classpath:hibernate.properties" })
 public class HibernateConfig {
 
     @Autowired
     private Environment env;
 
-    private final Logger logger = Logger.getLogger(getClass().getName());
+    private Logger logger = Logger.getLogger(getClass().getName());
 
     @Bean
     public DataSource myDataSource() {
