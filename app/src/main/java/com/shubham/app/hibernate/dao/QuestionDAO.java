@@ -33,31 +33,32 @@ public class QuestionDAO {
         return requestId;
     }
 
-    public void deleteQuestion(Long questionId) {
+    public Question questionById(Long questionId) {
 
         Session session = this.sessionFactory.getCurrentSession();
 
         Question question = null;
         try {
             question = session.get(Question.class, questionId);
-            session.delete(question);
         } catch (Exception e) {
             logger.error("Question with {} doesn't exist !", questionId);
         }
+        return question;
     }
 
-    public Integer getAnswerOfAQuestion(Long questionId) {
+    public List<Question> getAllQuestion() {
 
         Session session = this.sessionFactory.getCurrentSession();
+        List<Question> questionList = new ArrayList<>();
+        String sql = "from question q order by questionId asc";
 
-        Question question = null;
         try {
-            question = session.get(Question.class, questionId);
-            return question.getAns();
+            questionList = (List<Question>) session.createQuery(sql).getResultList();
+            return questionList;
         } catch (Exception e) {
-            logger.error("Question with {} doesn't exist !", questionId);
+            logger.error("No Question exist !");
         }
-        return null;
+        return questionList;
     }
 
     public List<Question> getQuestion(Integer n) {
@@ -70,8 +71,29 @@ public class QuestionDAO {
             questionList = (List<Question>) session.createQuery(sql).setMaxResults(n).getResultList();
             return questionList;
         } catch (Exception e) {
-
+            logger.error("No Question exist !");
         }
         return questionList;
     }
+
+    public boolean deleteQuestion(Long questionId) {
+
+        Session session = this.sessionFactory.getCurrentSession();
+
+        Question question = null;
+        try {
+            question = session.get(Question.class, questionId);
+            session.delete(question);
+            return true;
+        } catch (Exception e) {
+            logger.error("Question with {} doesn't exist !", questionId);
+        }
+        return false;
+    }
+
+    public Integer getAnswerOfAQuestion(Long questionId) {
+        return questionById(questionId).getAns();
+    }
+
+
 }

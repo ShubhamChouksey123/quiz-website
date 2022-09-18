@@ -1,11 +1,19 @@
-package com.shubham.app.model;
+package com.shubham.app.dto;
 
-import org.springframework.web.bind.annotation.RequestBody;
-
-public class FormResponse {
+public class EachQuestionResponse {
 
     private Long questionId;
     private Integer ansOpted;
+
+    public EachQuestionResponse() {
+    }
+
+    public EachQuestionResponse(Long questionId, Integer ansOpted) {
+        this.questionId = questionId;
+        this.ansOpted = ansOpted;
+    }
+
+
 
     public Long getQuestionId() {
         return questionId;

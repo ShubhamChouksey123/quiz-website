@@ -1,22 +1,22 @@
 package com.shubham.app.controller;
 
+import com.shubham.app.dto.ContactQueryResponse;
+import com.shubham.app.dto.EachQuestion;
+import com.shubham.app.dto.QuestionSubmissionForm;
+import com.shubham.app.dto.QuizSubmittedForm;
 import com.shubham.app.entity.Question;
-import com.shubham.app.model.Difficulty;
-import com.shubham.app.model.FormResponse;
 import com.shubham.app.service.questioncrud.QuestionCrud;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import java.math.BigInteger;
 import java.util.List;
 
 @RestController
 public class QuizSubmissionController {
 
-    private static final int TOTAL_QUESTIONS_TO_ASK = 1;
+    private static final int TOTAL_QUESTIONS_TO_ASK = 10;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -35,8 +35,7 @@ public class QuizSubmissionController {
 
     @GetMapping("/home")
     public String home() {
-
-        return "home"; // be same as the template file name (without suffix)
+        return "home";
     }
 
     /**
@@ -44,18 +43,12 @@ public class QuizSubmissionController {
      *
      * @return
      */
-    @PostMapping("/submitQuestionResponse")
-    public Integer submitQuestionResponse(@RequestBody(required = false) FormResponse formResponse) {
-        Integer ansActual = questionCrud.getActualAns(formResponse.getQuestionId());
-        Integer score = 0;
-        logger.info("questionId : {} & ansOpted : {} & ansActual : {}", formResponse.getQuestionId(), formResponse.getAnsOpted(), ansActual);
-        if (ansActual != null && ansActual.equals(formResponse.getAnsOpted())) {
-            score++;
-        }
-        return score;
+    @PostMapping("/submitQuestionsResponse")
+    public Integer submitQuestionResponse(@RequestBody(required = true) QuizSubmittedForm quizSubmittedForm) {
+        return questionCrud.calculateScore(quizSubmittedForm);
     }
 
-    @PostMapping("/submitQuestionsResponse")
+    @PostMapping("/submitQuestionResponse")
     public Integer submitQuestionsResponse(@RequestParam(name = "questionId", required = false) Long questionId, @RequestParam(required = false) Integer ansOpted) {
         Integer ansActual = questionCrud.getActualAns(questionId);
         Integer score = 0;
@@ -69,8 +62,9 @@ public class QuizSubmissionController {
     /**
      * When user wants to contact me
      */
-    public void submitContactResponse() {
-
+    @PostMapping("/contactQuery")
+    public void submitContactResponse(@RequestBody ContactQueryResponse contactQueryResponse) {
+        questionCrud.addContactQuery(contactQueryResponse);
     }
 
 
@@ -78,42 +72,32 @@ public class QuizSubmissionController {
      * Admin page APIs
      */
     @PostMapping("/addQuestion")
-    public void addQuestion(@RequestParam("statement") String statement, @RequestParam("optionA") String optionA,
-                            @RequestParam("optionB") String optionB, @RequestParam("optionC") String optionC,
-                            @RequestParam("optionD") String optionD, @RequestParam("ans") Integer ans,
-                            @RequestParam("difficulty") Difficulty difficulty) {
-        questionCrud.addQuestion(statement, optionA, optionB, optionC, optionD, ans, difficulty);
+    public String addQuestion(@RequestBody EachQuestion eachQuestion) {
+        questionCrud.addQuestion(eachQuestion);
+        return "Saved Successfully";
     }
 
-    @PostMapping("/publish101")
-    public String post101(@RequestParam String name, @RequestParam BigInteger deviceID) {
 
-        return "punlisehd succesfully ! ..." + name + " & deviceID : " + deviceID;
+    @PostMapping("/addQuestions")
+    public String addQuestions(@RequestBody QuestionSubmissionForm questionSubmissionForm) {
+        questionCrud.addQuestions(questionSubmissionForm);
+        return "Saved Successfully";
     }
 
-    @PostMapping(value = {"/devices/addDeviceFisrtForm"})
-    @ResponseBody
-    public String submitDevicesForm(@RequestParam String deviceType, @RequestParam String deviceName,
-                                    HttpServletResponse response) throws Exception {
 
-        return "SHubham !!";
-
-    }
-
-    public void addQuestions() {
-
-    }
-
-    public void getAllQuestions() {
-
+    @GetMapping("/getAllQuestions")
+    public List<Question> getAllQuestions() {
+        return questionCrud.getAllQuestions();
     }
 
     public void removeQuestions() {
 
     }
 
-    public void removeQuestion() {
 
+    @PostMapping("/removeQuestion")
+    public boolean removeQuestion( @RequestParam(name = "questionId", required = false) Long questionId) {
+        return questionCrud.removeQuestions(questionId);
     }
 
 
