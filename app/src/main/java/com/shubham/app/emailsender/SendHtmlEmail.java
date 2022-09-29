@@ -5,10 +5,7 @@ import com.shubham.app.deliver.emailservice.EmailInformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.*;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -68,7 +65,10 @@ public class SendHtmlEmail {
             String content = mailContentBuilder.build(verificationCode);
             messageHelper.setText(content, true);
 
-            FileSystemResource resource = new FileSystemResource(new File("D:\\OldLaptop\\New_Projects\\QuizWebsiteNewRelease\\app\\src\\main\\resources\\templates\\Logo.png"));
+            ClassPathResource classPathResource = new ClassPathResource("/templates/Logo.png");
+            File file = classPathResource.getFile();
+
+            FileSystemResource resource = new FileSystemResource(file);
             messageHelper.addInline("logo", resource);
             FileSystemResource resourceArrow = new FileSystemResource(new File("D:\\OldLaptop\\New_Projects\\QuizWebsiteNewRelease\\app\\src\\main\\resources\\templates\\arrow.png"));
             messageHelper.addInline("arrow", resourceArrow);
