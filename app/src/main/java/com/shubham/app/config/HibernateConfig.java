@@ -12,12 +12,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.repository.init.ResourceReader;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -31,6 +33,7 @@ public class HibernateConfig {
     private Environment env;
 
     private Logger logger = Logger.getLogger(getClass().getName());
+
 
     @Bean
     public DataSource myDataSource() {
