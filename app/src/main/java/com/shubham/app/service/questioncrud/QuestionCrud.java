@@ -1,7 +1,6 @@
 package com.shubham.app.service.questioncrud;
 
 import com.shubham.app.dto.*;
-import com.shubham.app.dtotoentity.DTOToEntity;
 import com.shubham.app.entity.ContactQuery;
 import com.shubham.app.entity.Question;
 import com.shubham.app.hibernate.dao.ContactQueryDAO;
@@ -10,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.shubham.app.dtotoentity.*;
 
 import java.util.List;
 
@@ -18,12 +18,11 @@ public class QuestionCrud {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Autowired
     private QuestionDAO questionDAO;
-
     @Autowired
     private ContactQueryDAO contactQueryDAO;
-
     @Autowired
     private DTOToEntity dTOToEntity;
+
 
     public void addQuestion(EachQuestion eachQuestion) {
         Question question = dTOToEntity.convertQuestionDTO(eachQuestion);
@@ -73,7 +72,8 @@ public class QuestionCrud {
      */
 
     public void addContactQuery(ContactQueryResponse contactQueryResponse) {
-        ContactQuery contactQuery = dTOToEntity.convertContactQueryDTO(contactQueryResponse);
-        contactQueryDAO.saveContactQuery(contactQuery);
+//        ContactQuery contactQuery = dTOToEntity.convertContactQueryDTO(contactQueryResponse);
+//        dTOToEntity.convertContactQueryDTO(contactQueryResponse);
+        contactQueryDAO.saveContactQuery(null);
     }
 }

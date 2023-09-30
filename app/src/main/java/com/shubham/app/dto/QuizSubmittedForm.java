@@ -1,6 +1,7 @@
 package com.shubham.app.dto;
 
 import java.util.List;
+import com.shubham.app.dto.*;
 
 public class QuizSubmittedForm {
 

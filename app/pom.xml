@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.3</version>
+        <version>3.0.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.shubham</groupId>
@@ -14,8 +14,54 @@
     <name>app</name>
     <description>Quiz website Updated by Shubham Chouksey</description>
     <properties>
-        <java.version>1.8</java.version>
-        <c3po.version>0.9.5.2</c3po.version>
+        <c3po.version>0.9.5.5</c3po.version>
+        <revision>0.0.1-SNAPSHOT</revision>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <resource.delimiter>@</resource.delimiter>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <web3j.version>4.8.6-SNAPSHOT</web3j.version>
+
+        <!-- used dependencies versions -->
+        <spring-boot.version>3.0.5</spring-boot.version>
+        <spring-cloud.version>2022.0.1</spring-cloud.version>
+        <spring-admin.version>3.0.2</spring-admin.version>
+        <junit.jupiter.version>5.9.0</junit.jupiter.version>
+        <junit-platform.version>1.9.0</junit-platform.version>
+        <c3po.version>0.9.5.4</c3po.version>
+        <jackson.version>2.14.2</jackson.version>
+        <mariadb.client.version>3.1.4</mariadb.client.version>
+
+        <!-- plugin versions -->
+        <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <!-- because of https://github.com/mojohaus/versions/issues/855 -->
+        <versions-maven-plugin.version>2.15.0</versions-maven-plugin.version>
+        <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
+        <maven-site-plugin.version>4.0.0-M1</maven-site-plugin.version>
+        <maven-dependency-plugin.version>3.5.0</maven-dependency-plugin.version>
+        <maven-deploy-plugin.version>3.1.0</maven-deploy-plugin.version>
+        <maven-enforcer-plugin.version>3.2.1</maven-enforcer-plugin.version>
+        <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0</maven-failsafe-plugin.version>
+        <maven-install-plugin.version>3.1.0</maven-install-plugin.version>
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+        <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
+        <maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-war-plugin.version>3.3.2</maven-war-plugin.version>
+        <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
+        <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
+        <asciidoctor-maven-plugin.version>2.2.2</asciidoctor-maven-plugin.version>
+        <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
+        <flatten-maven-plugin.version>1.3.0</flatten-maven-plugin.version>
+        <maven-checkstyle-plugin.version>3.2.1</maven-checkstyle-plugin.version>
+        <spotless.version>2.37.0</spotless.version>
+        <checkstyle.version>9.3</checkstyle.version>
+        <spring-javaformat-checkstyle.version>0.0.38</spring-javaformat-checkstyle.version>
     </properties>
     <dependencies>
         <dependency>
@@ -32,7 +78,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>2.7.3</version>
+            <version>3.0.4</version>
         </dependency>
 
         <dependency>
@@ -56,6 +102,18 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.googlecode.libphonenumber</groupId>
+            <artifactId>libphonenumber</artifactId>
+            <version>8.12.55</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>8.33.0</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -64,6 +122,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>9</source>
+                    <target>9</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>

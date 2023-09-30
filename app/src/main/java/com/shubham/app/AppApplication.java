@@ -1,6 +1,5 @@
 package com.shubham.app;
 
-import com.shubham.app.model.Difficulty;
 import com.shubham.app.service.questioncrud.QuestionCrud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

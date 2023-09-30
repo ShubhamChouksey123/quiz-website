@@ -1,33 +1,19 @@
 package com.shubham.app.controller;
 
-import com.shubham.app.deliver.emailservice.EmailInformation;
 import com.shubham.app.deliver.emailservice.EmailSenderService;
-import com.shubham.app.dto.ContactQueryResponse;
 import com.shubham.app.dto.EachQuestion;
-import com.shubham.app.dto.QuestionSubmissionForm;
 import com.shubham.app.dto.QuizSubmittedForm;
-import com.shubham.app.emailsender.SendHtmlEmail;
+import com.shubham.app.emailsender.SendVerificationCode;
 import com.shubham.app.entity.Question;
 import com.shubham.app.service.questioncrud.QuestionCrud;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import com.shubham.app.dto.*;
+import com.shubham.app.deliver.emailservice.*;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import java.io.*;
 import java.util.List;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 @RestController
 public class QuizSubmissionController {
@@ -39,31 +25,15 @@ public class QuizSubmissionController {
     private QuestionCrud questionCrud;
     @Autowired
     private EmailSenderService emailSenderService;
-
     @Autowired
-    private SendHtmlEmail sendHtmlEmail;
+    private SendVerificationCode sendVerificationCode;
+
     /**
      * When user starts the quiz and redirected to this page
      *
      * @return
      */
 
-    @Autowired
-    private JavaMailSender mailSender;
-
-    public static String readFileToString(String path) {
-        ResourceLoader resourceLoader = new DefaultResourceLoader();
-        Resource resource = resourceLoader.getResource(path);
-        return asString(resource);
-    }
-
-    public static String asString(Resource resource) {
-        try (Reader reader = new InputStreamReader(resource.getInputStream(), UTF_8)) {
-            return FileCopyUtils.copyToString(reader);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
 
     private void sendEmailUsingSpring() {
         String verificationCode = "192436";
@@ -75,76 +45,40 @@ public class QuizSubmissionController {
                 verificationCode);
 
         EmailInformation emailInformation = new EmailInformation("", "ayushjain1212abc@gmail.com", EMAIL_SUBJECT, emailBody);
-        emailSenderService.sendEmail(emailInformation);
-    }
-
-    @GetMapping("/send_email_inline_image")
-    public String sendHTMLEmailWithInlineImage() throws MessagingException {
-
-        String from = "shubhamchouksey1998@gmail.com";
-        String to = "schouksey@cognam.com";
-        String verificationCode = "379316";
-
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-        helper.setSubject("Here's your pic");
-        helper.setFrom(from);
-        helper.setTo(to);
-
-        String htmlContent = readFileToString("classpath:wallet-financial-emailer/index.html");
-
-        htmlContent = String.format(htmlContent, verificationCode);
-
-
-        String content = "<b>Dear guru</b>,<br><i>Please look at this nice picture:.</i>"
-                + "<br><img src='cid:image001'/><br><b>Best Regards</b>";
-        helper.setText(htmlContent, true);
-
-        FileSystemResource resource = new FileSystemResource(new File("D:\\OldLaptop\\New_Projects\\QuizWebsiteNewRelease\\app\\src\\main\\resources\\wallet-financial-emailer\\logo.png"));
-//        FileSystemResource resourceLogo = new FileSystemResource(new File("classpath:wallet-financial-emailer/logo.png"));
-        FileSystemResource resourceArrow = new FileSystemResource(new File("D:\\OldLaptop\\New_Projects\\QuizWebsiteNewRelease\\app\\src\\main\\resources\\wallet-financial-emailer\\arrow.png"));
-        helper.addInline("arrow", resourceArrow);
-        helper.addInline("logo", resource);
-
-        mailSender.send(message);
-
-        return "result";
-    }
-
-    @GetMapping("/send_email")
-    public String sendHTMLEmailWith() {
-
-
-        String verificationCode = "379316";
-
-        EmailInformation emailInformation = new EmailInformation("", "ayushjain1212abc@gmail.com", EMAIL_SUBJECT, "");
-        sendHtmlEmail.prepareAndSend(emailInformation);
-
-        return "result";
-    }
-
-    public void sendSimpleEmail(String toEmail, String subject, String body) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("shubhamchouksey1998@gmail.com");
-        message.setTo("ayushjain1212abc@gmail.com");
-        message.setText("Hello Ayush, Shubham this side, hope you're good!");
-        message.setSubject("Greate Man");
-        mailSender.send(message);
-        System.out.println("Mail Send...");
-
-
-    }
-
-    @GetMapping("/getQuestions")
-    public List<Question> getQuestions() {
-        return questionCrud.getQuestionsForAnUser(TOTAL_QUESTIONS_TO_ASK);
+//        emailSenderService.sendTextEmail(emailInformation);
     }
 
     @GetMapping("/home")
     public String home() {
         return "home";
     }
+
+
+    @GetMapping("/send_email")
+    public String sendHTMLEmailWith() {
+
+        sendVerificationCode.sendSMSAndEmail("128232", "IN", "9340188210", "Ayush", "ayushjain1212abc@gmail.com");
+
+        return "result";
+    }
+
+
+    /**
+     * When user wants to contact me
+     */
+    @PostMapping("/contactQuery")
+    public void submitContactResponse(@RequestBody(required = false) ContactQueryResponse contactQueryResponse) {
+//        sendSimpleEmail("", "", "");
+        sendEmailUsingSpring();
+//        questionCrud.addContactQuery(contactQueryResponse);
+    }
+
+
+    @GetMapping("/getQuestions")
+    public List<Question> getQuestions() {
+        return questionCrud.getQuestionsForAnUser(TOTAL_QUESTIONS_TO_ASK);
+    }
+
 
     /**
      * When user submits the form
@@ -167,16 +101,6 @@ public class QuizSubmissionController {
         return score;
     }
 
-    /**
-     * When user wants to contact me
-     */
-    @PostMapping("/contactQuery")
-    public void submitContactResponse(@RequestBody ContactQueryResponse contactQueryResponse) {
-//        sendSimpleEmail("", "", "");
-        sendEmailUsingSpring();
-//        questionCrud.addContactQuery(contactQueryResponse);
-    }
-
 
     /**
      * Admin page APIs
@@ -190,7 +114,7 @@ public class QuizSubmissionController {
 
     @PostMapping("/addQuestions")
     public String addQuestions(@RequestBody QuestionSubmissionForm questionSubmissionForm) {
-        questionCrud.addQuestions(questionSubmissionForm);
+//        questionCrud.addQuestions(questionSubmissionForm);
         return "Saved Successfully";
     }
 

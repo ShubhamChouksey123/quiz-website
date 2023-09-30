@@ -1,7 +1,6 @@
 package com.shubham.app.hibernate.dao;
 
 import com.shubham.app.entity.ContactQuery;
-import com.shubham.app.entity.Question;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;

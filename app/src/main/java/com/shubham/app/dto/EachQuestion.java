@@ -1,7 +1,6 @@
 package com.shubham.app.dto;
 
-import com.shubham.app.model.Difficulty;
-
+import com.shubham.app.model.*;
 
 public class EachQuestion {
 
@@ -11,7 +10,7 @@ public class EachQuestion {
     private String optionC;
     private String optionD;
     private Integer ans;
-    private Difficulty difficulty;
+    private DifficultyLevel difficulty;
 
     public String getStatement() {
         return statement;
@@ -61,11 +60,11 @@ public class EachQuestion {
         this.ans = ans;
     }
 
-    public Difficulty getDifficulty() {
+    public DifficultyLevel getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(Difficulty difficulty) {
+    public void setDifficulty(DifficultyLevel difficulty) {
         this.difficulty = difficulty;
     }
 }

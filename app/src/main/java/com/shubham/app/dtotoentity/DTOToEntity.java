@@ -1,7 +1,6 @@
 package com.shubham.app.dtotoentity;
 
-import com.shubham.app.dto.ContactQueryResponse;
-import com.shubham.app.dto.EachQuestion;
+import com.shubham.app.dto.*;
 import com.shubham.app.entity.ContactQuery;
 import com.shubham.app.entity.Question;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,8 @@
 package com.shubham.app.entity;
 
-import com.shubham.app.model.Difficulty;
-import java.math.BigInteger;
-import java.util.Date;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+import com.shubham.app.model.DifficultyLevel;
 
 
 @Entity(name = "question")
@@ -30,9 +28,9 @@ public class Question {
     private Integer ans;
     @Column(name = "difficulty")
     @Enumerated(EnumType.STRING)
-    private Difficulty difficulty;
+    private DifficultyLevel difficulty;
 
-    public Question(String statement, String optionA, String optionB, String optionC, String optionD, Integer ans, Difficulty difficulty) {
+    public Question(String statement, String optionA, String optionB, String optionC, String optionD, Integer ans, DifficultyLevel difficulty) {
         this.statement = statement;
         this.optionA = optionA;
         this.optionB = optionB;
@@ -101,11 +99,11 @@ public class Question {
         this.ans = ans;
     }
 
-    public Difficulty getDifficulty() {
+    public DifficultyLevel getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(Difficulty difficulty) {
+    public void setDifficulty(DifficultyLevel difficulty) {
         this.difficulty = difficulty;
     }
 }

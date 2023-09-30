@@ -1,18 +1,17 @@
 package com.shubham.app.config;
 
-import java.beans.PropertyVetoException;
-import java.util.Properties;
-import java.util.logging.Logger;
-import javax.sql.DataSource;
-
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.data.repository.init.ResourceReader;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -20,19 +19,22 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
+import java.util.Properties;
 
 @Configuration
 @ComponentScan("com.shubham.app")
 @EnableTransactionManagement
-@PropertySource({ "classpath:hibernate.properties" })
+@PropertySource({"classpath:hibernate.properties"})
 public class HibernateConfig {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Autowired
     private Environment env;
 
-    private Logger logger = Logger.getLogger(getClass().getName());
+    @Value("${hibernate.packagesToScan}")
+    private String[] packagesToScan;
 
 
     @Bean
@@ -48,10 +50,8 @@ public class HibernateConfig {
             throw new RuntimeException(exc);
         }
 
-        // for sanity's sake, let's log url and user ... just to make sure we are
-        // reading the data
-        logger.info("jdbc.url=" + env.getProperty("jdbc.url"));
-        logger.info("jdbc.user=" + env.getProperty("jdbc.user"));
+        logger.info("jdbc.url : {}", env.getProperty("jdbc.url"));
+        logger.info("jdbc.user : {}", env.getProperty("jdbc.user"));
 
         // set database connection props
         myDataSource.setJdbcUrl(env.getProperty("jdbc.url"));
@@ -68,6 +68,7 @@ public class HibernateConfig {
         return myDataSource;
     }
 
+
     private Properties getHibernateProperties() {
 
         // set hibernate properties
@@ -75,7 +76,7 @@ public class HibernateConfig {
 
         props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
         props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        props.put("hibernate.hbm2ddl.auto", "update");
+        props.put("hibernate.hbm2ddl.auto", "none");
 
         return props;
     }
@@ -88,17 +89,18 @@ public class HibernateConfig {
         String propVal = env.getProperty(propName);
 
         // now convert to int
-        int intPropVal = Integer.parseInt(propVal);
-
-        return intPropVal;
+        return Integer.parseInt(propVal);
     }
 
     @Bean(name = "entityManagerFactory")
+    @DependsOnDatabaseInitialization
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+        logger.info("This method is called ! here Session Factory");
 
         sessionFactory.setDataSource(myDataSource());
-        sessionFactory.setPackagesToScan(env.getProperty("hibernate.packagesToScan"));
+        sessionFactory.setPackagesToScan(packagesToScan);
+
         sessionFactory.setHibernateProperties(getHibernateProperties());
 
         return sessionFactory;
@@ -108,17 +110,18 @@ public class HibernateConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(myDataSource());
-        em.setPackagesToScan(env.getProperty("hibernate.packagesToScan"));
+        em.setPackagesToScan(packagesToScan);
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
-//	      em.setJpaProperties(additionalProperties());
+        // em.setJpaProperties(additionalProperties());
 
         return em;
     }
 
     @Bean
     @Autowired
+    @DependsOnDatabaseInitialization
     public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
 
         // setup transaction manager based on session factory
