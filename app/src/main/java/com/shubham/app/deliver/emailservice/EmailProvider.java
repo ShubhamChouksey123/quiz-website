@@ -2,11 +2,12 @@ package com.shubham.app.deliver.emailservice;
 
 
 import jakarta.mail.MessagingException;
-import jakarta.mail.internet.AddressException;
+
+import java.io.IOException;
 
 public interface EmailProvider {
 
-    boolean sendTextEmail(EmailInformation emailInformation) throws AddressException, MessagingException;
+    boolean sendTextEmail(EmailInformation emailInformation) throws MessagingException, IOException;
 
     boolean prepareAndSendHtmlEmail(EmailInformation emailInformation);
 }

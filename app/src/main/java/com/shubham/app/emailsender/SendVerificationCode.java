@@ -1,6 +1,6 @@
 package com.shubham.app.emailsender;
 
-import com.shubham.app.deliver.emailservice.*;
+import com.shubham.app.deliver.emailservice.EmailInformation;
 import com.shubham.app.deliver.emailservice.EmailSenderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,9 +50,8 @@ public class SendVerificationCode {
 
         EmailInformation emailInformation = new EmailInformation(receiverPersonalName, receiverEmail, EMAIL_SUBJECT, parameterMap, TEMPLATE_NAME, PARAMETER_RESOURCE_MAP_REGISTER_AC);
 
-//        return emailSenderService.sendHtmlEmail(emailInformation);
+        return emailSenderService.sendHtmlEmail(emailInformation);
 
-        return false;
     }
 
     public void sendSMSAndEmail(String verificationCode, String countryCode, String phone, String receiverPersonalName, String email) {

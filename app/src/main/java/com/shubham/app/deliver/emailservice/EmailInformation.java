@@ -15,8 +15,7 @@ public class EmailInformation {
 	/* parameters for Text Email */
 	private String body;
 
-
-	/* parameters for  Html template Email */
+	/* parameters for Html template Email */
 	private Map<String, Object> parameterMap;
 	private String templateName;
 	private Map<String, Resource> parameterResourceMap;
@@ -31,7 +30,8 @@ public class EmailInformation {
 		this.body = body;
 	}
 
-	public EmailInformation(String receiverPersonalName, String receiverEmail, String subject, Map<String, Object> parameterMap, String templateName, Map<String, Resource> parameterResourceMap) {
+	public EmailInformation(String receiverPersonalName, String receiverEmail, String subject,
+							Map<String, Object> parameterMap, String templateName, Map<String, Resource> parameterResourceMap) {
 		this.receiverPersonalName = receiverPersonalName;
 		this.receiverEmail = receiverEmail;
 		this.subject = subject;
@@ -98,14 +98,9 @@ public class EmailInformation {
 
 	@Override
 	public String toString() {
-		return "EmailInformation{" +
-				"receiverPersonalName='" + receiverPersonalName + '\'' +
-				", receiverEmail='" + receiverEmail + '\'' +
-				", subject='" + subject + '\'' +
-				", body='" + body + '\'' +
-				", parameterMap=" + parameterMap +
-				", templateName='" + templateName + '\'' +
-				", parameterResourceMap=" + parameterResourceMap +
-				'}';
+		return "EmailInformation{" + "receiverPersonalName='" + receiverPersonalName + '\'' + ", receiverEmail='"
+				+ receiverEmail + '\'' + ", subject='" + subject + '\'' + ", body='" + body + '\'' + ", parameterMap="
+				+ parameterMap + ", templateName='" + templateName + '\'' + ", parameterResourceMap="
+				+ parameterResourceMap + '}';
 	}
 }
