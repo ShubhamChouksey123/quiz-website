@@ -31,11 +31,6 @@ public class QuizSubmissionController {
 
 
 
-    @GetMapping("/home")
-    public String home() {
-        return "home";
-    }
-
 
 
     @GetMapping("/getQuestions")
