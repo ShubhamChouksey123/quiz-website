@@ -1,0 +1,196 @@
+/**
+    Style for the Quiz Page
+*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif
+}
+
+.container1 p {
+    margin: 0%
+}
+
+.container1 body {
+    height: 100vh;
+    background-color: bisque;
+    padding: 10px
+}
+
+.container1 {
+    margin: 30px auto;
+    background: white;
+    padding: 20px 15px;
+    background-color: #555;
+    color: #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    /* max-width: 900px; */
+}
+
+.container1 label.box {
+    display: flex;
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #ddd
+}
+
+#one:checked~label.first,
+#two:checked~label.second,
+#three:checked~label.third,
+#four:checked~label.forth,
+#five:checked~label.fifth,
+#six:checked~label.sixth,
+#seven:checked~label.seveth,
+#eight:checked~label.eighth {
+    border-color: #8e498e
+}
+
+#one:checked~label.first .circle,
+#two:checked~label.second .circle,
+#three:checked~label.third .circle,
+#four:checked~label.forth .circle,
+#five:checked~label.fifth .circle,
+#six:checked~label.sixth .circle,
+#seven:checked~label.seveth .circle,
+#eight:checked~label.eighth .circle {
+    border: 6px solid #8e498e;
+    background-color: #fff
+}
+
+.container1 label.box:hover {
+    background: #d5bbf7
+}
+
+.container1 label.box .course {
+    display: flex;
+    align-items: center;
+    width: 100%
+}
+
+.container1 label.box .circle {
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid #ddd;
+    display: inline-block
+}
+
+.container1 input[type="radio"] {
+    display: none
+}
+
+.container1 .btn.btn-primary {
+    border-radius: 25px;
+    margin-top: 20px
+}
+
+@media(max-width: 450px) {
+    .subject {
+        font-size: 12px
+    }
+}
+
+
+.container1 .btn-primary {
+    background-color: #555;
+    color: #ddd;
+    border: 1px solid #ddd;
+}
+
+.container1 .btn-primary:hover {
+    background-color: #21bf73;
+    border: 1px solid #21bf73;
+}
+
+.container1 .btn-success {
+    padding: 5px 25px;
+    background-color: #21bf73;
+}
+
+.button-flex {
+    border: 2px solid transparent;
+    margin: 5px;
+    border-radius: 25px;
+    margin-top: 20px;
+    padding-left: 2px;
+    background-color: #555;
+}
+
+
+/**
+*    Style for the Home Page
+**/
+
+.bg-nav-bar {
+    background-color: #f1e4e4 !important;
+}
+
+/* 
+.container {
+    max-width: 100%;
+    padding: 0px;
+} */
+
+
+.container-nav-bar {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #007bff;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    text-align: left;
+    color: #666666;
+    font-size: 14px;
+    line-height: 1.80857;
+    font-weight: normal;
+    box-sizing: border-box !important;
+    transition: ease all 0.5s;
+    font-family: 'Roboto', sans-serif;
+    /* width: 100%; */
+    /* padding-right: 15px;
+    padding-left: 15px; */
+    /* margin-right: auto;
+    margin-left: auto; */
+    margin: 0px;
+    padding: 0px;
+    /* max-width: 960px; */
+
+    display: flex;
+    background-color: black;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
