@@ -1,5 +1,9 @@
 /**
-    Style for the Quiz Page
+*   Color of the button #e47250
+*/
+
+/**
+*   Style for the Quiz Page
 */
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
@@ -130,7 +134,7 @@
 **/
 
 .bg-nav-bar {
-    background-color: #f1e4e4 !important;
+    background-color: #f1e4e4a6 !important;
 }
 
 /* 
@@ -193,4 +197,28 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+}
+
+
+/**
+* CSS For About Page 
+*/
+.about_text {
+    padding: 0 0 30px 0;
+}
+
+.lorem_text {
+    padding-top: 10px;
+    margin: 0px;
+}
+
+
+
+/**
+* CSS For Contact Page 
+*/
+
+.map-responsive {
+    border: 2px solid #000000;
+    border-radius: 5px;
 }
