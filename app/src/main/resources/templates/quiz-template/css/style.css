@@ -229,7 +229,7 @@ button {
 .header_section {
     width: 100%;
     float: left;
-    background-image: url(../images/background_night.png);
+    background-image: url(../images/background_night.jpg);
     height: auto;
     background-size: 100%;
 }
@@ -324,7 +324,7 @@ button {
     width: 100%;
     float: left;
     font-size: 100px;
-    color: #52c472;
+    color: #ffffff;
     text-align: center;
     text-transform: uppercase;
 }
@@ -333,7 +333,7 @@ button {
     width: 50%;
     margin: 0 auto;
     font-size: 16px;
-    color: #356ea7;
+    color: #f1e8ea;
     text-align: center;
 }
 
