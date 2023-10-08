@@ -35,6 +35,8 @@
 * {
     box-sizing: border-box !important;
     transition: ease all 0.5s;
+    padding: 0;
+    margin: 0px;
 }
 
 html {
@@ -227,7 +229,7 @@ button {
 .header_section {
     width: 100%;
     float: left;
-    background-image: url(../images/banner-bg.png);
+    background-image: url(../images/background_night.jpg);
     height: auto;
     background-size: 100%;
 }
@@ -249,7 +251,8 @@ button {
 
 .navbar-light .navbar-nav .nav-link:focus,
 .navbar-light .navbar-nav .nav-link:hover {
-    color: #ffb607;
+    color: #e47250;
+    ;
 }
 
 .mr-auto,
@@ -280,7 +283,7 @@ button {
 }
 
 .search_icon li a:hover {
-    color: #ffb607;
+    color: #e47250;
 }
 
 .navbar-expand-lg .navbar-nav .nav-link {
@@ -309,16 +312,19 @@ button {
 }
 
 .icon_1 {
-    width: 100%;
-    float: left;
-    text-align: center;
+    float: centre;
+    width: 90px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 80px;
 }
 
 .furniture_text {
     width: 100%;
     float: left;
     font-size: 100px;
-    color: #090808;
+    color: #ffffff;
     text-align: center;
     text-transform: uppercase;
 }
@@ -327,7 +333,7 @@ button {
     width: 50%;
     margin: 0 auto;
     font-size: 16px;
-    color: #090808;
+    color: #f1e8ea;
     text-align: center;
 }
 
@@ -348,7 +354,8 @@ button {
     float: left;
     font-size: 18px;
     color: #ffffff;
-    background-color: #ffb607;
+    background-color: #e47250;
+    ;
     text-align: center;
     padding: 10px 0px;
     border-radius: 5px;
@@ -462,6 +469,7 @@ button {
     width: 100%;
     float: left;
     margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .read_bt a {
@@ -469,7 +477,7 @@ button {
     float: left;
     font-size: 18px;
     color: #ffffff;
-    background-color: #ffb607;
+    background-color: #e47250;
     text-align: center;
     padding: 10px 0px;
     border-radius: 5px;
@@ -484,7 +492,8 @@ button {
 .about_section {
     width: 100%;
     float: left;
-    background-color: #ffb607;
+    background-color: #e47250;
+    ;
     height: auto;
     padding-bottom: 90px;
 }
@@ -895,7 +904,8 @@ a:hover {
 .carousel-indicators li {
     width: 20px;
     height: 20px;
-    background-color: #ffb607;
+    background-color: #e47250;
+    ;
     border-radius: 20px;
 }
 
@@ -912,11 +922,16 @@ a:hover {
 .contact_section {
     width: 100%;
     float: left;
-    background-image: url(../images/contact-bg.png);
+    background-image: url(../images/contact-img3.jpg);
     height: auto;
     background-size: 100%;
     background-repeat: no-repeat;
     padding-bottom: 90px;
+    height: 100%;
+}
+
+.contact_section .img {
+    opacity: 0.3;
 }
 
 .mail_sectin {
@@ -928,7 +943,7 @@ a:hover {
     width: 100%;
     float: left;
     font-size: 36px;
-    color: #ffffff;
+    color: #000000;
 
 }
 
@@ -941,6 +956,9 @@ a:hover {
     margin-top: 25px;
     border: 0px;
     border-radius: 5px;
+
+    /* text-align: center; */
+    border: 2px solid #000000;
 }
 
 input.email-bt::placeholder {
@@ -956,6 +974,7 @@ input.email-bt::placeholder {
     margin-top: 25px;
     border: 0px;
     border-radius: 5px;
+    border: 2px solid #000000;
 }
 
 textarea#comment::placeholder {
@@ -966,6 +985,12 @@ textarea#comment::placeholder {
     width: 100%;
     float: left;
     margin-top: 50px;
+
+    width: 40%;
+    float: left;
+    margin-top: 10px;
+    margin: auto;
+
 }
 
 .send_bt a {
@@ -974,14 +999,27 @@ textarea#comment::placeholder {
     font-size: 20px;
     color: #989696;
     text-align: center;
-    border: 2px solid #ffffff;
+    border: 2px solid #282727;
+    border-radius: 10px;
     padding: 10px 0px;
     font-weight: bold;
+
+
+    width: 40%;
+    float: left;
+    margin-top: 10px;
+    margin: auto;
 }
 
 .send_bt a:hover {
-    color: #989696;
+    color: #282727;
     background-color: #ffffff;
+
+
+    width: 40%;
+    float: left;
+    margin-top: 10px;
+    margin: auto;
 }
 
 .image_9 {
