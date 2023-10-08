@@ -4,6 +4,7 @@
   document.getElementById("submit_quiz_request_button").addEventListener("click", onClickSubmitButtonRequest);
 
   document.getElementById("nextQuestionButton").addEventListener("click", onClickNextQuestionButton);
+  document.getElementById("previousQuestionButton").addEventListener("click", onClickPreviousQuestionButton);
 
   /**
    * Easy selector helper function
@@ -323,9 +324,29 @@ function onClickSubmitButtonRequest() {
 }
 
 
+showDesiredQuestion();
+
 function onClickNextQuestionButton() {
   var elementCurrentQuestionNumber = document.getElementById("questionNumberToShow");
   let currentQuestionValue = Number(elementCurrentQuestionNumber.value);
-  elementCurrentQuestionNumber.value = currentQuestionValue + 1;
+
+  let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
+
+  if (currentQuestionValue < totalQuestionValue) {
+    elementCurrentQuestionNumber.value = currentQuestionValue + 1;
+    showDesiredQuestion();
+  }
+  console.log("elementCurrentQuestionNumber.value : " + elementCurrentQuestionNumber.value);
+}
+
+
+function onClickPreviousQuestionButton() {
+  var elementCurrentQuestionNumber = document.getElementById("questionNumberToShow");
+  let currentQuestionValue = Number(elementCurrentQuestionNumber.value);
+
+  if (currentQuestionValue > 1) {
+    elementCurrentQuestionNumber.value = currentQuestionValue - 1;
+    showDesiredQuestion();
+  }
   console.log("elementCurrentQuestionNumber.value : " + elementCurrentQuestionNumber.value);
 }

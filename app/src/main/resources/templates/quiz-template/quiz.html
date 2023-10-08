@@ -32,11 +32,31 @@
    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
    <!-- owl stylesheets -->
    <link rel="stylesheet" href="css/owl.carousel.min.css">
-   <link rel="stylesheet" href="css/owl.theme.default.min.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
       media="screen">
 
 </head>
+
+
+<script th:inline="javascript">
+   function showDesiredQuestion() {
+      var elementCurrentQuestionNumber = document.getElementById("questionNumberToShow");
+      let currentQuestionValue = Number(elementCurrentQuestionNumber.value);
+
+      var index = currentQuestionValue -1;
+      var usersArray = [[${ questions }]];
+      if (index >= 0 && index <= usersArray.length - 1) {
+         document.getElementById("questionDescription").innerHTML = usersArray[index].statement;
+
+         document.getElementById("optionADescription").innerHTML = usersArray[index].optionA;
+         document.getElementById("optionBDescription").innerHTML = usersArray[index].optionB;
+         document.getElementById("optionCDescription").innerHTML = usersArray[index].optionC;
+         document.getElementById("optionDDescription").innerHTML = usersArray[index].optionD;
+
+         console.log(questionDescription);
+      }
+   }
+</script>
 
 <body>
    <!-- header section start -->
@@ -87,7 +107,9 @@
          <div class="row">
             <h1 class="about_text">Quiz</h1>
 
-            <input type="hidden" id="questionNumberToShow" name="currentPage" th:value="${questionNumberToShow}" />
+            <input type="hidden" id="questionNumberToShow" name="questionNumberToShow"
+               th:value="${questionNumberToShow}" />
+            <input type="hidden" id="totalQuestions" name="totalQuestions" th:value="${totalQuestions}" />
 
             <div class="col-12">
                <div class="d-flex justify-content-centre" style="justify-content: flex-end;">
@@ -111,7 +133,44 @@
 
                <div class="row">
 
-                  <div id='th:text="${question.getQuestionId()}"' class="col-12" th:each="question : ${questions}">
+                  <div class="col-12">
+                     <p id="questionDescription" class="fw-bold mt-5">2.
+                     </p>
+                     <div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <input type="radio" name="box" id="five1"> <label for="five" class="box fifth w-100">
+                                 <div class="course"> <span class="circle"></span> <span class="subject"
+                                       id="optionADescription"> </span>
+                                 </div>
+                              </label>
+                           </div>
+                           <div class="col-md-6">
+                              <input type="radio" name="box" id="six1"> <label for="six" class="box sixth w-100">
+                                 <div class="course"> <span class="circle"></span> <span class="subject"
+                                       id="optionBDescription"> </span>
+                                 </div>
+                              </label>
+                           </div>
+                           <div class="col-md-6">
+                              <input type="radio" name="box" id="seve1"> <label for="seven" class="box seveth w-100">
+                                 <div class="course"> <span class="circle"></span> <span class="subject"
+                                       id="optionCDescription">
+                                    </span> </div>
+                              </label>
+                           </div>
+                           <div class="col-md-6">
+                              <input type="radio" name="box" id="eight1"> <label for="eight" class="box eighth w-100">
+                                 <div class="course"> <span class="circle"></span> <span class="subject"
+                                       id="optionDDescription">
+                                    </span> </div>
+                              </label>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div th:id='Question_+${question.getQuestionId()}' class="col-12" th:each="question : ${questions}">
                      <p class="fw-bold mt-5" th:text="${question.getStatement()}">2. </p>
                      <div>
                         <div class="row">
@@ -154,10 +213,12 @@
                   </div>
                </div>
                <div class="d-flex flex-row justify-content-between align-items-center p-3">
-                  <button class="btn btn-primary d-flex align-items-center btn-danger" type="button">
+                  <button id="previousQuestionButton" class="btn btn-primary d-flex align-items-center btn-danger"
+                     type="button">
                      <i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;previous
                   </button>
-                  <button id="nextQuestionButton" class="btn btn-primary border-success align-items-center btn-success" type="button">Next
+                  <button id="nextQuestionButton" class="btn btn-primary border-success align-items-center btn-success"
+                     type="button">Next
                      <i class="fa fa-angle-right ml-2"></i>
                   </button>
                </div>
