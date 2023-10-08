@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+
+import java.math.BigInteger;
+import java.util.List;
+import jakarta.persistence.criteria.*;
 
 @Repository
 @Transactional
@@ -64,17 +67,23 @@ public class QuestionDAO {
     }
 
     public List<Question> getQuestion(Integer n) {
-
         Session session = this.sessionFactory.getCurrentSession();
-        List<Question> questionList = new ArrayList<>();
-        String sql = "from question q order by RAND()";
 
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Question> query = cb.createQuery(Question.class);
+        Root<Question> root = query.from(Question.class);
+
+        query.select(root);
+        logger.info("fetching n : {} questions ", n);
+
+        List<Question> questionList = new ArrayList<>();
         try {
-            questionList = (List<Question>) session.createQuery(sql).setMaxResults(n).getResultList();
-            return questionList;
+            questionList = session.createQuery(query).setMaxResults(n).getResultList();
         } catch (Exception e) {
-            logger.error("No Question exist !");
+            logger.warn("Couldn't find a suitable claim : {}", e.getMessage());
         }
+
+
         return questionList;
     }
 

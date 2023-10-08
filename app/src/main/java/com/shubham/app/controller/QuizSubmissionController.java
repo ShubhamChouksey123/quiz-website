@@ -1,24 +1,21 @@
 package com.shubham.app.controller;
 
-import com.shubham.app.deliver.emailservice.EmailSenderService;
 import com.shubham.app.dto.EachQuestion;
+import com.shubham.app.dto.QuestionSubmissionForm;
 import com.shubham.app.dto.QuizSubmittedForm;
-import com.shubham.app.emailsender.SendVerificationCode;
 import com.shubham.app.entity.Question;
 import com.shubham.app.service.questioncrud.QuestionCrud;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.shubham.app.dto.*;
-import com.shubham.app.deliver.emailservice.*;
 
 import java.util.List;
 
 @RestController
 public class QuizSubmissionController {
 
-    private static final int TOTAL_QUESTIONS_TO_ASK = 10;
+    public static final int TOTAL_QUESTIONS_TO_ASK = 10;
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Autowired
     private QuestionCrud questionCrud;
@@ -28,9 +25,6 @@ public class QuizSubmissionController {
      *
      * @return
      */
-
-
-
 
 
     @GetMapping("/getQuestions")

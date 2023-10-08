@@ -1,6 +1,9 @@
 package com.shubham.app.controller;
 
+import com.shubham.app.render.RenderQuizTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
@@ -11,11 +14,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class QuizController {
 
 
+//    private
+
+    @Autowired
+    private RenderQuizTemplate renderQuizTemplate;
+
     @GetMapping("/verify-phone")
     public String verifyPhone() {
         return "verify-phone";
     }
-
 
 
     @GetMapping({"/home", "index"})
@@ -35,6 +42,13 @@ public class QuizController {
 
     @GetMapping({"/quiz"})
     public String renderQuiz() {
+        return "quiz-template/quiz";
+    }
+
+    @GetMapping({"/quiz2"})
+    public String renderQuizTemp(Model model) {
+
+        renderQuizTemplate.renderQuizPage(model);
         return "quiz-template/quiz";
     }
 
