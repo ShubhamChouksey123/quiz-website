@@ -1,6 +1,8 @@
 (function () {
   "use strict";
 
+  document.getElementById("submit_quiz_request_button").addEventListener("click", onClickSubmitButtonRequest);
+
   /**
    * Easy selector helper function
    */
@@ -313,3 +315,7 @@
   new PureCounter();
 
 })()
+
+function onClickSubmitButtonRequest() {
+  document.getElementById("submit_quiz_form").style.display = none;
+}
