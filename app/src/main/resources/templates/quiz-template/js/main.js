@@ -3,6 +3,8 @@
 
   document.getElementById("submit_quiz_request_button").addEventListener("click", onClickSubmitButtonRequest);
 
+  document.getElementById("nextQuestionButton").addEventListener("click", onClickNextQuestionButton);
+
   /**
    * Easy selector helper function
    */
@@ -317,5 +319,13 @@
 })()
 
 function onClickSubmitButtonRequest() {
-  document.getElementById("submit_quiz_form").style.display = none;
+  document.getElementById("submit_quiz_form").style.display = "none";
+}
+
+
+function onClickNextQuestionButton() {
+  var elementCurrentQuestionNumber = document.getElementById("questionNumberToShow");
+  let currentQuestionValue = Number(elementCurrentQuestionNumber.value);
+  elementCurrentQuestionNumber.value = currentQuestionValue + 1;
+  console.log("elementCurrentQuestionNumber.value : " + elementCurrentQuestionNumber.value);
 }

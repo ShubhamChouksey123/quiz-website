@@ -32,6 +32,7 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         }
 
         model.addAttribute("questions", questions);
+        model.addAttribute("questionNumberToShow", 1);
     }
 
 }
