@@ -7,6 +7,12 @@
   document.getElementById("previousQuestionButton").addEventListener("click", onClickPreviousQuestionButton);
 
   /**
+ * Defaults for initial first question
+ */
+  showDesiredNumberQuestion(Number(0));
+  setOptionNullSelected();
+
+  /**
    * Easy selector helper function
    */
   const select = (el, all = false) => {
@@ -319,13 +325,35 @@
 
 })()
 
+/**
+ * Defaults for initial first question
+ */
+
 function onClickSubmitButtonRequest() {
   document.getElementById("submit_quiz_form").style.display = "none";
 }
 
 
-showDesiredQuestion();
+function setOptionNullSelected() {
+  let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
+  console.log("totalQuestionValue : " + totalQuestionValue);
 
+  var userOptedAnswers = document.getElementById("userOptedAnswers");
+  var userOptedAnswersArray = Array.from(Array(totalQuestionValue + 1));
+
+  var userOptedAnswersJSON = JSON.stringify(userOptedAnswersArray);
+  document.getElementById("userOptedAnswers").value = userOptedAnswersJSON;
+
+  console.log("userOptedAnswers : " + document.getElementById("userOptedAnswers").value);
+}
+
+
+
+
+
+/**
+ * for changing the current Shown Question Number to next page
+ */
 function onClickNextQuestionButton() {
   var elementCurrentQuestionNumber = document.getElementById("questionNumberToShow");
   let currentQuestionValue = Number(elementCurrentQuestionNumber.value);
@@ -339,7 +367,9 @@ function onClickNextQuestionButton() {
   console.log("elementCurrentQuestionNumber.value : " + elementCurrentQuestionNumber.value);
 }
 
-
+/**
+ * for changing the current Shown Question Number to previous page
+ */
 function onClickPreviousQuestionButton() {
   var elementCurrentQuestionNumber = document.getElementById("questionNumberToShow");
   let currentQuestionValue = Number(elementCurrentQuestionNumber.value);
@@ -350,3 +380,27 @@ function onClickPreviousQuestionButton() {
   }
   console.log("elementCurrentQuestionNumber.value : " + elementCurrentQuestionNumber.value);
 }
+
+/**
+ * taking user input of the
+ */
+function optionSelected(selectedOption) {
+  let currentQuestionValue = Number(document.getElementById("questionNumberToShow").value);
+  console.log("currentQuestionValue : " + currentQuestionValue);
+  console.log("selectedOption : " + selectedOption);
+
+  var userOptedAnswersJSON = document.getElementById("userOptedAnswers").value;
+  var userOptedAnswersArray = JSON.parse(userOptedAnswersJSON);
+  console.log("0 userOptedAnswersJSON : " + userOptedAnswersJSON);
+  console.log("0 userOptedAnswersArray : " + userOptedAnswersArray);
+  userOptedAnswersArray[currentQuestionValue - 1] = selectedOption;
+
+  console.log("0.1 userOptedAnswersArray : " + userOptedAnswersArray);
+
+  var userOptedAnswersJSONNew = JSON.stringify(userOptedAnswersArray);
+  document.getElementById("userOptedAnswers").value = userOptedAnswersJSONNew;
+  console.log("userOptedAnswers new : " + document.getElementById("userOptedAnswers").value);
+}
+
+
+

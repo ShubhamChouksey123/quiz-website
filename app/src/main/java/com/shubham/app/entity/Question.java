@@ -1,8 +1,8 @@
 package com.shubham.app.entity;
 
 
-import jakarta.persistence.*;
 import com.shubham.app.model.DifficultyLevel;
+import jakarta.persistence.*;
 
 
 @Entity(name = "question")
@@ -105,5 +105,19 @@ public class Question {
 
     public void setDifficulty(DifficultyLevel difficulty) {
         this.difficulty = difficulty;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "questionId=" + questionId +
+                ", statement='" + statement + '\'' +
+                ", optionA='" + optionA + '\'' +
+                ", optionB='" + optionB + '\'' +
+                ", optionC='" + optionC + '\'' +
+                ", optionD='" + optionD + '\'' +
+                ", ans=" + ans +
+                ", difficulty=" + difficulty +
+                '}';
     }
 }
