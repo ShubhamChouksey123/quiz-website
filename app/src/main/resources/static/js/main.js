@@ -338,7 +338,6 @@ function setOptionNullSelected() {
   let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
   console.log("totalQuestionValue : " + totalQuestionValue);
 
-  var userOptedAnswers = document.getElementById("userOptedAnswers");
   var userOptedAnswersArray = Array.from(Array(totalQuestionValue + 1));
 
   var userOptedAnswersJSON = JSON.stringify(userOptedAnswersArray);
@@ -348,7 +347,37 @@ function setOptionNullSelected() {
 }
 
 
+function showDesiredButton(currentQuestion, totalQuestion) {
 
+  if (currentQuestion == totalQuestion) {
+    console.log("reached the last question, lets show submit button");
+    document.getElementById("nextQuestionButton").innerHTML = "Submit Quiz";
+  } else {
+    document.getElementById("nextQuestionButton").innerHTML = "Next";
+  }
+
+  if (currentQuestion == 1) {
+    document.getElementById("previousQuestionButton").disabled = true;
+  } else {
+    document.getElementById("previousQuestionButton").disabled = false;
+  }
+
+}
+
+function showDesiredNumberOnInfo(currentQuestion, totalQuestion) {
+  document.getElementById("questionNumberInfo").innerHTML = "(" + currentQuestion + " of " + totalQuestion + ")";
+}
+
+/**
+ *
+ * function used to change the page based on the question number reached.
+ *  it changes the next or submit button, question text and information on the page
+ */
+function showDesiredQuestionPage(currentQuestion, totalQuestion) {
+  showDesiredButton(currentQuestion, totalQuestion);
+  showDesiredNumberQuestion(Number(currentQuestion - 1));
+  showDesiredNumberOnInfo(currentQuestion, totalQuestion);
+}
 
 
 /**
@@ -356,13 +385,12 @@ function setOptionNullSelected() {
  */
 function onClickNextQuestionButton() {
   var elementCurrentQuestionNumber = document.getElementById("questionNumberToShow");
-  let currentQuestionValue = Number(elementCurrentQuestionNumber.value);
-
+  let currentQuestionValue = Number(document.getElementById("questionNumberToShow").value);
   let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
 
   if (currentQuestionValue < totalQuestionValue) {
     elementCurrentQuestionNumber.value = currentQuestionValue + 1;
-    showDesiredQuestion();
+    showDesiredQuestionPage(elementCurrentQuestionNumber.value, totalQuestionValue);
   }
   console.log("elementCurrentQuestionNumber.value : " + elementCurrentQuestionNumber.value);
 }
@@ -372,17 +400,19 @@ function onClickNextQuestionButton() {
  */
 function onClickPreviousQuestionButton() {
   var elementCurrentQuestionNumber = document.getElementById("questionNumberToShow");
-  let currentQuestionValue = Number(elementCurrentQuestionNumber.value);
+  let currentQuestionValue = Number(document.getElementById("questionNumberToShow").value);
+
+  let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
 
   if (currentQuestionValue > 1) {
     elementCurrentQuestionNumber.value = currentQuestionValue - 1;
-    showDesiredQuestion();
+    showDesiredQuestionPage(elementCurrentQuestionNumber.value, totalQuestionValue);
   }
   console.log("elementCurrentQuestionNumber.value : " + elementCurrentQuestionNumber.value);
 }
 
 /**
- * taking user input of the
+ * taking user input when he clicks the options
  */
 function optionSelected(selectedOption) {
   let currentQuestionValue = Number(document.getElementById("questionNumberToShow").value);
@@ -391,11 +421,7 @@ function optionSelected(selectedOption) {
 
   var userOptedAnswersJSON = document.getElementById("userOptedAnswers").value;
   var userOptedAnswersArray = JSON.parse(userOptedAnswersJSON);
-  console.log("0 userOptedAnswersJSON : " + userOptedAnswersJSON);
-  console.log("0 userOptedAnswersArray : " + userOptedAnswersArray);
   userOptedAnswersArray[currentQuestionValue - 1] = selectedOption;
-
-  console.log("0.1 userOptedAnswersArray : " + userOptedAnswersArray);
 
   var userOptedAnswersJSONNew = JSON.stringify(userOptedAnswersArray);
   document.getElementById("userOptedAnswers").value = userOptedAnswersJSONNew;

@@ -39,28 +39,15 @@
 
 
 <script th:inline="javascript">
-   function showDesiredQuestion() {
-      var elementCurrentQuestionNumber = document.getElementById("questionNumberToShow");
-      let currentQuestionValue = Number(elementCurrentQuestionNumber.value);
-
-      var index = currentQuestionValue - 1;
-      var usersArray = [[${ questions }]];
-      if (index >= 0 && index <= usersArray.length - 1) {
-         document.getElementById("questionDescription").innerHTML = usersArray[index].statement;
-
-         document.getElementById("optionADescription").innerHTML = usersArray[index].optionA;
-         document.getElementById("optionBDescription").innerHTML = usersArray[index].optionB;
-         document.getElementById("optionCDescription").innerHTML = usersArray[index].optionC;
-         document.getElementById("optionDDescription").innerHTML = usersArray[index].optionD;
-
-      }
-   }
 
    function showDesiredNumberQuestion(number) {
       console.log("rendering question number : " + number);
       var usersArray = [[${ questions }]];
+
+      var wholeNumber = Number(number) + 1;
+
       if (number >= 0 && number < usersArray.length) {
-         document.getElementById("questionDescription").innerHTML = usersArray[number].statement;
+         document.getElementById("questionDescription").innerHTML = wholeNumber + ".  " + usersArray[number].statement;
 
          document.getElementById("optionADescription").innerHTML = usersArray[number].optionA;
          document.getElementById("optionBDescription").innerHTML = usersArray[number].optionB;
@@ -123,14 +110,14 @@
             <input type="hidden" id="questionNumberToShow" name="questionNumberToShow"
                th:value="${questionNumberToShow}" />
             <input type="hidden" id="totalQuestions" name="totalQuestions" th:value="${totalQuestions}" />
-<!--            <input type="data" id="userOptedAnswers" placeholder="userOptedAnswers" />-->
             <input type="hidden" id="userOptedAnswers" name="userOptedAnswers" value="" />
 
 
             <div class="col-12">
                <div class="d-flex justify-content-centre" style="justify-content: flex-end;">
                   <button id="submit_quiz_request_button" class="btn btn-primary px-4 py-2 fw-bold button-flex"><a
-                        href="#submit_quiz_form" class="scrollto active"><i class="bx bx-home"></i> <span>Submit Quiz
+                        href="#submit_quiz_form" class="scrollto active"><i class="bx bx-home"></i> <span
+                           style="color:white">Submit Quiz
                         </span></a>
                   </button>
 
@@ -142,7 +129,7 @@
             <div class="container1 mb-5">
                <div class="question p-3 border-bottom">
                   <div class="d-flex flex-row justify-content-between align-items-center mcq">
-                     <h4>MCQ Quiz</h4><span>(5 of [(${totalQuestions})])</span>
+                     <h4>MCQ Quiz</h4><span id="questionNumberInfo">(1 of [(${totalQuestions})])</span>
                   </div>
                </div>
                </br>
@@ -155,32 +142,32 @@
                      <div>
                         <div class="row">
                            <div class="col-md-6">
-                              <input type="radio" name="optionSelected" id="optionAButton" value="0" onclick="optionSelected(0);"> <label for="optionAButton"
-                                 class="box fifth w-100">
+                              <input type="radio" name="optionSelected" id="optionAButton" value="0"
+                                 onclick="optionSelected(0);"> <label for="optionAButton" class="box fifth w-100">
                                  <div class="course"> <span class="circle"></span>
                                     <span class="subject" id="optionADescription"> </span>
                                  </div>
                               </label>
                            </div>
                            <div class="col-md-6">
-                              <input type="radio" name="optionSelected" id="optionBButton" value="1" onclick="optionSelected(1);"> <label for="optionBButton"
-                                 class="box sixth w-100">
+                              <input type="radio" name="optionSelected" id="optionBButton" value="1"
+                                 onclick="optionSelected(1);"> <label for="optionBButton" class="box sixth w-100">
                                  <div class="course"> <span class="circle"></span> <span class="subject"
                                        id="optionBDescription"> </span>
                                  </div>
                               </label>
                            </div>
                            <div class="col-md-6">
-                              <input type="radio" name="optionSelected" id="optionCButton" value="2" onclick="optionSelected(2);"> <label for="optionCButton"
-                                 class="box seveth w-100">
+                              <input type="radio" name="optionSelected" id="optionCButton" value="2"
+                                 onclick="optionSelected(2);"> <label for="optionCButton" class="box seveth w-100">
                                  <div class="course"> <span class="circle"></span> <span class="subject"
                                        id="optionCDescription">
                                     </span> </div>
                               </label>
                            </div>
                            <div class="col-md-6">
-                              <input type="radio" name="optionSelected" id="optionDButton" value="3" onclick="alert('helloA');"> <label for="optionDButton"
-                                 class="box eighth w-100">
+                              <input type="radio" name="optionSelected" id="optionDButton" value="3"
+                                 onclick="optionSelected(3);"> <label for="optionDButton" class="box eighth w-100">
                                  <div class="course"> <span class="circle"></span> <span class="subject"
                                        id="optionDDescription">
                                     </span> </div>
