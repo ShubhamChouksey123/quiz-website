@@ -41,7 +41,8 @@
 <script th:inline="javascript">
 
    function showDesiredNumberQuestion(number) {
-      console.log("rendering question number : " + number);
+      var wholeNumber = Number(number) + 1;
+      console.log("rendering question number : " + wholeNumber);
       var usersArray = [[${ questions }]];
 
       var wholeNumber = Number(number) + 1;
@@ -143,7 +144,8 @@
                         <div class="row">
                            <div class="col-md-6">
                               <input type="radio" name="optionSelected" id="optionAButton" value="0"
-                                 onclick="optionSelected(0);"> <label for="optionAButton" class="box fifth w-100">
+                                 onclick="optionSelected(0);"> <label for="optionAButton" id="optionALabel"
+                                 class="box fifth w-100">
                                  <div class="course"> <span class="circle"></span>
                                     <span class="subject" id="optionADescription"> </span>
                                  </div>
@@ -151,7 +153,8 @@
                            </div>
                            <div class="col-md-6">
                               <input type="radio" name="optionSelected" id="optionBButton" value="1"
-                                 onclick="optionSelected(1);"> <label for="optionBButton" class="box sixth w-100">
+                                 onclick="optionSelected(1);"> <label for="optionBButton" id="optionBLabel"
+                                 class="box sixth w-100">
                                  <div class="course"> <span class="circle"></span> <span class="subject"
                                        id="optionBDescription"> </span>
                                  </div>
@@ -159,7 +162,8 @@
                            </div>
                            <div class="col-md-6">
                               <input type="radio" name="optionSelected" id="optionCButton" value="2"
-                                 onclick="optionSelected(2);"> <label for="optionCButton" class="box seveth w-100">
+                                 onclick="optionSelected(2);"> <label for="optionCButton" id="optionCLabel"
+                                 class="box seveth w-100">
                                  <div class="course"> <span class="circle"></span> <span class="subject"
                                        id="optionCDescription">
                                     </span> </div>
@@ -167,7 +171,8 @@
                            </div>
                            <div class="col-md-6">
                               <input type="radio" name="optionSelected" id="optionDButton" value="3"
-                                 onclick="optionSelected(3);"> <label for="optionDButton" class="box eighth w-100">
+                                 onclick="optionSelected(3);"> <label for="optionDButton" id="optionDLabel"
+                                 class="box eighth w-100">
                                  <div class="course"> <span class="circle"></span> <span class="subject"
                                        id="optionDDescription">
                                     </span> </div>

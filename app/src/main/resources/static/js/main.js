@@ -330,9 +330,12 @@
  */
 
 function onClickSubmitButtonRequest() {
-  document.getElementById("submit_quiz_form").style.display = "none";
+  document.getElementById("submit_quiz_form").style.removeProperty('display');
 }
 
+function hideSubmitQuizForm() {
+  document.getElementById("submit_quiz_form").style.display = "none";
+}
 
 function setOptionNullSelected() {
   let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
@@ -368,6 +371,37 @@ function showDesiredNumberOnInfo(currentQuestion, totalQuestion) {
   document.getElementById("questionNumberInfo").innerHTML = "(" + currentQuestion + " of " + totalQuestion + ")";
 }
 
+function showExistingSelectedOption(currentQuestion) {
+
+  var userOptedAnswersJSON = document.getElementById("userOptedAnswers").value;
+  var userOptedAnswersArray = JSON.parse(userOptedAnswersJSON);
+  var selectedOption = userOptedAnswersArray[currentQuestion - 1];
+
+  document.getElementById("optionALabel").style.background = "null";
+  document.getElementById("optionBLabel").style.background = "null";
+  document.getElementById("optionCLabel").style.background = "null";
+  document.getElementById("optionDLabel").style.background = "null";
+
+  document.getElementById("optionALabel").style.removeProperty('background');
+  document.getElementById("optionBLabel").style.removeProperty('background');
+  document.getElementById("optionCLabel").style.removeProperty('background');
+  document.getElementById("optionDLabel").style.removeProperty('background');
+
+  if (selectedOption === 0) {
+    document.getElementById("optionALabel").style.background = "#fa2a00";
+  }
+  else if (selectedOption === 1) {
+    document.getElementById("optionBLabel").style.background = "#fa2a00";
+  }
+  else if (selectedOption === 2) {
+    document.getElementById("optionCLabel").style.background = "#fa2a00";
+  }
+  else if (selectedOption === 3) {
+    document.getElementById("optionDLabel").style.background = "#fa2a00";
+  }
+
+}
+
 /**
  *
  * function used to change the page based on the question number reached.
@@ -377,6 +411,8 @@ function showDesiredQuestionPage(currentQuestion, totalQuestion) {
   showDesiredButton(currentQuestion, totalQuestion);
   showDesiredNumberQuestion(Number(currentQuestion - 1));
   showDesiredNumberOnInfo(currentQuestion, totalQuestion);
+  showExistingSelectedOption(currentQuestion);
+
 }
 
 
@@ -391,6 +427,10 @@ function onClickNextQuestionButton() {
   if (currentQuestionValue < totalQuestionValue) {
     elementCurrentQuestionNumber.value = currentQuestionValue + 1;
     showDesiredQuestionPage(elementCurrentQuestionNumber.value, totalQuestionValue);
+    hideSubmitQuizForm();
+  }
+  else if (currentQuestionValue == totalQuestionValue) {
+    onClickSubmitButtonRequest();
   }
   console.log("elementCurrentQuestionNumber.value : " + elementCurrentQuestionNumber.value);
 }
@@ -408,6 +448,7 @@ function onClickPreviousQuestionButton() {
     elementCurrentQuestionNumber.value = currentQuestionValue - 1;
     showDesiredQuestionPage(elementCurrentQuestionNumber.value, totalQuestionValue);
   }
+  hideSubmitQuizForm();
   console.log("elementCurrentQuestionNumber.value : " + elementCurrentQuestionNumber.value);
 }
 
@@ -426,6 +467,8 @@ function optionSelected(selectedOption) {
   var userOptedAnswersJSONNew = JSON.stringify(userOptedAnswersArray);
   document.getElementById("userOptedAnswers").value = userOptedAnswersJSONNew;
   console.log("userOptedAnswers new : " + document.getElementById("userOptedAnswers").value);
+
+  showExistingSelectedOption(currentQuestionValue);
 }
 
 
