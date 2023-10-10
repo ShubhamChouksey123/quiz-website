@@ -164,3 +164,11 @@ build/
 Quiz-Website-/
 quiz-template-01/
 vintagefur-1.0.0.zip
+
+
+# Ignore Environment Files
+*env
+
+#flattened POMs
+.flattened-pom.xml
+dependency-reduced-pom.xml
