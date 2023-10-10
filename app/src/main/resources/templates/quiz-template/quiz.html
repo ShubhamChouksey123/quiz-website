@@ -209,18 +209,18 @@
 
 
          <div id="submit_quiz_form" class="row formSubmitQuiz" style="display: none;">
-            <form id="quizSubmitForm" method="post" action="/submit-quiz"></form>
-            <div class="row mail_sectin" style="max-width: 600px; margin: auto;">
-               <input type="text" id="userName" class="email-bt" placeholder="Name" name="name">
-               <input type="email" id="userEmail" class="email-bt" placeholder="Email" name="email">
-               <input type="hidden" id="userOptedAnswers" name="userOptedAnswers" value="" />
-               <div class="read_bt_main">
-                  <div class="read_bt">
-                     <a onclick="submitQuizForm();">Submit</a>
+            <form id="quizSubmitForm" method="post" action="/submit-quiz">
+               <div class="row mail_sectin" style="max-width: 600px; margin: auto;">
+                  <input type="text" id="userName" class="email-bt" placeholder="Name" name="name">
+                  <input type="email" id="userEmail" class="email-bt" placeholder="Email" name="email">
+                  <input type="hidden" id="userOptedAnswers" name="userOptedAnswers" value="" />
+                  <div class="read_bt_main">
+                     <div class="read_bt">
+                        <a onclick="submitQuizForm();">Submit</a>
+                     </div>
                   </div>
-               </div>
 
-            </div>
+               </div>
             </form>
          </div>
 

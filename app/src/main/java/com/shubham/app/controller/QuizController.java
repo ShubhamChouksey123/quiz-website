@@ -49,12 +49,11 @@ public class QuizController {
         return "quiz-template/quiz";
     }
 
-    @PostMapping("/submit-quiz")
+    @PostMapping(value = {"/submit-quiz"})
     @ResponseBody
     public String addQuestion(
             @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "email", required = false) String email
-    ) {
+            @RequestParam(value = "email", required = false) String email) {
         logger.info("submitted the quiz with name : {} and email : {}", name, email);
         return "Saved Successfully";
     }
