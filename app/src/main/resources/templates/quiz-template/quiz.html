@@ -108,10 +108,12 @@
          <div class="row">
             <h1 class="about_text">Quiz</h1>
 
+
+
             <input type="hidden" id="questionNumberToShow" name="questionNumberToShow"
                th:value="${questionNumberToShow}" />
             <input type="hidden" id="totalQuestions" name="totalQuestions" th:value="${totalQuestions}" />
-            <input type="hidden" id="userOptedAnswers" name="userOptedAnswers" value="" />
+
 
 
             <div class="col-12">
@@ -205,20 +207,30 @@
 
          </div>
 
-         <div id="submit_quiz_form" class="row" style="display: none;">
+
+         <div id="submit_quiz_form" class="row formSubmitQuiz" style="display: none;">
+            <form id="quizSubmitForm" method="post" action="/submit-quiz"></form>
             <div class="row mail_sectin" style="max-width: 600px; margin: auto;">
-               <input type="text" class="email-bt" placeholder="Name" name="Name">
-               <input type="text" class="email-bt" placeholder="Email" name="Name">
+               <input type="text" id="userName" class="email-bt" placeholder="Name" name="name">
+               <input type="email" id="userEmail" class="email-bt" placeholder="Email" name="email">
+               <input type="hidden" id="userOptedAnswers" name="userOptedAnswers" value="" />
                <div class="read_bt_main">
-                  <div class="read_bt"><a href="#">Submit</a></div>
+                  <div class="read_bt">
+                     <a onclick="submitQuizForm();">Submit</a>
+                  </div>
                </div>
+
             </div>
+            </form>
          </div>
+
 
       </div>
 
    </div>
    <!-- quiz section end -->
+
+
 
 
 

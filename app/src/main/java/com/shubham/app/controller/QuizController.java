@@ -1,10 +1,15 @@
 package com.shubham.app.controller;
 
 import com.shubham.app.render.RenderQuizTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
@@ -13,9 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class QuizController {
 
-
-//    private
-
+    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Autowired
     private RenderQuizTemplate renderQuizTemplate;
 
@@ -41,16 +44,21 @@ public class QuizController {
     }
 
     @GetMapping({"/quiz"})
-    public String renderQuiz() {
-        return "quiz-template/quiz";
-    }
-
-    @GetMapping({"/quiz2"})
-    public String renderQuizTemp(Model model) {
-
+    public String renderQuiz(Model model) {
         renderQuizTemplate.renderQuizPage(model);
         return "quiz-template/quiz";
     }
+
+    @PostMapping("/submit-quiz")
+    @ResponseBody
+    public String addQuestion(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "email", required = false) String email
+    ) {
+        logger.info("submitted the quiz with name : {} and email : {}", name, email);
+        return "Saved Successfully";
+    }
+
 
     @GetMapping({"/shop"})
     public String renderShop() {
