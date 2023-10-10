@@ -329,10 +329,22 @@
  * Defaults for initial first question
  */
 
+
+/**
+ * shows the quiz submit form
+ */
 function onClickSubmitButtonRequest() {
   document.getElementById("submit_quiz_form").style.removeProperty('display');
+
+  $('html,body').animate({
+    scrollTop: $(".formSubmitQuiz").offset().top
+  }, 'slow');
+
 }
 
+/**
+ * hides the quiz submit form
+ */
 function hideSubmitQuizForm() {
   document.getElementById("submit_quiz_form").style.display = "none";
 }
@@ -472,4 +484,10 @@ function optionSelected(selectedOption) {
 }
 
 
+function submitQuizForm() {
+
+  console.log("userName : " + document.getElementById("userName").value);
+  console.log("userEmail : " + document.getElementById("userEmail").value);
+  document.getElementById("quizSubmitForm").submit();
+}
 
