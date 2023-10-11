@@ -1,12 +1,13 @@
 package com.shubham.app.render;
 
-import com.shubham.app.entity.Question;
-import com.shubham.app.service.questioncrud.QuestionCrud;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+
+import com.shubham.app.entity.Question;
+import com.shubham.app.service.questioncrud.QuestionCrud;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,6 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
 
     @Autowired
     private QuestionCrud questionCrud;
-
 
     @Override
     public void renderQuizPage(Model model) {
@@ -40,5 +40,4 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         model.addAttribute("questionNumberToShow", 1);
         model.addAttribute("totalQuestions", TOTAL_QUESTIONS_TO_ASK);
     }
-
 }

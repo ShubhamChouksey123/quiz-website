@@ -1,8 +1,7 @@
 package com.shubham.app.entity;
 
-import jakarta.persistence.*;
 import java.util.Date;
-
+import jakarta.persistence.*;
 
 @Entity(name = "contact_query")
 @Table(name = "contact_query")
@@ -12,12 +11,16 @@ public class ContactQuery {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "contact_query_id")
     private Long contactQueryId;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "phone")
     private String phone;
+
     @Column(name = "description")
     private String description;
 
@@ -32,7 +35,6 @@ public class ContactQuery {
         this.description = description;
         this.timeStamp = new Date();
     }
-
 
     public String getName() {
         return name;

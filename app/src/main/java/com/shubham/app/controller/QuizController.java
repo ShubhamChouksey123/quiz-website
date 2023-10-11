@@ -1,6 +1,5 @@
 package com.shubham.app.controller;
 
-import com.shubham.app.render.RenderQuizTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.shubham.app.render.RenderQuizTemplate;
 
 /**
- * We have used this open-source theme template from https://themewagon.com/themes/vintagefur/
+ * We have used this open-source theme template from
+ * https://themewagon.com/themes/vintagefur/
  */
 @Controller
 public class QuizController {
@@ -26,7 +27,6 @@ public class QuizController {
     public String verifyPhone() {
         return "verify-phone";
     }
-
 
     @GetMapping({"/home", "index"})
     public String renderHome() {
@@ -51,13 +51,11 @@ public class QuizController {
 
     @PostMapping(value = {"/submit-quiz"})
     @ResponseBody
-    public String addQuestion(
-            @RequestParam(value = "name", required = false) String name,
+    public String addQuestion(@RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "email", required = false) String email) {
         logger.info("submitted the quiz with name : {} and email : {}", name, email);
         return "Saved Successfully";
     }
-
 
     @GetMapping({"/shop"})
     public String renderShop() {
@@ -68,5 +66,4 @@ public class QuizController {
     public String renderContact() {
         return "quiz-template/contact";
     }
-
 }

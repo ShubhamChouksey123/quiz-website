@@ -13,8 +13,6 @@ public class EachQuestionResponse {
         this.ansOpted = ansOpted;
     }
 
-
-
     public Long getQuestionId() {
         return questionId;
     }

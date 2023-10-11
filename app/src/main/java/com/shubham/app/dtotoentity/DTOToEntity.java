@@ -1,28 +1,24 @@
 package com.shubham.app.dtotoentity;
 
+import org.springframework.stereotype.Service;
+
 import com.shubham.app.dto.*;
 import com.shubham.app.entity.ContactQuery;
 import com.shubham.app.entity.Question;
-import org.springframework.stereotype.Service;
 
 @Service
 public class DTOToEntity {
 
     public Question convertQuestionDTO(EachQuestion eachQuestion) {
 
-        return  new Question(eachQuestion.getStatement(), eachQuestion.getOptionA(),
-                eachQuestion.getOptionB(), eachQuestion.getOptionC(),
-                eachQuestion.getOptionD(), eachQuestion.getAns(), eachQuestion.getDifficulty());
-
+        return new Question(eachQuestion.getStatement(), eachQuestion.getOptionA(), eachQuestion.getOptionB(),
+                eachQuestion.getOptionC(), eachQuestion.getOptionD(), eachQuestion.getAns(),
+                eachQuestion.getDifficulty());
     }
 
     public ContactQuery convertContactQueryDTO(ContactQueryResponse contactQueryResponse) {
 
         return new ContactQuery(contactQueryResponse.getName(), contactQueryResponse.getEmail(),
-                contactQueryResponse.getPhone(), contactQueryResponse.getDescription()) ;
-
+                contactQueryResponse.getPhone(), contactQueryResponse.getDescription());
     }
-
-
-
 }

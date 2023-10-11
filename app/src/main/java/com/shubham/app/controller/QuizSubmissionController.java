@@ -1,14 +1,15 @@
 package com.shubham.app.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import com.shubham.app.dto.EachQuestion;
 import com.shubham.app.dto.QuestionSubmissionForm;
 import com.shubham.app.dto.QuizSubmittedForm;
 import com.shubham.app.entity.Question;
 import com.shubham.app.service.questioncrud.QuestionCrud;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,13 +26,10 @@ public class QuizSubmissionController {
      *
      * @return
      */
-
-
     @GetMapping("/getQuestions")
     public List<Question> getQuestions() {
         return questionCrud.getQuestionsForAnUser(TOTAL_QUESTIONS_TO_ASK);
     }
-
 
     /**
      * When user submits the form
@@ -44,7 +42,8 @@ public class QuizSubmissionController {
     }
 
     @PostMapping("/submitQuestionResponse")
-    public Integer submitQuestionsResponse(@RequestParam(name = "questionId", required = false) Long questionId, @RequestParam(required = false) Integer ansOpted) {
+    public Integer submitQuestionsResponse(@RequestParam(name = "questionId", required = false) Long questionId,
+            @RequestParam(required = false) Integer ansOpted) {
         Integer ansActual = questionCrud.getActualAns(questionId);
         Integer score = 0;
         logger.info("questionId : {} & ansOpted : {} & ansActual : {}", questionId, ansOpted, ansActual);
@@ -54,23 +53,18 @@ public class QuizSubmissionController {
         return score;
     }
 
-
-    /**
-     * Admin page APIs
-     */
+    /** Admin page APIs */
     @PostMapping("/addQuestion")
     public String addQuestion(@RequestBody EachQuestion eachQuestion) {
         questionCrud.addQuestion(eachQuestion);
         return "Saved Successfully";
     }
 
-
     @PostMapping("/addQuestions")
     public String addQuestions(@RequestBody QuestionSubmissionForm questionSubmissionForm) {
-//        questionCrud.addQuestions(questionSubmissionForm);
+        // questionCrud.addQuestions(questionSubmissionForm);
         return "Saved Successfully";
     }
-
 
     @GetMapping("/getAllQuestions")
     public List<Question> getAllQuestions() {
@@ -78,14 +72,10 @@ public class QuizSubmissionController {
     }
 
     public void removeQuestions() {
-
     }
-
 
     @PostMapping("/removeQuestion")
     public boolean removeQuestion(@RequestParam(name = "questionId", required = false) Long questionId) {
         return questionCrud.removeQuestions(questionId);
     }
-
-
 }
