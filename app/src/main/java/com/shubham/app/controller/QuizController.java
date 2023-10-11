@@ -23,11 +23,6 @@ public class QuizController {
     @Autowired
     private RenderQuizTemplate renderQuizTemplate;
 
-    @GetMapping("/verify-phone")
-    public String verifyPhone() {
-        return "verify-phone";
-    }
-
     @GetMapping({"/home", "index"})
     public String renderHome() {
         return "quiz-template/index";
@@ -51,9 +46,12 @@ public class QuizController {
 
     @PostMapping(value = {"/submit-quiz"})
     @ResponseBody
-    public String addQuestion(@RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "email", required = false) String email) {
-        logger.info("submitted the quiz with name : {} and email : {}", name, email);
+    public String addQuestion(@RequestParam(value = "name") String name, @RequestParam(value = "email") String email,
+            @RequestParam(value = "userOptedAnswers", required = false) String userOptedAnswers,
+            @RequestParam(value = "questionIds", required = false) String questionIds) {
+        logger.info("submitted the quiz with name : {}, email : {} and userOptedAnswers : {}", name, email,
+                userOptedAnswers);
+        logger.info("questionIds : {}", questionIds);
         return "Saved Successfully";
     }
 

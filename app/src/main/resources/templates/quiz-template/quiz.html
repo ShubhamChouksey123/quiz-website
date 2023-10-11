@@ -43,19 +43,36 @@
    function showDesiredNumberQuestion(number) {
       var wholeNumber = Number(number) + 1;
       console.log("rendering question number : " + wholeNumber);
-      var usersArray = [[${ questions }]];
+      var usersQuestionArray = [[${ questions }]];
 
       var wholeNumber = Number(number) + 1;
 
-      if (number >= 0 && number < usersArray.length) {
-         document.getElementById("questionDescription").innerHTML = wholeNumber + ".  " + usersArray[number].statement;
+      if (number >= 0 && number < usersQuestionArray.length) {
+         document.getElementById("questionDescription").innerHTML = wholeNumber + ".  " + usersQuestionArray[number].statement;
 
-         document.getElementById("optionADescription").innerHTML = usersArray[number].optionA;
-         document.getElementById("optionBDescription").innerHTML = usersArray[number].optionB;
-         document.getElementById("optionCDescription").innerHTML = usersArray[number].optionC;
-         document.getElementById("optionDDescription").innerHTML = usersArray[number].optionD;
+         document.getElementById("optionADescription").innerHTML = usersQuestionArray[number].optionA;
+         document.getElementById("optionBDescription").innerHTML = usersQuestionArray[number].optionB;
+         document.getElementById("optionCDescription").innerHTML = usersQuestionArray[number].optionC;
+         document.getElementById("optionDDescription").innerHTML = usersQuestionArray[number].optionD;
 
       }
+   }
+
+   function setOptionIds() {
+      let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
+      console.log("totalQuestionValue : " + totalQuestionValue);
+
+      var usersQuestionArray = [[${ questions }]];
+
+      var questionIdsArray = Array.from(Array(totalQuestionValue));
+      for (let i = 0; i < totalQuestionValue; i++) {
+         questionIdsArray[i] = usersQuestionArray[i].questionId;
+      }
+
+      var questionIdsArrayJSON = JSON.stringify(questionIdsArray);
+      document.getElementById("questionIds").value = questionIdsArrayJSON;
+
+      console.log("questionIds : " + document.getElementById("questionIds").value);
    }
 </script>
 
@@ -214,6 +231,7 @@
                   <input type="text" id="userName" class="email-bt" placeholder="Name" name="name">
                   <input type="email" id="userEmail" class="email-bt" placeholder="Email" name="email">
                   <input type="hidden" id="userOptedAnswers" name="userOptedAnswers" value="" />
+                  <input type="hidden" id="questionIds" name="questionIds" value="" />
                   <div class="read_bt_main">
                      <div class="read_bt">
                         <a onclick="submitQuizForm();">Submit</a>

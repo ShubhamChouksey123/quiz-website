@@ -29,7 +29,6 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
 
         List<Long> ids = new ArrayList<>();
 
-        logger.info("all questions : {}", questions);
         for (Question question : questions) {
             ids.add(question.getQuestionId());
             logger.info("question : {}", question);
