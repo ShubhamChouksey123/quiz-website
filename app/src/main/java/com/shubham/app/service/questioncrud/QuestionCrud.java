@@ -43,8 +43,7 @@ public class QuestionCrud {
     }
 
     public boolean removeQuestions(Long questionId) {
-        boolean isDeleted = questionDAO.deleteQuestion(questionId);
-        return isDeleted;
+        return questionDAO.deleteQuestion(questionId);
     }
 
     public Integer calculateScore(QuizSubmittedForm quizSubmittedForm) {

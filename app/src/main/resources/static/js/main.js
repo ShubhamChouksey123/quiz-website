@@ -10,6 +10,7 @@
  * Defaults for initial first question
  */
   showDesiredNumberQuestion(Number(0));
+  setOptionIds();
   setOptionNullSelected();
 
   /**
@@ -349,11 +350,13 @@ function hideSubmitQuizForm() {
   document.getElementById("submit_quiz_form").style.display = "none";
 }
 
+
+
 function setOptionNullSelected() {
   let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
   console.log("totalQuestionValue : " + totalQuestionValue);
 
-  var userOptedAnswersArray = Array.from(Array(totalQuestionValue + 1));
+  var userOptedAnswersArray = Array.from(Array(totalQuestionValue));
 
   var userOptedAnswersJSON = JSON.stringify(userOptedAnswersArray);
   document.getElementById("userOptedAnswers").value = userOptedAnswersJSON;
