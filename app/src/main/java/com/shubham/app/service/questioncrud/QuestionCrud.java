@@ -1,15 +1,15 @@
 package com.shubham.app.service.questioncrud;
 
-import com.shubham.app.dto.*;
-import com.shubham.app.entity.ContactQuery;
-import com.shubham.app.entity.Question;
-import com.shubham.app.hibernate.dao.ContactQueryDAO;
-import com.shubham.app.hibernate.dao.QuestionDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.shubham.app.dto.*;
 import com.shubham.app.dtotoentity.*;
+import com.shubham.app.entity.Question;
+import com.shubham.app.hibernate.dao.ContactQueryDAO;
+import com.shubham.app.hibernate.dao.QuestionDAO;
 
 import java.util.List;
 
@@ -22,7 +22,6 @@ public class QuestionCrud {
     private ContactQueryDAO contactQueryDAO;
     @Autowired
     private DTOToEntity dTOToEntity;
-
 
     public void addQuestion(EachQuestion eachQuestion) {
         Question question = dTOToEntity.convertQuestionDTO(eachQuestion);
@@ -48,13 +47,13 @@ public class QuestionCrud {
         return isDeleted;
     }
 
-
     public Integer calculateScore(QuizSubmittedForm quizSubmittedForm) {
 
         Integer score = 0;
         for (EachQuestionResponse eachQuestionResponse : quizSubmittedForm.getQuestionResponseList()) {
             Integer ansActual = getActualAns(eachQuestionResponse.getQuestionId());
-            logger.info("questionId : {} & ansOpted : {} & ansActual : {}", eachQuestionResponse.getQuestionId(), eachQuestionResponse.getAnsOpted(), ansActual);
+            logger.info("questionId : {} & ansOpted : {} & ansActual : {}", eachQuestionResponse.getQuestionId(),
+                    eachQuestionResponse.getAnsOpted(), ansActual);
             if (ansActual != null && ansActual.equals(eachQuestionResponse.getAnsOpted())) {
                 score++;
             }
@@ -66,14 +65,11 @@ public class QuestionCrud {
         return questionDAO.getAnswerOfAQuestion(questionId);
     }
 
-
-    /**
-     * Contact Page
-     */
-
+    /** Contact Page */
     public void addContactQuery(ContactQueryResponse contactQueryResponse) {
-//        ContactQuery contactQuery = dTOToEntity.convertContactQueryDTO(contactQueryResponse);
-//        dTOToEntity.convertContactQueryDTO(contactQueryResponse);
+        // ContactQuery contactQuery =
+        // dTOToEntity.convertContactQueryDTO(contactQueryResponse);
+        // dTOToEntity.convertContactQueryDTO(contactQueryResponse);
         contactQueryDAO.saveContactQuery(null);
     }
 }

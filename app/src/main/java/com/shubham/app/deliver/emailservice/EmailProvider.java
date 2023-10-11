@@ -1,9 +1,7 @@
 package com.shubham.app.deliver.emailservice;
 
-
-import jakarta.mail.MessagingException;
-
 import java.io.IOException;
+import jakarta.mail.MessagingException;
 
 public interface EmailProvider {
 

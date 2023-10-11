@@ -1,6 +1,5 @@
 package com.shubham.app.config;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +18,11 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.sql.DataSource;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
 import java.beans.PropertyVetoException;
 import java.util.Properties;
+import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("com.shubham.app")
@@ -35,7 +36,6 @@ public class HibernateConfig {
 
     @Value("${hibernate.packagesToScan}")
     private String[] packagesToScan;
-
 
     @Bean
     public DataSource myDataSource() {
@@ -67,7 +67,6 @@ public class HibernateConfig {
 
         return myDataSource;
     }
-
 
     private Properties getHibernateProperties() {
 
@@ -130,5 +129,4 @@ public class HibernateConfig {
 
         return txManager;
     }
-
 }

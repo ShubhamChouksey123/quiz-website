@@ -131,7 +131,82 @@
                     <target>9</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>${spotless.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <phase>compile</phase>
+                    </execution>
+                </executions>
+                <configuration>
+
+                    <!-- optional: limit format enforcement to just the files changed by this feature branch -->
+                    <!--                    <ratchetFrom>origin/master</ratchetFrom>-->
+                    <formats>
+                        <!-- you can define as many formats as you want, each is independent -->
+                        <format>
+                            <!-- define the files to apply to -->
+                            <includes>
+                                <include>*.md</include>
+                                <include>.gitignore</include>
+                            </includes>
+                            <!-- define the steps to apply to those files -->
+                            <trimTrailingWhitespace/>
+                            <endWithNewline/>
+                            <indent>
+                                <!--                                <tabs>false</tabs>-->
+                                <spaces>true</spaces>
+                                <spacesPerTab>4</spacesPerTab>
+                            </indent>
+                        </format>
+                    </formats>
+                    <!-- define a language-specific format -->
+                    <java>
+                        <!-- Clean that will refactor your code, but it may break your style: apply it before your formatter -->
+                        <cleanthat/>
+
+                        <googleJavaFormat/> <!-- has its own section below -->
+                        <eclipse/>          <!-- has its own section below -->
+                        <!--                        <prettier/>         &lt;!&ndash; has its own section below &ndash;&gt;-->
+
+                        <importOrder/> <!-- standard import order -->
+                        <importOrder>  <!-- or a custom ordering -->
+                            <wildcardsLast>false
+                            </wildcardsLast> <!-- Optional, default false. Sort wildcard import after specific imports -->
+                            <order>org,com,com.wallet|com.cognam,java|javax|jakarta,\#
+                            </order>  <!-- or use <file>${project.basedir}/eclipse.importorder</file> -->
+                            <!-- you can use an empty string for all the imports you didn't specify explicitly, '|' to join group without blank line, and '\#` prefix for static imports. -->
+                            <semanticSort>false
+                            </semanticSort> <!-- Optional, default true. Sort by package, then class, then member (for static imports). Splitting is based on common conventions (packages are lower case, classes start with upper case). Use <treatAsPackage> and <treatAsClass> for exceptions. -->
+                            <treatAsPackage> <!-- Packages starting with upper case letters. -->
+                                <package>com.example.MyPackage</package>
+                            </treatAsPackage>
+                            <treatAsClass> <!-- Classes starting with lower case letters. -->
+                                <class>com.example.myClass</class>
+                            </treatAsClass>
+                        </importOrder>
+
+                        <indent>
+                            <spaces>true</spaces>
+                            <spacesPerTab>4</spacesPerTab>
+                        </indent>
+
+                        <lineEndings>PLATFORM_NATIVE</lineEndings>
+
+                        <removeUnusedImports/> <!-- self-explanatory -->
+
+                        <formatAnnotations/>  <!-- fixes formatting of type annotations, see below -->
+                    </java>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
 
 </project>

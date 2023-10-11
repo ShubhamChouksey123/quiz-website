@@ -1,10 +1,11 @@
 package com.shubham.app.deliver.emailservice;
 
-import jakarta.mail.MessagingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import jakarta.mail.MessagingException;
 
 @Service
 public class EmailSenderService {

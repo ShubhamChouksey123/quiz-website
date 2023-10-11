@@ -1,8 +1,5 @@
 package com.shubham.app.hibernate.dao;
 
-import com.shubham.app.hibernate.dao.ContactQueryDAO;
-import com.shubham.app.hibernate.dao.QuestionDAO;
-import com.shubham.app.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -11,10 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.shubham.app.entity.*;
+
 import java.util.*;
-
-
-import java.math.BigInteger;
 import java.util.List;
 import jakarta.persistence.criteria.*;
 
@@ -83,7 +79,6 @@ public class QuestionDAO {
             logger.warn("Couldn't find a suitable claim : {}", e.getMessage());
         }
 
-
         return questionList;
     }
 
@@ -105,6 +100,4 @@ public class QuestionDAO {
     public Integer getAnswerOfAQuestion(Long questionId) {
         return questionById(questionId).getAns();
     }
-
-
 }
