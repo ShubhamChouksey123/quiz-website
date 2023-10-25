@@ -28,6 +28,9 @@ public class ContactQuery {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date timeStamp;
 
+    public ContactQuery() {
+    }
+
     public ContactQuery(String name, String email, String phone, String description) {
         this.name = name;
         this.email = email;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shubham.app.render.RenderQuizTemplate;
+import com.shubham.app.service.questioncrud.exception.InternalServerException;
 
 /**
  * We have used this open-source theme template from
@@ -19,7 +20,7 @@ import com.shubham.app.render.RenderQuizTemplate;
 @Controller
 public class QuizController {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Autowired
     private RenderQuizTemplate renderQuizTemplate;
 
@@ -48,10 +49,12 @@ public class QuizController {
     @ResponseBody
     public String addQuestion(@RequestParam(value = "name") String name, @RequestParam(value = "email") String email,
             @RequestParam(value = "userOptedAnswers", required = false) String userOptedAnswers,
-            @RequestParam(value = "questionIds", required = false) String questionIds) {
+            @RequestParam(value = "questionIds", required = false) String questionIds, Model model)
+            throws InternalServerException {
         logger.info("submitted the quiz with name : {}, email : {} and userOptedAnswers : {}", name, email,
                 userOptedAnswers);
         logger.info("questionIds : {}", questionIds);
+        renderQuizTemplate.calculateScore(name, email, userOptedAnswers, questionIds, model);
         return "Saved Successfully";
     }
 
