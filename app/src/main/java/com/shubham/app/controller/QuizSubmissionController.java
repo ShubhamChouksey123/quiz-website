@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.shubham.app.dto.EachQuestion;
 import com.shubham.app.dto.QuestionSubmissionForm;
-import com.shubham.app.dto.QuizSubmittedForm;
 import com.shubham.app.entity.Question;
 import com.shubham.app.service.questioncrud.QuestionCrud;
 
@@ -29,16 +28,6 @@ public class QuizSubmissionController {
     @GetMapping("/getQuestions")
     public List<Question> getQuestions() {
         return questionCrud.getQuestionsForAnUser(TOTAL_QUESTIONS_TO_ASK);
-    }
-
-    /**
-     * When user submits the form
-     *
-     * @return
-     */
-    @PostMapping("/submitQuestionsResponse")
-    public Integer submitQuestionResponse(@RequestBody(required = true) QuizSubmittedForm quizSubmittedForm) {
-        return questionCrud.calculateScore(quizSubmittedForm);
     }
 
     @PostMapping("/submitQuestionResponse")

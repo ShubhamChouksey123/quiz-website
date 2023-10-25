@@ -75,7 +75,7 @@ public class HibernateConfig {
 
         props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
         props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        props.put("hibernate.hbm2ddl.auto", "none");
+        props.put("hibernate.hbm2ddl.auto", "update");
 
         return props;
     }
