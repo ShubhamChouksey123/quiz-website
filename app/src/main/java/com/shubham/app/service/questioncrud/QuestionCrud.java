@@ -5,13 +5,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shubham.app.dto.*;
-import com.shubham.app.dtotoentity.*;
+import com.shubham.app.dto.ContactQueryResponse;
+import com.shubham.app.dto.EachQuestion;
+import com.shubham.app.dto.QuestionSubmissionForm;
+import com.shubham.app.dtotoentity.DTOToEntity;
 import com.shubham.app.entity.Question;
+import com.shubham.app.entity.QuizSubmission;
 import com.shubham.app.hibernate.dao.ContactQueryDAO;
 import com.shubham.app.hibernate.dao.QuestionDAO;
+import com.shubham.app.hibernate.dao.QuizSubmissionDao;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class QuestionCrud {
@@ -20,6 +24,8 @@ public class QuestionCrud {
     private QuestionDAO questionDAO;
     @Autowired
     private ContactQueryDAO contactQueryDAO;
+    @Autowired
+    private QuizSubmissionDao quizSubmissionDao;
     @Autowired
     private DTOToEntity dTOToEntity;
 
@@ -46,17 +52,38 @@ public class QuestionCrud {
         return questionDAO.deleteQuestion(questionId);
     }
 
-    public Integer calculateScore(QuizSubmittedForm quizSubmittedForm) {
+    public Integer calculateScore(List<Integer> questionIdsList, List<Integer> userOptedAnswersList) {
+
+        List<Question> questions = questionDAO.getAnswerOfQuestions(questionIdsList);
+        logger.info("questions : {}", questions);
+        Map<Long, Integer> mp = new HashMap<>();
+        for (Question question : questions) {
+            mp.put(question.getQuestionId(), question.getAns());
+        }
 
         Integer score = 0;
-        for (EachQuestionResponse eachQuestionResponse : quizSubmittedForm.getQuestionResponseList()) {
-            Integer ansActual = getActualAns(eachQuestionResponse.getQuestionId());
-            logger.info("questionId : {} & ansOpted : {} & ansActual : {}", eachQuestionResponse.getQuestionId(),
-                    eachQuestionResponse.getAnsOpted(), ansActual);
-            if (ansActual != null && ansActual.equals(eachQuestionResponse.getAnsOpted())) {
+        for (int i = 0; i < userOptedAnswersList.size(); i++) {
+            Integer questionId = questionIdsList.get(i);
+            Integer userOptedAnswers = userOptedAnswersList.get(i);
+            Integer ansActual = mp.get(questionId);
+
+            logger.info("questionId : {} & userOptedAnswers : {} & ansActual : {}", questionId, userOptedAnswers,
+                    ansActual);
+            if (ansActual != null && userOptedAnswers != null
+                    && Objects.equals(ansActual, Math.toIntExact(userOptedAnswers))) {
                 score++;
             }
         }
+        return score;
+    }
+
+    public Integer proceedWithSave(String name, String email, List<Integer> questionIdsList,
+            List<Integer> userOptedAnswersList) {
+        Integer score = calculateScore(questionIdsList, userOptedAnswersList);
+
+        logger.info("score calculated : {}", score);
+        QuizSubmission quizSubmission = new QuizSubmission(name, email, score, new Date());
+        quizSubmissionDao.save(quizSubmission);
         return score;
     }
 

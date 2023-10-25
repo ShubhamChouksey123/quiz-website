@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 
 import com.shubham.app.entity.Question;
 import com.shubham.app.service.questioncrud.QuestionCrud;
+import com.shubham.app.service.questioncrud.QuestionsUtils;
+import com.shubham.app.service.questioncrud.exception.InternalServerException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,9 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
 
     @Autowired
     private QuestionCrud questionCrud;
+
+    @Autowired
+    private QuestionsUtils questionsUtils;
 
     @Override
     public void renderQuizPage(Model model) {
@@ -38,5 +43,15 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         model.addAttribute("questionIds", ids);
         model.addAttribute("questionNumberToShow", 1);
         model.addAttribute("totalQuestions", TOTAL_QUESTIONS_TO_ASK);
+    }
+
+    @Override
+    public void calculateScore(String name, String email, String userOptedAnswers, String questionIdsString,
+            Model model) throws InternalServerException {
+
+        List<Integer> questionIdsList = questionsUtils.convertStringQuestionsToList(questionIdsString);
+        List<Integer> userOptedAnswersList = questionsUtils.convertStringQuestionsToList(userOptedAnswers);
+
+        questionCrud.proceedWithSave(name, email, questionIdsList, userOptedAnswersList);
     }
 }
