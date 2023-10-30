@@ -54,4 +54,18 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
 
         questionCrud.proceedWithSave(name, email, questionIdsList, userOptedAnswersList);
     }
+
+    public void renderResultPage(List<Question> questions, List<Integer> questionIds,
+            List<Integer> userOptedAnswersList, List<Integer> actualAnswersList, Integer score, Model model) {
+
+        model.addAttribute("questions", questions);
+
+        model.addAttribute("questionIds", questionIds);
+        model.addAttribute("userOptedAnswers", userOptedAnswersList);
+        model.addAttribute("actualAnswers", actualAnswersList);
+        model.addAttribute("score", score);
+
+        model.addAttribute("questionNumberToShow", 1);
+        model.addAttribute("totalQuestions", TOTAL_QUESTIONS_TO_ASK);
+    }
 }
