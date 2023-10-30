@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.shubham.app.render.RenderQuizTemplate;
 import com.shubham.app.service.questioncrud.exception.InternalServerException;
 
 /**
  * We have used this open-source theme template from
- * https://themewagon.com/themes/vintagefur/
+ * <a href="https://themewagon.com/themes/vintagefur/">Theme-wagon template</a>
  */
 @Controller
 public class QuizController {
@@ -47,7 +48,8 @@ public class QuizController {
 
     @PostMapping(value = {"/submit-quiz"})
     @ResponseBody
-    public String addQuestion(@RequestParam(value = "name") String name, @RequestParam(value = "email") String email,
+    public RedirectView addQuestion(@RequestParam(value = "name") String name,
+            @RequestParam(value = "email") String email,
             @RequestParam(value = "userOptedAnswers", required = false) String userOptedAnswers,
             @RequestParam(value = "questionIds", required = false) String questionIds, Model model)
             throws InternalServerException {
@@ -55,7 +57,12 @@ public class QuizController {
                 userOptedAnswers);
         logger.info("questionIds : {}", questionIds);
         renderQuizTemplate.calculateScore(name, email, userOptedAnswers, questionIds, model);
-        return "Saved Successfully";
+        return new RedirectView("/result");
+    }
+
+    @GetMapping({"/result"})
+    public String renderResultOfQuiz(Model model) {
+        return "quiz-template/result";
     }
 
     @GetMapping({"/shop"})

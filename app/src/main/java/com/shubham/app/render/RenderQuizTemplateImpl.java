@@ -19,7 +19,7 @@ import static com.shubham.app.controller.QuizSubmissionController.TOTAL_QUESTION
 @Service
 public class RenderQuizTemplateImpl implements RenderQuizTemplate {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Autowired
     private QuestionCrud questionCrud;
@@ -52,7 +52,17 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         List<Integer> questionIdsList = questionsUtils.convertStringQuestionsToList(questionIdsString);
         List<Integer> userOptedAnswersList = questionsUtils.convertStringQuestionsToList(userOptedAnswers);
 
-        questionCrud.proceedWithSave(name, email, questionIdsList, userOptedAnswersList);
+        List<Question> questions = questionCrud.getQuestionsFromQuestionIds(questionIdsList);
+
+        List<Integer> actualAnswersList = new ArrayList<>();
+        for (Question question : questions) {
+            actualAnswersList.add(question.getAns());
+        }
+
+        Integer score = questionCrud.calculateAndSaveScore(name, email, questionIdsList, userOptedAnswersList,
+                questions);
+
+        renderResultPage(questions, questionIdsList, userOptedAnswersList, actualAnswersList, score, model);
     }
 
     public void renderResultPage(List<Question> questions, List<Integer> questionIds,

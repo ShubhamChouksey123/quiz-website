@@ -52,10 +52,13 @@ public class QuestionCrud {
         return questionDAO.deleteQuestion(questionId);
     }
 
-    public Integer calculateScore(List<Integer> questionIdsList, List<Integer> userOptedAnswersList) {
+    public List<Question> getQuestionsFromQuestionIds(List<Integer> questionIdsList) {
+        return questionDAO.getAnswerOfQuestions(questionIdsList);
+    }
 
-        List<Question> questions = questionDAO.getAnswerOfQuestions(questionIdsList);
-        logger.info("questions : {}", questions);
+    public Integer calculateScore(List<Integer> questionIdsList, List<Integer> userOptedAnswersList,
+            List<Question> questions) {
+
         Map<Long, Integer> mp = new HashMap<>();
         for (Question question : questions) {
             mp.put(question.getQuestionId(), question.getAns());
@@ -77,13 +80,15 @@ public class QuestionCrud {
         return score;
     }
 
-    public Integer proceedWithSave(String name, String email, List<Integer> questionIdsList,
-            List<Integer> userOptedAnswersList) {
-        Integer score = calculateScore(questionIdsList, userOptedAnswersList);
+    public Integer calculateAndSaveScore(String name, String email, List<Integer> questionIdsList,
+            List<Integer> userOptedAnswersList, List<Question> questions) {
 
+        Integer score = calculateScore(questionIdsList, userOptedAnswersList, questions);
         logger.info("score calculated : {}", score);
+
         QuizSubmission quizSubmission = new QuizSubmission(name, email, score, new Date());
         quizSubmissionDao.save(quizSubmission);
+
         return score;
     }
 
