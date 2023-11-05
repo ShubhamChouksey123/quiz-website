@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.shubham.app.dto.EachQuestion;
 import com.shubham.app.entity.Question;
 import com.shubham.app.service.questioncrud.QuestionCrud;
 import com.shubham.app.service.questioncrud.QuestionsUtils;
@@ -62,10 +63,12 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         Integer score = questionCrud.calculateAndSaveScore(name, email, questionIdsList, userOptedAnswersList,
                 questions);
 
-        renderResultPage(questions, questionIdsList, userOptedAnswersList, actualAnswersList, score, model);
+        // renderResultPage(questions, questionIdsList, userOptedAnswersList,
+        // actualAnswersList,
+        // score, model);
     }
 
-    public void renderResultPage(List<Question> questions, List<Integer> questionIds,
+    public void renderResultPage(List<EachQuestion> questions, List<Integer> questionIds,
             List<Integer> userOptedAnswersList, List<Integer> actualAnswersList, Integer score, Model model) {
 
         model.addAttribute("questions", questions);
@@ -77,5 +80,33 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
 
         model.addAttribute("questionNumberToShow", 1);
         model.addAttribute("totalQuestions", TOTAL_QUESTIONS_TO_ASK);
+    }
+
+    @Override
+    public void renderResultPagePrepareFake(Model model) {
+
+        List<Question> questions = questionCrud.getQuestionsForAnUser(TOTAL_QUESTIONS_TO_ASK);
+
+        List<Integer> ids = new ArrayList<>();
+        List<Integer> userOptedAnswersList = new ArrayList<>();
+        List<Integer> actualAnswersList = new ArrayList<>();
+
+        List<EachQuestion> questionsResults = new ArrayList<>();
+
+        for (int i = 0; i < questions.size(); i++) {
+
+            Question question = questions.get(i);
+            ids.add(Math.toIntExact(question.getQuestionId()));
+            actualAnswersList.add(question.getAns());
+            userOptedAnswersList.add(1);
+            logger.info("question : {}", question);
+
+            EachQuestion eachQuestion = new EachQuestion(question);
+            eachQuestion.setIndex(i);
+            eachQuestion.setUseOptedAnswer(1);
+            questionsResults.add(eachQuestion);
+        }
+
+        renderResultPage(questionsResults, ids, userOptedAnswersList, actualAnswersList, 8, model);
     }
 }
