@@ -1,16 +1,52 @@
 package com.shubham.app.dto;
 
-import com.shubham.app.model.*;
+import com.shubham.app.entity.Question;
 
 public class EachQuestion {
+
+    /** GUI index of the question nu,ber between 0-9 */
+    private Integer index;
+
+    /** the uniques identifier of this question, stored as primary key in DB */
+    private Long questionId;
 
     private String statement;
     private String optionA;
     private String optionB;
     private String optionC;
     private String optionD;
+
+    /** actual answer of the question */
     private Integer ans;
-    private DifficultyLevel difficulty;
+
+    /** option opted by the user, for this question */
+    private Integer useOptedAnswer;
+
+    public EachQuestion() {
+    }
+
+    public EachQuestion(Integer index, Long questionId, String statement, String optionA, String optionB,
+            String optionC, String optionD, Integer ans, Integer useOptedAnswer) {
+        this.index = index;
+        this.questionId = questionId;
+        this.statement = statement;
+        this.optionA = optionA;
+        this.optionB = optionB;
+        this.optionC = optionC;
+        this.optionD = optionD;
+        this.ans = ans;
+        this.useOptedAnswer = useOptedAnswer;
+    }
+
+    public EachQuestion(Question question) {
+        this.questionId = question.getQuestionId();
+        this.statement = question.getStatement();
+        this.optionA = question.getOptionA();
+        this.optionB = question.getOptionB();
+        this.optionC = question.getOptionC();
+        this.optionD = question.getOptionD();
+        this.ans = question.getAns();
+    }
 
     public String getStatement() {
         return statement;
@@ -60,11 +96,27 @@ public class EachQuestion {
         this.ans = ans;
     }
 
-    public DifficultyLevel getDifficulty() {
-        return difficulty;
+    public Integer getIndex() {
+        return index;
     }
 
-    public void setDifficulty(DifficultyLevel difficulty) {
-        this.difficulty = difficulty;
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
+
+    public Long getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }
+
+    public Integer getUseOptedAnswer() {
+        return useOptedAnswer;
+    }
+
+    public void setUseOptedAnswer(Integer useOptedAnswer) {
+        this.useOptedAnswer = useOptedAnswer;
     }
 }
