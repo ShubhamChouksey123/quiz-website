@@ -62,6 +62,8 @@ public class QuizController {
 
     @GetMapping({"/result"})
     public String renderResultOfQuiz(Model model) {
+        // renderQuizTemplate.renderQuizPage(model);
+        renderQuizTemplate.renderResultPagePrepareFake(model);
         return "quiz-template/result";
     }
 
