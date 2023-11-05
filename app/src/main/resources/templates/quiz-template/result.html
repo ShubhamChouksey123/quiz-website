@@ -94,6 +94,24 @@
    //    }
    // }
 
+   function showCorrectBorder() {
+      const correctAnswer = 0;
+
+      console.log("correctAnswer : " + correctAnswer);
+
+      // Get all option labels
+      const optionLabels = document.querySelectorAll('.option-label');
+
+      // Loop through option labels and add a border to the correct answer
+      optionLabels.forEach((label, index) => {
+         if (index === correctAnswer) {
+            label.style.border = '2px solid green'; // Change the border style for the correct answer
+         } else {
+            label.style.border = '2px solid red'; // Change the border style for incorrect answers (you can customize the color)
+         }
+      });
+   };
+
 
 
 
@@ -187,8 +205,9 @@
                            <div class="row">
                               <div class="col-md-6">
                                  <input type="radio" name="optionSelected" id="optionAButton" value="0"
-                                    onclick="optionSelected(0);"> <label for="optionAButton" id="optionALabel"
-                                    class="box fifth w-100">
+                                    th:data-name="${question.getStatement()}"
+                                    th:onclick="showDesiredBorder(this.getAttribute('data-name'), 0)"> <label
+                                    for="optionAButton" id="optionALabel" class="box fifth w-100 option-label">
                                     <div class="course"> <span class="circle"></span>
                                        <span class="subject" id="optionADescription" th:text="${question.getOptionA()}">
                                        </span>
@@ -197,8 +216,8 @@
                               </div>
                               <div class="col-md-6">
                                  <input type="radio" name="optionSelected" id="optionBButton" value="1"
-                                    onclick="optionSelected(1);"> <label for="optionBButton" id="optionBLabel"
-                                    class="box sixth w-100">
+                                    th:onclick="showDesiredBorder([[${question.getStatement()}]], 1)"> <label
+                                    for="optionBButton" id="optionBLabel" class="box sixth w-100 option-label">
                                     <div class="course"> <span class="circle"></span> <span class="subject"
                                           id="optionBDescription" th:text="${question.getOptionB()}"> </span>
                                     </div>
@@ -206,8 +225,8 @@
                               </div>
                               <div class="col-md-6">
                                  <input type="radio" name="optionSelected" id="optionCButton" value="2"
-                                    onclick="optionSelected(2);"> <label for="optionCButton" id="optionCLabel"
-                                    class="box seveth w-100">
+                                    th:onclick="showDesiredBorder([[${question.getAns()}]], 2)"> <label
+                                    for="optionCButton" id="optionCLabel" class="box seveth w-100 option-label">
                                     <div class="course"> <span class="circle"></span> <span class="subject"
                                           id="optionCDescription" th:text="${question.getOptionC()}">
                                        </span> </div>
@@ -215,8 +234,8 @@
                               </div>
                               <div class="col-md-6">
                                  <input type="radio" name="optionSelected" id="optionDButton" value="3"
-                                    onclick="optionSelected(3);"> <label for="optionDButton" id="optionDLabel"
-                                    class="box eighth w-100">
+                                    th:onclick="showDesiredBorder([[${question.getAns()}]], 3)"> <label
+                                    for="optionDButton" id="optionDLabel" class="box eighth w-100 option-label">
                                     <div class="course"> <span class="circle"></span> <span class="subject"
                                           id="optionDDescription" th:text="${question.getOptionD()}">
                                        </span> </div>
