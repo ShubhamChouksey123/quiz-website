@@ -6,6 +6,10 @@
   document.getElementById("nextQuestionButton").addEventListener("click", onClickNextQuestionButton);
   document.getElementById("previousQuestionButton").addEventListener("click", onClickPreviousQuestionButton);
 
+  // document.addEventListener("DOMContentLoaded", function () {
+  //   showCorrectBorder();
+  // });
+
   /**
  * Defaults for initial first question
  */
@@ -330,7 +334,7 @@
 
 
 /**
- * shows the quiz submit form 
+ * shows the quiz submit form
  */
 function onClickSubmitButtonRequest() {
   document.getElementById("submit_quiz_form").style.removeProperty('display');
@@ -342,7 +346,7 @@ function onClickSubmitButtonRequest() {
 }
 
 /**
- * hides the quiz submit form 
+ * hides the quiz submit form
  */
 function hideSubmitQuizForm() {
   document.getElementById("submit_quiz_form").style.display = "none";
@@ -416,8 +420,8 @@ function showExistingSelectedOption(currentQuestion) {
 }
 
 /**
- * 
- * function used to change the page based on the question number reached. 
+ *
+ * function used to change the page based on the question number reached.
  *  it changes the next or submit button, question text and information on the page
  */
 function showDesiredQuestionPage(currentQuestion, totalQuestion) {
@@ -465,25 +469,6 @@ function onClickPreviousQuestionButton() {
   console.log("elementCurrentQuestionNumber.value : " + elementCurrentQuestionNumber.value);
 }
 
-/**
- * taking user input when he clicks the options 
- */
-function optionSelected(selectedOption) {
-  let currentQuestionValue = Number(document.getElementById("questionNumberToShow").value);
-  console.log("currentQuestionValue : " + currentQuestionValue);
-  console.log("selectedOption : " + selectedOption);
-
-  var userOptedAnswersJSON = document.getElementById("userOptedAnswers").value;
-  var userOptedAnswersArray = JSON.parse(userOptedAnswersJSON);
-  userOptedAnswersArray[currentQuestionValue - 1] = selectedOption;
-
-  var userOptedAnswersJSONNew = JSON.stringify(userOptedAnswersArray);
-  document.getElementById("userOptedAnswers").value = userOptedAnswersJSONNew;
-  console.log("userOptedAnswers new : " + document.getElementById("userOptedAnswers").value);
-
-  showExistingSelectedOption(currentQuestionValue);
-}
-
 
 function submitQuizForm() {
 
@@ -492,3 +477,15 @@ function submitQuizForm() {
   document.getElementById("quizSubmitForm").submit();
 }
 
+
+
+
+/**
+ * showing correct border
+ *
+ * th:onclick="showDesiredBorder([[${question.getAns()}]], 0)"
+ */
+function showDesiredBorder(actualAns, optionNumber) {
+  console.log("actualAns : " + actualAns);
+  console.log("optionNumber : " + optionNumber);
+}

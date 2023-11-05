@@ -99,9 +99,10 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
             ids.add(Math.toIntExact(question.getQuestionId()));
             actualAnswersList.add(question.getAns());
             userOptedAnswersList.add(1);
-            logger.info("question : {}", question);
+//            logger.info("question : {}", question);
 
             EachQuestion eachQuestion = new EachQuestion(question);
+            logger.info("answer : {} of question : {}", eachQuestion.getAns(),  eachQuestion.getStatement());
             eachQuestion.setIndex(i);
             eachQuestion.setUseOptedAnswer(1);
             questionsResults.add(eachQuestion);

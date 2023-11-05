@@ -6,6 +6,10 @@
   document.getElementById("nextQuestionButton").addEventListener("click", onClickNextQuestionButton);
   document.getElementById("previousQuestionButton").addEventListener("click", onClickPreviousQuestionButton);
 
+  // document.addEventListener("DOMContentLoaded", function () {
+  //   showCorrectBorder();
+  // });
+
   /**
  * Defaults for initial first question
  */
@@ -478,19 +482,10 @@ function submitQuizForm() {
 
 /**
  * showing correct border
+ * 
+ * th:onclick="showDesiredBorder([[${question.getAns()}]], 0)"
  */
-function showDesiredBorder(optionNumber, questionNumber) {
-  let currentQuestionValue = Number(document.getElementById("questionNumberToShow").value);
-  console.log("currentQuestionValue : " + currentQuestionValue);
-  console.log("selectedOption : " + selectedOption);
-
-  var userOptedAnswersJSON = document.getElementById("userOptedAnswers").value;
-  var userOptedAnswersArray = JSON.parse(userOptedAnswersJSON);
-  userOptedAnswersArray[currentQuestionValue - 1] = selectedOption;
-
-  var userOptedAnswersJSONNew = JSON.stringify(userOptedAnswersArray);
-  document.getElementById("userOptedAnswers").value = userOptedAnswersJSONNew;
-  console.log("userOptedAnswers new : " + document.getElementById("userOptedAnswers").value);
-
-  showExistingSelectedOption(currentQuestionValue);
+function showDesiredBorder(actualAns, optionNumber) {
+  console.log("actualAns : " + actualAns);
+  console.log("optionNumber : " + optionNumber);
 }
