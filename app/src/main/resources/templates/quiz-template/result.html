@@ -40,79 +40,6 @@
 
 <script th:inline="javascript">
 
-   function showDesiredNumberQuestion(number) {
-      var wholeNumber = Number(number) + 1;
-      console.log("rendering question number : " + wholeNumber);
-      var usersQuestionArray = [[${ questions }]];
-
-      if (number >= 0 && number < usersQuestionArray.length) {
-         document.getElementById("questionDescription").innerHTML = wholeNumber + ".  " + usersQuestionArray[number].statement;
-
-         document.getElementById("optionADescription").innerHTML = usersQuestionArray[number].optionA;
-         document.getElementById("optionBDescription").innerHTML = usersQuestionArray[number].optionB;
-         document.getElementById("optionCDescription").innerHTML = usersQuestionArray[number].optionC;
-         document.getElementById("optionDDescription").innerHTML = usersQuestionArray[number].optionD;
-
-      }
-   }
-
-   function setOptionIds() {
-      let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
-      console.log("totalQuestionValue : " + totalQuestionValue);
-
-      var usersQuestionArray = [[${ questions }]];
-
-      var questionIdsArray = Array.from(Array(totalQuestionValue));
-      for (let i = 0; i < totalQuestionValue; i++) {
-         questionIdsArray[i] = usersQuestionArray[i].questionId;
-      }
-
-      var questionIdsArrayJSON = JSON.stringify(questionIdsArray);
-      document.getElementById("questionIds").value = questionIdsArrayJSON;
-
-      console.log("questionIds : " + document.getElementById("questionIds").value);
-   }
-
-   // function showDesiredBorder(questionNumber, optionNumber) {
-   //    console.log("optionNumber : " + optionNumber);
-   //    console.log("questionNumber : " + questionNumber);
-
-
-   //    var usersQuestionArray = [[${ questions }]];
-
-   //    var wholeNumber = Number(number) + 1;
-   //    console.log("rendering question number : " + wholeNumber);
-
-   //    if (number >= 0 && number < usersQuestionArray.length) {
-
-   //       var ansOptionActual = usersQuestionArray[number].ans;
-   //       console.log("ansOptionActual : " + ansOptionActual);
-   //       // var userOptedAns = usersQuestionArray[number].useOpted;
-
-   //       // if ()
-
-   //    }
-   // }
-
-   function showCorrectBorder() {
-      const correctAnswer = 0;
-
-      console.log("correctAnswer : " + correctAnswer);
-
-      // Get all option labels
-      const optionLabels = document.querySelectorAll('.option-label');
-
-      // Loop through option labels and add a border to the correct answer
-      optionLabels.forEach((label, index) => {
-         if (index === correctAnswer) {
-            label.style.border = '2px solid green'; // Change the border style for the correct answer
-         } else {
-            label.style.border = '2px solid red'; // Change the border style for incorrect answers (you can customize the color)
-         }
-      });
-   };
-
-
 
 
 
@@ -167,23 +94,17 @@
          <div class="row">
             <h1 class="about_text">Quiz</h1>
 
-
-
-            <input type="hidden" id="questionNumberToShow" name="questionNumberToShow"
-               th:value="${questionNumberToShow}" />
-            <input type="hidden" id="totalQuestions" name="totalQuestions" th:value="${totalQuestions}" />
-
+            <p class="success_message">
+               Congratulations on achieving a score of <span class="score">[(${score})]</span> out of <span
+                  class="max_score">[(${maxScore})] </span>.
+            </p>
 
 
             <div class="col-12">
                <div class="d-flex justify-content-centre" style="justify-content: flex-end;">
-                  <button id="submit_quiz_request_button" class="btn btn-primary px-4 py-2 fw-bold button-flex"><a
-                        href="#submit_quiz_form" class="scrollto active"><i class="bx bx-home"></i> <span
-                           style="color:white">Submit Quiz
-                        </span></a>
+                  <button class="btn btn-primary px-4 py-2 fw-bold button-flex">
+                     <a href="/home"><i class="bx bx-home"></i> <span style="color:white"> Home </span></a>
                   </button>
-
-                  <button class="btn btn-primary px-4 py-2 fw-bold button-flex">End Quiz</button>
                </div>
             </div>
 
@@ -191,7 +112,7 @@
             <div class="container1 mb-5">
                <div class="question p-3 border-bottom">
                   <div class="d-flex flex-row justify-content-between align-items-center mcq">
-                     <h4>MCQ Quiz</h4><span id="questionNumberInfo">(1 of [(${totalQuestions})])</span>
+                     <h4>MCQ Quiz</h4><span id="questionNumberInfo">(1 of [(${totalQuestions})] )</span>
                   </div>
                </div>
                </br>
@@ -204,10 +125,9 @@
                         <div>
                            <div class="row">
                               <div class="col-md-6">
-                                 <input type="radio" name="optionSelected" id="optionAButton" value="0"
-                                    th:data-name="${question.getStatement()}"
-                                    th:onclick="showDesiredBorder(this.getAttribute('data-name'), 0)"> <label
-                                    for="optionAButton" id="optionALabel" class="box fifth w-100 option-label">
+                                 <input type="radio" name="optionSelected" id="optionAButton" value="0"> <label
+                                    for="optionAButton" id="optionALabel" class="box fifth w-100"
+                                    th:classappend="${question.getBorderColorOptionA()}">
                                     <div class="course"> <span class="circle"></span>
                                        <span class="subject" id="optionADescription" th:text="${question.getOptionA()}">
                                        </span>
@@ -215,27 +135,27 @@
                                  </label>
                               </div>
                               <div class="col-md-6">
-                                 <input type="radio" name="optionSelected" id="optionBButton" value="1"
-                                    th:onclick="showDesiredBorder([[${question.getStatement()}]], 1)"> <label
-                                    for="optionBButton" id="optionBLabel" class="box sixth w-100 option-label">
+                                 <input type="radio" name="optionSelected" id="optionBButton" value="1"> <label
+                                    for="optionBButton" id="optionBLabel" class="box sixth w-100"
+                                    th:classappend="${question.getBorderColorOptionB()}">
                                     <div class="course"> <span class="circle"></span> <span class="subject"
                                           id="optionBDescription" th:text="${question.getOptionB()}"> </span>
                                     </div>
                                  </label>
                               </div>
                               <div class="col-md-6">
-                                 <input type="radio" name="optionSelected" id="optionCButton" value="2"
-                                    th:onclick="showDesiredBorder([[${question.getAns()}]], 2)"> <label
-                                    for="optionCButton" id="optionCLabel" class="box seveth w-100 option-label">
+                                 <input type="radio" name="optionSelected" id="optionCButton" value="2"> <label
+                                    for="optionCButton" id="optionCLabel" class="box seveth w-100"
+                                    th:classappend="${question.getBorderColorOptionC()}">
                                     <div class="course"> <span class="circle"></span> <span class="subject"
                                           id="optionCDescription" th:text="${question.getOptionC()}">
                                        </span> </div>
                                  </label>
                               </div>
                               <div class="col-md-6">
-                                 <input type="radio" name="optionSelected" id="optionDButton" value="3"
-                                    th:onclick="showDesiredBorder([[${question.getAns()}]], 3)"> <label
-                                    for="optionDButton" id="optionDLabel" class="box eighth w-100 option-label">
+                                 <input type="radio" name="optionSelected" id="optionDButton" value="3"> <label
+                                    for="optionDButton" id="optionDLabel" class="box eighth w-100"
+                                    th:classappend="${question.getBorderColorOptionD()}">
                                     <div class="course"> <span class="circle"></span> <span class="subject"
                                           id="optionDDescription" th:text="${question.getOptionD()}">
                                        </span> </div>
