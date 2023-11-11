@@ -42,7 +42,7 @@
     padding: 10px 12px;
     border-radius: 5px;
     cursor: pointer;
-    border: 1px solid #ddd
+    /* border: 1px solid #ddd */
 }
 
 #one:checked~label.first,
@@ -106,7 +106,6 @@
 .container1 .btn-primary {
     background-color: #555;
     color: #ddd;
-    border: 1px solid #ddd;
 }
 
 .container1 .btn-primary:hover {
@@ -221,4 +220,61 @@
 .map-responsive {
     border: 2px solid #000000;
     border-radius: 5px;
+}
+
+
+/**
+* Border class red
+*/
+.red-border {
+    border: 2px solid red;
+    border-radius: 5px;
+}
+
+
+.green-border {
+    border: 2px solid green;
+    border-radius: 5px;
+}
+
+.default-border {
+    border: 1px solid #ddd;
+}
+
+.blue-border {
+    border: 2px solid blue;
+}
+
+/* .success_message {
+    color: green;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} */
+
+.success_message {
+    text-align: center;
+    font-size: 18px;
+    color: green;
+    margin: auto;
+
+    /* color: green;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+}
+
+.score,
+.max_score {
+    font-weight: bold;
+    font-size: 24px;
+    color: #333;
+    /* Or a different color for emphasis */
+    /* Any additional styling you want */
 }

@@ -1,19 +1,9 @@
 (function () {
   "use strict";
-
-  document.getElementById("submit_quiz_request_button").addEventListener("click", onClickSubmitButtonRequest);
-
-  document.getElementById("nextQuestionButton").addEventListener("click", onClickNextQuestionButton);
-  document.getElementById("previousQuestionButton").addEventListener("click", onClickPreviousQuestionButton);
-
   // document.addEventListener("DOMContentLoaded", function () {
   //   showCorrectBorder();
   // });
 
-  /**
- * Defaults for initial first question
- */
-  setOptionNullSelected();
 
   /**
    * Easy selector helper function
@@ -333,149 +323,6 @@
  */
 
 
-/**
- * shows the quiz submit form 
- */
-function onClickSubmitButtonRequest() {
-  document.getElementById("submit_quiz_form").style.removeProperty('display');
-
-  $('html,body').animate({
-    scrollTop: $(".formSubmitQuiz").offset().top
-  }, 'slow');
-
-}
-
-/**
- * hides the quiz submit form 
- */
-function hideSubmitQuizForm() {
-  document.getElementById("submit_quiz_form").style.display = "none";
-}
-
-
-
-function setOptionNullSelected() {
-  let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
-  console.log("totalQuestionValue : " + totalQuestionValue);
-
-  var userOptedAnswersArray = Array.from(Array(totalQuestionValue));
-
-  var userOptedAnswersJSON = JSON.stringify(userOptedAnswersArray);
-  document.getElementById("userOptedAnswers").value = userOptedAnswersJSON;
-
-  console.log("userOptedAnswers : " + document.getElementById("userOptedAnswers").value);
-}
-
-
-function showDesiredButton(currentQuestion, totalQuestion) {
-
-  if (currentQuestion == totalQuestion) {
-    console.log("reached the last question, lets show submit button");
-    document.getElementById("nextQuestionButton").innerHTML = "Submit Quiz";
-  } else {
-    document.getElementById("nextQuestionButton").innerHTML = "Next";
-  }
-
-  if (currentQuestion == 1) {
-    document.getElementById("previousQuestionButton").disabled = true;
-  } else {
-    document.getElementById("previousQuestionButton").disabled = false;
-  }
-
-}
-
-function showDesiredNumberOnInfo(currentQuestion, totalQuestion) {
-  document.getElementById("questionNumberInfo").innerHTML = "(" + currentQuestion + " of " + totalQuestion + ")";
-}
-
-function showExistingSelectedOption(currentQuestion) {
-
-  var userOptedAnswersJSON = document.getElementById("userOptedAnswers").value;
-  var userOptedAnswersArray = JSON.parse(userOptedAnswersJSON);
-  var selectedOption = userOptedAnswersArray[currentQuestion - 1];
-
-  document.getElementById("optionALabel").style.background = "null";
-  document.getElementById("optionBLabel").style.background = "null";
-  document.getElementById("optionCLabel").style.background = "null";
-  document.getElementById("optionDLabel").style.background = "null";
-
-  document.getElementById("optionALabel").style.removeProperty('background');
-  document.getElementById("optionBLabel").style.removeProperty('background');
-  document.getElementById("optionCLabel").style.removeProperty('background');
-  document.getElementById("optionDLabel").style.removeProperty('background');
-
-  if (selectedOption === 0) {
-    document.getElementById("optionALabel").style.background = "#fa2a00";
-  }
-  else if (selectedOption === 1) {
-    document.getElementById("optionBLabel").style.background = "#fa2a00";
-  }
-  else if (selectedOption === 2) {
-    document.getElementById("optionCLabel").style.background = "#fa2a00";
-  }
-  else if (selectedOption === 3) {
-    document.getElementById("optionDLabel").style.background = "#fa2a00";
-  }
-
-}
-
-/**
- * 
- * function used to change the page based on the question number reached. 
- *  it changes the next or submit button, question text and information on the page
- */
-function showDesiredQuestionPage(currentQuestion, totalQuestion) {
-  showDesiredButton(currentQuestion, totalQuestion);
-  showDesiredNumberQuestion(Number(currentQuestion - 1));
-  showDesiredNumberOnInfo(currentQuestion, totalQuestion);
-  showExistingSelectedOption(currentQuestion);
-
-}
-
-
-/**
- * for changing the current Shown Question Number to next page
- */
-function onClickNextQuestionButton() {
-  var elementCurrentQuestionNumber = document.getElementById("questionNumberToShow");
-  let currentQuestionValue = Number(document.getElementById("questionNumberToShow").value);
-  let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
-
-  if (currentQuestionValue < totalQuestionValue) {
-    elementCurrentQuestionNumber.value = currentQuestionValue + 1;
-    showDesiredQuestionPage(elementCurrentQuestionNumber.value, totalQuestionValue);
-    hideSubmitQuizForm();
-  }
-  else if (currentQuestionValue == totalQuestionValue) {
-    onClickSubmitButtonRequest();
-  }
-  console.log("elementCurrentQuestionNumber.value : " + elementCurrentQuestionNumber.value);
-}
-
-/**
- * for changing the current Shown Question Number to previous page
- */
-function onClickPreviousQuestionButton() {
-  var elementCurrentQuestionNumber = document.getElementById("questionNumberToShow");
-  let currentQuestionValue = Number(document.getElementById("questionNumberToShow").value);
-
-  let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
-
-  if (currentQuestionValue > 1) {
-    elementCurrentQuestionNumber.value = currentQuestionValue - 1;
-    showDesiredQuestionPage(elementCurrentQuestionNumber.value, totalQuestionValue);
-  }
-  hideSubmitQuizForm();
-  console.log("elementCurrentQuestionNumber.value : " + elementCurrentQuestionNumber.value);
-}
-
-
-function submitQuizForm() {
-
-  console.log("userName : " + document.getElementById("userName").value);
-  console.log("userEmail : " + document.getElementById("userEmail").value);
-  document.getElementById("quizSubmitForm").submit();
-}
 
 
 
@@ -486,6 +333,16 @@ function submitQuizForm() {
  * th:onclick="showDesiredBorder([[${question.getAns()}]], 0)"
  */
 function showDesiredBorder(actualAns, optionNumber) {
-  console.log("actualAns : " + actualAns);
-  console.log("optionNumber : " + optionNumber);
+  console.log("Function showDesiredBorder called with actualAns : " + actualAns + " and optionNumber : " + optionNumber);
+}
+
+
+
+function showTest(actualAns) {
+  console.log("Function showTest called with actualAns : " + actualAns);
+}
+
+
+function getBorderClass() {
+  return "red-border";
 }
