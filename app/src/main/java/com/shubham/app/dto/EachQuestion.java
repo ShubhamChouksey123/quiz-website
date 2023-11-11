@@ -22,6 +22,11 @@ public class EachQuestion {
     /** option opted by the user, for this question */
     private Integer useOptedAnswer;
 
+    private String borderColorOptionA;
+    private String borderColorOptionB;
+    private String borderColorOptionC;
+    private String borderColorOptionD;
+
     public EachQuestion() {
     }
 
@@ -118,5 +123,45 @@ public class EachQuestion {
 
     public void setUseOptedAnswer(Integer useOptedAnswer) {
         this.useOptedAnswer = useOptedAnswer;
+    }
+
+    public String getBorderColorOptionA() {
+        return borderColorOptionA;
+    }
+
+    public void setBorderColorOptionA(String borderColorOptionA) {
+        this.borderColorOptionA = borderColorOptionA;
+    }
+
+    public String getBorderColorOptionB() {
+        return borderColorOptionB;
+    }
+
+    public void setBorderColorOptionB(String borderColorOptionB) {
+        this.borderColorOptionB = borderColorOptionB;
+    }
+
+    public String getBorderColorOptionC() {
+        return borderColorOptionC;
+    }
+
+    public void setBorderColorOptionC(String borderColorOptionC) {
+        this.borderColorOptionC = borderColorOptionC;
+    }
+
+    public String getBorderColorOptionD() {
+        return borderColorOptionD;
+    }
+
+    public void setBorderColorOptionD(String borderColorOptionD) {
+        this.borderColorOptionD = borderColorOptionD;
+    }
+
+    @Override
+    public String toString() {
+        return "EachQuestion{" + "index=" + index + ", questionId=" + questionId + ", ans=" + ans + ", useOptedAnswer="
+                + useOptedAnswer + ", borderColorOptionA='" + borderColorOptionA + '\'' + ", borderColorOptionB='"
+                + borderColorOptionB + '\'' + ", borderColorOptionC='" + borderColorOptionC + '\''
+                + ", borderColorOptionD='" + borderColorOptionD + '\'' + ", statement='" + statement + '\'' + '}';
     }
 }

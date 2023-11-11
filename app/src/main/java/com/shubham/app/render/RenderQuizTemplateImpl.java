@@ -14,6 +14,7 @@ import com.shubham.app.service.questioncrud.exception.InternalServerException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.shubham.app.controller.QuizSubmissionController.TOTAL_QUESTIONS_TO_ASK;
 
@@ -55,28 +56,32 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
 
         List<Question> questions = questionCrud.getQuestionsFromQuestionIds(questionIdsList);
 
-        List<Integer> actualAnswersList = new ArrayList<>();
-        for (Question question : questions) {
-            actualAnswersList.add(question.getAns());
+        List<EachQuestion> questionsResults = new ArrayList<>();
+
+        for (int i = 0; i < questions.size(); i++) {
+
+            Question question = questions.get(i);
+
+            EachQuestion eachQuestion = new EachQuestion(question);
+            eachQuestion.setIndex(i);
+            eachQuestion.setUseOptedAnswer(userOptedAnswersList.get(i));
+            questionsResults.add(eachQuestion);
+
+            setAllBorderColorsOfOptions(eachQuestion);
+            logger.info("eachQuestion : {}", eachQuestion);
         }
 
         Integer score = questionCrud.calculateAndSaveScore(name, email, questionIdsList, userOptedAnswersList,
                 questions);
 
-        // renderResultPage(questions, questionIdsList, userOptedAnswersList,
-        // actualAnswersList,
-        // score, model);
+        renderResultPage(questionsResults, score, model);
     }
 
-    public void renderResultPage(List<EachQuestion> questions, List<Integer> questionIds,
-            List<Integer> userOptedAnswersList, List<Integer> actualAnswersList, Integer score, Model model) {
+    public void renderResultPage(List<EachQuestion> questions, Integer score, Model model) {
 
         model.addAttribute("questions", questions);
-
-        model.addAttribute("questionIds", questionIds);
-        model.addAttribute("userOptedAnswers", userOptedAnswersList);
-        model.addAttribute("actualAnswers", actualAnswersList);
         model.addAttribute("score", score);
+        model.addAttribute("maxScore", 10);
 
         model.addAttribute("questionNumberToShow", 1);
         model.addAttribute("totalQuestions", TOTAL_QUESTIONS_TO_ASK);
@@ -87,27 +92,39 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
 
         List<Question> questions = questionCrud.getQuestionsForAnUser(TOTAL_QUESTIONS_TO_ASK);
 
-        List<Integer> ids = new ArrayList<>();
-        List<Integer> userOptedAnswersList = new ArrayList<>();
-        List<Integer> actualAnswersList = new ArrayList<>();
-
         List<EachQuestion> questionsResults = new ArrayList<>();
 
         for (int i = 0; i < questions.size(); i++) {
 
             Question question = questions.get(i);
-            ids.add(Math.toIntExact(question.getQuestionId()));
-            actualAnswersList.add(question.getAns());
-            userOptedAnswersList.add(1);
-//            logger.info("question : {}", question);
 
             EachQuestion eachQuestion = new EachQuestion(question);
-            logger.info("answer : {} of question : {}", eachQuestion.getAns(),  eachQuestion.getStatement());
             eachQuestion.setIndex(i);
             eachQuestion.setUseOptedAnswer(1);
             questionsResults.add(eachQuestion);
+
+            setAllBorderColorsOfOptions(eachQuestion);
+            logger.info("eachQuestion : {}", eachQuestion);
         }
 
-        renderResultPage(questionsResults, ids, userOptedAnswersList, actualAnswersList, 8, model);
+        renderResultPage(questionsResults, 8, model);
+    }
+
+    private String getBorderColor(Integer ans, Integer userOptedAnswer, Integer option) {
+        if (Objects.equals(ans, userOptedAnswer) && Objects.equals(userOptedAnswer, option)) {
+            return "blue-border";
+        } else if (!Objects.equals(ans, option) && Objects.equals(userOptedAnswer, option)) {
+            return "red-border";
+        } else if (Objects.equals(ans, option) && !Objects.equals(userOptedAnswer, option)) {
+            return "green-border";
+        }
+        return "default-border";
+    }
+
+    private void setAllBorderColorsOfOptions(EachQuestion eachQuestion) {
+        eachQuestion.setBorderColorOptionA(getBorderColor(eachQuestion.getAns(), eachQuestion.getUseOptedAnswer(), 0));
+        eachQuestion.setBorderColorOptionB(getBorderColor(eachQuestion.getAns(), eachQuestion.getUseOptedAnswer(), 1));
+        eachQuestion.setBorderColorOptionC(getBorderColor(eachQuestion.getAns(), eachQuestion.getUseOptedAnswer(), 2));
+        eachQuestion.setBorderColorOptionD(getBorderColor(eachQuestion.getAns(), eachQuestion.getUseOptedAnswer(), 3));
     }
 }
