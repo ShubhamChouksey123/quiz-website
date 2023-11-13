@@ -5,16 +5,20 @@
 #   Make sure to do it from the root directory,  
 
 #   Killing app service  
-npx kill-port 8080
+# npx kill-port 8080
 
 
 #   Building app - Maven
 echo "Building app with maven..."
 
+cd app
+./mvnw spotless:apply
+./mvnw clean install
+# ./app/mvnw clean install -DskipTests
 
-mvn spotless:apply
+# mvn spotless:apply
 
-mvn clean install 
+# mvn clean install 
 
 echo "Successful Build of app with maven"
 
