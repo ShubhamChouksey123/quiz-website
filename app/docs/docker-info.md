@@ -45,7 +45,20 @@ docker run -p 8080:8080
 
 * Make sure the command in start.sh script is correct as per your config files path
 ```shell script
-java -cp "target/wallet-link-0.0.1-SNAPSHOT-app/wallet-link-0.0.1-SNAPSHOT.jar:../../plugins/default-event-user/target/default-event-0.0.1-SNAPSHOT-shaded.jar:../../plugins/sms/twilio/target/twilio-0.0.1-SNAPSHOT-shaded.jar:../../plugins/email/gmail-email-service/target/gmail-email-service-0.0.1-SNAPSHOT-shaded.jar"  com.jinjava.wallet.WalletLinkApplication  --spring.config.location=classpath:application.properties,../../config.yml
+env $(cat app/.env | grep -v "^#" | xargs) java -jar app/target/app-0.0.1-SNAPSHOT.jar
+```
+
+
+## Sample .env File
+```shell script
+
+# Quiz Website Database credentials
+QUIZ_DB_HOST=localhost
+QUIZ_DB_PORT=5432
+QUIZ_DB_NAME=quiz
+QUIZ_DB_USERNAME=postgres
+QUIZ_DB_PASSWORD=root
+QUIZ_DB_CONFIG_QUERY_STRING=allowPublicKeyRetrieval=true&useSSL=false&sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false&createDatabaseIfNotExist=true
 ```
 
 
