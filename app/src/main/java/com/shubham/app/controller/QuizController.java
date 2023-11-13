@@ -12,6 +12,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.shubham.app.render.RenderQuizTemplate;
 import com.shubham.app.service.questioncrud.exception.InternalServerException;
 
+import java.util.Objects;
+
 /**
  * We have used this open-source theme template from
  * <a href="https://themewagon.com/themes/vintagefur/">Theme-wagon template</a>
@@ -23,7 +25,7 @@ public class QuizController {
     @Autowired
     private RenderQuizTemplate renderQuizTemplate;
 
-    @GetMapping({"/home", "index"})
+    @GetMapping({"/", "/home", "index"})
     public String renderHome() {
         return "quiz-template/index";
     }
@@ -50,7 +52,7 @@ public class QuizController {
             @RequestParam(value = "email") String email,
             @RequestParam(value = "userOptedAnswers", required = false) String userOptedAnswers,
             @RequestParam(value = "questionIds", required = false) String questionIds, Model model,
-            RedirectAttributes redirectAttrs) throws InternalServerException {
+            RedirectAttributes redirectAttrs) {
         logger.info("submitted the quiz with name : {}, email : {} and userOptedAnswers : {}", name, email,
                 userOptedAnswers);
         logger.info("questionIds : {}", questionIds);
@@ -60,12 +62,7 @@ public class QuizController {
         redirectAttrs.addFlashAttribute("userOptedAnswers", userOptedAnswers);
         redirectAttrs.addFlashAttribute("questionIds", questionIds);
 
-        // model.addAttribute("name", name);
-        // model.addAttribute("email", email);
-        // model.addAttribute("userOptedAnswers", userOptedAnswers);
-        // model.addAttribute("questionIds", questionIds);
         return new RedirectView("/result");
-        // return "result";
     }
 
     @GetMapping({"/result"})
@@ -73,21 +70,16 @@ public class QuizController {
             @ModelAttribute("userOptedAnswers") String userOptedAnswers,
             @ModelAttribute("questionIds") String questionIds, Model model) throws InternalServerException {
 
-        renderQuizTemplate.calculateScore(name, email, userOptedAnswers, questionIds, model);
-
-        // renderQuizTemplate.renderResultPagePrepareFake(model);
-
+        if (!Objects.equals(name, "")) {
+            renderQuizTemplate.calculateScore(name, email, userOptedAnswers, questionIds, model);
+        }
         return "quiz-template/result";
     }
 
     @PostMapping({"/result"})
-    public String postRenderResultOfQuiz(@ModelAttribute String name, @ModelAttribute String email,
-            @ModelAttribute String userOptedAnswers, @ModelAttribute String questionIds, Model model)
-            throws InternalServerException {
-
-        renderQuizTemplate.calculateScore(name, email, userOptedAnswers, questionIds, model);
-
-        // renderQuizTemplate.renderResultPagePrepareFake(model);
+    public String postRenderResultOfQuiz(@ModelAttribute("name") String name, @ModelAttribute("email") String email,
+            @ModelAttribute("userOptedAnswers") String userOptedAnswers,
+            @ModelAttribute("questionIds") String questionIds, Model model) {
 
         return "quiz-template/result";
     }

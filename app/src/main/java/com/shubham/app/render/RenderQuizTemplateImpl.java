@@ -68,7 +68,7 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
             questionsResults.add(eachQuestion);
 
             setAllBorderColorsOfOptions(eachQuestion);
-            logger.info("eachQuestion : {}", eachQuestion);
+            logger.debug("eachQuestion : {}", eachQuestion);
         }
 
         Integer score = questionCrud.calculateAndSaveScore(name, email, questionIdsList, userOptedAnswersList,
