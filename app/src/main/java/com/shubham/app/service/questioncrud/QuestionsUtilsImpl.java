@@ -26,6 +26,7 @@ public class QuestionsUtilsImpl implements QuestionsUtils {
         try {
             questionIdsList = objectMapper.readValue(questionIds, List.class);
         } catch (JsonProcessingException e) {
+            logger.warn("unable to convert : {} string to list of integer", questionIds);
             throw new InternalServerException();
         }
 
