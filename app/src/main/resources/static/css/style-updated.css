@@ -222,3 +222,10 @@
     border: 2px solid #000000;
     border-radius: 5px;
 }
+
+
+
+.formSubmitDiv {
+    display: flex;
+    justify-content: center;
+}
