@@ -93,4 +93,9 @@ public class QuizController {
     public String renderContact() {
         return "quiz-template/contact";
     }
+
+    @GetMapping({"/leaderboard"})
+    public String renderLeaderBoard() {
+        return "quiz-template/leaderboard";
+    }
 }
