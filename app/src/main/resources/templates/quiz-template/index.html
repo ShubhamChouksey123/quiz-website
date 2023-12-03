@@ -196,50 +196,24 @@
          </tr>
       </thead>
       <tbody>
-         <tr>
+         <tr th:each="performer, iterStat: ${performers}">
             <td>
-               <img src="images/badge-first.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+               <span th:if="${iterStat.index == 0}">
+                  <img src="images/badge-first.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+               </span>
+               <span th:if="${iterStat.index == 1}">
+                  <img src="images/badge-second.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+               </span>
+               <span th:if="${iterStat.index == 2}">
+                  <img src="images/badge-third.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+               </span>
+               <span th:if="${iterStat.index > 2}">
+                  <img src="images/badge-rest.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+               </span>
             </td>
-            <th scope="row">John Doe</th>
-            <!-- <td>john.doe@gmail.com</td> -->
-            <td>9</td>
-
-         </tr>
-         <tr>
-            <td>
-               <img src="images/badge-second.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
-            </td>
-            <th scope="row">Alex Ray</th>
-            <!-- <td>alex.ray@gmail.com</td> -->
-            <td>9</td>
-
-         </tr>
-         <tr>
-            <td>
-               <img src="images/badge-third.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
-            </td>
-            <th scope="row">Kate Hrington</th>
-            <!-- <td>kate.hrington@gmail.com</td> -->
-            <td>8</td>
-
-         </tr>
-         <tr>
-            <td>
-               <img src="images/badge-rest.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
-            </td>
-            <th scope="row">Naman Chouksey</th>
+            <th scope="row" th:text="${performer.getName()}">Naman Chouksey</th>
             <!-- <td>naman.chouksey@gmail.com</td> -->
-            <td>7</td>
-
-         </tr>
-         <tr>
-            <td>
-               <img src="images/badge-rest.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
-            </td>
-            <th scope="row">Shubham Chouksey</th>
-            <!-- <td>naman.chouksey@gmail.com</td> -->
-            <td>4</td>
-
+            <td th:text="${performer.score}">7</td>
          </tr>
       </tbody>
    </table>
