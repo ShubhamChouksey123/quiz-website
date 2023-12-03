@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 
 import com.shubham.app.dto.EachQuestion;
 import com.shubham.app.entity.Question;
+import com.shubham.app.entity.QuizSubmission;
 import com.shubham.app.service.questioncrud.QuestionCrud;
 import com.shubham.app.service.questioncrud.QuestionsUtils;
 import com.shubham.app.service.questioncrud.exception.InternalServerException;
@@ -25,7 +26,6 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
 
     @Autowired
     private QuestionCrud questionCrud;
-
     @Autowired
     private QuestionsUtils questionsUtils;
 
@@ -78,7 +78,7 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         renderResultPage(questionsResults, score, model);
     }
 
-    public void renderResultPage(List<EachQuestion> questions, Integer score, Model model) {
+    private void renderResultPage(List<EachQuestion> questions, Integer score, Model model) {
 
         model.addAttribute("questions", questions);
         model.addAttribute("score", score);
@@ -104,5 +104,19 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
             return "green-border";
         }
         return "default-border";
+    }
+
+    @Override
+    public void renderLeaderBoardPage(Model model) {
+
+        logger.info("fetching the leaderboard page");
+        List<QuizSubmission> quizSubmissions = questionCrud.getTopPerformers();
+
+        for (QuizSubmission quizSubmission : quizSubmissions) {
+            logger.info("quizSubmission : {}", quizSubmission);
+        }
+
+        model.addAttribute("performers", quizSubmissions);
+        model.addAttribute("totalQuestions", TOTAL_QUESTIONS_TO_ASK);
     }
 }

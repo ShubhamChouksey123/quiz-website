@@ -56,7 +56,7 @@ public class QuestionCrud {
         return questionDAO.getAnswerOfQuestions(questionIdsList);
     }
 
-    public Integer calculateScore(List<Integer> questionIdsList, List<Integer> userOptedAnswersList,
+    private Integer calculateScore(List<Integer> questionIdsList, List<Integer> userOptedAnswersList,
             List<Question> questions) {
 
         Map<Long, Integer> mp = new HashMap<>();
@@ -102,5 +102,9 @@ public class QuestionCrud {
         // dTOToEntity.convertContactQueryDTO(contactQueryResponse);
         // dTOToEntity.convertContactQueryDTO(contactQueryResponse);
         contactQueryDAO.saveContactQuery(null);
+    }
+
+    public List<QuizSubmission> getTopPerformers() {
+        return quizSubmissionDao.getTopPerformers(5);
     }
 }
