@@ -26,7 +26,8 @@ public class QuizController {
     private RenderQuizTemplate renderQuizTemplate;
 
     @GetMapping({"/", "/home", "index"})
-    public String renderHome() {
+    public String renderHome(Model model) {
+        renderQuizTemplate.renderLeaderBoardPage(model);
         return "quiz-template/index";
     }
 
@@ -92,5 +93,11 @@ public class QuizController {
     @GetMapping({"/contact"})
     public String renderContact() {
         return "quiz-template/contact";
+    }
+
+    @GetMapping({"/leaderboard"})
+    public String renderLeaderBoard(Model model) {
+        renderQuizTemplate.renderLeaderBoardPage(model);
+        return "quiz-template/leaderboard";
     }
 }

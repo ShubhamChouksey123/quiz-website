@@ -81,7 +81,8 @@
    <div class="header_section">
       <div class="container">
          <nav class="navbar navbar-expand-lg navbar-light bg-nav-bar">
-            <div class="logo"><a href="/home"><img src="images/logo.png"></a></div>
+            <div class="logo"><a href="/home"><img src="images/website-logo-1x.webp"
+                     style="width: 15%; float: left;"></a></div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
@@ -89,29 +90,25 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                <ul class="navbar-nav mr-auto">
                   <li class="nav-item">
-                     <a class="nav-link" href="/home">Home</a>
+                     <a href="#home" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="/services">services</a>
+                     <a href="#services" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Services</span></a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="/about">About</a>
+                     <a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="/shop">Shop</a>
+                     <a href="#leader_board" class="nav-link scrollto"><i class="bx bx-user"></i>
+                        <span>LeaderBoard</span></a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="/contact">Contact</a>
+                     <a class="nav-link" href="/quiz">Start Quiz</a>
+                  </li>
+                  <li class="nav-item">
+                     <a href="#contact" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Contact</span></a>
                   </li>
                </ul>
-               <form class="form-inline my-2 my-lg-0">
-                  <div class="search_icon">
-                     <ul>
-                        <li><a href="#"><img src="images/search-icon.png"></a></li>
-                        <li><a href="#">LOGIN</a></li>
-                     </ul>
-                  </div>
-               </form>
             </div>
          </nav>
       </div>
@@ -203,11 +200,6 @@
 
 
 
-                  <div class="col-12">
-                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary px-4 py-2 fw-bold">continue1</button>
-                     </div>
-                  </div>
                </div>
                <div class="d-flex flex-row justify-content-between align-items-center p-3">
                   <button id="previousQuestionButton" class="btn btn-primary d-flex align-items-center btn-danger"
@@ -226,7 +218,7 @@
 
 
          <div id="submit_quiz_form" class="row formSubmitQuiz" style="display: none;">
-            <form id="quizSubmitForm" method="post" action="/submit-quiz">
+            <form id="quizSubmitForm" class="formSubmitDiv" method="post" action="/submit-quiz">
                <div class="row mail_sectin" style="max-width: 600px; margin: auto;">
                   <input type="text" id="userName" class="email-bt" placeholder="Name" name="name">
                   <input type="email" id="userEmail" class="email-bt" placeholder="Email" name="email">
@@ -241,7 +233,6 @@
                </div>
             </form>
          </div>
-
 
       </div>
 

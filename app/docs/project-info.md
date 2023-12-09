@@ -4,7 +4,7 @@
 Frequently used commands .
 
 
-## Docker 
+### Docker 
 
 *  Build docker without any name and tag  
 ```shell script
@@ -51,7 +51,6 @@ env $(cat app/.env | grep -v "^#" | xargs) java -jar app/target/app-0.0.1-SNAPSH
 
 ## Sample .env File
 ```shell script
-
 # Quiz Website Database credentials
 QUIZ_DB_HOST=localhost
 QUIZ_DB_PORT=5432
@@ -60,6 +59,19 @@ QUIZ_DB_USERNAME=postgres
 QUIZ_DB_PASSWORD=root
 QUIZ_DB_CONFIG_QUERY_STRING=allowPublicKeyRetrieval=true&useSSL=false&sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false&createDatabaseIfNotExist=true
 ```
+
+## TODO 
+
+* Make the admin page to add the questions in the database.
+* Contact page sending email to use and admin.
+* Random questions from the database. 
+* About Page: content
+* Contact Page: google map not working
+* Leaderboard Page: not dynamic content
+* Footer: change the content
+
+
+
 
 
 ## Authors
