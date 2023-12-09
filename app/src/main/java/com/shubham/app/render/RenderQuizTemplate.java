@@ -10,6 +10,5 @@ public interface RenderQuizTemplate {
     void calculateScore(String name, String email, String userOptedAnswers, String questionIds, Model model)
             throws InternalServerException;
 
-    /** TODO : lets remove it */
-    void renderResultPagePrepareFake(Model model);
+    void renderLeaderBoardPage(Model model);
 }

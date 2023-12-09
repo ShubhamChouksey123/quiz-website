@@ -74,4 +74,10 @@ public class QuizSubmission {
     public void setTimeStamp(Date timeStamp) {
         this.timeStamp = timeStamp;
     }
+
+    @Override
+    public String toString() {
+        return "QuizSubmission{" + "submissionId=" + submissionId + ", name='" + name + '\'' + ", email='" + email
+                + '\'' + ", score=" + score + ", timeStamp=" + timeStamp + '}';
+    }
 }
