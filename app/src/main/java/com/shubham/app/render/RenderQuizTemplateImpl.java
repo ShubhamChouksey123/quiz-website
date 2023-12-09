@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 
 import com.shubham.app.dto.EachQuestion;
 import com.shubham.app.entity.Question;
+import com.shubham.app.entity.QuizSubmission;
 import com.shubham.app.service.questioncrud.QuestionCrud;
 import com.shubham.app.service.questioncrud.QuestionsUtils;
 import com.shubham.app.service.questioncrud.exception.InternalServerException;
@@ -25,20 +26,20 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
 
     @Autowired
     private QuestionCrud questionCrud;
-
     @Autowired
     private QuestionsUtils questionsUtils;
 
     @Override
     public void renderQuizPage(Model model) {
 
+        logger.info("fetching the questions for quiz page");
         List<Question> questions = questionCrud.getQuestionsForAnUser(TOTAL_QUESTIONS_TO_ASK);
 
         List<Long> ids = new ArrayList<>();
 
         for (Question question : questions) {
             ids.add(question.getQuestionId());
-            logger.info("question : {}", question);
+            logger.debug("question : {}", question);
         }
 
         model.addAttribute("questions", questions);
@@ -77,7 +78,7 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         renderResultPage(questionsResults, score, model);
     }
 
-    public void renderResultPage(List<EachQuestion> questions, Integer score, Model model) {
+    private void renderResultPage(List<EachQuestion> questions, Integer score, Model model) {
 
         model.addAttribute("questions", questions);
         model.addAttribute("score", score);
@@ -87,27 +88,11 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         model.addAttribute("totalQuestions", TOTAL_QUESTIONS_TO_ASK);
     }
 
-    @Override
-    public void renderResultPagePrepareFake(Model model) {
-
-        List<Question> questions = questionCrud.getQuestionsForAnUser(TOTAL_QUESTIONS_TO_ASK);
-
-        List<EachQuestion> questionsResults = new ArrayList<>();
-
-        for (int i = 0; i < questions.size(); i++) {
-
-            Question question = questions.get(i);
-
-            EachQuestion eachQuestion = new EachQuestion(question);
-            eachQuestion.setIndex(i);
-            eachQuestion.setUseOptedAnswer(1);
-            questionsResults.add(eachQuestion);
-
-            setAllBorderColorsOfOptions(eachQuestion);
-            logger.info("eachQuestion : {}", eachQuestion);
-        }
-
-        renderResultPage(questionsResults, 8, model);
+    private void setAllBorderColorsOfOptions(EachQuestion eachQuestion) {
+        eachQuestion.setBorderColorOptionA(getBorderColor(eachQuestion.getAns(), eachQuestion.getUseOptedAnswer(), 0));
+        eachQuestion.setBorderColorOptionB(getBorderColor(eachQuestion.getAns(), eachQuestion.getUseOptedAnswer(), 1));
+        eachQuestion.setBorderColorOptionC(getBorderColor(eachQuestion.getAns(), eachQuestion.getUseOptedAnswer(), 2));
+        eachQuestion.setBorderColorOptionD(getBorderColor(eachQuestion.getAns(), eachQuestion.getUseOptedAnswer(), 3));
     }
 
     private String getBorderColor(Integer ans, Integer userOptedAnswer, Integer option) {
@@ -121,10 +106,17 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         return "default-border";
     }
 
-    private void setAllBorderColorsOfOptions(EachQuestion eachQuestion) {
-        eachQuestion.setBorderColorOptionA(getBorderColor(eachQuestion.getAns(), eachQuestion.getUseOptedAnswer(), 0));
-        eachQuestion.setBorderColorOptionB(getBorderColor(eachQuestion.getAns(), eachQuestion.getUseOptedAnswer(), 1));
-        eachQuestion.setBorderColorOptionC(getBorderColor(eachQuestion.getAns(), eachQuestion.getUseOptedAnswer(), 2));
-        eachQuestion.setBorderColorOptionD(getBorderColor(eachQuestion.getAns(), eachQuestion.getUseOptedAnswer(), 3));
+    @Override
+    public void renderLeaderBoardPage(Model model) {
+
+        logger.info("fetching the leaderboard page");
+        List<QuizSubmission> quizSubmissions = questionCrud.getTopPerformers();
+
+        for (QuizSubmission quizSubmission : quizSubmissions) {
+            logger.info("quizSubmission : {}", quizSubmission);
+        }
+
+        model.addAttribute("performers", quizSubmissions);
+        model.addAttribute("totalQuestions", TOTAL_QUESTIONS_TO_ASK);
     }
 }

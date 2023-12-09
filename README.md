@@ -1,6 +1,8 @@
 
 # Shubham Chouksey Portfolio Website
 
+[![Java CI with Maven](https://github.com/ShubhamChouksey123/quiz-website/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/ShubhamChouksey123/quiz-website/actions/workflows/maven.yml)
+
 ## Overview
 
 Welcome to my portfolio website repository! This website is a digital canvas that showcases my journey as a software engineer, highlighting my skills, projects, and experiences. It's designed to provide visitors with insights into my expertise and creative endeavors.
