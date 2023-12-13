@@ -91,7 +91,9 @@ public class QuizController {
     }
 
     @GetMapping({"/contact"})
-    public String renderContact() {
+    public String renderContact(@RequestParam(value = "name") String name, @RequestParam(value = "email") String email,
+            @RequestParam(value = "phoneNumber", required = false) String phoneNumber,
+            @RequestParam(value = "message", required = false) String message, Model model) {
         return "quiz-template/contact";
     }
 
