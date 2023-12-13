@@ -67,7 +67,6 @@ QUIZ_DB_CONFIG_QUERY_STRING=allowPublicKeyRetrieval=true&useSSL=false&sessionVar
 * Random questions from the database. 
 * About Page: content
 * Contact Page: google map not working
-* Leaderboard Page: not dynamic content
 * Footer: change the content
 
 
