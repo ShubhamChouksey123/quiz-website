@@ -20,6 +20,7 @@ public class SendVerificationCode {
 
     private static final String TEMPLATE_NAME = "recover-account-verify-phone";
     private static final String EMAIL_SUBJECT = "Wallet Financial - Recover Account OTP";
+    private static final String EMAIL_SUBJECT_CONTACT_QUERY = "Somebody wants to connect to you!";
 
     /** both uses same resources */
     public static Map<String, Resource> PARAMETER_RESOURCE_MAP_REGISTER_AC = Map.ofEntries(
