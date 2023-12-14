@@ -25,7 +25,7 @@ import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMultipart;
 
-@Service("gmail")
+@Service
 public class GmailSenderService implements EmailProvider {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Autowired
@@ -85,6 +85,10 @@ public class GmailSenderService implements EmailProvider {
 
     private void addInLineImages(EmailInformation emailInformation, MimeMessageHelper messageHelper)
             throws MessagingException {
+
+        if (emailInformation.getParameterResourceMap() == null) {
+            return;
+        }
         for (Map.Entry<String, Resource> mapElement : emailInformation.getParameterResourceMap().entrySet()) {
             messageHelper.addInline(mapElement.getKey(), mapElement.getValue());
         }
