@@ -32,6 +32,5 @@ public interface RenderQuizTemplate {
      * @param model
      * @throws InternalServerException
      */
-    void submitContactQuery(String name, String email, String phoneNumber, String message, Model model)
-            throws InternalServerException;
+    void submitContactQuery(String name, String email, String phoneNumber, String message, Model model);
 }

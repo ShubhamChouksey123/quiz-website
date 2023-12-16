@@ -26,7 +26,11 @@ public class QuizController {
     private RenderQuizTemplate renderQuizTemplate;
 
     @GetMapping({"/", "/home", "index"})
-    public String renderHome(Model model) {
+    public String renderHome(@ModelAttribute("contactMessage") String contactMessage, Model model) {
+
+        if (contactMessage != null) {
+            model.addAttribute("contactMessage", contactMessage);
+        }
         renderQuizTemplate.renderLeaderBoardPage(model);
         return "quiz-template/index";
     }
@@ -91,10 +95,25 @@ public class QuizController {
     }
 
     @GetMapping({"/contact"})
-    public String renderContact(@RequestParam(value = "name") String name, @RequestParam(value = "email") String email,
-            @RequestParam(value = "phoneNumber", required = false) String phoneNumber,
-            @RequestParam(value = "message", required = false) String message, Model model) {
+    public String renderContact(Model model) {
         return "quiz-template/contact";
+    }
+
+    @PostMapping(value = {"/submit-contact"})
+    @ResponseBody
+    public RedirectView submitContactQuery(@RequestParam(value = "name") String name,
+            @RequestParam(value = "email") String email,
+            @RequestParam(value = "phoneNumber", required = false) String phoneNumber,
+            @RequestParam(value = "message", required = false) String message, Model model,
+            RedirectAttributes redirectAttrs) {
+
+        logger.info("post method submitted with name : {}, email : {}, phoneNumber : {} and message : {}", name, email,
+                phoneNumber, message);
+        renderQuizTemplate.submitContactQuery(name, email, phoneNumber, message, model);
+
+        redirectAttrs.addFlashAttribute("contactMessage",
+                "Thank You for contacting, we will connect to you at the earliest.");
+        return new RedirectView("/home");
     }
 
     @GetMapping({"/leaderboard"})
