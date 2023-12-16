@@ -73,8 +73,19 @@
       </div>
 
 
-<!--      <p style="color: green;text-align: center;">Thank You for contacting, we will connect to you at the earliest.</p>-->
-      <p style="color: green;text-align: center;"><span th:text="${contactMessage}"></span></p>
+<!--      Plain background-->
+<!--      <p style="color: green;text-align: center; background-color: #f1e4e4a6">Thank You for contacting, we will connect to you at the earliest.</p>-->
+
+<!--      background green transparent-->
+<!--      <div class="alert alert-success" style="text-align: center;max-width: 500px;margin: auto;background-color: #b4ddbed9;margin-top:20px;width:90%;" role="alert">-->
+<!--         Thank You for contacting, we will connect to you at the earliest!.-->
+<!--      </div>-->
+
+      <span th:if="${successValue == true}">
+         <div class="alert alert-success" style="text-align: center;max-width: 500px;margin: auto;background-color: #b4ddbed9;margin-top:20px;width:90%;" role="alert">
+            <span th:text="${contactMessage}"></span>
+         </div>
+      </span>
 
       <!-- banner section start -->
       <div class="banner_section layout_padding">
