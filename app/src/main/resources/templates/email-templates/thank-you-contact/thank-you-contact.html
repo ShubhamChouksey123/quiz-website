@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f8f8;
+            background-color: #f2f2f2;
             color: #333;
             margin: 0;
             padding: 0;
@@ -16,10 +16,10 @@
         #container {
             max-width: 600px;
             margin: 20px auto;
-            background-color: #ffffff;
+            background-color: #e2dede;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Added shadow */
         }
 
         .header {
@@ -47,7 +47,7 @@
             text-align: left;
             font-size: 24px;
             margin: 0;
-            margin-top : 10px;
+            margin-top: 10px;
         }
 
         p {
@@ -77,23 +77,19 @@
             font-size: 14px;
             margin: 0;
         }
-
-
-
-
-
     </style>
 </head>
 
 <body>
 
 <div id="container">
+
     <div class="header">
 
         <div class="logo-container">
             <a href="#0"><img class="logo"
                               src="https://private-user-images.githubusercontent.com/38021765/290604890-c117b63b-ba88-47dc-bf3a-ed1415984d31.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDI1NzQ5OTUsIm5iZiI6MTcwMjU3NDY5NSwicGF0aCI6Ii8zODAyMTc2NS8yOTA2MDQ4OTAtYzExN2I2M2ItYmE4OC00N2RjLWJmM2EtZWQxNDE1OTg0ZDMxLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzEyMTQlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMxMjE0VDE3MjQ1NVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWQ3Mjg5Yzc4ODBkYmY2ODZhOWE2ZjJjZGM0MDc0NGRjNTI1ZWFhYTRlMjYyNWUxNmNjY2IzYzgwMDE1ZGZlMmQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.uTbBQxijfYE2ahSVwo_01wSS_vLbaqot0TPQgi_86iw"
-                              alt="Your Logo"/></a>
+                              alt="Your Logo" /></a>
         </div>
 
     </div>
@@ -101,13 +97,14 @@
     <h1>Connect with Me</h1>
 
     <p><span th:text="${salutation}">,</p>
-    <p>Thank you for reaching out! I'm excited to connect with you. I'm always open to new opportunities, collaborations,
-        and discussions. If you have a project in mind, an idea to explore, or simply want to connect and share insights,
-        please don't hesitate to reach out.</p>
+    <p>Thank you for reaching out! I'm excited to connect with you. I'm always open to new opportunities,
+        collaborations, and discussions. If you have a project in mind, an idea to explore, or simply want to connect and
+        share insights, please don't hesitate to reach out.</p>
     <p>You can also contact me via:</p>
 
     <p><strong>Email :</strong> <a href="mailto:shubhamchouksey1998@example.com">shubhamchouksey1998@example.com</a></p>
-    <p><strong>LinkedIn :</strong> <a href="https://www.linkedin.com/in/shubham-chouksey-971108156/" target="_blank">https://www.linkedin.com/in/shubham-chouksey-971108156/</a>
+    <p><strong>LinkedIn :</strong> <a
+            href="https://www.linkedin.com/in/shubham-chouksey-971108156/" target="_blank">https://www.linkedin.com/in/shubham-chouksey-971108156/</a>
     </p>
     <p><strong>Twitter :</strong> <a href="https://twitter.com/Shubham48514576" target="_blank">https://twitter.com/Shubham48514576</a>
     </p>
@@ -124,4 +121,5 @@
 </div>
 
 </body>
+
 </html>
