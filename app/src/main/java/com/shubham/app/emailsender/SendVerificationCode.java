@@ -21,8 +21,10 @@ public class SendVerificationCode {
     private static final String TEMPLATE_NAME = "recover-account-verify-phone";
     private static final String EMAIL_SUBJECT = "Wallet Financial - Recover Account OTP";
 
-    private static final String TEMPLATE_NAME_THANK_YOU_FOR_CONTACTING = "thank-you-contact";
+    private static final String TEMPLATE_NAME_THANK_YOU_FOR_CONTACTING = "email-templates/thank-you-contact/thank-you-contact";
     private static final String EMAIL_SUBJECT_THANK_YOU_FOR_CONTACTING = "Thank you for contacting!";
+
+    private static final String TEMPLATE_NAME_CONTACT_QUERY = "email-templates/new-connection/new-connection";
 
     private static final String EMAIL_SUBJECT_CONTACT_QUERY = "Somebody wants to connect to you!";
 
@@ -76,6 +78,34 @@ public class SendVerificationCode {
         return emailSenderService.sendHtmlEmail(emailInformation);
     }
 
+    private boolean sendNewConnectionMail(String contactName, String contactEmail, String contactPhoneNumber,
+            String message, String receiverPersonalName, String receiverEmail) {
+
+        if (receiverEmail == null)
+            return false;
+
+        Map<String, Object> parameterMap = new HashMap<>();
+        if (receiverPersonalName != null) {
+            parameterMap.put("salutation", "Hi " + receiverPersonalName);
+        } else {
+            parameterMap.put("salutation", "Dear admin");
+        }
+
+        parameterMap.put("contactName", contactName);
+        parameterMap.put("contactEmail", contactEmail);
+        parameterMap.put("contactPhoneNumber", contactPhoneNumber);
+        parameterMap.put("message", message);
+
+        parameterMap.put("receiverPersonalName", receiverPersonalName);
+        parameterMap.put("receiverEmail", receiverEmail);
+
+        EmailInformation emailInformation = new EmailInformation(receiverPersonalName, receiverEmail,
+                EMAIL_SUBJECT_CONTACT_QUERY, parameterMap, TEMPLATE_NAME_CONTACT_QUERY,
+                PARAMETER_RESOURCE_MAP_EMAIL_AC);
+
+        return emailSenderService.sendHtmlEmail(emailInformation);
+    }
+
     public void sendSMSAndEmail(String verificationCode, String countryCode, String phone, String receiverPersonalName,
             String email) {
 
@@ -83,5 +113,8 @@ public class SendVerificationCode {
         // boolean emailSentStatus = sendEmail(verificationCode, receiverPersonalName,
         // email);
         sendThankYouMail(receiverPersonalName, email);
+
+        sendNewConnectionMail("Nikhil", "nikhil@gmail.com", "9479987841", "Hi Shubham, maybe let's connect",
+                "Shubham Chouksey", "shubhamchouksey1998@gmail.com");
     }
 }
