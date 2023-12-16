@@ -30,7 +30,9 @@ public class QuizController {
 
         if (contactMessage != null) {
             model.addAttribute("contactMessage", contactMessage);
+            model.addAttribute("successValue", true);
         }
+
         renderQuizTemplate.renderLeaderBoardPage(model);
         return "quiz-template/index";
     }
