@@ -3,6 +3,7 @@ package com.shubham.app.emailsender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import java.util.Map;
 import static java.util.Map.entry;
 
 @Service
-public class SendVerificationCode {
+public class PrepareAndSendEmailImpl implements PrepareAndSendEmail {
 
     private static final String TEMPLATE_NAME = "recover-account-verify-phone";
     private static final String EMAIL_SUBJECT = "Wallet Financial - Recover Account OTP";
@@ -35,6 +36,13 @@ public class SendVerificationCode {
     public static Map<String, Resource> PARAMETER_RESOURCE_MAP_EMAIL_AC = new HashMap<>();
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+    @Value("${admin.email}")
+    private String adminEmail;
+
+    @Value("${admin.receiver-name}")
+    private String receiverName;
+
     @Autowired
     private EmailSenderService emailSenderService;
 
@@ -106,15 +114,39 @@ public class SendVerificationCode {
         return emailSenderService.sendHtmlEmail(emailInformation);
     }
 
+    @Override
     public void sendSMSAndEmail(String verificationCode, String countryCode, String phone, String receiverPersonalName,
             String email) {
 
         boolean smsSentStatus = true;
         // boolean emailSentStatus = sendEmail(verificationCode, receiverPersonalName,
         // email);
-        sendThankYouMail(receiverPersonalName, email);
+        // sendThankYouMail(receiverPersonalName, email);
+        // sendNewConnectionMail("Nikhil", "nikhil@gmail.com", "9479987841", "Hi
+        // Shubham, maybe
+        // let's connect",
+        // "Shubham Chouksey", "shubhamchouksey1998@gmail.com");
 
-        sendNewConnectionMail("Nikhil", "nikhil@gmail.com", "9479987841", "Hi Shubham, maybe let's connect",
-                "Shubham Chouksey", "shubhamchouksey1998@gmail.com");
+        sendContactQueryEmails("Nikhil", "ayushjain1212abc@gmail.com", "9479987841", "Hi Shubham, maybe let's connect");
+    }
+
+    @Override
+    public void sendContactQueryEmails(String contactName, String contactEmail, String contactPhoneNumber,
+            String message) {
+
+        boolean thankYouEmailStatus = sendThankYouMail(contactName, contactEmail);
+        logger.info("thankYouEmail send status : {}, send to with name : {} with email : {}", thankYouEmailStatus,
+                contactName, contactEmail);
+
+        String receiverPersonalName = receiverName;
+        String receiverEmail = adminEmail;
+
+        if (receiverEmail == null)
+            return;
+
+        boolean newConnectionEmailStatus = sendNewConnectionMail(contactName, contactEmail, contactPhoneNumber, message,
+                receiverPersonalName, receiverEmail);
+        logger.info("newConnectionEmail send status : {}, send to name : {} with email : {}", newConnectionEmailStatus,
+                receiverPersonalName, receiverEmail);
     }
 }

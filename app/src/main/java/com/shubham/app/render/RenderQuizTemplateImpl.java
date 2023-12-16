@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.shubham.app.dto.EachQuestion;
+import com.shubham.app.emailsender.PrepareAndSendEmail;
 import com.shubham.app.entity.ContactQuery;
 import com.shubham.app.entity.Question;
 import com.shubham.app.entity.QuizSubmission;
@@ -32,6 +33,8 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
     private QuestionsUtils questionsUtils;
     @Autowired
     private ContactQueryDao contactQueryDao;
+    @Autowired
+    private PrepareAndSendEmail prepareAndSendEmail;
 
     @Override
     public void renderQuizPage(Model model) {
@@ -125,10 +128,11 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
     }
 
     @Override
-    public void submitContactQuery(String name, String email, String phoneNumber, String message, Model model)
-            throws InternalServerException {
+    public void submitContactQuery(String name, String email, String phoneNumber, String message, Model model) {
 
         ContactQuery contactQuery = new ContactQuery(name, email, phoneNumber, message);
         contactQueryDao.saveContactQuery(contactQuery);
+
+        prepareAndSendEmail.sendContactQueryEmails(name, email, phoneNumber, message);
     }
 }
