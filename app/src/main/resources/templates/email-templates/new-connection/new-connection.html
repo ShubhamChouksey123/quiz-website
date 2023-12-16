@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #e67e22;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            max-width: 10%;
+            height: auto;
+        }
+
+        h1 {
+            color: #000000;
+            text-align: left;
+            font-size: 24px;
+            margin: 0;
+            margin-top : 10px;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        a {
+            color: #e74c3c;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            background-color: #e67e22;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .footer p {
+            font-size: 14px;
+            margin: 0;
+        }
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+<div id="container">
+    <div class="header">
+
+        <div class="logo-container">
+            <a href="#0"><img class="logo"
+                              src="https://private-user-images.githubusercontent.com/38021765/290604890-c117b63b-ba88-47dc-bf3a-ed1415984d31.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDI1NzQ5OTUsIm5iZiI6MTcwMjU3NDY5NSwicGF0aCI6Ii8zODAyMTc2NS8yOTA2MDQ4OTAtYzExN2I2M2ItYmE4OC00N2RjLWJmM2EtZWQxNDE1OTg0ZDMxLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzEyMTQlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMxMjE0VDE3MjQ1NVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWQ3Mjg5Yzc4ODBkYmY2ODZhOWE2ZjJjZGM0MDc0NGRjNTI1ZWFhYTRlMjYyNWUxNmNjY2IzYzgwMDE1ZGZlMmQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.uTbBQxijfYE2ahSVwo_01wSS_vLbaqot0TPQgi_86iw"
+                              alt="Your Logo"/></a>
+        </div>
+
+    </div>
+
+    <h1>Somebody wants to connect!</h1>
+
+    <p><span th:text="${salutation}">,</p>
+    <p>Somebody wants to connects to you. Please find the associated information:</p>
+
+    <p><strong>Name : </strong><span th:text="${contactName}"></p>
+    <p><strong>Email : </strong><span th:text="${contactEmail}"></p>
+    <p><strong>Phone : </strong><span th:text="${contactPhoneNumber}"></p>
+    <p><strong>Message : </strong><span th:text="${message}"></p>
+
+    <p style="color: #e67e22;">Lets connect him whenever its possible!</p>
+
+
+    <div class="footer">
+        <p>Best regards,<br>Shubham Chouksey</p>
+    </div>
+
+
+</div>
+
+</body>
+</html>
