@@ -120,7 +120,7 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         List<QuizSubmission> quizSubmissions = questionCrud.getTopPerformers();
 
         for (QuizSubmission quizSubmission : quizSubmissions) {
-            logger.info("quizSubmission : {}", quizSubmission);
+            logger.debug("quizSubmission : {}", quizSubmission);
         }
 
         model.addAttribute("performers", quizSubmissions);
