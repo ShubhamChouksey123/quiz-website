@@ -494,3 +494,7 @@ function submitQuizForm() {
   document.getElementById("quizSubmitForm").submit();
 }
 
+function submitContactQueryForm() {
+  document.getElementById("contactQueryForm").submit();
+}
+

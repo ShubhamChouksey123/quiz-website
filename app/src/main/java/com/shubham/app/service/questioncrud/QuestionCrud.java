@@ -11,7 +11,7 @@ import com.shubham.app.dto.QuestionSubmissionForm;
 import com.shubham.app.dtotoentity.DTOToEntity;
 import com.shubham.app.entity.Question;
 import com.shubham.app.entity.QuizSubmission;
-import com.shubham.app.hibernate.dao.ContactQueryDAO;
+import com.shubham.app.hibernate.dao.ContactQueryDaoImpl;
 import com.shubham.app.hibernate.dao.QuestionDAO;
 import com.shubham.app.hibernate.dao.QuizSubmissionDao;
 
@@ -23,7 +23,7 @@ public class QuestionCrud {
     @Autowired
     private QuestionDAO questionDAO;
     @Autowired
-    private ContactQueryDAO contactQueryDAO;
+    private ContactQueryDaoImpl contactQueryDAO;
     @Autowired
     private QuizSubmissionDao quizSubmissionDao;
     @Autowired
