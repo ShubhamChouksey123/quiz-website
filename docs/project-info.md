@@ -63,11 +63,9 @@ QUIZ_DB_CONFIG_QUERY_STRING=allowPublicKeyRetrieval=true&useSSL=false&sessionVar
 ## TODO 
 
 * Make the admin page to add the questions in the database.
-* Contact page sending email to use and admin.
+* Contact page making the success make dynamic and make it clear after 30 seconds.
 * Random questions from the database. 
 * About Page: content
-* Contact Page: google map not working
-* Leaderboard Page: not dynamic content
 * Footer: change the content
 
 

@@ -20,13 +20,19 @@ import java.util.Objects;
  */
 @Controller
 public class QuizController {
-
+    private final String ZERO_LENGTH_STRING = "";
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Autowired
     private RenderQuizTemplate renderQuizTemplate;
 
     @GetMapping({"/", "/home", "index"})
-    public String renderHome(Model model) {
+    public String renderHome(@ModelAttribute("contactMessage") String contactMessage, Model model) {
+
+        if (contactMessage != null && !Objects.equals(contactMessage, ZERO_LENGTH_STRING)) {
+            model.addAttribute("contactMessage", contactMessage);
+            model.addAttribute("successValue", true);
+        }
+
         renderQuizTemplate.renderLeaderBoardPage(model);
         return "quiz-template/index";
     }
@@ -71,7 +77,7 @@ public class QuizController {
             @ModelAttribute("userOptedAnswers") String userOptedAnswers,
             @ModelAttribute("questionIds") String questionIds, Model model) throws InternalServerException {
 
-        if (!Objects.equals(name, "")) {
+        if (!Objects.equals(name, ZERO_LENGTH_STRING)) {
             renderQuizTemplate.calculateScore(name, email, userOptedAnswers, questionIds, model);
         }
         return "quiz-template/result";
@@ -91,8 +97,25 @@ public class QuizController {
     }
 
     @GetMapping({"/contact"})
-    public String renderContact() {
+    public String renderContact(Model model) {
         return "quiz-template/contact";
+    }
+
+    @PostMapping(value = {"/submit-contact"})
+    @ResponseBody
+    public RedirectView submitContactQuery(@RequestParam(value = "name") String name,
+            @RequestParam(value = "email") String email,
+            @RequestParam(value = "phoneNumber", required = false) String phoneNumber,
+            @RequestParam(value = "message", required = false) String message, Model model,
+            RedirectAttributes redirectAttrs) {
+
+        logger.info("post method submitted with name : {}, email : {}, phoneNumber : {} and message : {}", name, email,
+                phoneNumber, message);
+        renderQuizTemplate.submitContactQuery(name, email, phoneNumber, message, model);
+
+        redirectAttrs.addFlashAttribute("contactMessage",
+                "Thank You for contacting, we will connect to you at the earliest.");
+        return new RedirectView("/home");
     }
 
     @GetMapping({"/leaderboard"})

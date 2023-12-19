@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shubham.app.emailsender.SendVerificationCode;
+import com.shubham.app.emailsender.PrepareAndSendEmailImpl;
 
 @RestController
 public class EmailSenderController {
@@ -14,7 +14,7 @@ public class EmailSenderController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Autowired
-    private SendVerificationCode sendVerificationCode;
+    private PrepareAndSendEmailImpl sendVerificationCode;
 
     @GetMapping("/send_email")
     public String sendHTMLEmailWith() {

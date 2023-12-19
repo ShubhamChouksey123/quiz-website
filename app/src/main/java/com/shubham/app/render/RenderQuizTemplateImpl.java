@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.shubham.app.dto.EachQuestion;
+import com.shubham.app.emailsender.PrepareAndSendEmail;
+import com.shubham.app.entity.ContactQuery;
 import com.shubham.app.entity.Question;
 import com.shubham.app.entity.QuizSubmission;
+import com.shubham.app.hibernate.dao.ContactQueryDao;
 import com.shubham.app.service.questioncrud.QuestionCrud;
 import com.shubham.app.service.questioncrud.QuestionsUtils;
 import com.shubham.app.service.questioncrud.exception.InternalServerException;
@@ -28,6 +31,10 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
     private QuestionCrud questionCrud;
     @Autowired
     private QuestionsUtils questionsUtils;
+    @Autowired
+    private ContactQueryDao contactQueryDao;
+    @Autowired
+    private PrepareAndSendEmail prepareAndSendEmail;
 
     @Override
     public void renderQuizPage(Model model) {
@@ -113,10 +120,19 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         List<QuizSubmission> quizSubmissions = questionCrud.getTopPerformers();
 
         for (QuizSubmission quizSubmission : quizSubmissions) {
-            logger.info("quizSubmission : {}", quizSubmission);
+            logger.debug("quizSubmission : {}", quizSubmission);
         }
 
         model.addAttribute("performers", quizSubmissions);
         model.addAttribute("totalQuestions", TOTAL_QUESTIONS_TO_ASK);
+    }
+
+    @Override
+    public void submitContactQuery(String name, String email, String phoneNumber, String message, Model model) {
+
+        ContactQuery contactQuery = new ContactQuery(name, email, phoneNumber, message);
+        contactQueryDao.saveContactQuery(contactQuery);
+
+        prepareAndSendEmail.sendContactQueryEmails(name, email, phoneNumber, message);
     }
 }
