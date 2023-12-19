@@ -73,6 +73,22 @@
       </div>
 
 
+      <!--      Plain background-->
+      <!--      <p style="color: green;text-align: center; background-color: #f1e4e4a6">Thank You for contacting, we will connect to you at the earliest.</p>-->
+
+      <!--      background green transparent-->
+      <!--      <div class="alert alert-success" style="text-align: center;max-width: 500px;margin: auto;background-color: #b4ddbed9;margin-top:20px;width:90%;" role="alert">-->
+      <!--         Thank You for contacting, we will connect to you at the earliest!.-->
+      <!--      </div>-->
+
+      <span th:if="${successValue == true}">
+         <div class="alert alert-success"
+            style="text-align: center;max-width: 500px;margin: auto;background-color: #b4ddbed9;margin-top:20px;width:90%;"
+            role="alert">
+            <span th:text="${contactMessage}"></span>
+         </div>
+      </span>
+
       <!-- banner section start -->
       <div class="banner_section layout_padding">
          <div class="container">
@@ -123,7 +139,7 @@
          <div class="services_section2 layout_padding">
             <div class="row">
                <div class="col-lg-3 col-sm-6">
-                  <div class="icon_1"><img src="images/icon-quiz.jpg"></div>
+                  <div class="icon_1"><img src="images/icon-quiz-new.png"></div>
                   <h2 class="furnitures_text">quiz</h2>
                   <p class="dummy_text">Free online quiz </p>
                   <div class="read_bt_main">
@@ -131,7 +147,7 @@
                   </div>
                </div>
                <div class="col-lg-3 col-sm-6 testimonial-img">
-                  <div class="icon_1"><img src="images/icon-facts.jpeg"></div>
+                  <div class="icon_1"><img src="images/icon-facts-new.png"></div>
                   <h2 class="furnitures_text">facts</h2>
                   <p class="dummy_text">Daily random facts</p>
                   <div class="read_bt_main">
@@ -139,7 +155,7 @@
                   </div>
                </div>
                <div class="col-lg-3 col-sm-6">
-                  <div class="icon_1"><img src="images/icon-news.jpeg"></div>
+                  <div class="icon_1"><img src="images/icon-news-new.png"></div>
                   <h2 class="furnitures_text">News</h2>
                   <p class="dummy_text">Daily latest news in shorts</p>
                   <div class="read_bt_main">
@@ -147,7 +163,7 @@
                   </div>
                </div>
                <div class="col-lg-3 col-sm-6 testimonial-img">
-                  <div class="icon_1"><img src="images/icon-4.png"></div>
+                  <div class="icon_1"><img src="images/icon-blog-new.png"></div>
                   <h2 class="furnitures_text">Blog</h2>
                   <p class="dummy_text">Read my blogs</p>
                   <div class="read_bt_main">
@@ -220,7 +236,7 @@
    <!-- leader board section end -->
 
    <!-- who section start -->
-   <div class="who_section layout_padding">
+   <!-- <div class="who_section layout_padding">
       <div class="container">
          <h1 class="who_taital">who we are ?</h1>
          <h4 class="designer_text">DESIGNERS & INNOVATORS</h4>
@@ -233,11 +249,11 @@
       <div class="get_bt_main">
          <div class="get_bt"><a href="#">Get A Quote</a></div>
       </div>
-   </div>
+   </div> -->
    <!-- who section end -->
 
    <!-- projects section start -->
-   <div id="projects" class="projects_section layout_padding">
+   <!-- <div id="projects" class="projects_section layout_padding">
       <div class="container">
          <h1 class="our_text">Our projects</h1>
          <p class="ipsum_text">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
@@ -357,11 +373,11 @@
             </a>
          </div>
       </div>
-   </div>
+   </div> -->
    <!-- projects section end -->
 
    <!-- client section start -->
-   <div class="clients_section layout_padding">
+   <!-- <div class="clients_section layout_padding">
       <div class="container">
          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -502,7 +518,7 @@
             </div>
          </div>
       </div>
-   </div>
+   </div> -->
    <!-- client section end -->
 
    <!-- contact section start -->
@@ -512,23 +528,29 @@
             <div class="col-md-6">
                <h1 class="contact_text">CONTACT US</h1>
                <div class="mail_sectin">
-                  <input type="text" class="email-bt" placeholder="Name" name="Name">
-                  <input type="text" class="email-bt" placeholder="Email" name="Name">
-                  <input type="text" class="email-bt" placeholder="Phone Number" name="Name">
-                  <textarea class="massage-bt" placeholder="Message" rows="5" id="comment" name="Massage"></textarea>
-                  <!-- <div class="send_bt"><a href="#">SEND</a></div> -->
-                  <div class="read_bt_main">
-                     <div class="read_bt"><a href="#">SEND</a></div>
-                  </div>
+                  <p style="color: green"><span th:text="${contactMessage}"></span></p>
+                  <form id="contactQueryForm" method="post" action="/submit-contact">
+                     <input type="text" class="email-bt" placeholder="Name" name="name">
+                     <input type="text" class="email-bt" placeholder="Email" name="email">
+                     <input type="text" class="email-bt" placeholder="Phone Number" name="phoneNumber">
+                     <textarea class="massage-bt" placeholder="Message" rows="5" id="comment" name="message"></textarea>
+                     <div class="read_bt_main">
+                        <div class="read_bt"><a onclick="submitContactQueryForm();">SEND</a></div>
+                     </div>
+                  </form>
                </div>
             </div>
             <div class="col-md-6">
                <div class="map_main">
                   <div class="map-responsive">
+                     <!-- iframe Delhi -->
                      <!--                     <iframe title="frameGoggleMapDelhi" width="600" height="500" frameborder="0"-->
                      <!--                        style="border:0; width: 100%; border: black-solid 4px;" allowfullscreen=""-->
-                     <!--                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56062.11306740246!2d77.0038955642826!3d28.573303878181285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1a9c31eec4e1%3A0x39493976cba4c89a!2sDwarka%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1688882430519!5m2!1sen!2sin"-->
-                     <!--                        allowfullscreen></iframe>-->
+                     <!--                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56062.11306740246!2d77.0038955642826!3d28.573303878181285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1a9c31eec4e1%3A0x39493976cba4c89a!2sDwarka%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1688882430519!5m2!1sen!2sin"></iframe>-->
+                     <!-- iframe Salichouka Road -->
+                     <iframe title="frameGoggleMapDelhi" width="600" height="500" frameborder="0"
+                        style="border:0; width: 100%; border: black-solid 4px;" allowfullscreen=""
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3677.1933569159055!2d78.67236027513464!3d22.83233477930759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397fad21182f8e0d%3A0x9414b5e37de9b2ab!2sSalichouka%20Rd%2C%20Babai%20Kalan%2C%20Madhya%20Pradesh%20487881!5e0!3m2!1sen!2sin!4v1702783484765!5m2!1sen!2sin"></iframe>
                   </div>
                </div>
             </div>
@@ -541,52 +563,30 @@
    <div class="footer_section layout_padding">
       <div class="container">
          <div class="row">
-            <div class="col-lg-3 col-sm-6">
+            <div class="col-lg-4 col-sm-6">
                <h1 class="customer_text">INFORMATION</h1>
-               <p class="footer_lorem_text">There are many variat
-                  ions of passages of L
-                  orem Ipsum available
-                  , but the majority h
-                  ave suffered altera
-                  tion in some form, by
+               <p class="footer_lorem_text">Whether you're a trivia master or just starting your quiz journey, Quiz-Wizz
+                  is the perfect place to challenge yourself and have a great time.
                </p>
             </div>
-            <div class="col-lg-3 col-sm-6">
+            <div class="col-lg-4 col-sm-6">
                <h1 class="customer_text">LET US HELP YOU</h1>
-               <p class="footer_lorem_text">There are many variat
-                  ions of passages of L
-                  orem Ipsum available
-                  , but the majority h
-                  ave suffered altera
-                  tion in some form, by
+               <p class="footer_lorem_text">We are passionate about testing your knowledge and providing
+                  a platform for fun and learning.
                </p>
             </div>
-            <div class="col-lg-3 col-sm-6">
+            <div class="col-lg-4 col-sm-6">
                <h1 class="customer_text">UseFul Links</h1>
-               <p class="footer_lorem_text1">About Us<br>
-                  Careers<br>
-                  Sell on shopee<br>
+               <p class="footer_lorem_text1">
+                  <a href="/#about" style="color: #ffffff;">About Us</a><br>
+                  <a href="https://shubhamchouksey123.github.io/portfolio/" style="color: #ffffff;">Visit My
+                     website</a><br>
+                  <a href="https://shubhamchouksey123.github.io/autoCV/cv.pdf" style="color: #ffffff;">Check My
+                     Resume</a><br>
                   Press & News<br>
                   Competitions<br>
                   Terms & Conditions
                </p>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-               <h1 class="customer_text">OUR Design</h1>
-               <p class="footer_lorem_text">There are many variat
-                  ions of passages of L
-                  orem Ipsum available
-                  , but the majority h
-                  ave suffered altera
-                  tion in some form, by
-               </p>
-            </div>
-         </div>
-         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Enter your email" aria-label="Enter your email"
-               aria-describedby="basic-addon2">
-            <div class="input-group-append">
-               <span class="input-group-text" id="basic-addon2"><a href="#">Subscribe</a></span>
             </div>
          </div>
       </div>
@@ -596,8 +596,8 @@
    <!-- copyright section start -->
    <div class="copyright_section">
       <div class="container">
-         <p class="copyright_text">2023 All Rights Reserved. Design by <a href="https://html.design">Free html
-               Templates</a> Distribution By <a href="https://themewagon.com">ThemeWagon</a></p>
+         <p class="copyright_text">2023 All Rights Reserved. Design by <a href="https://html.design">Shubham Chouksey
+         </p>
       </div>
       <!-- copyright section end -->
       <!-- Javascript files-->
