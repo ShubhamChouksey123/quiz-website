@@ -20,7 +20,7 @@ import java.util.Objects;
  */
 @Controller
 public class QuizController {
-
+    private final String ZERO_LENGTH_STRING = "";
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Autowired
     private RenderQuizTemplate renderQuizTemplate;
@@ -28,7 +28,7 @@ public class QuizController {
     @GetMapping({"/", "/home", "index"})
     public String renderHome(@ModelAttribute("contactMessage") String contactMessage, Model model) {
 
-        if (contactMessage != null) {
+        if (contactMessage != null && !Objects.equals(contactMessage, ZERO_LENGTH_STRING)) {
             model.addAttribute("contactMessage", contactMessage);
             model.addAttribute("successValue", true);
         }
@@ -77,7 +77,7 @@ public class QuizController {
             @ModelAttribute("userOptedAnswers") String userOptedAnswers,
             @ModelAttribute("questionIds") String questionIds, Model model) throws InternalServerException {
 
-        if (!Objects.equals(name, "")) {
+        if (!Objects.equals(name, ZERO_LENGTH_STRING)) {
             renderQuizTemplate.calculateScore(name, email, userOptedAnswers, questionIds, model);
         }
         return "quiz-template/result";
