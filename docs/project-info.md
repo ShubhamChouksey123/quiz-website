@@ -1,4 +1,13 @@
 
+
+# Monitor system 
+
+- The master build is up an running on URL : [@render-url](https://quiz-website-g8d7.onrender.com/) 
+- The monitor system to avoid the downtime due to free instance : [@uptimerrobot-url](https://uptimerobot.com/dashboard)
+
+
+Frequently used commands .
+
 # Useful Commands and Procedures
 
 Frequently used commands .
@@ -63,10 +72,9 @@ QUIZ_DB_CONFIG_QUERY_STRING=allowPublicKeyRetrieval=true&useSSL=false&sessionVar
 ## TODO 
 
 * Make the admin page to add the questions in the database.
-* Contact page making the success make dynamic and make it clear after 30 seconds.
+* Contact page making the success modal clear after 30 seconds.
 * Random questions from the database. 
 * About Page: content
-* Footer: change the content
 
 
 
