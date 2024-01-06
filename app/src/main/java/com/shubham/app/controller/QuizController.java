@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.shubham.app.model.DifficultyLevel;
+import com.shubham.app.model.QuestionCategory;
 import com.shubham.app.render.RenderQuizTemplate;
 import com.shubham.app.service.questioncrud.exception.InternalServerException;
 
@@ -25,7 +27,7 @@ public class QuizController {
     @Autowired
     private RenderQuizTemplate renderQuizTemplate;
 
-    @GetMapping({"/", "/home", "index"})
+    @GetMapping({"/", "/home", "index", ""})
     public String renderHome(@ModelAttribute("contactMessage") String contactMessage, Model model) {
 
         if (contactMessage != null && !Objects.equals(contactMessage, ZERO_LENGTH_STRING)) {
@@ -122,5 +124,31 @@ public class QuizController {
     public String renderLeaderBoard(Model model) {
         renderQuizTemplate.renderLeaderBoardPage(model);
         return "quiz-template/leaderboard";
+    }
+
+    @GetMapping({"/add-question"})
+    public String renderAddQuestion(Model model) {
+        // renderQuizTemplate.renderLeaderBoardPage(model);
+        return "add-question/add-question";
+    }
+
+    @PostMapping(value = {"/submit-add-question"})
+    @ResponseBody
+    public RedirectView submitAddQuestion(@RequestParam(value = "category") QuestionCategory category,
+            @RequestParam(value = "difficulty_level") DifficultyLevel difficultyLevel,
+            @RequestParam(value = "question") String question, @RequestParam(value = "optionA") String optionA,
+            @RequestParam(value = "optionB") String optionB, @RequestParam(value = "optionC") String optionC,
+            @RequestParam(value = "optionD") String optionD, @RequestParam(value = "answer") Integer answer,
+            Model model, RedirectAttributes redirectAttrs) {
+
+        logger.info(
+                "post method submitted a new question with category : {}, question : {}, optionA : {}, optionB : {}, optionC : {}, optionD : {} and answer : {}",
+                category, question, optionA, optionB, optionC, optionD, answer);
+
+        renderQuizTemplate.submitNewAddQuestion(category, question, optionA, optionB, optionC, optionD, answer,
+                difficultyLevel);
+
+        redirectAttrs.addFlashAttribute("contactMessage", "Added new question.");
+        return new RedirectView("/home");
     }
 }

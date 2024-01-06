@@ -2,6 +2,8 @@ package com.shubham.app.render;
 
 import org.springframework.ui.Model;
 
+import com.shubham.app.model.DifficultyLevel;
+import com.shubham.app.model.QuestionCategory;
 import com.shubham.app.service.questioncrud.exception.InternalServerException;
 
 public interface RenderQuizTemplate {
@@ -33,4 +35,8 @@ public interface RenderQuizTemplate {
      * @throws InternalServerException
      */
     void submitContactQuery(String name, String email, String phoneNumber, String message, Model model);
+
+    /** */
+    void submitNewAddQuestion(QuestionCategory category, String statement, String optionA, String optionB,
+            String optionC, String optionD, Integer answer, DifficultyLevel difficultyLevel);
 }
