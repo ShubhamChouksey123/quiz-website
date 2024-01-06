@@ -12,6 +12,8 @@ import com.shubham.app.entity.ContactQuery;
 import com.shubham.app.entity.Question;
 import com.shubham.app.entity.QuizSubmission;
 import com.shubham.app.hibernate.dao.ContactQueryDao;
+import com.shubham.app.model.DifficultyLevel;
+import com.shubham.app.model.QuestionCategory;
 import com.shubham.app.service.questioncrud.QuestionCrud;
 import com.shubham.app.service.questioncrud.QuestionsUtils;
 import com.shubham.app.service.questioncrud.exception.InternalServerException;
@@ -134,5 +136,14 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         contactQueryDao.saveContactQuery(contactQuery);
 
         prepareAndSendEmail.sendContactQueryEmails(name, email, phoneNumber, message);
+    }
+
+    @Override
+    public void submitNewAddQuestion(QuestionCategory category, String statement, String optionA, String optionB,
+            String optionC, String optionD, Integer answer, DifficultyLevel difficultyLevel) {
+
+        EachQuestion contactQuery = new EachQuestion(null, null, statement, optionA, optionB, optionC, optionD, answer,
+                null, difficultyLevel);
+        questionCrud.addQuestion(contactQuery);
     }
 }
