@@ -1,10 +1,11 @@
 package com.shubham.app.dto;
 
 import com.shubham.app.entity.Question;
+import com.shubham.app.model.DifficultyLevel;
 
 public class EachQuestion {
 
-    /** GUI index of the question nu,ber between 0-9 */
+    /** GUI index of the question number between 0-9 */
     private Integer index;
 
     /** the uniques identifier of this question, stored as primary key in DB */
@@ -19,6 +20,8 @@ public class EachQuestion {
     /** actual answer of the question */
     private Integer ans;
 
+    private DifficultyLevel difficulty;
+
     /** option opted by the user, for this question */
     private Integer useOptedAnswer;
 
@@ -31,7 +34,7 @@ public class EachQuestion {
     }
 
     public EachQuestion(Integer index, Long questionId, String statement, String optionA, String optionB,
-            String optionC, String optionD, Integer ans, Integer useOptedAnswer) {
+            String optionC, String optionD, Integer ans, Integer useOptedAnswer, DifficultyLevel difficulty) {
         this.index = index;
         this.questionId = questionId;
         this.statement = statement;
@@ -41,6 +44,7 @@ public class EachQuestion {
         this.optionD = optionD;
         this.ans = ans;
         this.useOptedAnswer = useOptedAnswer;
+        this.difficulty = difficulty;
     }
 
     public EachQuestion(Question question) {
@@ -155,6 +159,14 @@ public class EachQuestion {
 
     public void setBorderColorOptionD(String borderColorOptionD) {
         this.borderColorOptionD = borderColorOptionD;
+    }
+
+    public DifficultyLevel getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(DifficultyLevel difficulty) {
+        this.difficulty = difficulty;
     }
 
     @Override

@@ -4,6 +4,7 @@
 
 - The master build is up an running on URL : [@render-url](https://quiz-website-g8d7.onrender.com/) 
 - The monitor system to avoid the downtime due to free instance : [@uptimerrobot-url](https://uptimerobot.com/dashboard)
+- To avoid the downtime we also created a scheduled task to access the website every 10 mins : [@cron-job-ur](https://console.cron-job.org/jobs)
 
 
 Frequently used commands .
