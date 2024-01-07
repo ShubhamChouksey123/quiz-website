@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <!-- <link rel="stylesheet" type="text/css" href="css/style-admin2.css"> -->
+   <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+      * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         font-family: 'Roboto', sans-serif;
+      }
+
+      .flex-container {
+         display: flex;
+         background-color: DodgerBlue;
+         margin: 10px;
+         flex-direction: row;
+         align-content: flex-start;
+      }
+
+      .each-row {
+         /* background-color: #f1f1f1; */
+         display: flex;
+         flex-direction: column;
+         justify-content: space-around;
+         align-items: center;
+         padding: 20px;
+         font-size: 30px;
+         margin: 10px;
+         /* margin: auto; */
+      }
+
+      .each-option {
+         margin: 10px;
+         background-color: #f1f1f1;
+         width: 100%;
+         /* Make each-option take up the entire width */
+      }
+   </style>
+
+</head>
+
+<body>
+
+   <h1>Create a Flex Container</h1>
+
+   <div class="flex-container">
+      <div class="each-row">
+         <div class="each-option">India</div>
+         <div class="each-option">Pakistan</div>
+      </div>
+      <div class="each-row">
+         <div class="each-option">US</div>
+         <div class="each-option">UK</div>
+      </div>
+   </div>
+
+</body>
+
+</html>
