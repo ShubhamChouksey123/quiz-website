@@ -22,7 +22,7 @@ import java.util.Objects;
  */
 @Controller
 public class QuizController {
-    private final String ZERO_LENGTH_STRING = "";
+    public static final String ZERO_LENGTH_STRING = "";
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Autowired
     private RenderQuizTemplate renderQuizTemplate;
@@ -127,8 +127,12 @@ public class QuizController {
     }
 
     @GetMapping({"/add-question"})
-    public String renderAddQuestion(Model model) {
-        // renderQuizTemplate.renderLeaderBoardPage(model);
+    public String renderAddQuestion(@ModelAttribute("questionId") Long questionId, Model model) {
+
+        if (questionId != null && !Objects.equals(questionId, 0L)) {
+            logger.info("edit question page specific for questionId : {}", questionId);
+            renderQuizTemplate.renderDesiredQuestionEditPage(questionId, model);
+        }
         return "add-question/add-question";
     }
 

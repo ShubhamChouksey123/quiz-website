@@ -2,60 +2,162 @@
 <html>
 
 <head>
-   <!-- <link rel="stylesheet" type="text/css" href="css/style-admin2.css"> -->
-   <style>
-      @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+   <link rel="stylesheet" type="text/css" href="css/style-admin.css">
 
-      * {
-         margin: 0;
-         padding: 0;
-         box-sizing: border-box;
-         font-family: 'Roboto', sans-serif;
-      }
+   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+   <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
-      .flex-container {
-         display: flex;
-         background-color: DodgerBlue;
-         margin: 10px;
-         flex-direction: row;
-         align-content: flex-start;
-      }
-
-      .each-row {
-         /* background-color: #f1f1f1; */
-         display: flex;
-         flex-direction: column;
-         justify-content: space-around;
-         align-items: center;
-         padding: 20px;
-         font-size: 30px;
-         margin: 10px;
-         /* margin: auto; */
-      }
-
-      .each-option {
-         margin: 10px;
-         background-color: #f1f1f1;
-         width: 100%;
-         /* Make each-option take up the entire width */
-      }
-   </style>
 
 </head>
 
 <body>
 
-   <h1>Create a Flex Container</h1>
 
-   <div class="flex-container">
-      <div class="each-row">
-         <div class="each-option">India</div>
-         <div class="each-option">Pakistan</div>
+
+   <div class="heading">
+      <h1>Admin : Question Bank</h1>
+
+      <h4>
+         Design a Horizontal group Radio
+         Button using jQuery Mobile
+      </h4>
+
+      <form style="width: 50%; margin: auto;">
+         <fieldset data-role="controlgroup" data-type="horizontal">
+            <label for="radioButton">Approved</label>
+            <input type="radio" name="radioButton" id="radioButton" class="custom" onclick="approvedQuestionPage();">
+
+            <label for="radioButton1">Needs Approval</label>
+            <input type="radio" name="radioButton" id="radioButton1" class="custom" checked
+               onclick="newQuestionPage();">
+
+            <label for="radioButton2">Discarded</label>
+            <input type="radio" name="radioButton" id="radioButton2" class="custom" onclick="discardedQuestionPage();">
+
+         </fieldset>
+      </form>
+   </div>
+
+
+   <form id="changeCategorySubmitForm" class="changeCategorySubmitForm" method="post" action="/change-category">
+      <input type="hidden" id="questionId" name="questionId" value="" />
+      <input type="hidden" id="approvalLevel" name="approvalLevel" value="" />
+   </form>
+
+
+   <tr th:each="question: ${questions}">
+      <div class="each-question">
+         <h1 th:text="${question.getStatement()}">What is the capital of France?</h1>
+
+         <div class="flex-container">
+            <div class="each-row">
+               <div class="each-option" th:text="${question.getOptionA()}">1. Berlin</div>
+               <div class="each-option" th:text="${question.getOptionB()}">2. London</div>
+            </div>
+            <div class="each-row">
+               <div class="each-option" th:text="${question.getOptionC()}">3. Paris</div>
+               <div class="each-option" th:text="${question.getOptionD()}">4. Rome</div>
+            </div>
+         </div>
+
+         <div class="flex-container">
+            <div class="each-row approve-button" style="padding: 0px;">
+               <button type="button" class="btn btn-primary"
+                  th:attr="onclick=|approveQuestion('${question.getQuestionId()}')|">Approve</button>
+            </div>
+            <div class="each-row approve-button" style="padding: 0px;">
+               <button type="button" class="btn btn-primary"
+                  th:attr="onclick=|editQuestion('${question.getQuestionId()}')|">Edit</button>
+            </div>
+            <div class="each-row discard-button" style="padding: 0px;">
+               <button type="button" class="btn btn-primary"
+                  th:attr="onclick=|discardQuestion('${question.getQuestionId()}')|">Discard</button>
+            </div>
+         </div>
+
+
+
+
       </div>
-      <div class="each-row">
-         <div class="each-option">US</div>
-         <div class="each-option">UK</div>
+   </tr>
+
+
+
+   <div class="each-question">
+      <h1>Which of the following is NOT a fruit?</h1>
+
+      <div class="flex-container">
+         <div class="each-row">
+            <div class="each-option">1. Rhubarb</div>
+            <div class="each-option">2. Tomatoes</div>
+         </div>
+         <div class="each-row">
+            <div class="each-option">3. Avocados</div>
+            <div class="each-option">4. Orange</div>
+         </div>
       </div>
+
+      <div class="flex-container">
+         <div class="each-row approve-button" style="padding: 0px;">
+            <button type="button" class="btn btn-primary">Approve</button>
+         </div>
+         <div class="each-row discard-button" style="padding: 0px;">
+            <button type="button" class="btn btn-primary">Discard</button>
+         </div>
+      </div>
+
+   </div>
+
+   <div class="each-question">
+      <h1>What is the capital of France?</h1>
+
+      <div class="flex-container">
+         <div class="each-row">
+            <div class="each-option">1. Berlin</div>
+            <div class="each-option">2. London</div>
+         </div>
+         <div class="each-row">
+            <div class="each-option">3. Paris</div>
+            <div class="each-option">4. Rome</div>
+         </div>
+      </div>
+
+      <div class="flex-container">
+         <div class="each-row approve-button" style="padding: 0px;">
+            <button type="button" class="btn btn-primary">Approve</button>
+         </div>
+         <div class="each-row discard-button" style="padding: 0px;">
+            <button type="button" class="btn btn-primary">Discard</button>
+         </div>
+      </div>
+
+   </div>
+
+   <!-- copyright section start -->
+   <div class="copyright_section">
+      <div class="container">
+         <p class="copyright_text">2023 All Rights Reserved. Design by <a href="https://html.design">Shubham Chouksey
+         </p>
+      </div>
+
+      <!-- copyright section end -->
+      <!-- Javascript files-->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/jquery-3.0.0.min.js"></script>
+      <script src="js/plugin.js"></script>
+      <!-- sidebar -->
+      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="js/custom.js"></script>
+      <!-- javascript -->
+      <script src="js/owl.carousel.js"></script>
+      <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+         crossorigin="anonymous"></script>
+      <script src="js/main-admin.js"></script>
    </div>
 
 </body>

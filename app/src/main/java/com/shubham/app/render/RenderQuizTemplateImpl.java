@@ -146,4 +146,11 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
                 null, difficultyLevel);
         questionCrud.addQuestion(contactQuery);
     }
+
+    @Override
+    public void renderDesiredQuestionEditPage(Long questionId, Model model) {
+
+        Question question = questionCrud.getAllQuestions(questionId);
+        model.addAttribute("question", question);
+    }
 }
