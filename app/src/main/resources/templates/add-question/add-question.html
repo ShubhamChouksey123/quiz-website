@@ -107,12 +107,12 @@
 
                         <div style="margin-top: 10px;margin-bottom: 10px;">
                             <input type="text" class="email-bt" label="Question" placeholder="Question" name="question"
-                                th:value="${question.getOptionA()}" required />
+                                th:value="${question.getStatement()}" required />
                         </div>
 
                         <label for="answer" style="font-size: 21px;color: #000000">Answer :</label>
                         <div style="margin-top: 10px;margin-bottom: 10px;">
-                            <select class="" name="answer" required>
+                            <select class="" name="answer" th:value="${question.getAns()}" required>
                                 <option value="">Please select answer :</option>
                                 <option value="0">A</option>
                                 <option value="1">B</option>
