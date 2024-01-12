@@ -40,5 +40,5 @@ public interface RenderQuizTemplate {
     void submitNewAddQuestion(QuestionCategory category, String statement, String optionA, String optionB,
             String optionC, String optionD, Integer answer, DifficultyLevel difficultyLevel);
 
-    void renderDesiredQuestionEditPage(Long questionId, Model model);
+    void renderDesiredQuestionEditPage(String questionId, Model model);
 }

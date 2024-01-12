@@ -127,12 +127,18 @@ public class QuizController {
     }
 
     @GetMapping({"/add-question"})
-    public String renderAddQuestion(@ModelAttribute("questionId") Long questionId, Model model) {
+    public String renderAddQuestionGet(@ModelAttribute("questionId") String questionId, Model model) {
+        renderQuizTemplate.renderDesiredQuestionEditPage(questionId, model);
+        return "add-question/add-question";
+    }
 
-        if (questionId != null && !Objects.equals(questionId, 0L)) {
+    @PostMapping({"/add-question"})
+    public String renderAddQuestionPost(@ModelAttribute("questionId") String questionId, Model model) {
+        if (!Objects.equals(questionId, 0L)) {
             logger.info("edit question page specific for questionId : {}", questionId);
             renderQuizTemplate.renderDesiredQuestionEditPage(questionId, model);
         }
+
         return "add-question/add-question";
     }
 
