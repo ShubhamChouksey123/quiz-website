@@ -107,7 +107,7 @@
 
                         <div style="margin-top: 10px;margin-bottom: 10px;">
                             <input type="text" class="email-bt" label="Question" placeholder="Question" name="question"
-                                required />
+                                th:value="${question.getOptionA()}" required />
                         </div>
 
                         <label for="answer" style="font-size: 21px;color: #000000">Answer :</label>
@@ -122,16 +122,20 @@
                         </div>
 
                         <div style="margin-top: 10px;margin-bottom: 10px;">
-                            <input type="text" class="email-bt" placeholder="Option A" name="optionA" required />
+                            <input type="text" class="email-bt" placeholder="Option A" name="optionA"
+                                th:value="${question.getOptionA()}" required />
                         </div>
                         <div style="margin-top: 10px;margin-bottom: 10px;">
-                            <input type="text" class="email-bt" placeholder="Option B" name="optionB" required />
+                            <input type="text" class="email-bt" placeholder="Option B" name="optionB"
+                                th:value="${question.getOptionB()}" required />
                         </div>
                         <div style="margin-top: 10px;margin-bottom: 10px;">
-                            <input type="text" class="email-bt" placeholder="Option C" name="optionC" required />
+                            <input type="text" class="email-bt" placeholder="Option C" name="optionC"
+                                th:value="${question.getOptionC()}" required />
                         </div>
                         <div style="margin-top: 10px;margin-bottom: 10px;">
-                            <input type="text" class="email-bt" placeholder="Option D" name="optionD" required />
+                            <input type="text" class="email-bt" placeholder="Option D" name="optionD"
+                                th:value="${question.getOptionD()}" required />
                         </div>
 
                         <label for="difficulty_level" style="font-size: 21px;color: #000000">Difficulty Level :</label>
