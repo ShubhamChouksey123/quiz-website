@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.shubham.app.controller.QuizController.ZERO_LENGTH_STRING;
 import static com.shubham.app.controller.QuizSubmissionController.TOTAL_QUESTIONS_TO_ASK;
 
 @Service
@@ -145,5 +146,18 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         EachQuestion contactQuery = new EachQuestion(null, null, statement, optionA, optionB, optionC, optionD, answer,
                 null, difficultyLevel);
         questionCrud.addQuestion(contactQuery);
+    }
+
+    @Override
+    public void renderDesiredQuestionEditPage(String questionId, Model model) {
+
+        Question question = null;
+        if (questionId == null || Objects.equals(questionId, ZERO_LENGTH_STRING)) {
+            question = new Question("", "", "", "", "", 0, null);
+        } else {
+            question = questionCrud.getAllQuestions(Long.valueOf(questionId));
+        }
+
+        model.addAttribute("question", question);
     }
 }
