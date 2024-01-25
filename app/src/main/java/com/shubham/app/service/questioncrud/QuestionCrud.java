@@ -48,6 +48,10 @@ public class QuestionCrud {
         return questionDAO.getAllQuestion();
     }
 
+    public Question getAllQuestions(Long questionId) {
+        return questionDAO.questionById(questionId);
+    }
+
     public boolean removeQuestions(Long questionId) {
         return questionDAO.deleteQuestion(questionId);
     }
