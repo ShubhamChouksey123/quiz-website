@@ -1,0 +1,49 @@
+/**
+*   Color of the button #e47250
+*/
+
+/**
+*   Style for the Quiz Page
+*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif
+}
+
+.flex-container {
+    display: flex;
+    background-color: DodgerBlue;
+    margin: 10px;
+    flex-direction: row;
+    align-content: flex-start;
+}
+
+.each-row {
+    background-color: #f1f1f1;
+
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+
+    justify-content: flex-start;
+
+    /* padding: 20px; */
+    font-size: 30px;
+    margin: auto;
+    ;
+    /* margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 2px; */
+}
+
+.each-option {
+    margin-bottom: 10px;
+    padding: 10px;
+    margin-top: 10px;
+}

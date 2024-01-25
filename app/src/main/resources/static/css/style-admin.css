@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    /* background-color: #cfd5db; */
+}
+
+.heading {
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-align: center;
+
+}
+
+.each-question {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    /* padding-bottom: 10px; */
+    width: 90%;
+
+    background-color: #cfd5db;
+    border: black solid 2px;
+    border-radius: 10px;
+}
+
+.flex-container {
+    display: flex;
+    background-color: #cfd5db;
+    /* margin: 10px; */
+    width: 100%;
+    margin: auto;
+    flex-direction: row;
+    align-content: flex-start;
+}
+
+.each-row {
+    /* background-color: #f1f1f1; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    /* padding: 20px; */
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 30px;
+    margin: 10px;
+    /* margin: auto; */
+}
+
+.each-option {
+    margin: 10px;
+    /* background-color: #f1f1f1; */
+    width: 100%;
+    /* Make each-option take up the entire width */
+}

@@ -45,15 +45,19 @@ public class QuestionDAOImpl implements QuestionDAO {
     @Override
     public List<Question> getAllQuestion() {
 
-        List<Question> questionList = new ArrayList<>();
-        String sql = "from question q order by questionId asc";
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Question> query = cb.createQuery(Question.class);
+        Root<Question> root = query.from(Question.class);
 
+        query.select(root);
+
+        List<Question> questionList = new ArrayList<>();
         try {
-            questionList = (List<Question>) em.createQuery(sql).getResultList();
-            return questionList;
+            questionList = em.createQuery(query).getResultList();
         } catch (Exception e) {
-            logger.error("No Question exist !");
+            logger.warn("Couldn't find a suitable claim : {}", e.getMessage());
         }
+
         return questionList;
     }
 
