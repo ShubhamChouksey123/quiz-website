@@ -11,8 +11,8 @@ public class DTOToEntity {
 
     public Question convertQuestionDTO(EachQuestion eachQuestion) {
 
-        return new Question(eachQuestion.getStatement(), eachQuestion.getOptionA(), eachQuestion.getOptionB(),
-                eachQuestion.getOptionC(), eachQuestion.getOptionD(), eachQuestion.getAns(),
+        return new Question(eachQuestion.getQuestionId(), eachQuestion.getStatement(), eachQuestion.getOptionA(),
+                eachQuestion.getOptionB(), eachQuestion.getOptionC(), eachQuestion.getOptionD(), eachQuestion.getAns(),
                 eachQuestion.getDifficulty());
     }
 
