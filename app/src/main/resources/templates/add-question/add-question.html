@@ -35,6 +35,26 @@
         media="screen">
 </head>
 
+<script th:inline="javascript">
+
+    function fillAlreadyExistingValues() {
+        console.log("rendering the values from the inline JS");
+        var questionObject = [[${ question }]];
+        console.log("rendering the values of the question : " + questionObject);
+
+        if (questionObject == null) {
+            console.log("Variable is null");
+            return;
+        }
+        // console.log("2value of ans : " + questionObject['ans']);
+
+        document.getElementById("answerOption").value = questionObject['ans'].toString();
+        document.getElementById("difficulty_level").value = questionObject['difficulty'].toString();
+    }
+
+
+</script>
+
 <body>
     <!-- header section start -->
     <div class="header_section">
@@ -89,6 +109,9 @@
                     <p style="color: green"><span th:text="${contactMessage}"></span></p>
                     <form id="addQuestionForm" method="post" action="/submit-add-question">
 
+                        <input type="hidden" class="email-bt" label="Question" placeholder="" name="question_id"
+                            th:value="${question.getQuestionId()}" required />
+
 
                         <label for="category" style="font-size: 21px;color: #000000">Category :</label>
                         <div style="margin-top: 10px;margin-bottom: 10px;">
@@ -112,7 +135,7 @@
 
                         <label for="answer" style="font-size: 21px;color: #000000">Answer :</label>
                         <div style="margin-top: 10px;margin-bottom: 10px;">
-                            <select class="" name="answer" th:value="${question.getAns()}" required>
+                            <select class="" name="answer" id="answerOption" th:value="${question.getAns()}" required>
                                 <option value="">Please select answer :</option>
                                 <option value="0">A</option>
                                 <option value="1">B</option>
@@ -140,7 +163,8 @@
 
                         <label for="difficulty_level" style="font-size: 21px;color: #000000">Difficulty Level :</label>
                         <div style="margin-top: 10px;margin-bottom: 10px;">
-                            <select class="" name="difficulty_level" required aria-required="true">
+                            <select class="" name="difficulty_level" id="difficulty_level" required
+                                aria-required="true">
                                 <option value="">Please select difficulty level</option>
                                 <option value="LOW">Low</option>
                                 <option value="MEDIUM">Medium</option>
@@ -220,7 +244,11 @@
             </div>
             <!-- copyright section end -->
             <!-- Javascript files-->
-            <script src="js/jquery.min.js"></script>
+
+            <!-- this JS file is adding the CSS to the selection drop down and causing the issue  -->
+            <!-- <script src="js/jquery.min.js"></script> -->
+
+
             <script src="js/popper.min.js"></script>
             <script src="js/bootstrap.bundle.min.js"></script>
             <script src="js/jquery-3.0.0.min.js"></script>
