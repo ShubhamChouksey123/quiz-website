@@ -140,11 +140,11 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
     }
 
     @Override
-    public void submitNewAddQuestion(QuestionCategory category, String statement, String optionA, String optionB,
-            String optionC, String optionD, Integer answer, DifficultyLevel difficultyLevel) {
+    public void submitNewAddQuestion(Long questionId, QuestionCategory category, String statement, String optionA,
+            String optionB, String optionC, String optionD, Integer answer, DifficultyLevel difficultyLevel) {
 
-        EachQuestion contactQuery = new EachQuestion(null, null, statement, optionA, optionB, optionC, optionD, answer,
-                null, difficultyLevel);
+        EachQuestion contactQuery = new EachQuestion(null, questionId, statement, optionA, optionB, optionC, optionD,
+                answer, null, difficultyLevel);
         questionCrud.addQuestion(contactQuery);
     }
 
@@ -153,7 +153,7 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
 
         Question question = null;
         if (questionId == null || Objects.equals(questionId, ZERO_LENGTH_STRING)) {
-            question = new Question("", "", "", "", "", 0, null);
+            question = new Question(null, "", "", "", "", "", 0, null);
         } else {
             question = questionCrud.getAllQuestions(Long.valueOf(questionId));
         }

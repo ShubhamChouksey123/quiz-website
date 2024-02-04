@@ -72,7 +72,7 @@ QUIZ_DB_CONFIG_QUERY_STRING=allowPublicKeyRetrieval=true&useSSL=false&sessionVar
 
 ## TODO 
 
-* Make the admin page to add the questions in the database.
+* Add category to be added in database and in Java entity class.
 * Contact page making the success modal clear after 30 seconds.
 * Random questions from the database. 
 * About Page: content
