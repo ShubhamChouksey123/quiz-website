@@ -37,8 +37,8 @@ public interface RenderQuizTemplate {
     void submitContactQuery(String name, String email, String phoneNumber, String message, Model model);
 
     /** */
-    void submitNewAddQuestion(QuestionCategory category, String statement, String optionA, String optionB,
-            String optionC, String optionD, Integer answer, DifficultyLevel difficultyLevel);
+    void submitNewAddQuestion(Long questionId, QuestionCategory category, String statement, String optionA,
+            String optionB, String optionC, String optionD, Integer answer, DifficultyLevel difficultyLevel);
 
     void renderDesiredQuestionEditPage(String questionId, Model model);
 }

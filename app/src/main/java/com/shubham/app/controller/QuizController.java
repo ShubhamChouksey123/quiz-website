@@ -144,7 +144,8 @@ public class QuizController {
 
     @PostMapping(value = {"/submit-add-question"})
     @ResponseBody
-    public RedirectView submitAddQuestion(@RequestParam(value = "category") QuestionCategory category,
+    public RedirectView submitAddQuestion(@RequestParam(value = "question_id", required = false) Long questionId,
+            @RequestParam(value = "category") QuestionCategory category,
             @RequestParam(value = "difficulty_level") DifficultyLevel difficultyLevel,
             @RequestParam(value = "question") String question, @RequestParam(value = "optionA") String optionA,
             @RequestParam(value = "optionB") String optionB, @RequestParam(value = "optionC") String optionC,
@@ -152,11 +153,11 @@ public class QuizController {
             Model model, RedirectAttributes redirectAttrs) {
 
         logger.info(
-                "post method submitted a new question with category : {}, question : {}, optionA : {}, optionB : {}, optionC : {}, optionD : {} and answer : {}",
-                category, question, optionA, optionB, optionC, optionD, answer);
+                "post method submitted a new question with questionId : {}category : {}, question : {}, optionA : {}, optionB : {}, optionC : {}, optionD : {} and answer : {}",
+                questionId, category, question, optionA, optionB, optionC, optionD, answer);
 
-        renderQuizTemplate.submitNewAddQuestion(category, question, optionA, optionB, optionC, optionD, answer,
-                difficultyLevel);
+        renderQuizTemplate.submitNewAddQuestion(questionId, category, question, optionA, optionB, optionC, optionD,
+                answer, difficultyLevel);
 
         redirectAttrs.addFlashAttribute("contactMessage", "Added new question.");
         return new RedirectView("/home");
