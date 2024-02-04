@@ -35,8 +35,9 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private DifficultyLevel difficulty;
 
-    public Question(String statement, String optionA, String optionB, String optionC, String optionD, Integer ans,
-            DifficultyLevel difficulty) {
+    public Question(Long questionId, String statement, String optionA, String optionB, String optionC, String optionD,
+            Integer ans, DifficultyLevel difficulty) {
+        this.questionId = questionId;
         this.statement = statement;
         this.optionA = optionA;
         this.optionB = optionB;

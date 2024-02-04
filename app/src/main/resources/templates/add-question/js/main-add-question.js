@@ -5,9 +5,8 @@
   /**
  * Defaults for initial first question
  */
-  showDesiredNumberQuestion(Number(0));
-  setOptionIds();
-  setOptionNullSelected();
+
+  fillAlreadyExistingValues();
 
   /**
    * Easy selector helper function
@@ -250,12 +249,6 @@
 
   });
 
-  /**
-   * Initiate portfolio lightbox
-   */
-  const portfolioLightbox = GLightbox({
-    selector: '.portfolio-lightbox'
-  });
 
   /**
    * Portfolio details slider
