@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import com.shubham.app.emailsender.PrepareAndSendEmail;
 import com.shubham.app.entity.Question;
 import com.shubham.app.hibernate.dao.ContactQueryDao;
+import com.shubham.app.model.ApprovalLevel;
 import com.shubham.app.service.questioncrud.QuestionCrud;
 import com.shubham.app.service.questioncrud.QuestionsUtils;
 
@@ -32,10 +33,10 @@ public class RenderAdminTemplateImpl implements RenderAdminTemplate {
     private PrepareAndSendEmail prepareAndSendEmail;
 
     @Override
-    public void renderAdminPage(Model model) {
+    public void renderAdminPage(ApprovalLevel approvalLevel, Model model) {
 
         logger.info("fetching all the questions from our quiz database");
-        List<Question> questions = questionCrud.getAllQuestions();
+        List<Question> questions = questionCrud.getAllQuestions(approvalLevel);
 
         List<Long> ids = new ArrayList<>();
 

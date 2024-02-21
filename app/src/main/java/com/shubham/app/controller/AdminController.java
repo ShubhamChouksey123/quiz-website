@@ -26,9 +26,10 @@ public class AdminController {
     private RenderAdminTemplate renderAdminTemplate;
 
     @GetMapping({"/admin",})
-    public String renderAdminAllQuestion(Model model) {
+    public String renderAdminAllQuestion(
+            @RequestParam(value = "approvalLevel", required = false) ApprovalLevel approvalLevel, Model model) {
 
-        renderAdminTemplate.renderAdminPage(model);
+        renderAdminTemplate.renderAdminPage(approvalLevel, model);
         return "quiz-template/admin";
     }
 
