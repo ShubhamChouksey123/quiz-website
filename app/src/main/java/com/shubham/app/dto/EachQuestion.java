@@ -1,7 +1,9 @@
 package com.shubham.app.dto;
 
 import com.shubham.app.entity.Question;
+import com.shubham.app.model.ApprovalLevel;
 import com.shubham.app.model.DifficultyLevel;
+import com.shubham.app.model.QuestionCategory;
 
 public class EachQuestion {
 
@@ -20,7 +22,10 @@ public class EachQuestion {
     /** actual answer of the question */
     private Integer ans;
 
+    private ApprovalLevel approvalLevel;
     private DifficultyLevel difficulty;
+
+    private QuestionCategory category;
 
     /** option opted by the user, for this question */
     private Integer useOptedAnswer;
@@ -34,7 +39,8 @@ public class EachQuestion {
     }
 
     public EachQuestion(Integer index, Long questionId, String statement, String optionA, String optionB,
-            String optionC, String optionD, Integer ans, Integer useOptedAnswer, DifficultyLevel difficulty) {
+            String optionC, String optionD, Integer ans, Integer useOptedAnswer, DifficultyLevel difficulty,
+            ApprovalLevel approvalLevel, QuestionCategory category) {
         this.index = index;
         this.questionId = questionId;
         this.statement = statement;
@@ -45,6 +51,8 @@ public class EachQuestion {
         this.ans = ans;
         this.useOptedAnswer = useOptedAnswer;
         this.difficulty = difficulty;
+        this.approvalLevel = approvalLevel;
+        this.category = category;
     }
 
     public EachQuestion(Question question) {
@@ -55,6 +63,22 @@ public class EachQuestion {
         this.optionC = question.getOptionC();
         this.optionD = question.getOptionD();
         this.ans = question.getAns();
+    }
+
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
+
+    public Long getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
     }
 
     public String getStatement() {
@@ -105,20 +129,28 @@ public class EachQuestion {
         this.ans = ans;
     }
 
-    public Integer getIndex() {
-        return index;
+    public ApprovalLevel getApprovalLevel() {
+        return approvalLevel;
     }
 
-    public void setIndex(Integer index) {
-        this.index = index;
+    public void setApprovalLevel(ApprovalLevel approvalLevel) {
+        this.approvalLevel = approvalLevel;
     }
 
-    public Long getQuestionId() {
-        return questionId;
+    public DifficultyLevel getDifficulty() {
+        return difficulty;
     }
 
-    public void setQuestionId(Long questionId) {
-        this.questionId = questionId;
+    public void setDifficulty(DifficultyLevel difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public QuestionCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(QuestionCategory category) {
+        this.category = category;
     }
 
     public Integer getUseOptedAnswer() {
@@ -161,19 +193,14 @@ public class EachQuestion {
         this.borderColorOptionD = borderColorOptionD;
     }
 
-    public DifficultyLevel getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(DifficultyLevel difficulty) {
-        this.difficulty = difficulty;
-    }
-
     @Override
     public String toString() {
-        return "EachQuestion{" + "index=" + index + ", questionId=" + questionId + ", ans=" + ans + ", useOptedAnswer="
-                + useOptedAnswer + ", borderColorOptionA='" + borderColorOptionA + '\'' + ", borderColorOptionB='"
-                + borderColorOptionB + '\'' + ", borderColorOptionC='" + borderColorOptionC + '\''
-                + ", borderColorOptionD='" + borderColorOptionD + '\'' + ", statement='" + statement + '\'' + '}';
+        return "EachQuestion{" + "index=" + index + ", questionId=" + questionId + ", statement='" + statement + '\''
+                + ", optionA='" + optionA + '\'' + ", optionB='" + optionB + '\'' + ", optionC='" + optionC + '\''
+                + ", optionD='" + optionD + '\'' + ", ans=" + ans + ", approvalLevel=" + approvalLevel + ", difficulty="
+                + difficulty + ", category=" + category + ", useOptedAnswer=" + useOptedAnswer
+                + ", borderColorOptionA='" + borderColorOptionA + '\'' + ", borderColorOptionB='" + borderColorOptionB
+                + '\'' + ", borderColorOptionC='" + borderColorOptionC + '\'' + ", borderColorOptionD='"
+                + borderColorOptionD + '\'' + '}';
     }
 }

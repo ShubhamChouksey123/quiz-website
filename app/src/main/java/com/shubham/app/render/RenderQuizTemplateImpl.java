@@ -12,6 +12,7 @@ import com.shubham.app.entity.ContactQuery;
 import com.shubham.app.entity.Question;
 import com.shubham.app.entity.QuizSubmission;
 import com.shubham.app.hibernate.dao.ContactQueryDao;
+import com.shubham.app.model.ApprovalLevel;
 import com.shubham.app.model.DifficultyLevel;
 import com.shubham.app.model.QuestionCategory;
 import com.shubham.app.service.questioncrud.QuestionCrud;
@@ -143,9 +144,9 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
     public void submitNewAddQuestion(Long questionId, QuestionCategory category, String statement, String optionA,
             String optionB, String optionC, String optionD, Integer answer, DifficultyLevel difficultyLevel) {
 
-        EachQuestion contactQuery = new EachQuestion(null, questionId, statement, optionA, optionB, optionC, optionD,
-                answer, null, difficultyLevel);
-        questionCrud.addQuestion(contactQuery);
+        EachQuestion eachQuestion = new EachQuestion(null, questionId, statement, optionA, optionB, optionC, optionD,
+                answer, null, difficultyLevel, ApprovalLevel.NEW, category);
+        questionCrud.addQuestion(eachQuestion);
     }
 
     @Override
@@ -153,7 +154,7 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
 
         Question question = null;
         if (questionId == null || Objects.equals(questionId, ZERO_LENGTH_STRING)) {
-            question = new Question(null, "", "", "", "", "", 0, null);
+            question = new Question(null, "", "", "", "", "", 0, null, null, null);
         } else {
             question = questionCrud.getAllQuestions(Long.valueOf(questionId));
         }

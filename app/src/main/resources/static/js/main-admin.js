@@ -450,16 +450,19 @@ function optionSelected(selectedOption) {
 function approvedQuestionPage() {
   hideApproveButtons();
   showDisapproveButtons();
+  handleClick("APPROVED");
 }
 
 function discardedQuestionPage() {
   showApproveButtons();
   hideDiscardButtons();
+  handleClick("DISCARD");
 }
 
 function newQuestionPage() {
   showApproveButtons();
   showDisapproveButtons();
+  handleClick("NEW");
 }
 
 /**
@@ -527,3 +530,27 @@ function editQuestion(questionId) {
 }
 
 
+
+
+function updateQueryStringParameter(uri, key, value) {
+  var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+  var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+  if (uri.match(re)) {
+    return uri.replace(re, '$1' + key + "=" + value + '$2');
+  } else {
+    return uri + separator + key + "=" + value;
+  }
+}
+
+function handleClick(approvalLevel) {
+
+  var currentUrl = window.location.href;
+  console.log("currentUrl : " + currentUrl);
+
+  var newUrl = updateQueryStringParameter(currentUrl, "approvalLevel", approvalLevel);
+  console.log("newUrl : " + newUrl);
+
+  window.location.replace(newUrl);
+
+  display("Clicked, new value = " + cb.checked);
+}
