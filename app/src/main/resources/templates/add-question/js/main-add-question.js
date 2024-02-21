@@ -320,8 +320,62 @@
  */
 
 
+fillAlreadyExistingValues();
 
 function submitAddQuestionForm() {
   document.getElementById("addQuestionForm").submit();
 }
 
+
+function validateFormAddQuestion() {
+  console.log("Starting for validation");
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
+  let x = document.forms["addQuestionForm"]["category"].value;
+  if (x == "") {
+    document.getElementById("formValidationError").innerHTML = "Category must be filled out";
+    return false;
+  }
+
+  x = document.forms["addQuestionForm"]["question"].value;
+  if (x == "") {
+    document.getElementById("formValidationError").innerHTML = "Question must be filled out";
+    return false;
+  }
+
+  x = document.forms["addQuestionForm"]["answer"].value;
+  if (x == "") {
+    document.getElementById("formValidationError").innerHTML = "Answer must be filled out";
+    return false;
+  }
+
+
+  x = document.forms["addQuestionForm"]["optionA"].value;
+  if (x == "") {
+    document.getElementById("formValidationError").innerHTML = "Option A must be filled out";
+    return false;
+  }
+
+  x = document.forms["addQuestionForm"]["optionB"].value;
+  if (x == "") {
+    document.getElementById("formValidationError").innerHTML = "Option B must be filled out";
+    return false;
+  }
+
+  x = document.forms["addQuestionForm"]["optionC"].value;
+  if (x == "") {
+    document.getElementById("formValidationError").innerHTML = "Option C must be filled out";
+    return false;
+  }
+
+  x = document.forms["addQuestionForm"]["optionD"].value;
+  if (x == "") {
+    document.getElementById("formValidationError").innerHTML = "Option D must be filled out";
+    return false;
+  }
+
+  x = document.forms["addQuestionForm"]["difficulty_level"].value;
+  if (x == "") {
+    document.getElementById("formValidationError").innerHTML = "Difficulty level must be filled out";
+    return false;
+  }
+}
