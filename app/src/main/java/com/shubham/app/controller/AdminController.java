@@ -41,6 +41,7 @@ public class AdminController {
 
         logger.info("submitted the changeCategory with questionId : {} and approvalLevel : {}", questionId,
                 approvalLevel);
+        renderAdminTemplate.changeApprovalLevel(questionId, approvalLevel);
 
         redirectAttrs.addFlashAttribute("questionId", questionId);
         if (approvalLevel == ApprovalLevel.EDIT) {
