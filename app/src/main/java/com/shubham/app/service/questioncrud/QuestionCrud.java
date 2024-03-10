@@ -32,6 +32,10 @@ public class QuestionCrud {
 
     public void addQuestion(EachQuestion eachQuestion) {
         Question question = dTOToEntity.convertQuestionDTO(eachQuestion);
+        saveQuestion(question);
+    }
+
+    public void saveQuestion(Question question) {
         questionDAO.saveQuestion(question);
     }
 

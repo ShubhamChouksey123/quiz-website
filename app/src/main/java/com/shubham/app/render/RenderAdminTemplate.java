@@ -7,4 +7,6 @@ import com.shubham.app.model.ApprovalLevel;
 public interface RenderAdminTemplate {
 
     void renderAdminPage(ApprovalLevel approvalLevel, Model model);
+
+    void changeApprovalLevel(Long questionId, ApprovalLevel approvalLevel);
 }

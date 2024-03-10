@@ -50,4 +50,25 @@ public class RenderAdminTemplateImpl implements RenderAdminTemplate {
         model.addAttribute("questionNumberToShow", 1);
         model.addAttribute("totalQuestions", TOTAL_QUESTIONS_TO_ASK);
     }
+
+    /**
+     * used to change the approval level of the question between : NEW, DISCARD,
+     * EDIT
+     *
+     * @param approvalLevel
+     * @param questionId
+     */
+    @Override
+    public void changeApprovalLevel(Long questionId, ApprovalLevel approvalLevel) {
+
+        logger.info("changing the approval level of question with id : {} as approval level : {}", questionId,
+                approvalLevel);
+        Question question = questionCrud.getAllQuestions(questionId);
+
+        if (question != null) {
+            question.setApprovalLevel(approvalLevel);
+        }
+
+        questionCrud.saveQuestion(question);
+    }
 }
