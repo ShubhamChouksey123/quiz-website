@@ -25,15 +25,17 @@
 
       <form style="width: 50%; margin: auto;">
          <fieldset data-role="controlgroup" data-type="horizontal">
-            <label for="radioButton">Approved</label>
-            <input type="radio" name="radioButton" id="radioButton" class="custom" onclick="approvedQuestionPage();">
+            <label for="radioButtonApproved">Approved</label>
+            <input type="radio" name="radioButtonApproved" id="radioButtonApproved" class="custom"
+               onclick="approvedQuestionPage();">
 
-            <label for="radioButton1">Needs Approval</label>
-            <input type="radio" name="radioButton" id="radioButton1" class="custom" checked
+            <label for="radioButtonNeedApproval">Needs Approval</label>
+            <input type="radio" name="radioButtonNeedApproval" id="radioButtonNeedApproval" class="custom" checked
                onclick="newQuestionPage();">
 
-            <label for="radioButton2">Discarded</label>
-            <input type="radio" name="radioButton" id="radioButton2" class="custom" onclick="discardedQuestionPage();">
+            <label for="radioButtonDiscarded">Discarded</label>
+            <input type="radio" name="radioButtonDiscarded" id="radioButtonDiscarded" class="custom"
+               onclick="discardedQuestionPage();">
 
          </fieldset>
       </form>
@@ -66,7 +68,7 @@
                <button type="button" class="btn btn-primary"
                   th:attr="onclick=|approveQuestion('${question.getQuestionId()}')|">Approve</button>
             </div>
-            <div class="each-row approve-button" style="padding: 0px;">
+            <div class="each-row edit-button" style="padding: 0px;">
                <button type="button" class="btn btn-primary"
                   th:attr="onclick=|editQuestion('${question.getQuestionId()}')|">Edit</button>
             </div>
