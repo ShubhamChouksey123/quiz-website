@@ -1,13 +1,12 @@
 (function () {
   "use strict";
 
-  document.addEventListener("DOMContentLoaded", showProperButtons);
-
   /**
  * Defaults for initial first question
  */
-
+  // document.addEventListener("DOMContentLoaded", showProperButtons);
   showProperButtons();
+
 
   /**
    * Easy selector helper function
@@ -497,20 +496,32 @@ function showProperButtons() {
     console.log("approval level is approved");
     hideApproveButtons();
     showDiscardButtons();
+    document.getElementById('radioButtonApproved').checked = true;
+    document.getElementById('radioButtonNeedApproval').checked = false;
+    document.getElementById('radioButtonDiscarded').checked = false;
   }
   else if (approvalLevel == "DISCARD") {
     console.log("approval level is discard");
     showApproveButtons();
     hideDiscardButtons();
+    document.getElementById('radioButtonApproved').checked = false;
+    document.getElementById('radioButtonNeedApproval').checked = false;
+    document.getElementById('radioButtonDiscarded').checked = true;
   }
   else if (approvalLevel == "NEW") {
     console.log("approval level is new");
     showApproveButtons();
     showDiscardButtons();
+    document.getElementById('radioButtonApproved').checked = false;
+    document.getElementById('radioButtonNeedApproval').checked = true;
+    document.getElementById('radioButtonDiscarded').checked = false;
   } else {
     console.log("approval level is null");
     showApproveButtons();
     showDiscardButtons();
+    document.getElementById('radioButtonApproved').checked = false;
+    document.getElementById('radioButtonNeedApproval').checked = true;
+    document.getElementById('radioButtonDiscarded').checked = false;
   }
 
 }
