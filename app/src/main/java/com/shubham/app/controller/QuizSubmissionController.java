@@ -55,11 +55,6 @@ public class QuizSubmissionController {
         return "Saved Successfully";
     }
 
-    @GetMapping("/getAllQuestions")
-    public List<Question> getAllQuestions() {
-        return questionCrud.getAllQuestions();
-    }
-
     public void removeQuestions() {
     }
 

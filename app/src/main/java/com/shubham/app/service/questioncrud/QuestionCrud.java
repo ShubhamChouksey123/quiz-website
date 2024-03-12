@@ -12,8 +12,9 @@ import com.shubham.app.dtotoentity.DTOToEntity;
 import com.shubham.app.entity.Question;
 import com.shubham.app.entity.QuizSubmission;
 import com.shubham.app.hibernate.dao.ContactQueryDaoImpl;
-import com.shubham.app.hibernate.dao.QuestionDAO;
+import com.shubham.app.hibernate.dao.QuestionDAOImpl;
 import com.shubham.app.hibernate.dao.QuizSubmissionDao;
+import com.shubham.app.model.ApprovalLevel;
 
 import java.util.*;
 
@@ -21,7 +22,7 @@ import java.util.*;
 public class QuestionCrud {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Autowired
-    private QuestionDAO questionDAO;
+    private QuestionDAOImpl questionDAO;
     @Autowired
     private ContactQueryDaoImpl contactQueryDAO;
     @Autowired
@@ -31,6 +32,10 @@ public class QuestionCrud {
 
     public void addQuestion(EachQuestion eachQuestion) {
         Question question = dTOToEntity.convertQuestionDTO(eachQuestion);
+        saveQuestion(question);
+    }
+
+    public void saveQuestion(Question question) {
         questionDAO.saveQuestion(question);
     }
 
@@ -44,8 +49,8 @@ public class QuestionCrud {
         return questionDAO.getQuestion(totalQuestions);
     }
 
-    public List<Question> getAllQuestions() {
-        return questionDAO.getAllQuestion();
+    public List<Question> getAllQuestions(ApprovalLevel approvalLevel) {
+        return questionDAO.getAllQuestion(approvalLevel);
     }
 
     public Question getAllQuestions(Long questionId) {

@@ -7,10 +7,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.shubham.app.entity.Question;
 import com.shubham.app.entity.Question_;
+import com.shubham.app.model.ApprovalLevel;
 
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -43,7 +45,7 @@ public class QuestionDAOImpl implements QuestionDAO {
     }
 
     @Override
-    public List<Question> getAllQuestion() {
+    public List<Question> getAllQuestion(ApprovalLevel approvalLevel) {
 
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Question> query = cb.createQuery(Question.class);
@@ -51,11 +53,18 @@ public class QuestionDAOImpl implements QuestionDAO {
 
         query.select(root);
 
+        if (approvalLevel != null) {
+            Predicate predicate = cb.equal(root.get(Question_.approvalLevel), approvalLevel);
+            query.where(predicate);
+        }
+
         List<Question> questionList = new ArrayList<>();
         try {
             questionList = em.createQuery(query).getResultList();
+        } catch (NoResultException e) {
+            logger.warn("Couldn't find questions with approval level : {}", approvalLevel);
         } catch (Exception e) {
-            logger.warn("Couldn't find a suitable claim : {}", e.getMessage());
+            logger.error("Couldn't find a questions with cause : {}", e.getMessage());
         }
 
         return questionList;
