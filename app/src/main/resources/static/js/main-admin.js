@@ -1,17 +1,12 @@
 (function () {
   "use strict";
 
-  document.getElementById("submit_quiz_request_button").addEventListener("click", onClickSubmitButtonRequest);
-
-  document.getElementById("nextQuestionButton").addEventListener("click", onClickNextQuestionButton);
-  document.getElementById("previousQuestionButton").addEventListener("click", onClickPreviousQuestionButton);
-
   /**
  * Defaults for initial first question
  */
-  showDesiredNumberQuestion(Number(0));
-  setOptionIds();
-  setOptionNullSelected();
+  // document.addEventListener("DOMContentLoaded", showProperButtons);
+  showProperButtons();
+
 
   /**
    * Easy selector helper function
@@ -254,12 +249,6 @@
 
   });
 
-  /**
-   * Initiate portfolio lightbox
-   */
-  const portfolioLightbox = GLightbox({
-    selector: '.portfolio-lightbox'
-  });
 
   /**
    * Portfolio details slider
@@ -307,22 +296,6 @@
     }
   });
 
-  /**
-   * Animation on scroll
-   */
-  window.addEventListener('load', () => {
-    AOS.init({
-      duration: 1000,
-      easing: 'ease-in-out',
-      once: true,
-      mirror: false
-    })
-  });
-
-  /**
-   * Initiate Pure Counter
-   */
-  new PureCounter();
 
 })()
 
@@ -352,18 +325,6 @@ function hideSubmitQuizForm() {
 
 
 
-function setOptionNullSelected() {
-  let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
-  console.log("totalQuestionValue : " + totalQuestionValue);
-
-  var userOptedAnswersArray = Array.from(Array(totalQuestionValue));
-
-  var userOptedAnswersJSON = JSON.stringify(userOptedAnswersArray);
-  document.getElementById("userOptedAnswers").value = userOptedAnswersJSON;
-
-  console.log("userOptedAnswers : " + document.getElementById("userOptedAnswers").value);
-}
-
 
 function showDesiredButton(currentQuestion, totalQuestion) {
 
@@ -391,41 +352,6 @@ function showDesiredNumberOnInfo(currentQuestion, totalQuestion) {
 
 
 
-/**
- * for changing the current Shown Question Number to next page
- */
-function onClickNextQuestionButton() {
-  var elementCurrentQuestionNumber = document.getElementById("questionNumberToShow");
-  let currentQuestionValue = Number(document.getElementById("questionNumberToShow").value);
-  let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
-
-  if (currentQuestionValue < totalQuestionValue) {
-    elementCurrentQuestionNumber.value = currentQuestionValue + 1;
-    showDesiredQuestionPage(elementCurrentQuestionNumber.value, totalQuestionValue);
-    hideSubmitQuizForm();
-  }
-  else if (currentQuestionValue == totalQuestionValue) {
-    onClickSubmitButtonRequest();
-  }
-  console.log("elementCurrentQuestionNumber.value : " + elementCurrentQuestionNumber.value);
-}
-
-/**
- * for changing the current Shown Question Number to previous page
- */
-function onClickPreviousQuestionButton() {
-  var elementCurrentQuestionNumber = document.getElementById("questionNumberToShow");
-  let currentQuestionValue = Number(document.getElementById("questionNumberToShow").value);
-
-  let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
-
-  if (currentQuestionValue > 1) {
-    elementCurrentQuestionNumber.value = currentQuestionValue - 1;
-    showDesiredQuestionPage(elementCurrentQuestionNumber.value, totalQuestionValue);
-  }
-  hideSubmitQuizForm();
-  console.log("elementCurrentQuestionNumber.value : " + elementCurrentQuestionNumber.value);
-}
 
 /**
  * taking user input when he clicks the options 
@@ -449,17 +375,20 @@ function optionSelected(selectedOption) {
 
 function approvedQuestionPage() {
   hideApproveButtons();
-  showDisapproveButtons();
+  showDiscardButtons();
+  handleClick("APPROVED");
 }
 
 function discardedQuestionPage() {
   showApproveButtons();
   hideDiscardButtons();
+  handleClick("DISCARD");
 }
 
 function newQuestionPage() {
   showApproveButtons();
-  showDisapproveButtons();
+  showDiscardButtons();
+  handleClick("NEW");
 }
 
 /**
@@ -471,6 +400,14 @@ function hideApproveButtons() {
   console.log("Function hideApproveButton allApproveButtons : " + allApproveButtons);
   for (let i = 0; i < allApproveButtons.length; i++) {
     allApproveButtons[i].style.display = "none";
+  }
+}
+
+
+function showApproveButtons() {
+  var allApproveButtons = document.getElementsByClassName("approve-button");
+  for (let i = 0; i < allApproveButtons.length; i++) {
+    allApproveButtons[i].style.removeProperty("display");
   }
 }
 
@@ -488,14 +425,8 @@ function hideDiscardButtons() {
 }
 
 
-function showApproveButtons() {
-  var allApproveButtons = document.getElementsByClassName("approve-button");
-  for (let i = 0; i < allApproveButtons.length; i++) {
-    allApproveButtons[i].style.removeProperty("display");
-  }
-}
 
-function showDisapproveButtons() {
+function showDiscardButtons() {
   var allApproveButtons = document.getElementsByClassName("discard-button");
   for (let i = 0; i < allApproveButtons.length; i++) {
     allApproveButtons[i].style.removeProperty("display");
@@ -527,3 +458,81 @@ function editQuestion(questionId) {
 }
 
 
+
+
+function updateQueryStringParameter(uri, key, value) {
+  var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+  var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+  if (uri.match(re)) {
+    return uri.replace(re, '$1' + key + "=" + value + '$2');
+  } else {
+    return uri + separator + key + "=" + value;
+  }
+}
+
+function handleClick(approvalLevel) {
+
+  var currentUrl = window.location.href;
+  console.log("currentUrl : " + currentUrl);
+
+  var newUrl = updateQueryStringParameter(currentUrl, "approvalLevel", approvalLevel);
+  console.log("newUrl : " + newUrl);
+
+  window.location.replace(newUrl);
+
+  display("Clicked, new value = " + cb.checked);
+}
+
+
+function showProperButtons() {
+
+  let params = (new URL(document.location)).searchParams;
+  console.log("query parameter searching ");
+  let approvalLevel = params.get("approvalLevel");
+  console.log("query parameter is " + approvalLevel);
+
+
+  if (approvalLevel == "APPROVED") {
+    console.log("approval level is approved");
+    hideApproveButtons();
+    showDiscardButtons();
+    document.getElementById('radioButtonApproved').checked = true;
+    document.getElementById('radioButtonNeedApproval').checked = false;
+    document.getElementById('radioButtonDiscarded').checked = false;
+  }
+  else if (approvalLevel == "DISCARD") {
+    console.log("approval level is discard");
+    showApproveButtons();
+    hideDiscardButtons();
+    document.getElementById('radioButtonApproved').checked = false;
+    document.getElementById('radioButtonNeedApproval').checked = false;
+    document.getElementById('radioButtonDiscarded').checked = true;
+  }
+  else if (approvalLevel == "NEW") {
+    console.log("approval level is new");
+    showApproveButtons();
+    showDiscardButtons();
+    document.getElementById('radioButtonApproved').checked = false;
+    document.getElementById('radioButtonNeedApproval').checked = true;
+    document.getElementById('radioButtonDiscarded').checked = false;
+  } else {
+    console.log("approval level is null");
+    showApproveButtons();
+    showDiscardButtons();
+    document.getElementById('radioButtonApproved').checked = false;
+    document.getElementById('radioButtonNeedApproval').checked = true;
+    document.getElementById('radioButtonDiscarded').checked = false;
+  }
+
+}
+
+
+
+
+// window.onload = function () {
+//   var reloading = sessionStorage.getItem("reloading");
+//   if (reloading) {
+//     sessionStorage.removeItem("reloading");
+//     showProperButtons();
+//   }
+// }
