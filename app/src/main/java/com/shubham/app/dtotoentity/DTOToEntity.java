@@ -13,7 +13,7 @@ public class DTOToEntity {
 
         return new Question(eachQuestion.getQuestionId(), eachQuestion.getStatement(), eachQuestion.getOptionA(),
                 eachQuestion.getOptionB(), eachQuestion.getOptionC(), eachQuestion.getOptionD(), eachQuestion.getAns(),
-                eachQuestion.getDifficulty());
+                eachQuestion.getDifficulty(), eachQuestion.getCategory(), eachQuestion.getApprovalLevel());
     }
 
     public ContactQuery convertContactQueryDTO(ContactQueryResponse contactQueryResponse) {

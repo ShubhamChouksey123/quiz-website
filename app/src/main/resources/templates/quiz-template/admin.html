@@ -25,15 +25,17 @@
 
       <form style="width: 50%; margin: auto;">
          <fieldset data-role="controlgroup" data-type="horizontal">
-            <label for="radioButton">Approved</label>
-            <input type="radio" name="radioButton" id="radioButton" class="custom" onclick="approvedQuestionPage();">
+            <label for="radioButtonApproved">Approved</label>
+            <input type="radio" name="radioButtonApproved" id="radioButtonApproved" class="custom"
+               onclick="approvedQuestionPage();">
 
-            <label for="radioButton1">Needs Approval</label>
-            <input type="radio" name="radioButton" id="radioButton1" class="custom" checked
+            <label for="radioButtonNeedApproval">Needs Approval</label>
+            <input type="radio" name="radioButtonNeedApproval" id="radioButtonNeedApproval" class="custom" checked
                onclick="newQuestionPage();">
 
-            <label for="radioButton2">Discarded</label>
-            <input type="radio" name="radioButton" id="radioButton2" class="custom" onclick="discardedQuestionPage();">
+            <label for="radioButtonDiscarded">Discarded</label>
+            <input type="radio" name="radioButtonDiscarded" id="radioButtonDiscarded" class="custom"
+               onclick="discardedQuestionPage();">
 
          </fieldset>
       </form>
@@ -66,7 +68,7 @@
                <button type="button" class="btn btn-primary"
                   th:attr="onclick=|approveQuestion('${question.getQuestionId()}')|">Approve</button>
             </div>
-            <div class="each-row approve-button" style="padding: 0px;">
+            <div class="each-row edit-button" style="padding: 0px;">
                <button type="button" class="btn btn-primary"
                   th:attr="onclick=|editQuestion('${question.getQuestionId()}')|">Edit</button>
             </div>
@@ -83,56 +85,6 @@
    </tr>
 
 
-
-   <div class="each-question">
-      <h1>Which of the following is NOT a fruit?</h1>
-
-      <div class="flex-container">
-         <div class="each-row">
-            <div class="each-option">1. Rhubarb</div>
-            <div class="each-option">2. Tomatoes</div>
-         </div>
-         <div class="each-row">
-            <div class="each-option">3. Avocados</div>
-            <div class="each-option">4. Orange</div>
-         </div>
-      </div>
-
-      <div class="flex-container">
-         <div class="each-row approve-button" style="padding: 0px;">
-            <button type="button" class="btn btn-primary">Approve</button>
-         </div>
-         <div class="each-row discard-button" style="padding: 0px;">
-            <button type="button" class="btn btn-primary">Discard</button>
-         </div>
-      </div>
-
-   </div>
-
-   <div class="each-question">
-      <h1>What is the capital of France?</h1>
-
-      <div class="flex-container">
-         <div class="each-row">
-            <div class="each-option">1. Berlin</div>
-            <div class="each-option">2. London</div>
-         </div>
-         <div class="each-row">
-            <div class="each-option">3. Paris</div>
-            <div class="each-option">4. Rome</div>
-         </div>
-      </div>
-
-      <div class="flex-container">
-         <div class="each-row approve-button" style="padding: 0px;">
-            <button type="button" class="btn btn-primary">Approve</button>
-         </div>
-         <div class="each-row discard-button" style="padding: 0px;">
-            <button type="button" class="btn btn-primary">Discard</button>
-         </div>
-      </div>
-
-   </div>
 
 
    <!-- footer section start -->
@@ -159,7 +111,8 @@
                      website</a><br>
                   <a href="https://shubhamchouksey123.github.io/autoCV/cv.pdf" style="color: #ffffff;">Check My
                      Resume</a><br>
-                  <a href="/add-question" style="color: #ffffff;">Contribute</a><br>
+                  <a href="/add-question" style="color: #ffffff;">Contribute : Question Set</a><br>
+                  <a href="/admin" style="color: #ffffff;">Contribute : Admin</a><br>
                   Press & News<br>
                   Competitions<br>
                   Terms & Conditions

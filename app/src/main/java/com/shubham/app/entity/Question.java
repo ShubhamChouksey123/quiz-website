@@ -1,6 +1,8 @@
 package com.shubham.app.entity;
 
+import com.shubham.app.model.ApprovalLevel;
 import com.shubham.app.model.DifficultyLevel;
+import com.shubham.app.model.QuestionCategory;
 
 import jakarta.persistence.*;
 
@@ -35,8 +37,16 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private DifficultyLevel difficulty;
 
+    @Column(name = "approval_level")
+    @Enumerated(EnumType.STRING)
+    private ApprovalLevel approvalLevel;
+
+    @Column(name = "category")
+    @Enumerated(EnumType.STRING)
+    private QuestionCategory category;
+
     public Question(Long questionId, String statement, String optionA, String optionB, String optionC, String optionD,
-            Integer ans, DifficultyLevel difficulty) {
+            Integer ans, DifficultyLevel difficulty, QuestionCategory category, ApprovalLevel approvalLevel) {
         this.questionId = questionId;
         this.statement = statement;
         this.optionA = optionA;
@@ -45,6 +55,8 @@ public class Question {
         this.optionD = optionD;
         this.ans = ans;
         this.difficulty = difficulty;
+        this.category = category;
+        this.approvalLevel = approvalLevel;
     }
 
     public Question() {
@@ -114,10 +126,27 @@ public class Question {
         this.difficulty = difficulty;
     }
 
+    public ApprovalLevel getApprovalLevel() {
+        return approvalLevel;
+    }
+
+    public void setApprovalLevel(ApprovalLevel approvalLevel) {
+        this.approvalLevel = approvalLevel;
+    }
+
+    public QuestionCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(QuestionCategory category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "Question{" + "questionId=" + questionId + ", statement='" + statement + '\'' + ", optionA='" + optionA
                 + '\'' + ", optionB='" + optionB + '\'' + ", optionC='" + optionC + '\'' + ", optionD='" + optionD
-                + '\'' + ", ans=" + ans + ", difficulty=" + difficulty + '}';
+                + '\'' + ", ans=" + ans + ", difficulty=" + difficulty + ", approvalLevel=" + approvalLevel
+                + ", category=" + category + '}';
     }
 }
