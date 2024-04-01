@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Educational registration form</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+        integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <style>
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body,
+        div,
+        form,
+        input,
+        select,
+        p {
+            padding: 0;
+            margin: 0;
+            outline: none;
+            font-family: Roboto, Arial, sans-serif;
+            font-size: 16px;
+            color: #eee;
+        }
+
+        body {
+            background: url("/uploads/media/default/0001/01/b5edc1bad4dc8c20291c8394527cb2c5b43ee13c.jpeg") no-repeat center;
+            background-size: cover;
+        }
+
+        h1,
+        h2 {
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        h2 {
+            margin: 0 0 0 8px;
+        }
+
+        .main-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .left-part,
+        form {
+            padding: 25px;
+        }
+
+        .left-part {
+            text-align: center;
+        }
+
+        .fa-graduation-cap {
+            font-size: 72px;
+        }
+
+        form {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input,
+        select {
+            padding: 5px;
+            margin-bottom: 30px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #eee;
+        }
+
+        input::placeholder {
+            color: #eee;
+        }
+
+        option:focus {
+            border: none;
+        }
+
+        option {
+            background: black;
+            border: none;
+        }
+
+        .checkbox input {
+            margin: 0 10px 0 0;
+            vertical-align: middle;
+        }
+
+        .checkbox a {
+            color: #26a9e0;
+        }
+
+        .checkbox a:hover {
+            color: #85d6de;
+        }
+
+        .btn-item,
+        button {
+            padding: 10px 5px;
+            margin-top: 20px;
+            border-radius: 5px;
+            border: none;
+            background: #26a9e0;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 400;
+            color: #fff;
+        }
+
+        .btn-item {
+            display: inline-block;
+            margin: 20px 5px 0;
+        }
+
+        button {
+            width: 100%;
+        }
+
+        button:hover,
+        .btn-item:hover {
+            background: #85d6de;
+        }
+
+        @media (min-width: 568px) {
+
+            html,
+            body {
+                height: 100%;
+            }
+
+            .main-block {
+                flex-direction: row;
+                height: calc(100% - 50px);
+            }
+
+            .left-part,
+            form {
+                flex: 1;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-block">
+        <div class="left-part">
+            <i class="fas fa-graduation-cap"></i>
+            <h1>Generate your Cover Letter </h1>
+            <p>Generates a cover letter based on some pre-defined template and user provided job description.
+            </p>
+            <div class="btn-group">
+                <a class="btn-item" href="/home">Home</a>
+                <a class="btn-item" href="https://www.w3docs.com/quiz/#">Select Quiz</a>
+            </div>
+        </div>
+        <form method="post" action="/generate-cover">
+            <div class="title">
+                <i class="fas fa-pencil-alt"></i>
+                <h2>Cover Letter : Generator</h2>
+            </div>
+            <div class="info">
+                <input class="fname" type="text" name="hiringManagerName" placeholder="Hiring Manager's Name">
+                <input type="text" name="companyName" placeholder="Company Name">
+                <input type="text" name="jobTitle" placeholder="Job Title">
+
+                <select name="jobRole" id="jobRole">
+                    <option value="" selected>Job Role*</option>
+                    <option value="Software Engineer">Software Engineer</option>
+                    <option value="Software Developer">Software Developer</option>
+                </select>
+
+                <select name="advertisedOn" id="advertisedOn">
+                    <option value="" selected>Advertised on*</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                    <option value="company's job portal">Company's Job Portal</option>
+                </select>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="main-block">
+
+        <div class="info" style="background-color: black; padding: 15px;">
+            <p><label for="w3review">Review of Cover Letter:</label></p>
+            <br>
+            <textarea id="reviewCoverLetter" name="w3review" rows="30" cols="200">
+Shubham Chouksey
+Dwarka, Delhi, IN
+shubhamchouksey1998@gmail.com
+9340188210
+[[${date}]]
+
+[[${hiringManagerName}]]
+[[${companyName}]]
+
+Dear [[${hiringManagerName}]],
+
+I am writing to express my interest in the [[${jobTitle}]] position at [[${companyName}]], as advertised on
+[[${advertisedOn}]]. With a strong background in software development and a passion for
+innovation, I am excited about the opportunity to contribute to your team and make a meaningful impact.
+
+As outlined in my portfolio website, I am a dedicated and innovative software engineer with over three
+years of experience in the industry. My expertise lies in Java, Spring Boot, and AWS, where I have
+successfully built and deployed microservices, databases, and cloud-based applications. I thrive in
+fast-paced environments and excel at solving complex problems, delivering high-quality software
+solutions, and exceeding client expectations.
+
+One aspect of my work that I am particularly proud of is my ability to collaborate effectively with
+diverse teams and clients. Throughout my career, I have had the privilege of working on various projects
+that have allowed me to leverage my technical skills while also honing my communication and
+interpersonal skills. Whether it's leading a team of developers to deliver a project on time or liaising
+with clients to understand their requirements, I am committed to fostering strong relationships and
+delivering results that drive success.
+
+Furthermore, my educational background, including a Bachelor's degree in Technology from the Indian
+Institute of Technology (IIT), Patna, has equipped me with a solid foundation in computer science and
+prepared me for the challenges of the industry. I am constantly seeking opportunities to learn and grow,
+and I am eager to apply my skills and knowledge to contribute to the continued success of [[${companyName}]].
+
+I am excited about the possibility of joining your team. I am confident that my technical expertise,
+coupled with my passion for innovation and collaboration, make me a strong candidate for the [[${jobTitle}]]
+position.
+
+Thank you for considering my application. I look forward to the opportunity to discuss how my skills and
+experiences align with the needs of your team. Please feel free to contact me at 9340188210 or
+via email at shubhamchouksey1998@gmail.com to schedule a meeting.
+
+Warm regards,
+Shubham Chouksey</textarea>
+            <button onclick="copyText()">Copy Text</button>
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+    <script>
+        function copyText() {
+            // Get the text field
+            var copyText = document.getElementById("reviewCoverLetter");
+
+            // Select the text field
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(copyText.value);
+
+            // Alert the copied text
+            // alert("Copied the text: " + copyText.value);
+        }
+    </script>
+
+</body>
+
+</html>
