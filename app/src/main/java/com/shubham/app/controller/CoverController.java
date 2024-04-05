@@ -31,7 +31,8 @@ public class CoverController {
 
     @PostMapping(value = {"/generate-cover"})
     @ResponseBody
-    public RedirectView generateCover(@RequestParam(value = "hiringManagerName", required = false) String hiringManagerName,
+    public RedirectView generateCover(
+            @RequestParam(value = "hiringManagerName", required = false) String hiringManagerName,
             @RequestParam(value = "companyName") String companyName, @RequestParam(value = "jobTitle") String jobTitle,
             @RequestParam(value = "jobRole") String jobRole, @RequestParam(value = "advertisedOn") String advertisedOn,
             Model model, RedirectAttributes redirectAttrs) {
