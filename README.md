@@ -1,33 +1,38 @@
 
-# Shubham Chouksey Portfolio Website
-
-[![Java CI with Maven](https://github.com/ShubhamChouksey123/quiz-website/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/ShubhamChouksey123/quiz-website/actions/workflows/maven.yml)
+# Quiz Website
 
 ## Overview
 
-Welcome to my portfolio website repository! This website is a digital canvas that showcases my journey as a software engineer, highlighting my skills, projects, and experiences. It's designed to provide visitors with insights into my expertise and creative endeavors.
+
+Welcome to my quiz website repository! This digital platform serves as a showcase of my journey as a software engineer, spotlighting my skills, projects, and experiences. Built with HTML, CSS, and JavaScript for the frontend, and Java with Spring Boot for the backend, it offers visitors profound insights into my expertise and creative endeavors. Leveraging PostgreSQL for database management and Gmail SMTP protocol for seamless communication, it stands as a testament to my commitment to delivering robust and dynamic web solutions.
+
+- The master build is live at: [Quiz-Website](https://quiz-website-g8d7.onrender.com/)
+- To ensure continuous uptime, a monitoring system is in place: [Uptime-Robot-URL](https://uptimerobot.com/dashboard)
+- Scheduled tasks are configured to access the website every 10 minutes: [Cron-Job-URL](https://console.cron-job.org/jobs)
+
+
+
 
 ## Features
 
-- Detailed information about my professional background and skills.
-- A collection of my notable projects with descriptions and images.
-- A "Facts" section summarizing key achievements.
-- A media gallery offering a visual journey through my life, including projects, solo adventures, and college life.
-- A contact page with various ways to get in touch with me for collaboration and opportunities.
+- Engage users with a collection of random multiple-choice questions sourced from a database.
+- Assess user performance by evaluating quiz submissions and comparing scores with other participants.
+- Classify scores as above average or otherwise, providing valuable feedback to users.
+- Maintain an updated leader board showcasing top performers in the quiz.
 
 ## Getting Started
 
-To explore my portfolio website, simply visit [Visit My website!](https://shubhamchouksey123.github.io/portfolio/). You'll find a user-friendly interface to navigate through my projects, experiences, and contact details.
+Embark on your quiz journey by visiting the [Quiz Website](https://quiz-website-g8d7.onrender.com/). Navigate through user-friendly interfaces offering options to start new quizzes, access leader boards, view results, and connect through the contact page.
 
 ## Connect and Collaborate
 
-I'm always open to new opportunities, collaborations, and discussions. If you have a project in mind, an idea to explore, or simply want to connect and share insights, please don't hesitate to reach out. You can contact me via:
+I'm enthusiastic about exploring new opportunities, collaborations, and engaging discussions. Whether you have a project in mind, an innovative idea to explore, or simply wish to connect and share insights, I'm just an email or phone call away:
 
 - Email: shubhamchouksey1998@gmail.com
 - Phone: +91 9479917417
 
-I'm excited to embark on new journeys and create innovative solutions together. Thank you for visiting my portfolio website, and I look forward to connecting with you!
+Let's embark on new journeys together and craft innovative solutions. Thank you for visiting my quiz website, and I eagerly anticipate connecting with you!
 
 ## License
 
-This project is open-source and available under the [MIT License](LICENSE).
+This project operates under an open-source model and is available under the [MIT License](LICENSE).
