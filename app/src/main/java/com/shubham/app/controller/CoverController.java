@@ -31,7 +31,7 @@ public class CoverController {
 
     @PostMapping(value = {"/generate-cover"})
     @ResponseBody
-    public RedirectView generateCover(@RequestParam(value = "hiringManagerName") String hiringManagerName,
+    public RedirectView generateCover(@RequestParam(value = "hiringManagerName", required = false) String hiringManagerName,
             @RequestParam(value = "companyName") String companyName, @RequestParam(value = "jobTitle") String jobTitle,
             @RequestParam(value = "jobRole") String jobRole, @RequestParam(value = "advertisedOn") String advertisedOn,
             Model model, RedirectAttributes redirectAttrs) {
@@ -43,6 +43,9 @@ public class CoverController {
         if ((jobTitle == null || Objects.equals(jobTitle, "")) && jobRole != null) {
             jobTitle = jobRole;
         }
+
+        if (hiringManagerName == null || Objects.equals(hiringManagerName, ""))
+            hiringManagerName = "recruiter";
 
         redirectAttrs.addFlashAttribute("hiringManagerName", hiringManagerName);
         redirectAttrs.addFlashAttribute("companyName", companyName);

@@ -172,3 +172,9 @@ vintagefur-1.0.0.zip
 #flattened POMs
 .flattened-pom.xml
 dependency-reduced-pom.xml
+
+
+app/src/main/resources/templates/facts
+# app/src/main/resources/templates/facts/css/*
+# app/src/main/resources/templates/facts/images/*
+# app/src/main/resources/templates/facts/js/*
