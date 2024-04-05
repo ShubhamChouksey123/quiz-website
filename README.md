@@ -24,6 +24,60 @@ Welcome to my quiz website repository! This digital platform serves as a showcas
 
 Embark on your quiz journey by visiting the [Quiz Website](https://quiz-website-g8d7.onrender.com/). Navigate through user-friendly interfaces offering options to start new quizzes, access leader boards, view results, and connect through the contact page.
 
+
+
+
+## Useful Commands and Procedures
+
+Frequently used commands .
+
+
+### Docker 
+
+*  Build docker without any name and tag  
+```shell script
+docker build .
+```
+```shell script
+docker build -t quiz-app .
+```
+
+*  Returns all images in the docker
+```shell script
+docker images
+```
+*  Map port of the docker to external services
+```shell script
+docker run -p 8080:8080
+```
+
+
+## Java Server 
+
+### JinJava Project Start
+
+
+* Make sure the command in start.sh script is correct as per your config files path
+```shell script
+env $(cat app/.env | grep -v "^#" | xargs) java -jar app/target/app-0.0.1-SNAPSHOT.jar
+```
+
+
+## Sample .env File
+```shell script
+# Quiz Website Database credentials
+QUIZ_DB_HOST=localhost
+QUIZ_DB_PORT=5432
+QUIZ_DB_NAME=quiz
+QUIZ_DB_USERNAME=postgres
+QUIZ_DB_PASSWORD=root
+QUIZ_DB_CONFIG_QUERY_STRING=allowPublicKeyRetrieval=true&useSSL=false&sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false&createDatabaseIfNotExist=true
+```
+
+## License
+
+This project operates under an open-source model and is available under the [MIT License](LICENSE).
+
 ## Connect and Collaborate
 
 I'm enthusiastic about exploring new opportunities, collaborations, and engaging discussions. Whether you have a project in mind, an innovative idea to explore, or simply wish to connect and share insights, I'm just an email or phone call away:
@@ -33,6 +87,9 @@ I'm enthusiastic about exploring new opportunities, collaborations, and engaging
 
 Let's embark on new journeys together and craft innovative solutions. Thank you for visiting my quiz website, and I eagerly anticipate connecting with you!
 
-## License
 
-This project operates under an open-source model and is available under the [MIT License](LICENSE).
+
+## Authors
+
+- [@Shubham Chouksey](https://github.com/ShubhamChouksey123)
+
