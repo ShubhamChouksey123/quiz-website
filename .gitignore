@@ -178,3 +178,6 @@ app/src/main/resources/templates/facts
 # app/src/main/resources/templates/facts/css/*
 # app/src/main/resources/templates/facts/images/*
 # app/src/main/resources/templates/facts/js/*
+
+
+app/src/main/resources/templates/form
