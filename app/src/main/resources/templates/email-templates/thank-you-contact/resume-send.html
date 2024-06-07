@@ -43,6 +43,12 @@
             animation: slideDown 0.5s ease-in-out;
         }
 
+        .heading-resume {
+            padding: 20px;
+            text-align: center;
+            animation: slideDown 0.5s ease-in-out;
+        }
+
         @keyframes slideDown {
             from {
                 transform: translateY(-20px);
@@ -72,17 +78,12 @@
             text-decoration: underline;
         }
 
-
         .bottom {
             background-color: #007bff;
             color: white;
             padding: 20px;
-            /* text-align: center; */
             animation: slideDown 0.5s ease-in-out;
         }
-
-
-
 
 
 
@@ -92,25 +93,31 @@
 <body>
 <div class="container">
     <div class="header">
-        <h1>Job Application: [[${ role }]]</h1>
+        <h1>Job Application: [[${role}]]</h1>
     </div>
+    <div class="heading-resume">
+        <h2>SDE-2 @ Cognam | IITian | Senior Software Engineer with 3+ Years of Experience | Expert in Java, Spring, and
+            AWS | Innovating Secure Solutions for Financial Technology</h2>
+    </div>
+
+
     <div class="body">
-        <p th:text="${salutation}" ,></p>
-        <p>I am writing to express my interest in the <strong>[[${ role }]]</strong> position at
-            <strong>[[${ company }]]</strong>.
+        <p th:text="${salutation}"></p>
+        <p>I am writing to express my interest in the <strong>[[${role}]]</strong> position at
+            <strong>[[${company}]]</strong>.
         </p>
         <p>I am a dedicated and innovative software engineer with over <strong>3 years of experience</strong> in the
             industry. My expertise lies in <strong>Java, J2EE, Spring Boot, SQL, and AWS</strong>, where I have
             successfully built and deployed microservices, databases, and cloud-based applications. I thrive in
-            fast-paced environments and excel at solving complex problems, delivering high-quality software
-            solutions, and exceeding client expectations.</p>
+            fast-paced environments and excel at solving complex problems, delivering high-quality software solutions,
+            and exceeding client expectations.</p>
         <p>Here are a few highlights from my career:</p>
         <ul>
             <li>Led the design and development of a backend system for a blockchain app for Mexico’s leading
                 international payment processor, driving monthly revenue of $1 billion, using Java and Spring Boot.
             </li>
-            <li>Delivered 30+ scalable APIs for new enterprise mobile applications of a bank’s finance system,
-                improving user experience significantly.
+            <li>Delivered 30+ scalable APIs for new enterprise mobile applications of a bank’s finance system, improving
+                user experience significantly.
             </li>
             <li>Engineered a block-reader system that syncs database with blockchain, handling up to 100,000
                 transactions per second, providing decentralized capabilities to traditional banking systems.
@@ -121,25 +128,22 @@
         </ul>
 
         <div th:if="${isURLKnown}">
-            <p>
-                Based on the skills and experience required for this role, as detailed here: [[${ jobURL }]]
+            <p>Based on the skills and experience required for this role, as detailed here: <a th:href="${jobURL}">[[${jobURL}]]</a>,
                 I have <strong>worked</strong> extensively with these <strong>tools and technologies in my full-time
-                job</strong>. This experience ensures that I can seamlessly transition into this role and contribute
+                    job</strong>. This experience ensures that I can seamlessly transition into this role and contribute
                 effectively.
             </p>
         </div>
 
-        <p><strong>Over the past two months, I have been diligently preparing for interviews, and I am confident in
-            my ability to succeed in the coding interview.</strong>
+        <p><strong>Over the past two months, I have been diligently preparing for interviews, and I am confident in my
+            ability to succeed in the coding interview.</strong>
         </p>
-        <p>I am excited about the possibility of joining your team. I am confident that my technical expertise,
-            coupled with my passion for innovation and collaboration, make me a strong candidate for this position.
+        <p>I am excited about the possibility of joining your team. I am confident that my technical expertise, coupled
+            with my passion for innovation and collaboration, make me a strong candidate for this position.
         </p>
         <p>Please feel free to contact me at <a href="tel:9340188210">9340188210</a> or via email at <a
                 href="mailto:shubhamchouksey1998@gmail.com">shubhamchouksey1998@gmail.com</a> to schedule a meeting.
         </p>
-
-
     </div>
     <div class="bottom">
         <p>Warm regards,<br>
