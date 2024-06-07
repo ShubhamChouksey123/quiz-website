@@ -127,36 +127,41 @@ public class HRInfoServiceImpl implements HRInfoService {
     }
 
     private void updateHRInfo(String hrName, List<String> hrEmails, String company, String jobTitle, String jobURL,
-            String advertisedOn, HRInfo hrInfo) {
+            String advertisedOn, String emailSubject, HRInfo hrInfo) {
 
         if (hrInfo == null) {
             return;
         }
 
-        if (hrName != null) {
+        if (!generalUtility.isNullOrEmpty(hrName)) {
             hrInfo.setHrName(hrName);
         }
-        if (company != null) {
+        if (!generalUtility.isNullOrEmpty(company)) {
             hrInfo.setCompany(company);
         }
-        if (jobTitle != null) {
+        if (!generalUtility.isNullOrEmpty(jobTitle)) {
             hrInfo.setJobTitle(jobTitle);
         }
-        if (jobURL != null) {
+
+        if (!generalUtility.isNullOrEmpty(jobURL)) {
             hrInfo.setJobURL(jobURL);
         }
-        if (advertisedOn != null) {
+        if (!generalUtility.isNullOrEmpty(advertisedOn)) {
             hrInfo.setAdvertisedOn(advertisedOn);
         }
+
         if (hrEmails != null && !hrEmails.isEmpty()) {
             hrInfo.setHrEmails(hrEmails);
+        }
+        if (!generalUtility.isNullOrEmpty(emailSubject)) {
+            hrInfo.setEmailSubject(emailSubject);
         }
     }
 
     @Override
     public HRInfo createOrUpdateHRInfo(String mailIdExisting, String hrName, String hrEmail, String company,
-            String jobTitle, String role, String jobURL, String advertisedOn, RedirectAttributes redirectAttrs)
-            throws InvalidRequest {
+            String jobTitle, String role, String jobURL, String advertisedOn, String emailSubject,
+            RedirectAttributes redirectAttrs) throws InvalidRequest {
 
         List<String> hrEmails = new ArrayList<>();
         if (!generalUtility.isNullOrEmpty(hrEmail)) {
@@ -168,7 +173,8 @@ public class HRInfoServiceImpl implements HRInfoService {
 
         /** adding existing launcher */
         if (generalUtility.isNullOrEmpty(mailIdExisting)) {
-            HRInfo hrInfo = new HRInfo(hrName, hrEmails, company, jobTitle, jobURL, advertisedOn, new Date(), 0);
+            HRInfo hrInfo = new HRInfo(hrName, hrEmails, company, jobTitle, jobURL, advertisedOn, emailSubject,
+                    new Date(), 0);
             hrInfoDao.saveOrUpdate(hrInfo);
             if (redirectAttrs != null) {
                 redirectAttrs.addFlashAttribute("successMessage",
@@ -184,7 +190,7 @@ public class HRInfoServiceImpl implements HRInfoService {
                 hrName, hrEmail, company, jobTitle, jobURL, advertisedOn);
 
         HRInfo hrInfo = hrInfoDao.getHRInfoById(mailIdExisting);
-        updateHRInfo(hrName, hrEmails, company, jobTitle, jobURL, advertisedOn, hrInfo);
+        updateHRInfo(hrName, hrEmails, company, jobTitle, jobURL, advertisedOn, emailSubject, hrInfo);
         hrInfoDao.saveOrUpdate(hrInfo);
 
         if (redirectAttrs != null) {
@@ -221,11 +227,12 @@ public class HRInfoServiceImpl implements HRInfoService {
 
     @Override
     public void saveAndsSendResumeEmail(String hrName, String hrEmail, String company, String jobTitle, String role,
-            String jobURL, String advertisedOn, RedirectAttributes redirectAttrs) throws InvalidRequest {
+            String jobURL, String advertisedOn, String emailSubject, RedirectAttributes redirectAttrs)
+            throws InvalidRequest {
 
         logger.info("sending resume to HR : {}, send to name : {} with email : {}", hrName, hrName, hrEmail);
         HRInfo hrInfo = createOrUpdateHRInfo(null, hrName, hrEmail, company, jobTitle, role, jobURL, advertisedOn,
-                redirectAttrs);
+                emailSubject, redirectAttrs);
 
         prepareAndSendEmail.sendResumeEmail(hrInfo);
 

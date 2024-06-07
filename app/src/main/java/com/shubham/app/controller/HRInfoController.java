@@ -79,17 +79,19 @@ public class HRInfoController {
             @RequestParam(value = "hrName", required = false) String hrName,
             @RequestParam(value = "hrEmail") String hrEmail, @RequestParam(value = "company") String company,
             @RequestParam(value = "jobTitle") String jobTitle, @RequestParam(value = "jobURL") String jobURL,
-            @RequestParam(value = "advertisedOn") String advertisedOn, Model model, RedirectAttributes redirectAttrs) {
+            @RequestParam(value = "advertisedOn") String advertisedOn,
+            @RequestParam(value = "emailSubject", required = false) String emailSubject, Model model,
+            RedirectAttributes redirectAttrs) {
 
         logger.info(
                 "Create new mail-info called with mailId : {}, hrName : {}, hrEmail : {}, company : {}, jobTitle : {}, jobURL : {}, and advertisedOn : {}",
                 mailIdExisting, hrName, hrEmail, company, jobTitle, jobURL, advertisedOn);
-        logger.info("mailIdExisting : {}", mailIdExisting);
+        logger.info("mailIdExisting : {}, and emailSubject : {}", mailIdExisting, emailSubject);
 
         try {
             /** TODO : think about role */
             hrInfoService.createOrUpdateHRInfo(mailIdExisting, hrName, hrEmail, company, jobTitle, null, jobURL,
-                    advertisedOn, redirectAttrs);
+                    advertisedOn, emailSubject, redirectAttrs);
         } catch (InvalidRequest e) {
             logger.error("error while creating a launcher : {}", e.getMessage());
             redirectAttrs.addFlashAttribute("errorMessage", "Invalid parameters : " + e.getMessage());

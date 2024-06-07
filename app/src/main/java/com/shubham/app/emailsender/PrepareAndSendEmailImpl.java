@@ -12,13 +12,12 @@ import com.shubham.app.deliver.emailservice.EmailInformation;
 import com.shubham.app.deliver.emailservice.EmailSenderService;
 import com.shubham.app.entity.HRInfo;
 import com.shubham.app.entity.MailInfo;
+import com.shubham.app.utils.GeneralUtility;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-import static com.shubham.app.controller.QuizController.ZERO_LENGTH_STRING;
 import static java.util.Map.entry;
 
 @Service
@@ -58,6 +57,8 @@ public class PrepareAndSendEmailImpl implements PrepareAndSendEmail {
 
     @Autowired
     private EmailSenderService emailSenderService;
+    @Autowired
+    private GeneralUtility generalUtility;
 
     private boolean sendEmail(String verificationCode, String receiverPersonalName, String receiverEmail) {
 
@@ -163,6 +164,18 @@ public class PrepareAndSendEmailImpl implements PrepareAndSendEmail {
                 receiverPersonalName, receiverEmail);
     }
 
+    private String createEmailSubject(HRInfo hrInfo) {
+
+        if (!generalUtility.isNullOrEmpty(hrInfo.getTimes()) && hrInfo.getTimes() > 20) {
+            return "In case you missed it";
+        }
+
+        if (!generalUtility.isNullOrEmpty(hrInfo.getEmailSubject())) {
+            return hrInfo.getEmailSubject();
+        }
+        return EMAIL_SUBJECT_RESUME_SEND;
+    }
+
     private boolean sendNewEmailToHR(HRInfo hrInfo, String email) {
 
         if (email == null)
@@ -183,26 +196,18 @@ public class PrepareAndSendEmailImpl implements PrepareAndSendEmail {
         parameterMap.put("jobURL", hrInfo.getJobURL());
         parameterMap.put("advertisedOn", hrInfo.getAdvertisedOn());
 
-        if (isNullOrEmpty(hrInfo.getJobURL())) {
+        if (generalUtility.isNullOrEmpty(hrInfo.getJobURL())) {
             parameterMap.put("isURLKnown", Boolean.FALSE);
         } else {
             parameterMap.put("isURLKnown", Boolean.TRUE);
         }
 
-        EmailInformation emailInformation = new EmailInformation(hrInfo.getHrName(), email, EMAIL_SUBJECT_RESUME_SEND,
-                parameterMap, TEMPLATE_NAME_RESUME_SEND, PARAMETER_RESOURCE_MAP_RESUME_SEND);
+        String emailSubject = createEmailSubject(hrInfo);
+
+        EmailInformation emailInformation = new EmailInformation(hrInfo.getHrName(), email, emailSubject, parameterMap,
+                TEMPLATE_NAME_RESUME_SEND, PARAMETER_RESOURCE_MAP_RESUME_SEND);
 
         return emailSenderService.sendHtmlEmail(emailInformation);
-    }
-
-    private boolean isNullOrEmpty(String s) {
-        if (s == null) {
-            return true;
-        }
-        if (Objects.equals(s, ZERO_LENGTH_STRING)) {
-            return true;
-        }
-        return false;
     }
 
     @Override
