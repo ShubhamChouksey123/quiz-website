@@ -8,13 +8,13 @@ import java.util.List;
 public interface HRInfoDao {
     void saveOrUpdate(HRInfo resumeMailInfo);
 
-    HRInfo getResumeMailInfoById(String id);
+    HRInfo getHRInfoById(String id);
 
-    List<HRInfo> getAllResumeMailInfo();
+    List<HRInfo> getAllHRInfo();
 
-    List<HRInfo> getResumeMailInfo(BigInteger firstResult, BigInteger maxResults);
+    List<HRInfo> getHRInfo(BigInteger firstResult, BigInteger maxResults);
 
-    List<HRInfo> getResumeMailInfo(BigInteger firstResult, BigInteger maxResults, String searchText);
+    List<HRInfo> getHRInfo(BigInteger firstResult, BigInteger maxResults, String searchText);
 
-    void deleteResumeMailInfo(String launcherId);
+    void deleteHRInfo(String launcherId);
 }

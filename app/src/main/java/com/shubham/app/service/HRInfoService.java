@@ -9,16 +9,15 @@ import com.shubham.app.service.questioncrud.exception.InvalidRequest;
 import java.math.BigInteger;
 import java.util.List;
 
-public interface SatelliteService {
-    List<HRInfoDTO> getMailInfo(BigInteger firstResult, BigInteger maxResults, String searchText);
+public interface HRInfoService {
+    List<HRInfoDTO> getHRInfo(BigInteger firstResult, BigInteger maxResults, String searchText);
 
-    HRInfo createOrUpdateSatellites(String mailIdExisting, String hrName, String hrEmail, String company,
-            String jobTitle, String role, String jobURL, String advertisedOn, RedirectAttributes redirectAttrs)
-            throws InvalidRequest;
+    HRInfo createOrUpdateHRInfo(String mailIdExisting, String hrName, String hrEmail, String company, String jobTitle,
+            String role, String jobURL, String advertisedOn, RedirectAttributes redirectAttrs) throws InvalidRequest;
 
-    HRInfoDTO getMailInfo(String id);
+    HRInfoDTO getHRInfo(String id);
 
-    void deleteMailInfo(String id);
+    void deleteHRInfo(String id);
 
     void sendResumeEmail(String hrId) throws InvalidRequest;
 
