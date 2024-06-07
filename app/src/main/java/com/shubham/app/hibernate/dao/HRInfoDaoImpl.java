@@ -24,16 +24,16 @@ public class HRInfoDaoImpl implements HRInfoDao {
     EntityManager em;
 
     @Override
-    public void saveOrUpdate(HRInfo resumeMailInfo) {
+    public void saveOrUpdate(HRInfo hrInfo) {
         try {
-            em.merge(resumeMailInfo);
+            em.merge(hrInfo);
         } catch (Exception e) {
-            logger.error("Unable to save or update resume-mail-info details with {}", resumeMailInfo);
+            logger.error("Unable to save or update hr info details with {}", hrInfo);
         }
     }
 
     @Override
-    public HRInfo getResumeMailInfoById(String id) {
+    public HRInfo getHRInfoById(String id) {
 
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<HRInfo> query = cb.createQuery(HRInfo.class);
@@ -46,7 +46,7 @@ public class HRInfoDaoImpl implements HRInfoDao {
     }
 
     @Override
-    public List<HRInfo> getAllResumeMailInfo() {
+    public List<HRInfo> getAllHRInfo() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<HRInfo> query = cb.createQuery(HRInfo.class);
         Root<HRInfo> root = query.from(HRInfo.class);
@@ -64,7 +64,7 @@ public class HRInfoDaoImpl implements HRInfoDao {
     }
 
     @Override
-    public List<HRInfo> getResumeMailInfo(BigInteger firstResult, BigInteger maxResults) {
+    public List<HRInfo> getHRInfo(BigInteger firstResult, BigInteger maxResults) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<HRInfo> query = cb.createQuery(HRInfo.class);
         Root<HRInfo> root = query.from(HRInfo.class);
@@ -85,7 +85,7 @@ public class HRInfoDaoImpl implements HRInfoDao {
     }
 
     @Override
-    public List<HRInfo> getResumeMailInfo(BigInteger firstResult, BigInteger maxResults, String searchText) {
+    public List<HRInfo> getHRInfo(BigInteger firstResult, BigInteger maxResults, String searchText) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<HRInfo> query = cb.createQuery(HRInfo.class);
         Root<HRInfo> root = query.from(HRInfo.class);
@@ -122,7 +122,7 @@ public class HRInfoDaoImpl implements HRInfoDao {
     }
 
     @Override
-    public void deleteResumeMailInfo(String hrId) {
+    public void deleteHRInfo(String hrId) {
 
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
