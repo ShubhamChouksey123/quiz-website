@@ -32,6 +32,9 @@ public class HRInfo {
     @Column(name = "advertised_on")
     private String advertisedOn;
 
+    @Column(name = "email_subject")
+    private String emailSubject;
+
     @Column(name = "created_at")
     private Date createdAt;
 
@@ -48,14 +51,16 @@ public class HRInfo {
     }
 
     public HRInfo(String hrName, List<String> hrEmails, String company, String jobTitle, String jobURL,
-            String advertisedOn, Date createdAt, Integer times) {
+            String advertisedOn, String emailSubject, Date createdAt, Integer times) {
         this.hrName = hrName;
         this.hrEmails = hrEmails;
         this.company = company;
         this.jobTitle = jobTitle;
         this.jobURL = jobURL;
         this.advertisedOn = advertisedOn;
+        this.emailSubject = emailSubject;
         this.createdAt = createdAt;
+        this.times = times;
     }
 
     public Long getHrId() {
@@ -112,6 +117,14 @@ public class HRInfo {
 
     public void setAdvertisedOn(String advertisedOn) {
         this.advertisedOn = advertisedOn;
+    }
+
+    public String getEmailSubject() {
+        return emailSubject;
+    }
+
+    public void setEmailSubject(String emailSubject) {
+        this.emailSubject = emailSubject;
     }
 
     public Date getCreatedAt() {

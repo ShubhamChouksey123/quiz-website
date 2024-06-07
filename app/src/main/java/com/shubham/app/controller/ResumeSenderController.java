@@ -50,7 +50,9 @@ public class ResumeSenderController {
             @RequestParam(value = "hiringManagerEmail") String hiringManagerEmail,
             @RequestParam(value = "companyName") String companyName, @RequestParam(value = "jobTitle") String jobTitle,
             @RequestParam(value = "jobRole") String jobRole, @RequestParam(value = "jobURL") String jobURL,
-            @RequestParam(value = "advertisedOn") String advertisedOn, Model model, RedirectAttributes redirectAttrs) {
+            @RequestParam(value = "advertisedOn") String advertisedOn,
+            @RequestParam(value = "emailSubject", required = false) String emailSubject, Model model,
+            RedirectAttributes redirectAttrs) {
 
         logger.info(
                 "submitted the sending email with hiringManagerName : {}, hiringManagerEmail : {} and companyName : {}, and jobTitle : {} and jobRole : {}, advertisedOn : {}",
@@ -59,7 +61,7 @@ public class ResumeSenderController {
 
         try {
             hrInfoService.saveAndsSendResumeEmail(hiringManagerName, hiringManagerEmail, companyName, jobTitle, jobRole,
-                    jobURL, advertisedOn, redirectAttrs);
+                    jobURL, advertisedOn, emailSubject, redirectAttrs);
             model.addAttribute("successMessage", "Successfully sent resume to : " + hiringManagerEmail);
         } catch (Exception e) {
             logger.error("error while sending the resume with cause : {}", e.getMessage());

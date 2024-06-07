@@ -2,6 +2,7 @@ package com.shubham.app.utils;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.shubham.app.controller.QuizController.ZERO_LENGTH_STRING;
@@ -21,11 +22,22 @@ public class GeneralUtilityImpl implements GeneralUtility {
     }
 
     @Override
-    public boolean isNullOrEmpty(Long s) {
+    public boolean isNullOrEmpty(Integer s) {
         if (s == null) {
             return true;
         }
-        if (Objects.equals(s, 0l)) {
+        if (Objects.equals(s, 0)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isNullOrEmpty(List<?> list) {
+        if (list == null) {
+            return true;
+        }
+        if (list.isEmpty()) {
             return true;
         }
         return false;
