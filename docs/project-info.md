@@ -72,10 +72,13 @@ QUIZ_DB_CONFIG_QUERY_STRING=allowPublicKeyRetrieval=true&useSSL=false&sessionVar
 
 ## TODO 
 
+* Database for storing the resume send information
+* creating our own client-id and secret key
 * Add category to be added in database and in Java entity class.
 * Contact page making the success modal clear after 30 seconds.
 * Random questions from the database. 
 * About Page: content
+
 
 
 
