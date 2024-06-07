@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.shubham.app.dto.HRInfoDTO;
-import com.shubham.app.service.SatelliteService;
+import com.shubham.app.service.HRInfoService;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -16,12 +16,12 @@ import java.util.Objects;
 import static com.shubham.app.controller.QuizController.ZERO_LENGTH_STRING;
 
 @Service
-public class RenderSatelliteTemplateImpl implements RenderSatelliteTemplate {
+public class RenderHRInfoTemplateImpl implements RenderHRInfoTemplate {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Autowired
-    private SatelliteService satelliteService;
+    private HRInfoService satelliteService;
 
     private List<HRInfoDTO> getSatelliteShowList(BigInteger startingPage, BigInteger endingPage, BigInteger limit,
             String searchText) {
@@ -29,7 +29,7 @@ public class RenderSatelliteTemplateImpl implements RenderSatelliteTemplate {
         BigInteger start = (startingPage).multiply(limit);
         BigInteger totalMaxPossible = ((endingPage.subtract(startingPage)).add(BigInteger.ONE)).multiply(limit);
 
-        return satelliteService.getMailInfo(start, totalMaxPossible, searchText);
+        return satelliteService.getHRInfo(start, totalMaxPossible, searchText);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class RenderSatelliteTemplateImpl implements RenderSatelliteTemplate {
             mailInfoDTO = new HRInfoDTO();
             model.addAttribute("isUpdate", 0);
         } else {
-            mailInfoDTO = satelliteService.getMailInfo(id);
+            mailInfoDTO = satelliteService.getHRInfo(id);
             model.addAttribute("isUpdate", 1);
         }
 

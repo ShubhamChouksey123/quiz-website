@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.shubham.app.emailsender.PrepareAndSendEmailImpl;
 import com.shubham.app.render.RenderCoverTemplate;
-import com.shubham.app.service.SatelliteService;
+import com.shubham.app.service.HRInfoService;
 import com.shubham.app.service.questioncrud.exception.InvalidRequest;
 
 @Controller
@@ -23,7 +23,7 @@ public class ResumeSenderController {
     private PrepareAndSendEmailImpl sendVerificationCode;
 
     @Autowired
-    private SatelliteService satelliteService;
+    private HRInfoService hrInfoService;
 
     @Autowired
     private RenderCoverTemplate renderCoverTemplate;
@@ -58,8 +58,8 @@ public class ResumeSenderController {
         logger.info("submitted the sending email with jobURL : {}", jobURL);
 
         try {
-            satelliteService.saveAndsSendResumeEmail(hiringManagerName, hiringManagerEmail, companyName, jobTitle,
-                    jobRole, jobURL, advertisedOn, redirectAttrs);
+            hrInfoService.saveAndsSendResumeEmail(hiringManagerName, hiringManagerEmail, companyName, jobTitle, jobRole,
+                    jobURL, advertisedOn, redirectAttrs);
             model.addAttribute("successMessage", "Successfully sent resume to : " + hiringManagerEmail);
         } catch (Exception e) {
             logger.error("error while sending the resume with cause : {}", e.getMessage());
@@ -79,7 +79,7 @@ public class ResumeSenderController {
 
         logger.info("Sending mail again to the existing hr called with id: {}", hrId);
         try {
-            satelliteService.sendResumeEmail(hrId);
+            hrInfoService.sendResumeEmail(hrId);
             redirectAttrs.addFlashAttribute("successMessage",
                     "Successfully sent mail to existing hr with id : " + hrId);
         } catch (Exception e) {

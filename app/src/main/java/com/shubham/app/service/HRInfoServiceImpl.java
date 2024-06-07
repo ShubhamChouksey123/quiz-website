@@ -21,13 +21,13 @@ import java.util.*;
 import static com.shubham.app.controller.QuizController.ZERO_LENGTH_STRING;
 
 @Service
-public class SatelliteServiceImpl implements SatelliteService {
+public class HRInfoServiceImpl implements HRInfoService {
 
     public static final String EMAIL_REGEX_PATTERN = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Autowired
-    private HRInfoDao resumeMailInfoDao;
+    private HRInfoDao hrInfoDao;
     @Autowired
     private PrepareAndSendEmail prepareAndSendEmail;
 
@@ -46,35 +46,35 @@ public class SatelliteServiceImpl implements SatelliteService {
         return formatter.format(date);
     }
 
-    private List<HRInfoDTO> getResumeDtoListFromEntity(List<HRInfo> resumeMails) {
+    private List<HRInfoDTO> getHRDtoListFromEntity(List<HRInfo> resumeMails) {
 
-        List<HRInfoDTO> resumeMailsDTOs = new ArrayList<>();
+        List<HRInfoDTO> hrInfoDTOs = new ArrayList<>();
 
         if (resumeMails == null) {
-            return resumeMailsDTOs;
+            return hrInfoDTOs;
         }
 
         resumeMails.forEach(resumeMail -> {
             HRInfoDTO resumeSendInfo = new HRInfoDTO(resumeMail.getHrId(), resumeMail.getHrName(),
                     resumeMail.getHrEmails(), resumeMail.getCompany(), resumeMail.getJobTitle(), null,
                     resumeMail.getJobURL(), resumeMail.getAdvertisedOn(), resumeMail.getTimes());
-            resumeMailsDTOs.add(resumeSendInfo);
+            hrInfoDTOs.add(resumeSendInfo);
         });
-        return resumeMailsDTOs;
+        return hrInfoDTOs;
     }
 
     @Override
-    public List<HRInfoDTO> getMailInfo(BigInteger firstResult, BigInteger maxResults, String searchText) {
+    public List<HRInfoDTO> getHRInfo(BigInteger firstResult, BigInteger maxResults, String searchText) {
 
-        List<HRInfo> satellites;
+        List<HRInfo> hrInfoList;
         if (searchText != null && !Objects.equals(searchText, ZERO_LENGTH_STRING)) {
             searchText = searchText.toLowerCase();
-            satellites = resumeMailInfoDao.getResumeMailInfo(firstResult, maxResults, searchText);
+            hrInfoList = hrInfoDao.getHRInfo(firstResult, maxResults, searchText);
         } else {
-            satellites = resumeMailInfoDao.getResumeMailInfo(firstResult, maxResults);
+            hrInfoList = hrInfoDao.getHRInfo(firstResult, maxResults);
         }
 
-        return getResumeDtoListFromEntity(satellites);
+        return getHRDtoListFromEntity(hrInfoList);
     }
 
     private void validateParameters(String mailIdExisting, String hrName, String hrEmail, List<String> hrEmails,
@@ -154,7 +154,7 @@ public class SatelliteServiceImpl implements SatelliteService {
     }
 
     @Override
-    public HRInfo createOrUpdateSatellites(String mailIdExisting, String hrName, String hrEmail, String company,
+    public HRInfo createOrUpdateHRInfo(String mailIdExisting, String hrName, String hrEmail, String company,
             String jobTitle, String role, String jobURL, String advertisedOn, RedirectAttributes redirectAttrs)
             throws InvalidRequest {
 
@@ -169,7 +169,7 @@ public class SatelliteServiceImpl implements SatelliteService {
         /** adding existing launcher */
         if (generalUtility.isNullOrEmpty(mailIdExisting)) {
             HRInfo hrInfo = new HRInfo(hrName, hrEmails, company, jobTitle, jobURL, advertisedOn, new Date(), 0);
-            resumeMailInfoDao.saveOrUpdate(hrInfo);
+            hrInfoDao.saveOrUpdate(hrInfo);
             if (redirectAttrs != null) {
                 redirectAttrs.addFlashAttribute("successMessage",
                         "Successfully added a new mail-info satellite with hrName : " + hrName + " of hrEmail : "
@@ -183,9 +183,9 @@ public class SatelliteServiceImpl implements SatelliteService {
                 "Updating existing mail-info with values as hrName : {}, hrEmail : {}, company : {}, jobTitle : {}, jobURL : {}, advertisedOn : {}",
                 hrName, hrEmail, company, jobTitle, jobURL, advertisedOn);
 
-        HRInfo hrInfo = resumeMailInfoDao.getResumeMailInfoById(mailIdExisting);
+        HRInfo hrInfo = hrInfoDao.getHRInfoById(mailIdExisting);
         updateHRInfo(hrName, hrEmails, company, jobTitle, jobURL, advertisedOn, hrInfo);
-        resumeMailInfoDao.saveOrUpdate(hrInfo);
+        hrInfoDao.saveOrUpdate(hrInfo);
 
         if (redirectAttrs != null) {
             redirectAttrs.addFlashAttribute("successMessage",
@@ -195,28 +195,28 @@ public class SatelliteServiceImpl implements SatelliteService {
     }
 
     @Override
-    public HRInfoDTO getMailInfo(String id) {
+    public HRInfoDTO getHRInfo(String id) {
 
-        HRInfo hrInfo = resumeMailInfoDao.getResumeMailInfoById(id);
+        HRInfo hrInfo = hrInfoDao.getHRInfoById(id);
         return new HRInfoDTO(hrInfo.getHrId(), hrInfo.getHrName(), hrInfo.getHrEmails(), hrInfo.getCompany(),
                 hrInfo.getJobTitle(), null, hrInfo.getJobURL(), hrInfo.getAdvertisedOn(), hrInfo.getTimes());
     }
 
     @Override
-    public void deleteMailInfo(String id) {
-        resumeMailInfoDao.deleteResumeMailInfo(id);
+    public void deleteHRInfo(String id) {
+        hrInfoDao.deleteHRInfo(id);
     }
 
     @Override
     public void sendResumeEmail(String hrId) throws InvalidRequest {
 
-        HRInfo hrInfo = resumeMailInfoDao.getResumeMailInfoById(hrId);
+        HRInfo hrInfo = hrInfoDao.getHRInfoById(hrId);
         logger.info("sending resume to HR with id : {}, name : {} with email : {}", hrId, hrInfo.getHrName(),
                 hrInfo.getHrEmails());
 
         prepareAndSendEmail.sendResumeEmail(hrInfo);
 
-        resumeMailInfoDao.saveOrUpdate(hrInfo);
+        hrInfoDao.saveOrUpdate(hrInfo);
     }
 
     @Override
@@ -224,11 +224,11 @@ public class SatelliteServiceImpl implements SatelliteService {
             String jobURL, String advertisedOn, RedirectAttributes redirectAttrs) throws InvalidRequest {
 
         logger.info("sending resume to HR : {}, send to name : {} with email : {}", hrName, hrName, hrEmail);
-        HRInfo hrInfo = createOrUpdateSatellites(null, hrName, hrEmail, company, jobTitle, role, jobURL, advertisedOn,
+        HRInfo hrInfo = createOrUpdateHRInfo(null, hrName, hrEmail, company, jobTitle, role, jobURL, advertisedOn,
                 redirectAttrs);
 
         prepareAndSendEmail.sendResumeEmail(hrInfo);
 
-        resumeMailInfoDao.saveOrUpdate(hrInfo);
+        hrInfoDao.saveOrUpdate(hrInfo);
     }
 }

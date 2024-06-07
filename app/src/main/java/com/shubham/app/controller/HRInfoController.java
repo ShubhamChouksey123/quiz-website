@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.shubham.app.render.RenderSatelliteTemplate;
-import com.shubham.app.service.SatelliteService;
+import com.shubham.app.render.RenderHRInfoTemplate;
+import com.shubham.app.service.HRInfoService;
 import com.shubham.app.service.questioncrud.exception.InvalidRequest;
 
 import java.math.BigInteger;
@@ -19,12 +19,12 @@ import java.util.Objects;
 import static com.shubham.app.controller.QuizController.ZERO_LENGTH_STRING;
 
 @Controller
-public class SatelliteController {
+public class HRInfoController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Autowired
-    private RenderSatelliteTemplate renderSatelliteTemplate;
+    private RenderHRInfoTemplate renderHRInfoTemplate;
     @Autowired
-    private SatelliteService satelliteService;
+    private HRInfoService hrInfoService;
 
     /**
      * Endpoint to render all mail-info
@@ -39,7 +39,7 @@ public class SatelliteController {
      * @return
      */
     @GetMapping(value = {"/web/mails"})
-    public String getLaunchers(Model model, @RequestParam(value = "searchText", required = false) String searchText,
+    public String getHRInfo(Model model, @RequestParam(value = "searchText", required = false) String searchText,
             @RequestParam(value = "pageNumber", required = false) BigInteger pageNumber,
             @RequestParam(value = "pageSize", required = false) BigInteger pageSize) {
 
@@ -47,7 +47,7 @@ public class SatelliteController {
                 pageSize, searchText);
         model.addAttribute("errorMessage", model.asMap().get("errorMessage"));
 
-        renderSatelliteTemplate.renderAllMails(model, pageNumber, pageSize, searchText);
+        renderHRInfoTemplate.renderAllMails(model, pageNumber, pageSize, searchText);
 
         return "send-resume/mails-info";
     }
@@ -57,13 +57,13 @@ public class SatelliteController {
      * mail-info
      */
     @GetMapping(value = {"/web/add-mail"})
-    public String getLaunchers(@ModelAttribute("hrId") String hrId, Model model) {
+    public String getHRInfo(@ModelAttribute("hrId") String hrId, Model model) {
 
         logger.info("adding new mail-info form page called");
         model.addAttribute("errorMessage", model.asMap().get("errorMessage"));
         if (!Objects.equals(hrId, ZERO_LENGTH_STRING)) {
             logger.info("edit mail-info page specific for mailId : {}", hrId);
-            renderSatelliteTemplate.renderDesiredSatelliteEditPage(hrId, model);
+            renderHRInfoTemplate.renderDesiredSatelliteEditPage(hrId, model);
         }
 
         return "send-resume/edit-mail";
@@ -75,8 +75,7 @@ public class SatelliteController {
      */
     @PostMapping(value = {"/web/mails/create-mail"})
     @ResponseBody
-    public Object createOrUpdateLauncher(
-            @RequestParam(value = "mailIdExisting", required = false) String mailIdExisting,
+    public Object createOrUpdateHRInfo(@RequestParam(value = "mailIdExisting", required = false) String mailIdExisting,
             @RequestParam(value = "hrName", required = false) String hrName,
             @RequestParam(value = "hrEmail") String hrEmail, @RequestParam(value = "company") String company,
             @RequestParam(value = "jobTitle") String jobTitle, @RequestParam(value = "jobURL") String jobURL,
@@ -89,7 +88,7 @@ public class SatelliteController {
 
         try {
             /** TODO : think about role */
-            satelliteService.createOrUpdateSatellites(mailIdExisting, hrName, hrEmail, company, jobTitle, null, jobURL,
+            hrInfoService.createOrUpdateHRInfo(mailIdExisting, hrName, hrEmail, company, jobTitle, null, jobURL,
                     advertisedOn, redirectAttrs);
         } catch (InvalidRequest e) {
             logger.error("error while creating a launcher : {}", e.getMessage());
@@ -107,12 +106,12 @@ public class SatelliteController {
 
     @PostMapping(value = {"/web/mails/delete-mail"})
     @ResponseBody
-    public Object deleteMailInfo(@RequestParam(value = "hrId") String hrId, Model model,
+    public Object deleteHRInfo(@RequestParam(value = "hrId") String hrId, Model model,
             RedirectAttributes redirectAttrs) {
 
         logger.info("Deleting the existing hr-info called with id: {}", hrId);
         try {
-            satelliteService.deleteMailInfo(hrId);
+            hrInfoService.deleteHRInfo(hrId);
             redirectAttrs.addFlashAttribute("successMessage",
                     "Successfully deleted existing hr-info with id : " + hrId);
         } catch (Exception e) {
@@ -129,7 +128,7 @@ public class SatelliteController {
     /** Endpoint used, when user clicks on update this mail-info button */
     @PostMapping(value = {"/web/update-mail"})
     @ResponseBody
-    public RedirectView changeCategory(@RequestParam(value = "hrId") String hrId, Model model,
+    public RedirectView updateHRInfo(@RequestParam(value = "hrId") String hrId, Model model,
             RedirectAttributes redirectAttrs) {
 
         logger.info("submitted the update hr-info with hrId : {}", hrId);
