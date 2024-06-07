@@ -18,9 +18,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+// @TestPropertySource(locations = "classpath:application-test.properties")
 @ContextConfiguration(classes = {QuestionsUtilsImpl.class, ObjectMapper.class})
 @ExtendWith(SpringExtension.class)
-// @TestPropertySource(locations = "classpath:application-test.properties")
 class QuestionsUtilsImplTest {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());

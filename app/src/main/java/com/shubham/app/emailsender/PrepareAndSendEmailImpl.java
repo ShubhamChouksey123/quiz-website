@@ -10,10 +10,15 @@ import org.springframework.stereotype.Service;
 
 import com.shubham.app.deliver.emailservice.EmailInformation;
 import com.shubham.app.deliver.emailservice.EmailSenderService;
+import com.shubham.app.entity.HRInfo;
+import com.shubham.app.entity.MailInfo;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
+import static com.shubham.app.controller.QuizController.ZERO_LENGTH_STRING;
 import static java.util.Map.entry;
 
 @Service
@@ -28,6 +33,14 @@ public class PrepareAndSendEmailImpl implements PrepareAndSendEmail {
     private static final String TEMPLATE_NAME_CONTACT_QUERY = "email-templates/new-connection/new-connection";
 
     private static final String EMAIL_SUBJECT_CONTACT_QUERY = "Somebody wants to connect to you!";
+
+    private static final String TEMPLATE_NAME_RESUME_SEND = "email-templates/thank-you-contact/resume-send";
+
+    private static final String EMAIL_SUBJECT_RESUME_SEND = "Job Application";
+
+    public static Map<String, Resource> PARAMETER_RESOURCE_MAP_RESUME_SEND = Map
+            .ofEntries(entry("shubham_chouksey_cv.pdf",
+                    new ClassPathResource("templates/email-templates/resume-send/shubham_chouksey_cv.pdf")));
 
     /** both uses same resources */
     public static Map<String, Resource> PARAMETER_RESOURCE_MAP_REGISTER_AC = Map.ofEntries(
@@ -148,5 +161,68 @@ public class PrepareAndSendEmailImpl implements PrepareAndSendEmail {
                 receiverPersonalName, receiverEmail);
         logger.info("newConnectionEmail send status : {}, send to name : {} with email : {}", newConnectionEmailStatus,
                 receiverPersonalName, receiverEmail);
+    }
+
+    private boolean sendNewEmailToHR(HRInfo hrInfo, String email) {
+
+        if (email == null)
+            return false;
+
+        Map<String, Object> parameterMap = new HashMap<>();
+        if (hrInfo.getHrName() != null) {
+            parameterMap.put("salutation", "Hi " + hrInfo.getHrName());
+        } else {
+            parameterMap.put("salutation", "Hello Recruiter");
+        }
+
+        parameterMap.put("hrName", hrInfo.getHrName());
+        parameterMap.put("hrEmail", email);
+        parameterMap.put("company", hrInfo.getCompany());
+        parameterMap.put("jobTitle", hrInfo.getJobTitle());
+        parameterMap.put("role", hrInfo.getJobTitle());
+        parameterMap.put("jobURL", hrInfo.getJobURL());
+        parameterMap.put("advertisedOn", hrInfo.getAdvertisedOn());
+
+        if (isNullOrEmpty(hrInfo.getJobURL())) {
+            parameterMap.put("isURLKnown", Boolean.FALSE);
+        } else {
+            parameterMap.put("isURLKnown", Boolean.TRUE);
+        }
+
+        EmailInformation emailInformation = new EmailInformation(hrInfo.getHrName(), email, EMAIL_SUBJECT_RESUME_SEND,
+                parameterMap, TEMPLATE_NAME_RESUME_SEND, PARAMETER_RESOURCE_MAP_RESUME_SEND);
+
+        return emailSenderService.sendHtmlEmail(emailInformation);
+    }
+
+    private boolean isNullOrEmpty(String s) {
+        if (s == null) {
+            return true;
+        }
+        if (Objects.equals(s, ZERO_LENGTH_STRING)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void sendResumeEmail(HRInfo hrInfo) {
+
+        logger.info("hrInfo : {}", hrInfo);
+
+        for (String email : hrInfo.getHrEmails()) {
+            boolean newConnectionEmailStatus = sendNewEmailToHR(hrInfo, email);
+            logger.info("sending resume to HR with name : {} with email : {}", hrInfo.getHrName(), email);
+        }
+
+        MailInfo mailInfo = new MailInfo(hrInfo.getHrId(), hrInfo.getJobURL(), new Date());
+        if (hrInfo.getTimes() == null) {
+            hrInfo.setTimes(1);
+        } else {
+            hrInfo.setTimes(hrInfo.getTimes() + 1);
+        }
+
+        hrInfo.setLastSentAt(new Date());
+        hrInfo.addMailSendInfo(mailInfo);
     }
 }
