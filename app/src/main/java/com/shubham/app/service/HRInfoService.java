@@ -13,7 +13,8 @@ public interface HRInfoService {
     List<HRInfoDTO> getHRInfo(BigInteger firstResult, BigInteger maxResults, String searchText);
 
     HRInfo createOrUpdateHRInfo(String mailIdExisting, String hrName, String hrEmail, String company, String jobTitle,
-            String role, String jobURL, String advertisedOn, RedirectAttributes redirectAttrs) throws InvalidRequest;
+            String role, String jobURL, String advertisedOn, String emailSubject, RedirectAttributes redirectAttrs)
+            throws InvalidRequest;
 
     HRInfoDTO getHRInfo(String id);
 
@@ -22,5 +23,6 @@ public interface HRInfoService {
     void sendResumeEmail(String hrId) throws InvalidRequest;
 
     void saveAndsSendResumeEmail(String hrName, String hrEmail, String company, String jobTitle, String role,
-            String jobURL, String advertisedOn, RedirectAttributes redirectAttrs) throws InvalidRequest;
+            String jobURL, String advertisedOn, String emailSubject, RedirectAttributes redirectAttrs)
+            throws InvalidRequest;
 }
