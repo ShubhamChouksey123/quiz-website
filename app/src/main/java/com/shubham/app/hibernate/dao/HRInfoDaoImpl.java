@@ -11,7 +11,10 @@ import java.math.BigInteger;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.criteria.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 
 @Repository
@@ -108,6 +111,7 @@ public class HRInfoDaoImpl implements HRInfoDao {
                 cb.like(cb.lower(root.get(HRInfo_.advertisedOn)), "%" + searchText + "%"));
 
         query.where(searchPredicate);
+        query.orderBy(cb.desc(root.get(HRInfo_.createdAt)));
 
         List<HRInfo> CustomerSatellite = null;
         try {
@@ -124,15 +128,11 @@ public class HRInfoDaoImpl implements HRInfoDao {
     @Override
     public void deleteHRInfo(String hrId) {
 
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-
-        CriteriaDelete<HRInfo> criteria = cb.createCriteriaDelete(HRInfo.class);
-        Root<HRInfo> root = criteria.from(HRInfo.class);
-
-        Predicate predicateForUserId = cb.equal(root.get(HRInfo_.hrId), hrId);
-        criteria.where(predicateForUserId);
-
-        // perform delete
-        em.createQuery(criteria).executeUpdate();
+        try {
+            HRInfo hrInfo = getHRInfoById(hrId);
+            em.remove(hrInfo);
+        } catch (Exception e) {
+            logger.error("Unable to delete hr info details with hrId : {}", hrId);
+        }
     }
 }

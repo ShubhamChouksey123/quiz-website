@@ -71,7 +71,7 @@ public class HRInfoController {
 
     /**
      * Endpoint used, when user fills and submits the form for creating a new
-     * mail-info
+     * hr-info
      */
     @PostMapping(value = {"/web/mails/create-mail"})
     @ResponseBody
