@@ -8,4 +8,6 @@ public interface GeneralUtility {
     boolean isNullOrEmpty(Integer s);
 
     boolean isNullOrEmpty(List<?> list);
+
+    String getFormattedName(String name);
 }

@@ -176,6 +176,28 @@ public class PrepareAndSendEmailImpl implements PrepareAndSendEmail {
         return EMAIL_SUBJECT_RESUME_SEND;
     }
 
+    private void addCorrectResumeFile(HRInfo hrInfo, EmailInformation emailInformation) {
+
+        if (hrInfo.getCompany() == null) {
+            emailInformation.setParameterResourceMap(PARAMETER_RESOURCE_MAP_RESUME_SEND);
+            return;
+        }
+
+        String companyName = generalUtility.getFormattedName(hrInfo.getCompany());
+        ClassPathResource resourceCompanySpecific = new ClassPathResource(
+                "templates/email-templates/resume-send/" + companyName + "/shubham_chouksey_cv.pdf");
+        if (!resourceCompanySpecific.exists()) {
+            logger.warn("company specific resource not found, setting default resource");
+            emailInformation.setParameterResourceMap(PARAMETER_RESOURCE_MAP_RESUME_SEND);
+            return;
+        }
+
+        logger.info("setting company specific resource");
+        Map<String, Resource> parameterResourceMap = Map
+                .ofEntries(entry("shubham_chouksey_cv.pdf", resourceCompanySpecific));
+        emailInformation.setParameterResourceMap(parameterResourceMap);
+    }
+
     private boolean sendNewEmailToHR(HRInfo hrInfo, String email) {
 
         if (email == null)
@@ -205,7 +227,8 @@ public class PrepareAndSendEmailImpl implements PrepareAndSendEmail {
         String emailSubject = createEmailSubject(hrInfo);
 
         EmailInformation emailInformation = new EmailInformation(hrInfo.getHrName(), email, emailSubject, parameterMap,
-                TEMPLATE_NAME_RESUME_SEND, PARAMETER_RESOURCE_MAP_RESUME_SEND);
+                TEMPLATE_NAME_RESUME_SEND, null);
+        addCorrectResumeFile(hrInfo, emailInformation);
 
         return emailSenderService.sendHtmlEmail(emailInformation);
     }
