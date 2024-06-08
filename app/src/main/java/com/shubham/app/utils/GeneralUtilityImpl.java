@@ -42,4 +42,16 @@ public class GeneralUtilityImpl implements GeneralUtility {
         }
         return false;
     }
+
+    @Override
+    public String getFormattedName(String name) {
+
+        if (name == null) {
+            return null;
+        }
+
+        name = name.trim();
+        name = name.toLowerCase();
+        return name;
+    }
 }
