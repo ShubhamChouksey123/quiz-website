@@ -2,6 +2,7 @@ package com.shubham.app.utils;
 
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,6 +28,17 @@ public class GeneralUtilityImpl implements GeneralUtility {
             return true;
         }
         if (Objects.equals(s, 0)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isNullOrEmpty(BigInteger s) {
+        if (s == null) {
+            return true;
+        }
+        if (Objects.equals(s, BigInteger.ZERO)) {
             return true;
         }
         return false;
