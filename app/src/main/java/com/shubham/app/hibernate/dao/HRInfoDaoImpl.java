@@ -55,6 +55,7 @@ public class HRInfoDaoImpl implements HRInfoDao {
         Root<HRInfo> root = query.from(HRInfo.class);
 
         query.select(root);
+        query.orderBy(cb.desc(root.get(HRInfo_.createdAt)));
 
         List<HRInfo> CustomerSatellite = null;
         try {

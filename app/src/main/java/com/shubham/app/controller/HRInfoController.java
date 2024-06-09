@@ -39,13 +39,20 @@ public class HRInfoController {
      * @return
      */
     @GetMapping(value = {"/web/mails"})
-    public String getHRInfo(Model model, @RequestParam(value = "searchText", required = false) String searchText,
+    public String getHRInfo(@RequestParam(value = "searchText", required = false) String searchText,
             @RequestParam(value = "pageNumber", required = false) BigInteger pageNumber,
-            @RequestParam(value = "pageSize", required = false) BigInteger pageSize) {
+            @RequestParam(value = "pageSize", required = false) BigInteger pageSize, Model model,
+            RedirectAttributes redirectAttrs) {
 
         logger.info("Admin all mails called with pageNumber : {}, pageSize : {} and searchText : {}", pageNumber,
                 pageSize, searchText);
         model.addAttribute("errorMessage", model.asMap().get("errorMessage"));
+        model.addAttribute("successMessage", model.asMap().get("successMessage"));
+
+        if (model.asMap().get("pageNumber") != null) {
+            logger.info("Admin all mails pageNumber : {} not null", pageNumber);
+            pageNumber = (BigInteger) model.getAttribute("pageNumber");;
+        }
 
         renderHRInfoTemplate.renderAllMails(model, pageNumber, pageSize, searchText);
 

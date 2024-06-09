@@ -13,6 +13,9 @@ import com.shubham.app.emailsender.PrepareAndSendEmailImpl;
 import com.shubham.app.render.RenderCoverTemplate;
 import com.shubham.app.service.HRInfoService;
 import com.shubham.app.service.questioncrud.exception.InvalidRequest;
+import com.shubham.app.utils.GeneralUtility;
+
+import java.math.BigInteger;
 
 @Controller
 public class ResumeSenderController {
@@ -27,6 +30,8 @@ public class ResumeSenderController {
 
     @Autowired
     private RenderCoverTemplate renderCoverTemplate;
+    @Autowired
+    private GeneralUtility generalUtility;
 
     @GetMapping("/send_email_hr")
     public String sendHTMLEmailWith() throws InvalidRequest {
@@ -76,10 +81,13 @@ public class ResumeSenderController {
 
     @PostMapping(value = {"/web/mails/send-mail-again"})
     @ResponseBody
-    public Object deleteMailInfo(@RequestParam(value = "hrId") String hrId, Model model,
+    public Object deleteMailInfo(@RequestParam(value = "hrId") String hrId,
+            @RequestParam(value = "pageNumber", required = false) BigInteger pageNumber,
+            @RequestParam(value = "pageSize", required = false) BigInteger pageSize, Model model,
             RedirectAttributes redirectAttrs) {
 
         logger.info("Sending mail again to the existing hr called with id: {}", hrId);
+        logger.info("pageNumber: {} and pageSize : {}", pageNumber, pageSize);
         try {
             hrInfoService.sendResumeEmail(hrId);
             redirectAttrs.addFlashAttribute("successMessage",
@@ -90,6 +98,10 @@ public class ResumeSenderController {
                     "Unable to sending mail to existing hr with cause :" + e.getMessage());
         } catch (Throwable e) {
             throw new RuntimeException(e);
+        }
+
+        if (!generalUtility.isNullOrEmpty(pageNumber)) {
+            redirectAttrs.addFlashAttribute("pageNumber", pageNumber);
         }
 
         logger.info("Redirecting to all hr-info page");
