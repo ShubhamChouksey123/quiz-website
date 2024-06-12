@@ -50,6 +50,12 @@ public class HRInfo {
     public HRInfo() {
     }
 
+    public HRInfo(String hrName, String company, List<String> hrEmails) {
+        this.hrName = hrName;
+        this.company = company;
+        this.hrEmails = hrEmails;
+    }
+
     public HRInfo(String hrName, List<String> hrEmails, String company, String jobTitle, String jobURL,
             String advertisedOn, String emailSubject, Date createdAt, Integer times) {
         this.hrName = hrName;

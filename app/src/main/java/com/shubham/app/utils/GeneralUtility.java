@@ -13,4 +13,6 @@ public interface GeneralUtility {
     boolean isNullOrEmpty(List<?> list);
 
     String getFormattedName(String name);
+
+    String convertToString(List<String> hrEmails);
 }

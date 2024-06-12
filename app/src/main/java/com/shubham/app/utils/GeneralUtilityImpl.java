@@ -66,4 +66,18 @@ public class GeneralUtilityImpl implements GeneralUtility {
         name = name.toLowerCase();
         return name;
     }
+
+    @Override
+    public String convertToString(List<String> hrEmails) {
+
+        if (hrEmails == null || hrEmails.isEmpty()) {
+            return null;
+        }
+
+        String ans = hrEmails.get(0);
+        for (int i = 1; i < hrEmails.size(); i++) {
+            ans = ans + "," + hrEmails.get(i);
+        }
+        return ans;
+    }
 }
