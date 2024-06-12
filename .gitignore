@@ -181,3 +181,5 @@ app/src/main/resources/templates/facts
 
 
 app/src/main/resources/templates/form
+
+app/src/main/resources/templates/email-templates/resume-send

@@ -180,6 +180,7 @@
 
 <form id="sendMailAgainForm" method="post" action="/web/mails/send-mail-again">
     <input type="hidden" id="hrIdSelectedForMailSend" name="hrId" value="">
+    <input type="hidden" id="currentPageSendAgainFormId" name="pageNumber" th:value="${currentPage}"/>
 </form>
 
 <form id="updateMailForm" method="post" action="/web/update-mail">
