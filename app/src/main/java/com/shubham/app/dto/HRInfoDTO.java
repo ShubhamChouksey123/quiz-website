@@ -2,6 +2,7 @@ package com.shubham.app.dto;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import jakarta.validation.constraints.NotNull;
 
 public class HRInfoDTO {
@@ -135,6 +136,26 @@ public class HRInfoDTO {
 
     public void setLastSentAt(Date lastSentAt) {
         this.lastSentAt = lastSentAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof HRInfoDTO hrInfoDTO))
+            return false;
+        return getId().equals(hrInfoDTO.getId()) && getHrName().equals(hrInfoDTO.getHrName())
+                && getHrEmail().equals(hrInfoDTO.getHrEmail()) && getHrEmails().equals(hrInfoDTO.getHrEmails())
+                && getCompany().equals(hrInfoDTO.getCompany()) && getJobTitle().equals(hrInfoDTO.getJobTitle())
+                && getRole().equals(hrInfoDTO.getRole()) && getJobURL().equals(hrInfoDTO.getJobURL())
+                && getAdvertisedOn().equals(hrInfoDTO.getAdvertisedOn()) && getTimes().equals(hrInfoDTO.getTimes())
+                && getLastSentAt().equals(hrInfoDTO.getLastSentAt());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getHrName(), getHrEmail(), getHrEmails(), getCompany(), getJobTitle(), getRole(),
+                getJobURL(), getAdvertisedOn(), getTimes(), getLastSentAt());
     }
 
     @Override
