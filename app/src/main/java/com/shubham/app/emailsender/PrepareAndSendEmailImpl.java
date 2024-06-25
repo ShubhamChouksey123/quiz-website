@@ -10,7 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.shubham.app.deliver.emailservice.EmailInformation;
 import com.shubham.app.deliver.emailservice.EmailSenderService;
+import com.shubham.app.entity.HRInfo;
+import com.shubham.app.entity.MailInfo;
+import com.shubham.app.utils.GeneralUtility;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +33,14 @@ public class PrepareAndSendEmailImpl implements PrepareAndSendEmail {
 
     private static final String EMAIL_SUBJECT_CONTACT_QUERY = "Somebody wants to connect to you!";
 
+    private static final String TEMPLATE_NAME_RESUME_SEND = "email-templates/thank-you-contact/resume-send";
+
+    private static final String EMAIL_SUBJECT_RESUME_SEND = "Job Application";
+
+    public static Map<String, Resource> PARAMETER_RESOURCE_MAP_RESUME_SEND = Map
+            .ofEntries(entry("shubham_chouksey_cv.pdf",
+                    new ClassPathResource("templates/email-templates/resume-send/shubham_chouksey_cv.pdf")));
+
     /** both uses same resources */
     public static Map<String, Resource> PARAMETER_RESOURCE_MAP_REGISTER_AC = Map.ofEntries(
             entry("logo", new ClassPathResource("templates/email-templates/register-account-verify-phone/Logo.png")));
@@ -45,6 +57,8 @@ public class PrepareAndSendEmailImpl implements PrepareAndSendEmail {
 
     @Autowired
     private EmailSenderService emailSenderService;
+    @Autowired
+    private GeneralUtility generalUtility;
 
     private boolean sendEmail(String verificationCode, String receiverPersonalName, String receiverEmail) {
 
@@ -148,5 +162,95 @@ public class PrepareAndSendEmailImpl implements PrepareAndSendEmail {
                 receiverPersonalName, receiverEmail);
         logger.info("newConnectionEmail send status : {}, send to name : {} with email : {}", newConnectionEmailStatus,
                 receiverPersonalName, receiverEmail);
+    }
+
+    private String createEmailSubject(HRInfo hrInfo) {
+
+        if (!generalUtility.isNullOrEmpty(hrInfo.getTimes()) && hrInfo.getTimes() > 20) {
+            return "In case you missed it";
+        }
+
+        if (!generalUtility.isNullOrEmpty(hrInfo.getEmailSubject())) {
+            return hrInfo.getEmailSubject();
+        }
+        return EMAIL_SUBJECT_RESUME_SEND;
+    }
+
+    private void addCorrectResumeFile(HRInfo hrInfo, EmailInformation emailInformation) {
+
+        if (hrInfo.getCompany() == null) {
+            emailInformation.setParameterResourceMap(PARAMETER_RESOURCE_MAP_RESUME_SEND);
+            return;
+        }
+
+        String companyName = generalUtility.getFormattedName(hrInfo.getCompany());
+        ClassPathResource resourceCompanySpecific = new ClassPathResource(
+                "templates/email-templates/resume-send/" + companyName + "/shubham_chouksey_cv.pdf");
+        if (!resourceCompanySpecific.exists()) {
+            logger.warn("company specific resource not found, setting default resource");
+            emailInformation.setParameterResourceMap(PARAMETER_RESOURCE_MAP_RESUME_SEND);
+            return;
+        }
+
+        logger.info("setting company specific resource");
+        Map<String, Resource> parameterResourceMap = Map
+                .ofEntries(entry("shubham_chouksey_cv.pdf", resourceCompanySpecific));
+        emailInformation.setParameterResourceMap(parameterResourceMap);
+    }
+
+    private boolean sendNewEmailToHR(HRInfo hrInfo, String email) {
+
+        if (email == null)
+            return false;
+
+        Map<String, Object> parameterMap = new HashMap<>();
+        if (hrInfo.getHrName() != null) {
+            parameterMap.put("salutation", "Hi " + hrInfo.getHrName());
+        } else {
+            parameterMap.put("salutation", "Hello Recruiter");
+        }
+
+        parameterMap.put("hrName", hrInfo.getHrName());
+        parameterMap.put("hrEmail", email);
+        parameterMap.put("company", hrInfo.getCompany());
+        parameterMap.put("jobTitle", hrInfo.getJobTitle());
+        parameterMap.put("role", hrInfo.getJobTitle());
+        parameterMap.put("jobURL", hrInfo.getJobURL());
+        parameterMap.put("advertisedOn", hrInfo.getAdvertisedOn());
+
+        if (generalUtility.isNullOrEmpty(hrInfo.getJobURL())) {
+            parameterMap.put("isURLKnown", Boolean.FALSE);
+        } else {
+            parameterMap.put("isURLKnown", Boolean.TRUE);
+        }
+
+        String emailSubject = createEmailSubject(hrInfo);
+
+        EmailInformation emailInformation = new EmailInformation(hrInfo.getHrName(), email, emailSubject, parameterMap,
+                TEMPLATE_NAME_RESUME_SEND, null);
+        addCorrectResumeFile(hrInfo, emailInformation);
+
+        return emailSenderService.sendHtmlEmail(emailInformation);
+    }
+
+    @Override
+    public void sendResumeEmail(HRInfo hrInfo) {
+
+        logger.info("hrInfo : {}", hrInfo);
+
+        for (String email : hrInfo.getHrEmails()) {
+            boolean newConnectionEmailStatus = sendNewEmailToHR(hrInfo, email);
+            logger.info("sending resume to HR with name : {} with email : {}", hrInfo.getHrName(), email);
+        }
+
+        MailInfo mailInfo = new MailInfo(hrInfo.getHrId(), hrInfo.getJobURL(), new Date());
+        if (hrInfo.getTimes() == null) {
+            hrInfo.setTimes(1);
+        } else {
+            hrInfo.setTimes(hrInfo.getTimes() + 1);
+        }
+
+        hrInfo.setLastSentAt(new Date());
+        hrInfo.addMailSendInfo(mailInfo);
     }
 }
