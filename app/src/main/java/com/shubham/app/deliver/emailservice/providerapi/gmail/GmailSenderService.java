@@ -90,7 +90,7 @@ public class GmailSenderService implements EmailProvider {
             return;
         }
         for (Map.Entry<String, Resource> mapElement : emailInformation.getParameterResourceMap().entrySet()) {
-            messageHelper.addInline(mapElement.getKey(), mapElement.getValue());
+            messageHelper.addAttachment(mapElement.getKey(), mapElement.getValue());
         }
     }
 
