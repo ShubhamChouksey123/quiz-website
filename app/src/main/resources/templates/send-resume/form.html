@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <title>Educational registration form</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <style>
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body,
+        div,
+        form,
+        input,
+        select,
+        p {
+            padding: 0;
+            margin: 0;
+            outline: none;
+            font-family: Roboto, Arial, sans-serif;
+            font-size: 16px;
+            color: #eee;
+        }
+
+        body {
+            background: url("/uploads/media/default/0001/01/b5edc1bad4dc8c20291c8394527cb2c5b43ee13c.jpeg") no-repeat center;
+            background-size: cover;
+        }
+
+        h1,
+        h2 {
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        h2 {
+            margin: 0 0 0 8px;
+        }
+
+        .main-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .left-part,
+        form {
+            padding: 25px;
+        }
+
+        .left-part {
+            text-align: center;
+        }
+
+        .fa-graduation-cap {
+            font-size: 72px;
+        }
+
+        form {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input,
+        select {
+            padding: 5px;
+            margin-bottom: 30px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #eee;
+        }
+
+        input::placeholder {
+            color: #eee;
+        }
+
+        option:focus {
+            border: none;
+        }
+
+        option {
+            background: black;
+            border: none;
+        }
+
+        .checkbox input {
+            margin: 0 10px 0 0;
+            vertical-align: middle;
+        }
+
+        .checkbox a {
+            color: #26a9e0;
+        }
+
+        .checkbox a:hover {
+            color: #85d6de;
+        }
+
+        .btn-item,
+        button {
+            padding: 10px 5px;
+            margin-top: 20px;
+            border-radius: 5px;
+            border: none;
+            background: #26a9e0;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 400;
+            color: #fff;
+        }
+
+        .btn-item {
+            display: inline-block;
+            margin: 20px 5px 0;
+        }
+
+        button {
+            width: 100%;
+        }
+
+        button:hover,
+        .btn-item:hover {
+            background: #85d6de;
+        }
+
+        @media (min-width: 568px) {
+
+            html,
+            body {
+                height: 100%;
+            }
+
+            .main-block {
+                flex-direction: row;
+                height: calc(100% - 50px);
+            }
+
+            .left-part,
+            form {
+                flex: 1;
+                height: auto;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="main-block">
+    <div class="left-part">
+        <i class="fas fa-graduation-cap"></i>
+        <h1>Send Resume to Recruiters </h1>
+        <p>Send a computer generated email based on pre-defined template and user provided job description.
+        </p>
+        <div class="btn-group">
+            <a class="btn-item" href="/home">Home</a>
+        </div>
+        <li class="btn-group">
+            <a class="btn-item" href="/web/mails">Admin: Mail Sender</a>
+        </li>
+    </div>
+
+
+    <form method="post" action="/send-resume">
+        <div class="title">
+            <i class="fas fa-pencil-alt"></i>
+            <h2>Resume Email Sender</h2>
+        </div>
+        <div style="margin: auto;width: 50%;padding: 10px;text-align: center;">
+            <i style="color:red">[[${errorMessage}]]</i>
+            <i style="color:green">[[${successMessage}]]</i>
+        </div>
+        <div class="info">
+            <input class="fname" type="text" name="hiringManagerName" placeholder="Hiring Manager's Name">
+            <input type="text" name="hiringManagerEmail" placeholder="Hiring Manager's Email">
+            <input type="text" name="companyName" placeholder="Company Name">
+            <input type="text" name="jobTitle" placeholder="Job Title">
+
+            <select name="jobRole" id="jobRole">
+                <option value="" selected>Job Role*</option>
+                <option value="Software Engineer">Software Engineer</option>
+                <option value="Software Developer">Software Developer</option>
+            </select>
+
+            <input type="text" name="jobURL" placeholder="Job Link">
+
+            <select name="advertisedOn" id="advertisedOn">
+                <option value="" selected>Advertised on*</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="Naukri">Naukri</option>
+                <option value="CutShorts">CutShorts</option>
+                <option value="Instahyre">Instahyre</option>
+                <option value="company's job portal">Company's Job Portal</option>
+            </select>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<script>
+        function copyText() {
+            // Get the text field
+            var copyText = document.getElementById("reviewCoverLetter");
+
+            // Select the text field
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(copyText.value);
+
+            // Alert the copied text
+            // alert("Copied the text: " + copyText.value);
+        }
+
+</script>
+
+</body>
+
+</html>

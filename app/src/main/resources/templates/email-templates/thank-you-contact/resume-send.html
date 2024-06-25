@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            animation: slideDown 0.5s ease-in-out;
+        }
+
+        .heading-resume {
+            padding: 20px;
+            text-align: center;
+            animation: slideDown 0.5s ease-in-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .body {
+            background-color: white;
+            padding: 20px;
+        }
+
+        p {
+            margin: 0 0 1em;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .bottom {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            animation: slideDown 0.5s ease-in-out;
+        }
+
+
+
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Job Application: [[${role}]]</h1>
+    </div>
+    <div class="heading-resume">
+        <h2>SDE-2 @ Cognam | IITian | Senior Software Engineer with 3+ Years of Experience | Expert in Java, Spring, and
+            AWS | Innovating Secure Solutions for Financial Technology</h2>
+    </div>
+
+
+    <div class="body">
+        <p th:text="${salutation}"></p>
+        <p>I am writing to express my interest in the <strong>[[${role}]]</strong> position at
+            <strong>[[${company}]]</strong>.
+        </p>
+        <p>I am a dedicated and innovative software engineer with over <strong>3 years of experience</strong> in the
+            industry. My expertise lies in <strong>Java, J2EE, Spring Boot, SQL, and AWS</strong>, where I have
+            successfully built and deployed microservices, databases, and cloud-based applications. I thrive in
+            fast-paced environments and excel at solving complex problems, delivering high-quality software solutions,
+            and exceeding client expectations.</p>
+        <p>Here are a few highlights from my career:</p>
+        <ul>
+            <li>Led the design and development of a backend system for a blockchain app for Mexico’s leading
+                international payment processor, driving monthly revenue of $1 billion, using Java and Spring Boot.
+            </li>
+            <li>Delivered 30+ scalable APIs for new enterprise mobile applications of a bank’s finance system, improving
+                user experience significantly.
+            </li>
+            <li>Engineered a block-reader system that syncs database with blockchain, handling up to 100,000
+                transactions per second, providing decentralized capabilities to traditional banking systems.
+            </li>
+            <li>Transformed the Issuer Server with ML-powered automated user KYC, reducing manual work by 95% and
+                boosting operational efficiency.
+            </li>
+        </ul>
+
+        <div th:if="${isURLKnown}">
+            <p>Based on the skills and experience required for this role, as detailed here: <a th:href="${jobURL}">[[${jobURL}]]</a>,
+                I have <strong>worked</strong> extensively with these <strong>tools and technologies in my full-time
+                    job</strong>. This experience ensures that I can seamlessly transition into this role and contribute
+                effectively.
+            </p>
+        </div>
+
+        <p><strong>Over the past two months, I have been diligently preparing for interviews, and I am confident in my
+            ability to succeed in the coding interview.</strong>
+        </p>
+        <p>I am excited about the possibility of joining your team. I am confident that my technical expertise, coupled
+            with my passion for innovation and collaboration, make me a strong candidate for this position.
+        </p>
+        <p>Please feel free to contact me at <a href="tel:9340188210">9340188210</a> or via email at <a
+                href="mailto:shubhamchouksey1998@gmail.com">shubhamchouksey1998@gmail.com</a> to schedule a meeting.
+        </p>
+    </div>
+    <div class="bottom">
+        <p>Warm regards,<br>
+            Shubham Chouksey<br>
+            <a style="color: white;" href="mailto:shubhamchouksey1998@gmail.com">shubhamchouksey1998@gmail.com</a><br>
+            <a style="color: white;" href="tel:9340188210">9340188210</a>
+        </p>
+    </div>
+    <div style="opacity: 1; background-color: #f1f1f1; padding: 10px 20px; text-align: center; font-size: 0.9em; color: #777;">
+        <p>Prepared by Shubham Chouksey. All rights reserved.</p>
+        <p>
+            <a href="https://www.linkedin.com/in/contact-shubham-chouksey/" target="_blank"
+               style="color: #007bff; text-decoration: none;">LinkedIn</a> |
+            <a href="https://github.com/ShubhamChouksey123" target="_blank"
+               style="color: #007bff; text-decoration: none;">GitHub</a> |
+            <a href="https://shubhamchouksey123.github.io/portfolio/" target="_blank"
+               style="color: #007bff; text-decoration: none;">Website</a>
+        </p>
+    </div>
+</div>
+</body>
+
+</html>

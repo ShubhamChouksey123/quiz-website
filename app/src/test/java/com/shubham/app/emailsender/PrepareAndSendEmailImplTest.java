@@ -1,4 +1,4 @@
-package com.shubham.app.service.questioncrud;
+package com.shubham.app.emailsender;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -8,20 +8,19 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.shubham.app.service.questioncrud.exception.InternalServerException;
+import com.shubham.app.service.questioncrud.QuestionsUtilsImpl;
 
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-// @TestPropertySource(locations = "classpath:application-test.properties")
 @ContextConfiguration(classes = {QuestionsUtilsImpl.class, ObjectMapper.class})
 @ExtendWith(SpringExtension.class)
-class QuestionsUtilsImplTest {
+class PrepareAndSendEmailImplTest {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Autowired
@@ -43,22 +42,20 @@ class QuestionsUtilsImplTest {
     }
 
     @Test
-    void testConvertStringQuestionsToList() throws InternalServerException {
+    void testConvertStringQuestionsToList() {
 
-        String questionIds = "[2,3,4,5,6,7,8,9,10,11]";
+        // Path path =
+        // Path.of("D:\\OldLaptop\\New_Projects\\QuizWebsiteNewRelease\\app\\src\\main\\resources\\templates\\email-templates\\resume-send\\adobe");
+        Path path = Path.of("/templates/email-templates/resume-send/adobe");
 
-        List<Integer> questionIdsList = questionsUtilsImpl.convertStringQuestionsToList(questionIds);
-        logger.info("questionIdsList: {}", questionIdsList);
-        assertNotNull(questionIdsList);
-    }
+        if (Files.exists(path)) {
+            logger.info("---------------------- folder exist ---------------------");
+        }
 
-    @Test
-    void testConvertStringQuestionsToList2() throws InternalServerException {
+        ClassPathResource s = new ClassPathResource("templates/email-templates/resume-send/shubham_chouksey_cv.pdf");
 
-        String questionIds = "[2,null,4,5,null,7,null,9,10,11]";
-
-        List<Integer> questionIdsList = questionsUtilsImpl.convertStringQuestionsToList(questionIds);
-        logger.info("questionIdsList: {}", questionIdsList);
-        assertNotNull(questionIdsList);
+        if (s != null) {
+            logger.info("----------------------  1 folder exist ---------------------");
+        }
     }
 }
