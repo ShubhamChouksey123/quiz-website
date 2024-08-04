@@ -166,8 +166,12 @@ public class PrepareAndSendEmailImpl implements PrepareAndSendEmail {
 
     private String createEmailSubject(HRInfo hrInfo) {
 
-        if (!generalUtility.isNullOrEmpty(hrInfo.getTimes()) && hrInfo.getTimes() > 20) {
+        if (!generalUtility.isNullOrEmpty(hrInfo.getTimes()) && hrInfo.getTimes() > 5 && hrInfo.getTimes() % 5 == 0) {
             return "In case you missed it";
+        }
+
+        if (!generalUtility.isNullOrEmpty(hrInfo.getTimes()) && hrInfo.getTimes() > 5 && hrInfo.getTimes() % 4 == 0) {
+            return "Job inquiry — Shubham Chouksey, 3+ years of experience, Sr. Software Engineer";
         }
 
         if (!generalUtility.isNullOrEmpty(hrInfo.getEmailSubject())) {
