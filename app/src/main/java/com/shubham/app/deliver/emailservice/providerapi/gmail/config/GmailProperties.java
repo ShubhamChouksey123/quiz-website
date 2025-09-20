@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class GmailProperties {
     private String host;
     private String username;
+    private String password;
 
     public GmailProperties() {
     }
@@ -28,8 +29,16 @@ public class GmailProperties {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
-        return "GmailConfiguration{" + "host='" + host + '\'' + ", username='" + username + '\'' + '}';
+        return "GmailProperties{" + "host='" + host + '\'' + ", username='" + username + '\'' + '}';
     }
 }

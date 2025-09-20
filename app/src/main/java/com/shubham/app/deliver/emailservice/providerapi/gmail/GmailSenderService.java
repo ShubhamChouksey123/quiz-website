@@ -45,7 +45,7 @@ public class GmailSenderService implements EmailProvider {
 
         Session session = Session.getInstance(props, new jakarta.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("kperme@cognam.com", "fyhktfinnznokqtu");
+                return new PasswordAuthentication(gmailProperties.getUsername(), gmailProperties.getPassword());
             }
         });
         Message msg = new MimeMessage(session);
@@ -56,7 +56,7 @@ public class GmailSenderService implements EmailProvider {
     public boolean sendTextEmail(EmailInformation emailInformation) throws MessagingException {
 
         Message msg = createMessage();
-        msg.setFrom(new InternetAddress("kperme@cognam.com", false));
+        msg.setFrom(new InternetAddress(gmailProperties.getUsername(), false));
 
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailInformation.getReceiverEmail()));
         msg.setSubject(emailInformation.getSubject());

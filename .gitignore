@@ -179,7 +179,19 @@ app/src/main/resources/templates/facts
 # app/src/main/resources/templates/facts/images/*
 # app/src/main/resources/templates/facts/js/*
 
-
 app/src/main/resources/templates/form
-
 app/src/main/resources/templates/email-templates/resume-send
+
+# SSH keys and sensitive files
+ssh-key-*
+*.key
+*.pem
+
+# OCI specific files
+.oci/
+oci-config
+kubeconfig*
+
+# Environment specific
+.env.local
+.env.production

@@ -27,7 +27,10 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan("com.shubham.app")
 @EnableTransactionManagement
-@PropertySource({"classpath:hibernate.properties"})
+@PropertySource(value = {
+    "classpath:hibernate.properties",
+    "classpath:hibernate-${spring.profiles.active}.properties"
+}, ignoreResourceNotFound = true)
 public class HibernateConfig {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
