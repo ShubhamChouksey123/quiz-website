@@ -6,13 +6,56 @@
 # Exit immediately if a command exits with a non-zero status.
 set -e
 
-# Load environment variables from .env file if it exists
-if [[ -f ".env" ]]; then
-    echo -e "\033[0;34m[INFO]\033[0m Loading environment variables from .env file..."
-    set -a
-    source .env
-    set +a
-fi
+# Function to load environment variables from .env file
+load_env_file() {
+    local env_file="${1:-.env}"
+    
+    # Get the directory where this script is located
+    local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    local project_root="$(dirname "$script_dir")"
+    
+    # Try multiple locations for .env file
+    local env_paths=("$env_file" "$project_root/.env")
+    
+    for env_path in "${env_paths[@]}"; do
+        if [[ -f "$env_path" ]]; then
+            echo -e "\033[0;34m[INFO]\033[0m Loading environment variables from $env_path..."
+            
+            # Export all variables from .env file
+            set -a
+            source "$env_path"
+            set +a
+            
+            echo -e "\033[0;32m[SUCCESS]\033[0m Environment variables loaded successfully"
+            
+            # Verify key variables are loaded
+            local loaded_vars=()
+            [[ -n "$COMPARTMENT_ID" ]] && loaded_vars+=("COMPARTMENT_ID")
+            [[ -n "$VCN_ID" ]] && loaded_vars+=("VCN_ID")
+            [[ -n "$SUBNET_ID" ]] && loaded_vars+=("SUBNET_ID")
+            [[ -n "$LB_SUBNET_ID" ]] && loaded_vars+=("LB_SUBNET_ID")
+            [[ -n "$DB_ADMIN_PASSWORD" ]] && loaded_vars+=("DB_ADMIN_PASSWORD")
+            [[ -n "$OCIR_USERNAME" ]] && loaded_vars+=("OCIR_USERNAME")
+            [[ -n "$OCIR_AUTH_TOKEN" ]] && loaded_vars+=("OCIR_AUTH_TOKEN")
+            [[ -n "$GMAIL_USERNAME" ]] && loaded_vars+=("GMAIL_USERNAME")
+            [[ -n "$GMAIL_PASSWORD" ]] && loaded_vars+=("GMAIL_PASSWORD")
+            
+            if [[ ${#loaded_vars[@]} -gt 0 ]]; then
+                echo -e "\033[0;34m[INFO]\033[0m Loaded variables: ${loaded_vars[*]}"
+            fi
+            
+            return 0
+        fi
+    done
+    
+    echo -e "\033[0;33m[WARNING]\033[0m No .env file found in current directory or project root"
+    echo -e "\033[0;33m[WARNING]\033[0m Checked paths: ${env_paths[*]}"
+    echo -e "\033[0;33m[WARNING]\033[0m You may need to set environment variables manually"
+    return 1
+}
+
+# Load environment variables from .env file
+load_env_file
 
 # Colors for output
 RED='\033[0;31m'
@@ -571,7 +614,26 @@ build_and_push_docker() {
 # Function to create PostgreSQL database
 create_postgresql() {
     print_status "Creating OCI PostgreSQL database..."
+    
+    # Debug: Print the values being used
+    print_status "Debug: COMPARTMENT_ID = $COMPARTMENT_ID"
+    print_status "Debug: SUBNET_ID = $SUBNET_ID"
+    print_status "Debug: DB_ADMIN_PASSWORD length = ${#DB_ADMIN_PASSWORD}"
+    
+    # Check if PostgreSQL database already exists
+    existing_db=$(oci psql db-system-collection list-db-systems \
+        --compartment-id "$COMPARTMENT_ID" \
+        --display-name "Quiz PostgreSQL DB" \
+        --query 'data.items[0].id' \
+        --raw-output 2>/dev/null || echo "null")
+    
+    if [[ "$existing_db" != "null" && -n "$existing_db" ]]; then
+        print_success "PostgreSQL database already exists with ID: $existing_db"
+        echo "$existing_db" >.db_system_id
+        return 0
+    fi
 
+    print_status "Creating new PostgreSQL database system..."
     DB_SYSTEM_ID=$(oci psql db-system create \
         --compartment-id "$COMPARTMENT_ID" \
         --display-name "Quiz PostgreSQL DB" \
@@ -583,7 +645,11 @@ create_postgresql() {
         --credentials "{\"username\":\"postgres\",\"passwordDetails\":{\"password\":\"$DB_ADMIN_PASSWORD\"}}" \
         --wait-for-state SUCCEEDED \
         --query 'data.id' \
-        --raw-output || { print_error "Failed to create PostgreSQL database. Exiting."; exit 1; })
+        --raw-output 2>&1 || { 
+            print_error "Failed to create PostgreSQL database. Command output above."
+            print_error "Please check the error message and verify your configuration."
+            exit 1
+        })
 
     print_success "PostgreSQL database created with ID: $DB_SYSTEM_ID"
     echo "$DB_SYSTEM_ID" >.db_system_id
@@ -611,16 +677,34 @@ get_db_connection() {
 # Function to create OKE cluster
 create_oke_cluster() {
     print_status "Creating OKE cluster: $CLUSTER_NAME"
+    
+    # Check if cluster already exists
+    existing_cluster=$(oci ce cluster list \
+        --compartment-id "$COMPARTMENT_ID" \
+        --name "$CLUSTER_NAME" \
+        --query 'data[0].id' \
+        --raw-output 2>/dev/null || echo "null")
+    
+    if [[ "$existing_cluster" != "null" && -n "$existing_cluster" ]]; then
+        print_success "OKE cluster already exists with ID: $existing_cluster"
+        echo "$existing_cluster" >.cluster_id
+        return 0
+    fi
 
+    print_status "Creating new OKE cluster..."
     CLUSTER_ID=$(oci ce cluster create \
         --compartment-id "$COMPARTMENT_ID" \
         --name "$CLUSTER_NAME" \
         --vcn-id "$VCN_ID" \
-        --kubernetes-version "v1.28.2" \
+        --kubernetes-version "v1.31.1" \
         --service-lb-subnet-ids "[\"$LB_SUBNET_ID\"]" \
         --wait-for-state SUCCEEDED \
         --query 'data.id' \
-        --raw-output || { print_error "Failed to create OKE cluster. Exiting."; exit 1; })
+        --raw-output 2>&1 || { 
+            print_error "Failed to create OKE cluster. Command output above."
+            print_error "If you've reached the cluster limit, please delete an existing cluster or request a limit increase."
+            exit 1
+        })
 
     print_success "OKE cluster created with ID: $CLUSTER_ID"
     echo "$CLUSTER_ID" >.cluster_id
@@ -635,7 +719,21 @@ create_node_pool() {
     else
         read -p "Enter your OKE Cluster OCID: " CLUSTER_ID
     fi
+    
+    # Check if node pool already exists
+    existing_node_pool=$(oci ce node-pool list \
+        --compartment-id "$COMPARTMENT_ID" \
+        --cluster-id "$CLUSTER_ID" \
+        --name "quiz-app-nodes" \
+        --query 'data[0].id' \
+        --raw-output 2>/dev/null || echo "null")
+    
+    if [[ "$existing_node_pool" != "null" && -n "$existing_node_pool" ]]; then
+        print_success "Node pool already exists with ID: $existing_node_pool"
+        return 0
+    fi
 
+    print_status "Creating new node pool..."
     # Get availability domain
     AD=$(oci iam availability-domain list \
         --compartment-id "$COMPARTMENT_ID" \
