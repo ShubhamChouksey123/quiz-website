@@ -37,9 +37,10 @@ log_error() {
 }
 
 # Check if we're in the correct directory
-if [ ! -f "../.env" ]; then
+if [ ! -f "../../.env" ]; then
     log_error "Please run this script from the oci-deployment/scripts directory"
     log_error "The .env file should be in the project root"
+    log_error "Expected .env location: ../../.env"
     exit 1
 fi
 
@@ -192,55 +193,21 @@ if [ ! -f ~/.ssh/id_rsa.pub ]; then
     exit 1
 fi
 
-# 6. Docker Installation Check
-log_info "6. Verifying Docker Installation..."
-if ! command -v docker &> /dev/null; then
-    log_error "Docker is not installed"
-    echo ""
-    echo "Install Docker:"
-    echo "  macOS: Install Docker Desktop from https://docker.com"
-    echo "  Linux: Follow Docker installation guide for your distribution"
-    exit 1
-fi
+# 6. Docker and OCIR Check (Local Docker Not Required)
+log_info "6. Verifying OCIR Access (Docker will be available on OCI instance)..."
+log_info "Note: Local Docker is not required - build will happen on OCI instance"
 
-DOCKER_VERSION=$(docker --version 2>/dev/null)
-log_success "Docker is installed: $DOCKER_VERSION"
-
-# Check if Docker daemon is running
-if ! docker info > /dev/null 2>&1; then
-    log_error "Docker daemon is not running"
-    echo ""
-    echo "Start Docker:"
-    echo "  macOS: Start Docker Desktop application"
-    echo "  Linux: sudo systemctl start docker"
-    exit 1
-fi
-log_success "Docker daemon is running"
-
-# 7. OCIR Authentication Test
-log_info "7. Testing OCIR Authentication..."
-if ! echo "$OCIR_AUTH_TOKEN" | docker login "${OCIR_REGION}.ocir.io" -u "$OCIR_USERNAME" --password-stdin > /dev/null 2>&1; then
-    log_error "OCIR authentication failed"
-    echo ""
-    echo "Check:"
-    echo "  1. OCIR_AUTH_TOKEN is valid (regenerate if needed)"
-    echo "  2. OCIR_USERNAME format: <namespace>/<username>"
-    echo "  3. Auth token has not expired"
-    exit 1
-fi
-log_success "OCIR authentication successful"
-
-# Test OCIR repository access
+# Test OCIR repository access using OCI CLI
 log_info "Testing OCIR repository access..."
 if oci artifacts container repository list --compartment-id "$COMPARTMENT_ID" > /dev/null 2>&1; then
     REPO_COUNT=$(oci artifacts container repository list --compartment-id "$COMPARTMENT_ID" --query "length(data.items)" --output json 2>/dev/null || echo "0")
-    log_success "OCIR repository access verified ($REPO_COUNT repositories found)"
+    log_success "OCIR repository access verified via OCI CLI ($REPO_COUNT repositories found)"
 else
-    log_warning "OCIR repository access test failed - may not have existing repositories"
+    log_warning "OCIR repository access test - will be verified during deployment"
 fi
 
-# 8. Required Tools Check
-log_info "8. Checking Required Tools..."
+# 7. Required Tools Check
+log_info "7. Checking Required Tools..."
 
 # Check git
 if ! command -v git &> /dev/null; then
@@ -266,17 +233,11 @@ else
     log_success "jq is installed: $(jq --version)"
 fi
 
-# Check docker-compose
-if ! command -v docker-compose &> /dev/null; then
-    log_warning "docker-compose is not installed"
-    echo "Install: brew install docker-compose (macOS) or use your package manager"
-    echo "Or use 'docker compose' (newer versions) instead"
-else
-    log_success "docker-compose is installed: $(docker-compose --version)"
-fi
+# Note: Docker and docker-compose will be available on OCI instance
+log_info "Note: docker and docker-compose will be installed on OCI instance via cloud-init"
 
-# 9. Free Tier Limits Check
-log_info "9. Checking Current Resource Usage..."
+# 8. Free Tier Limits Check
+log_info "8. Checking Current Resource Usage..."
 
 # Check existing compute instances
 RUNNING_INSTANCES=$(oci compute instance list --compartment-id "$COMPARTMENT_ID" --lifecycle-state RUNNING \
@@ -298,10 +259,9 @@ echo ""
 log_info "You are ready to proceed with OCI deployment."
 echo ""
 log_info "Next steps:"
-echo "  1. Run ./02-build-and-push.sh to build and push Docker image"
-echo "  2. Run ./03-create-infrastructure.sh to create compute instance"
-echo "  3. Run ./04-deploy-application.sh to deploy the application"
-echo "  4. Run ./05-validate-deployment.sh to validate the deployment"
+echo "  1. Run ./02-create-infrastructure.sh to create compute instance"
+echo "  2. Run ./03-deploy-application.sh to build and deploy the application"
+echo "  3. Run ./04-validate-deployment.sh to validate the deployment"
 echo ""
 
 # Save verification results
