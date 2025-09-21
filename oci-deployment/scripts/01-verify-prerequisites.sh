@@ -139,11 +139,20 @@ if ! oci network subnet get --subnet-id "$SUBNET_ID" > /dev/null 2>&1; then
 fi
 
 # Check if subnet allows public IPs
-SUBNET_INFO=$(oci network subnet get --subnet-id "$SUBNET_ID" --query "data.{public:\"prohibit-public-ip-on-vnic\"}" 2>/dev/null)
+SUBNET_INFO=$(oci network subnet get --subnet-id "$SUBNET_ID" --query "data.{name:\"display-name\",cidr:\"cidr-block\",public:\"prohibit-public-ip-on-vnic\"}" 2>/dev/null)
 if echo "$SUBNET_INFO" | grep -q '"public": true'; then
-    log_warning "Subnet prohibits public IP assignment - you may need to use a different subnet"
+    log_error "Subnet prohibits public IP assignment"
+    log_error "Current subnet does not allow public IP assignment for compute instances"
+    echo ""
+    echo "Solution: Update SUBNET_ID in .env to use a subnet that allows public IPs"
+    echo "You can find available subnets with:"
+    echo "  oci network subnet list --compartment-id \$COMPARTMENT_ID --vcn-id \$VCN_ID \\"
+    echo "    --query \"data[?\\\"prohibit-public-ip-on-vnic\\\"==\\\`false\\\`]\""
+    exit 1
 else
     log_success "Subnet allows public IP assignment"
+    # Display subnet details for confirmation
+    echo "$SUBNET_INFO"
 fi
 
 # 4. Compute Service Access Verification
