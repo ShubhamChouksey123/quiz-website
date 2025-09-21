@@ -9,10 +9,9 @@ oci-deployment/
 ├── README.md                    # This file - deployment overview
 ├── scripts/                     # Executable scripts for deployment
 │   ├── 01-verify-prerequisites.sh   # Comprehensive prerequisites verification
-│   ├── 02-build-and-push.sh        # Build and push Docker image to OCIR
-│   ├── 03-create-infrastructure.sh # Create OCI compute instance
-│   ├── 04-deploy-application.sh    # Deploy application containers
-│   └── 05-validate-deployment.sh   # Post-deployment validation
+│   ├── 02-create-infrastructure.sh # Create OCI compute instance
+│   ├── 03-deploy-application.sh    # Build and deploy application on instance
+│   └── 04-validate-deployment.sh   # Post-deployment validation
 ├── configs/                     # Configuration files
 │   ├── docker-compose.yml          # Container orchestration
 │   ├── cloud-init.yaml            # Instance initialization script
@@ -22,6 +21,10 @@ oci-deployment/
     └── troubleshooting.md          # Common issues and solutions
 ```
 
+## Deployment Strategy
+
+**Remote Build Approach**: Since Docker is not available locally, we build the Docker image directly on the OCI compute instance where Docker is installed via cloud-init.
+
 ## Quick Start
 
 1. **Prerequisites Verification**
@@ -30,32 +33,28 @@ oci-deployment/
    ./01-verify-prerequisites.sh
    ```
 
-2. **Build and Push Image**
+2. **Create Infrastructure**
    ```bash
-   ./02-build-and-push.sh
+   ./02-create-infrastructure.sh
    ```
 
-3. **Create Infrastructure**
+3. **Deploy Application (Build & Run)**
    ```bash
-   ./03-create-infrastructure.sh
+   ./03-deploy-application.sh
    ```
 
-4. **Deploy Application**
+4. **Validate Deployment**
    ```bash
-   ./04-deploy-application.sh
-   ```
-
-5. **Validate Deployment**
-   ```bash
-   ./05-validate-deployment.sh
+   ./04-validate-deployment.sh
    ```
 
 ## Prerequisites
 
 - OCI CLI installed and configured
-- Docker installed and running
 - SSH key pair generated
 - Environment variables configured in root `.env` file
+
+**Note**: Docker is NOT required locally. The Docker image will be built directly on the OCI compute instance.
 
 ## Based on Specifications
 
