@@ -1,0 +1,113 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: quiz-postgres
+    environment:
+      POSTGRES_DB: quiz
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_ADMIN_PASSWORD}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --lc-collate=C --lc-ctype=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d:ro
+    networks:
+      - quiz-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d quiz"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  quiz-app:
+    image: ${DOCKER_IMAGE:-ap-mumbai-1.ocir.io/bmx5u3gkmcih/quiz-app:latest}
+    container_name: quiz-app
+    ports:
+      - "8080:8080"
+    environment:
+      # Database Configuration
+      QUIZ_DB_HOST: postgres
+      QUIZ_DB_PORT: 5432
+      QUIZ_DB_NAME: quiz
+      QUIZ_DB_USERNAME: postgres
+      QUIZ_DB_PASSWORD: ${DB_ADMIN_PASSWORD}
+
+      # Email Configuration
+      GMAIL_USERNAME: ${GMAIL_USERNAME}
+      GMAIL_PASSWORD: ${GMAIL_PASSWORD}
+
+      # Application Configuration
+      SERVER_PORT: 8080
+      SPRING_PROFILES_ACTIVE: production
+
+      # JVM Configuration for limited resources
+      JAVA_OPTS: "-Xmx768m -Xms256m -XX:+UseG1GC -XX:MaxGCPauseMillis=200"
+
+      # Hibernate Configuration
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: false
+      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: false
+
+      # Connection Pool Configuration
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: 10
+      SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE: 2
+      SPRING_DATASOURCE_HIKARI_CONNECTION_TIMEOUT: 30000
+      SPRING_DATASOURCE_HIKARI_IDLE_TIMEOUT: 600000
+      SPRING_DATASOURCE_HIKARI_MAX_LIFETIME: 1800000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - quiz-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 45s
+      timeout: 15s
+      retries: 5
+      start_period: 120s
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"
+
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/quiz-app/data/postgres
+
+networks:
+  quiz-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
