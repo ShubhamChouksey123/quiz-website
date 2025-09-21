@@ -9,8 +9,8 @@
 - SSH keys generated
 - Free tier resources available (3/6 instances, 2 block volumes)
 
-**⚠️ Known Issues to Address:**
-- Subnet prohibits public IP assignment - needs resolution during infrastructure creation
+**✅ Issues Resolved:**
+- Subnet public IP assignment issue resolved by switching to Load Balancer subnet
 
 **🎯 Ready for Next Phase:**
 - Infrastructure creation (`./02-create-infrastructure.sh`)
@@ -42,11 +42,11 @@ Remote Build Approach - Docker image built on OCI instance (no local Docker requ
 - [x] Compute service permissions confirmed - ✅ Free tier shapes available
 - [x] OCIR authentication successful - ✅ Repository access verified (1 repository found)
 - [x] Free tier limits checked - ✅ Currently 3 instances, 2 volumes (within limits)
-
-**⚠️ Note**: Subnet prohibits public IP assignment - may need different subnet or configuration
+- [x] Subnet public IP issue resolved - ✅ Using Load Balancer subnet (10.0.20.0/24)
 
 ### ✅ Phase 4: Prerequisites Script
-- [x] Run `./01-verify-prerequisites.sh` successfully - ✅ Completed
+- [x] Run `./01-verify-prerequisites.sh` successfully - ✅ Completed (initial)
+- [ ] Re-run `./01-verify-prerequisites.sh` with updated subnet - ⏳ NEXT STEP
 - [x] All verification checks pass - ✅ All systems verified
 - [x] `verification-status.log` created - ✅ Status saved
 
