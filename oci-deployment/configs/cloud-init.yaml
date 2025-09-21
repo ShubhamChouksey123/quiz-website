@@ -1,0 +1,220 @@
+#cloud-config
+
+# OCI Compute Instance Initialization Script
+# This script prepares the instance for containerized quiz application deployment
+
+package_update: true
+package_upgrade: true
+
+packages:
+  - docker
+  - docker-compose
+  - git
+  - curl
+  - wget
+  - htop
+  - vim
+  - unzip
+
+# Create application directory and user
+users:
+  - default
+  - name: quizadmin
+    groups: docker
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+
+runcmd:
+  # Configure Docker
+  - systemctl start docker
+  - systemctl enable docker
+  - usermod -a -G docker opc
+  - usermod -a -G docker quizadmin
+
+  # Install Docker Compose (latest version)
+  - curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  - chmod +x /usr/local/bin/docker-compose
+  - ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+  # Create application directories
+  - mkdir -p /opt/quiz-app/{data/postgres,logs,backups,scripts}
+  - chown -R opc:opc /opt/quiz-app
+  - chmod 755 /opt/quiz-app
+
+  # Create data directory with proper permissions
+  - mkdir -p /opt/quiz-app/data/postgres
+  - chown -R 999:999 /opt/quiz-app/data/postgres
+  - chmod 700 /opt/quiz-app/data/postgres
+
+  # Configure firewall for application
+  - firewall-cmd --permanent --add-port=8080/tcp
+  - firewall-cmd --permanent --add-port=80/tcp
+  - firewall-cmd --permanent --add-port=443/tcp
+  - firewall-cmd --permanent --add-service=ssh
+  - firewall-cmd --reload
+
+  # Install OCI CLI for management tasks
+  - pip3 install oci-cli --user
+
+  # Configure system limits for containers
+  - echo "* soft nofile 65536" >> /etc/security/limits.conf
+  - echo "* hard nofile 65536" >> /etc/security/limits.conf
+  - echo "root soft nofile 65536" >> /etc/security/limits.conf
+  - echo "root hard nofile 65536" >> /etc/security/limits.conf
+
+  # Configure log rotation for container logs
+  - |
+    cat > /etc/logrotate.d/docker-container << EOF
+    /var/lib/docker/containers/*/*.log {
+      rotate 7
+      daily
+      compress
+      size=10M
+      missingok
+      delaycompress
+      copytruncate
+    }
+    EOF
+
+  # Create system monitoring script
+  - |
+    cat > /opt/quiz-app/scripts/system-monitor.sh << 'EOF'
+    #!/bin/bash
+    echo "=== System Status $(date) ==="
+    echo "Memory Usage:"
+    free -h
+    echo ""
+    echo "Disk Usage:"
+    df -h
+    echo ""
+    echo "Docker Status:"
+    docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+    echo ""
+    echo "Container Stats:"
+    docker stats --no-stream --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}"
+    EOF
+
+  - chmod +x /opt/quiz-app/scripts/system-monitor.sh
+
+  # Create cleanup script
+  - |
+    cat > /opt/quiz-app/scripts/cleanup.sh << 'EOF'
+    #!/bin/bash
+    echo "Cleaning up Docker resources..."
+    docker system prune -f
+    docker volume prune -f
+    echo "Cleanup completed"
+    EOF
+
+  - chmod +x /opt/quiz-app/scripts/cleanup.sh
+
+  # Set timezone
+  - timedatectl set-timezone UTC
+
+  # Configure automatic security updates
+  - dnf install -y dnf-automatic
+  - systemctl enable --now dnf-automatic.timer
+
+  # Create success indicator file
+  - touch /opt/quiz-app/.cloud-init-complete
+  - echo "Cloud-init completed at $(date)" > /opt/quiz-app/cloud-init.log
+
+write_files:
+  # Create environment template file
+  - path: /opt/quiz-app/.env.template
+    permissions: '0644'
+    owner: opc:opc
+    content: |
+      # Quiz Application Environment Variables
+      # Copy this to .env and fill in actual values
+
+      # Database Configuration
+      DB_ADMIN_PASSWORD=your-secure-db-password
+
+      # Email Configuration
+      GMAIL_USERNAME=your-gmail-username
+      GMAIL_PASSWORD=your-gmail-app-password
+
+      # Docker Image
+      DOCKER_IMAGE=ap-mumbai-1.ocir.io/your-namespace/quiz-app:latest
+
+  # Create deployment status script
+  - path: /opt/quiz-app/scripts/deployment-status.sh
+    permissions: '0755'
+    owner: opc:opc
+    content: |
+      #!/bin/bash
+
+      echo "=== Quiz App Deployment Status ==="
+      echo ""
+
+      # Check cloud-init completion
+      if [ -f /opt/quiz-app/.cloud-init-complete ]; then
+          echo "✅ Cloud-init: Complete"
+      else
+          echo "❌ Cloud-init: In Progress or Failed"
+      fi
+
+      # Check Docker
+      if systemctl is-active --quiet docker; then
+          echo "✅ Docker: Running"
+      else
+          echo "❌ Docker: Not Running"
+      fi
+
+      # Check if application is deployed
+      if [ -f /opt/quiz-app/docker-compose.yml ]; then
+          echo "✅ Application: Deployed"
+
+          # Check container status
+          cd /opt/quiz-app
+          if docker-compose ps | grep -q "Up"; then
+              echo "✅ Containers: Running"
+          else
+              echo "❌ Containers: Not Running"
+          fi
+      else
+          echo "❌ Application: Not Deployed"
+      fi
+
+      echo ""
+      echo "For detailed status, run: /opt/quiz-app/scripts/system-monitor.sh"
+
+  # Create health check script
+  - path: /opt/quiz-app/scripts/health-check.sh
+    permissions: '0755'
+    owner: opc:opc
+    content: |
+      #!/bin/bash
+
+      # Application health check
+      HEALTH_URL="http://localhost:8080/actuator/health"
+
+      echo "Checking application health..."
+
+      if curl -f -s "$HEALTH_URL" > /dev/null; then
+          echo "✅ Application is healthy"
+          curl -s "$HEALTH_URL" | jq '.' 2>/dev/null || curl -s "$HEALTH_URL"
+      else
+          echo "❌ Application health check failed"
+          echo "Checking if application is accessible on port 8080..."
+          if curl -f -s "http://localhost:8080/" > /dev/null; then
+              echo "✅ Application is responding on port 8080"
+          else
+              echo "❌ Application is not responding"
+          fi
+      fi
+
+final_message: |
+  Quiz App server initialization complete!
+
+  Instance is ready for application deployment.
+
+  Next steps:
+  1. SSH to the instance: ssh -i ~/.ssh/id_rsa opc@<public-ip>
+  2. Check status: /opt/quiz-app/scripts/deployment-status.sh
+  3. Deploy application using the deployment scripts
+
+  Application directory: /opt/quiz-app
+  Logs location: /opt/quiz-app/logs
+  Data directory: /opt/quiz-app/data
