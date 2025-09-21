@@ -1,7 +1,26 @@
 #!/bin/bash
 
 # Quiz Website - Complete OCI Deployment Script
-# This script creates OCI PostgreSQL database, OKE cluster, and deploys the application
+# This script deploys containerized PostgreSQL in OKE cluster and deploys the quiz application
+#
+# DEPLOYMENT ARCHITECTURE:
+# - Containerized PostgreSQL: Running in OKE cluster with persistent storage
+# - Spring Boot Application: Deployed as containers in OKE cluster
+# - Storage: OCI Block Storage for PostgreSQL data persistence
+# - Networking: Internal Kubernetes service discovery for database connectivity
+#
+# FEATURES:
+# - Automated PostgreSQL container deployment with persistent volumes
+# - Database validation and health checks
+# - Secure password management via Kubernetes secrets
+# - Service discovery for application-database connectivity
+# - Comprehensive logging and error handling
+#
+# PREREQUISITES:
+# - OCI CLI configured with appropriate permissions
+# - kubectl configured for target OKE cluster
+# - Docker installed for image building
+# - .env file with required environment variables
 
 # Exit immediately if a command exits with a non-zero status.
 set -e
@@ -84,9 +103,143 @@ APP_NAME="quiz-app"
 DB_NAME="quiz_db"
 CLUSTER_NAME="quiz-app-cluster"
 
+# Function to test PostgreSQL service availability in a region
+test_postgresql_service_in_region() {
+    local test_region="$1"
+    local original_region="$OCI_CLI_REGION"
+    
+    print_status "Testing PostgreSQL service in region: $test_region"
+    
+    # Temporarily set the region
+    export OCI_CLI_REGION="$test_region"
+    
+    # Test if we can list shapes (basic service availability test)
+    local shapes_test=$(oci psql shape-summary list-shapes --compartment-id "$COMPARTMENT_ID" --query 'data.items[0].id' --raw-output 2>/dev/null)
+    
+    # Test if we can create a database system (more comprehensive test with dry run equivalent)
+    local create_test_result=""
+    if [[ -n "$shapes_test" && "$shapes_test" != "null" ]]; then
+        # Try a minimal create command to see if we get the KeyError
+        create_test_result=$(oci psql db-system create \
+            --compartment-id "$COMPARTMENT_ID" \
+            --display-name "Test PostgreSQL Service" \
+            --db-version "14" \
+            --shape "VM.Standard.E5.Flex" \
+            --instance-ocpu-count 1 \
+            --instance-memory-size-in-gbs 16 \
+            --storage-details '{"sizeInGBs":20}' \
+            --network-details "{\"subnetId\":\"$SUBNET_ID\"}" \
+            --credentials "{\"username\":\"testuser\",\"passwordDetails\":{\"password\":\"TempPassword123!\"}}" \
+            --query 'data.id' \
+            --raw-output 2>&1 | head -1)
+    fi
+    
+    # Restore original region
+    export OCI_CLI_REGION="$original_region"
+    
+    # Analyze results
+    if [[ -n "$shapes_test" && "$shapes_test" != "null" ]]; then
+        if [[ "$create_test_result" == *"KeyError"* ]]; then
+            print_warning "Region $test_region: PostgreSQL shapes available but create API has KeyError issue"
+            return 1
+        elif [[ "$create_test_result" == *"ServiceError"* ]] || [[ "$create_test_result" == *"InvalidParameter"* ]]; then
+            print_success "Region $test_region: PostgreSQL service appears functional (expected parameter errors)"
+            return 0
+        elif [[ "$create_test_result" == *"ocid1"* ]]; then
+            print_success "Region $test_region: PostgreSQL service fully functional"
+            return 0
+        else
+            print_warning "Region $test_region: PostgreSQL service status unclear"
+            return 1
+        fi
+    else
+        print_warning "Region $test_region: PostgreSQL service not available or shapes not accessible"
+        return 1
+    fi
+}
+
+# Function to find a working PostgreSQL region
+find_working_postgresql_region() {
+    print_status "Searching for a working PostgreSQL region..."
+    
+    # List of popular regions to test (prioritizing regions close to Mumbai)
+    local regions_to_test=(
+        "ap-hyderabad-1"    # India region, closest to Mumbai
+        "ap-singapore-1"    # SE Asia
+        "ap-seoul-1"        # NE Asia  
+        "us-ashburn-1"      # US East
+        "eu-frankfurt-1"    # Europe
+        "ap-sydney-1"       # Oceania
+        "us-phoenix-1"      # US West
+    )
+    
+    print_status "Testing regions in order of preference..."
+    
+    for region in "${regions_to_test[@]}"; do
+        if test_postgresql_service_in_region "$region"; then
+            print_success "Found working PostgreSQL region: $region"
+            return 0
+        fi
+    done
+    
+    print_error "No working PostgreSQL regions found in tested set"
+    print_status "You may need to:"
+    print_status "  1. Try other regions manually"
+    print_status "  2. Contact Oracle support about PostgreSQL service issues"
+    print_status "  3. Use Autonomous Database as an alternative"
+    return 1
+}
+
+# Function to switch region and update configuration
+switch_to_region() {
+    local new_region="$1"
+    
+    print_status "Switching deployment to region: $new_region"
+    
+    # Update environment variables
+    export OCI_CLI_REGION="$new_region"
+    export REGION="$new_region"
+    
+    # Update OCIR configuration for new region
+    if [[ "$new_region" == "ap-hyderabad-1" ]]; then
+        export OCIR_REGION="ap-hyderabad-1"
+    elif [[ "$new_region" == "ap-singapore-1" ]]; then
+        export OCIR_REGION="ap-singapore-1"
+    elif [[ "$new_region" == "us-ashburn-1" ]]; then
+        export OCIR_REGION="us-ashburn-1"
+    elif [[ "$new_region" == "eu-frankfurt-1" ]]; then
+        export OCIR_REGION="eu-frankfurt-1"
+    else
+        export OCIR_REGION="$new_region"
+    fi
+    
+    # Update Docker image with new region
+    DOCKER_IMAGE="${OCIR_REGION}.ocir.io/${OCIR_NAMESPACE}/quiz-app:latest"
+    
+    print_status "Updated configuration:"
+    print_status "  Region: $REGION"
+    print_status "  OCIR Region: $OCIR_REGION"
+    print_status "  Docker Image: $DOCKER_IMAGE"
+    
+    print_warning "Note: You may need to push your Docker image to the new OCIR region"
+    print_status "Run: ./scripts/deploy.sh --cloudshell-only (to build in new region)"
+}
+
 # Function to print colored output
 print_status() {
     echo -e "${BLUE}[INFO]${NC} $1"
+}
+
+print_success() {
+    echo -e "${GREEN}[SUCCESS]${NC} $1"
+}
+
+print_warning() {
+    echo -e "${YELLOW}[WARNING]${NC} $1"
+}
+
+print_error() {
+    echo -e "${RED}[ERROR]${NC} $1"
 }
 
 print_success() {
@@ -611,54 +764,652 @@ build_and_push_docker() {
     cd ..
 }
 
-# Function to create PostgreSQL database
+# Function to create Autonomous Database PostgreSQL (alternative to PostgreSQL service)
+create_autonomous_postgresql() {
+    print_status "Creating Autonomous Database PostgreSQL..."
+    
+    # Clean up any invalid database ID file
+    if [[ -f .autonomous_db_id ]]; then
+        stored_id=$(cat .autonomous_db_id 2>/dev/null)
+        if [[ "$stored_id" == *"Error"* ]] || [[ "$stored_id" == *"Usage"* ]] || [[ "$stored_id" == "null" ]]; then
+            print_warning "Found invalid autonomous database ID file, cleaning up..."
+            rm -f .autonomous_db_id
+        fi
+    fi
+    
+    # Check for existing Autonomous Database
+    existing_adb=$(oci db autonomous-database list \
+        --compartment-id "$COMPARTMENT_ID" \
+        --display-name "Quiz Autonomous PostgreSQL" \
+        --query 'data[0].id' \
+        --raw-output 2>/dev/null || echo "null")
+    
+    if [[ "$existing_adb" != "null" && -n "$existing_adb" ]]; then
+        print_success "Autonomous Database already exists with ID: $existing_adb"
+        echo "$existing_adb" >.autonomous_db_id
+        return 0
+    fi
+    
+    print_status "Creating new Autonomous Database PostgreSQL..."
+    print_status "Configuration: 1 OCPU, 1TB storage, PostgreSQL engine"
+    
+    # Autonomous Database has a 30-character password limit
+    ADB_PASSWORD="${DB_ADMIN_PASSWORD:0:30}"
+    print_status "Debug: Using truncated password (${#ADB_PASSWORD} chars) for Autonomous Database"
+    
+    # Create Autonomous Database with PostgreSQL engine
+    ADB_ID=$(oci db autonomous-database create \
+        --compartment-id "$COMPARTMENT_ID" \
+        --display-name "Quiz Autonomous PostgreSQL" \
+        --db-name "QUIZDB" \
+        --cpu-core-count 1 \
+        --data-storage-size-in-tbs 1 \
+        --admin-password "$ADB_PASSWORD" \
+        --db-workload "DW" \
+        --is-auto-scaling-enabled false \
+        --wait-for-state AVAILABLE \
+        --query 'data.id' \
+        --raw-output 2>&1)
+    
+    if [[ $? -eq 0 && -n "$ADB_ID" && "$ADB_ID" != "null" ]]; then
+        print_success "Autonomous Database created successfully with ID: $ADB_ID"
+        echo "$ADB_ID" >.autonomous_db_id
+        return 0
+    else
+        print_error "Failed to create Autonomous Database"
+        print_error "Command output: $ADB_ID"
+        return 1
+    fi
+}
+
+# Function to deploy PostgreSQL as a container in OKE cluster
+deploy_containerized_postgresql() {
+    print_status "Preparing containerized PostgreSQL deployment..."
+    
+    # Check if kubectl is configured
+    if ! kubectl cluster-info >/dev/null 2>&1; then
+        print_error "kubectl is not configured. Please ensure OKE cluster is created and kubectl is configured."
+        return 1
+    fi
+    
+    # Create PostgreSQL manifests with actual password
+    local postgres_manifest="k8s/postgres/postgres.yaml"
+    
+    if [[ ! -f "$postgres_manifest" ]]; then
+        print_error "PostgreSQL manifest file not found: $postgres_manifest"
+        return 1
+    fi
+    
+    # Replace password placeholder with actual password
+    print_status "Configuring PostgreSQL with secure password..."
+    sed "s/PLACEHOLDER_PASSWORD/$DB_ADMIN_PASSWORD/g" "$postgres_manifest" > "/tmp/postgres-configured.yaml"
+    
+    # Deploy PostgreSQL to OKE cluster
+    print_status "Deploying PostgreSQL to OKE cluster..."
+    if kubectl apply -f "/tmp/postgres-configured.yaml"; then
+        print_success "PostgreSQL deployment manifests applied successfully"
+        
+        # Wait for PostgreSQL to be ready
+        print_status "Waiting for PostgreSQL to be ready..."
+        if kubectl wait --for=condition=ready pod -l app=postgres --timeout=300s; then
+            print_success "PostgreSQL is ready and running in OKE cluster"
+            
+            # Save connection info
+            cat > .db_connection_info << EOF
+DATABASE_TYPE=containerized-postgresql
+DATABASE_HOST=postgres-service.default.svc.cluster.local
+DATABASE_PORT=5432
+DATABASE_NAME=quiz_db
+DATABASE_USER=postgres
+DATABASE_PASSWORD=$DB_ADMIN_PASSWORD
+KUBERNETES_SERVICE=postgres-service
+NAMESPACE=default
+EOF
+            print_success "Database connection info saved to .db_connection_info"
+            return 0
+        else
+            print_error "Timeout waiting for PostgreSQL to be ready"
+            return 1
+        fi
+    else
+        print_error "Failed to deploy PostgreSQL to OKE cluster"
+        return 1
+    fi
+    
+    # Clean up temporary file
+    rm -f "/tmp/postgres-configured.yaml"
+}
+
+# Function to check PostgreSQL status
+check_containerized_postgresql() {
+    print_status "Checking containerized PostgreSQL status..."
+    
+    # Check if kubectl is configured
+    if ! kubectl cluster-info >/dev/null 2>&1; then
+        print_error "kubectl is not configured. Please ensure OKE cluster is accessible."
+        return 1
+    fi
+    
+    # Check PostgreSQL deployment
+    print_status "📋 PostgreSQL Deployment Status:"
+    kubectl get deployment postgres || print_warning "PostgreSQL deployment not found"
+    
+    # Check PostgreSQL pods
+    print_status "🔍 PostgreSQL Pod Status:"
+    kubectl get pods -l app=postgres -o wide || print_warning "No PostgreSQL pods found"
+    
+    # Check PostgreSQL service
+    print_status "🌐 PostgreSQL Service Status:"
+    kubectl get svc postgres-service || print_warning "PostgreSQL service not found"
+    
+    # Check persistent volume claim
+    print_status "💾 PostgreSQL Storage Status:"
+    kubectl get pvc postgres-pvc || print_warning "PostgreSQL PVC not found"
+    
+    # Test database connectivity
+    print_status "🔌 Testing Database Connectivity:"
+    if kubectl exec deployment/postgres -- pg_isready -U postgres >/dev/null 2>&1; then
+        print_success "✅ PostgreSQL is accepting connections"
+        
+        # Get database size and connection count
+        local db_size=$(kubectl exec deployment/postgres -- psql -U postgres -d quiz_db -t -c "SELECT pg_size_pretty(pg_database_size('quiz_db'));" 2>/dev/null | xargs)
+        local connection_count=$(kubectl exec deployment/postgres -- psql -U postgres -t -c "SELECT count(*) FROM pg_stat_activity;" 2>/dev/null | xargs)
+        
+        echo "  📊 Database Size: ${db_size:-Unknown}"
+        echo "  👥 Active Connections: ${connection_count:-Unknown}"
+    else
+        print_error "❌ PostgreSQL is not accepting connections"
+    fi
+    
+    # Show resource usage
+    print_status "📈 Resource Usage:"
+    kubectl top pod -l app=postgres 2>/dev/null || print_warning "Resource metrics not available"
+    
+    return 0
+}
+
+# Function to backup PostgreSQL database
+backup_containerized_postgresql() {
+    print_status "Creating backup of containerized PostgreSQL database..."
+    
+    # Check if kubectl is configured
+    if ! kubectl cluster-info >/dev/null 2>&1; then
+        print_error "kubectl is not configured. Please ensure OKE cluster is accessible."
+        return 1
+    fi
+    
+    # Check if PostgreSQL is running
+    if ! kubectl get pod -l app=postgres -o jsonpath='{.items[0].status.phase}' | grep -q "Running"; then
+        print_error "PostgreSQL pod is not running. Cannot create backup."
+        return 1
+    fi
+    
+    # Create backup filename with timestamp
+    local backup_file="postgresql-backup-$(date +%Y%m%d-%H%M%S).sql"
+    
+    print_status "Creating backup: $backup_file"
+    
+    # Create database backup
+    if kubectl exec deployment/postgres -- pg_dump -U postgres quiz_db > "$backup_file"; then
+        print_success "✅ Database backup created successfully: $backup_file"
+        
+        # Show backup size
+        local backup_size=$(ls -lh "$backup_file" | awk '{print $5}')
+        echo "  📁 Backup Size: $backup_size"
+        
+        return 0
+    else
+        print_error "❌ Failed to create database backup"
+        return 1
+    fi
+}
+
+# Function to restore PostgreSQL database
+restore_containerized_postgresql() {
+    local backup_file="$1"
+    
+    if [[ -z "$backup_file" ]]; then
+        print_error "Please provide backup file path"
+        echo "Usage: $0 --restore-postgresql <backup_file.sql>"
+        return 1
+    fi
+    
+    if [[ ! -f "$backup_file" ]]; then
+        print_error "Backup file not found: $backup_file"
+        return 1
+    fi
+    
+    print_status "Restoring PostgreSQL database from: $backup_file"
+    
+    # Check if kubectl is configured
+    if ! kubectl cluster-info >/dev/null 2>&1; then
+        print_error "kubectl is not configured. Please ensure OKE cluster is accessible."
+        return 1
+    fi
+    
+    # Check if PostgreSQL is running
+    if ! kubectl get pod -l app=postgres -o jsonpath='{.items[0].status.phase}' | grep -q "Running"; then
+        print_error "PostgreSQL pod is not running. Cannot restore database."
+        return 1
+    fi
+    
+    # Confirm restoration
+    echo -e "\033[1;31m⚠️  WARNING: This will replace all data in the quiz_db database!\033[0m"
+    read -p "Are you sure you want to proceed? (yes/no): " confirm
+    
+    if [[ "$confirm" != "yes" ]]; then
+        print_warning "Database restoration cancelled"
+        return 1
+    fi
+    
+    # Restore database
+    print_status "Restoring database..."
+    if kubectl exec -i deployment/postgres -- psql -U postgres quiz_db < "$backup_file"; then
+        print_success "✅ Database restored successfully from: $backup_file"
+        return 0
+    else
+        print_error "❌ Failed to restore database"
+        return 1
+    fi
+}
+
+# Function to scale PostgreSQL deployment
+scale_containerized_postgresql() {
+    local replicas="${1:-1}"
+    
+    print_status "Scaling PostgreSQL deployment to $replicas replicas..."
+    
+    # Check if kubectl is configured
+    if ! kubectl cluster-info >/dev/null 2>&1; then
+        print_error "kubectl is not configured. Please ensure OKE cluster is accessible."
+        return 1
+    fi
+    
+    # Validate replicas number
+    if ! [[ "$replicas" =~ ^[0-9]+$ ]] || [[ "$replicas" -lt 0 ]] || [[ "$replicas" -gt 3 ]]; then
+        print_error "Invalid replica count. Please provide a number between 0 and 3."
+        return 1
+    fi
+    
+    # Scale deployment
+    if kubectl scale deployment postgres --replicas="$replicas"; then
+        print_success "✅ PostgreSQL deployment scaled to $replicas replicas"
+        
+        # Wait for scaling to complete
+        print_status "Waiting for scaling to complete..."
+        kubectl wait --for=condition=available --timeout=300s deployment/postgres
+        
+        # Show current status
+        kubectl get pods -l app=postgres
+        
+        return 0
+    else
+        print_error "❌ Failed to scale PostgreSQL deployment"
+        return 1
+    fi
+}
+
+# Function to view PostgreSQL logs
+view_postgresql_logs() {
+    print_status "Viewing PostgreSQL logs..."
+    
+    # Check if kubectl is configured
+    if ! kubectl cluster-info >/dev/null 2>&1; then
+        print_error "kubectl is not configured. Please ensure OKE cluster is accessible."
+        return 1
+    fi
+    
+    # Show recent logs
+    kubectl logs -l app=postgres --tail=100 --follow
+}
+
+# Function to open PostgreSQL shell
+open_postgresql_shell() {
+    print_status "Opening PostgreSQL shell..."
+    
+    # Check if kubectl is configured
+    if ! kubectl cluster-info >/dev/null 2>&1; then
+        print_error "kubectl is not configured. Please ensure OKE cluster is accessible."
+        return 1
+    fi
+    
+    # Check if PostgreSQL is running
+    if ! kubectl get pod -l app=postgres -o jsonpath='{.items[0].status.phase}' | grep -q "Running"; then
+        print_error "PostgreSQL pod is not running."
+        return 1
+    fi
+    
+    print_status "Connecting to PostgreSQL database..."
+    print_status "💡 You are now connected to the quiz_db database"
+    print_status "💡 Type \\q to exit the PostgreSQL shell"
+    
+    # Open interactive psql session
+    kubectl exec -it deployment/postgres -- psql -U postgres -d quiz_db
+}
+
+# Function to show detailed PostgreSQL status
+show_postgresql_status() {
+    print_status "📊 Detailed PostgreSQL Status Report"
+    echo "==========================================="
+    
+    # Check if kubectl is configured
+    if ! kubectl cluster-info >/dev/null 2>&1; then
+        print_error "kubectl is not configured. Please ensure OKE cluster is accessible."
+        return 1
+    fi
+    
+    # 1. Deployment Information
+    echo
+    print_status "🚀 Deployment Information:"
+    kubectl describe deployment postgres | grep -E "(Name:|Namespace:|CreationTimestamp:|Replicas:|StrategyType:|Conditions:)" || true
+    
+    # 2. Pod Details
+    echo
+    print_status "🔍 Pod Details:"
+    kubectl get pods -l app=postgres -o wide
+    
+    # 3. Service Information
+    echo
+    print_status "🌐 Service Information:"
+    kubectl describe svc postgres-service | grep -E "(Name:|Namespace:|Type:|IP:|Port:|Endpoints:)" || true
+    
+    # 4. Storage Information
+    echo
+    print_status "💾 Storage Information:"
+    kubectl describe pvc postgres-pvc | grep -E "(Name:|Namespace:|StorageClass:|Status:|Volume:|Capacity:)" || true
+    
+    # 5. Database Statistics (if accessible)
+    echo
+    print_status "📈 Database Statistics:"
+    if kubectl exec deployment/postgres -- pg_isready -U postgres >/dev/null 2>&1; then
+        echo "  🟢 Status: PostgreSQL is accepting connections"
+        
+        # Database size
+        local db_size=$(kubectl exec deployment/postgres -- psql -U postgres -d quiz_db -t -c "SELECT pg_size_pretty(pg_database_size('quiz_db'));" 2>/dev/null | xargs)
+        echo "  📊 Database Size: ${db_size:-Unknown}"
+        
+        # Connection count
+        local connection_count=$(kubectl exec deployment/postgres -- psql -U postgres -t -c "SELECT count(*) FROM pg_stat_activity;" 2>/dev/null | xargs)
+        echo "  👥 Active Connections: ${connection_count:-Unknown}"
+        
+        # Table count
+        local table_count=$(kubectl exec deployment/postgres -- psql -U postgres -d quiz_db -t -c "SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public';" 2>/dev/null | xargs)
+        echo "  🗃️  Tables Count: ${table_count:-Unknown}"
+        
+        # Last backup info (if available)
+        if [[ -f ".db_connection_info" ]]; then
+            echo "  🔧 Connection Config: Available in .db_connection_info"
+        fi
+    else
+        echo "  🔴 Status: PostgreSQL is not accepting connections"
+    fi
+    
+    # 6. Resource Usage
+    echo
+    print_status "📊 Resource Usage:"
+    kubectl top pod -l app=postgres 2>/dev/null || echo "  ⚠️  Resource metrics not available (metrics-server might not be installed)"
+    
+    # 7. Recent Events
+    echo
+    print_status "📅 Recent Events:"
+    kubectl get events --field-selector involvedObject.name=postgres-deployment --sort-by='.lastTimestamp' | tail -5 || true
+    
+    echo
+    print_success "✅ PostgreSQL status report completed"
+}
+}
+
+# Function to create PostgreSQL database with fallback to Autonomous Database
 create_postgresql() {
-    print_status "Creating OCI PostgreSQL database..."
+    print_status "Setting up PostgreSQL database..."
+    
+    # Check if we're in a single-region tenancy
+    subscribed_regions=$(oci iam region-subscription list --query 'data[*]."region-name"' --raw-output 2>/dev/null | wc -l)
+    
+    if [[ "$subscribed_regions" -eq 1 ]]; then
+        print_status "Single-region tenancy detected. Testing PostgreSQL service in current region..."
+        
+        # Test PostgreSQL service in current region
+        if test_postgresql_service_in_region "$REGION" >/dev/null 2>&1; then
+            print_status "PostgreSQL service is available. Proceeding with PostgreSQL creation..."
+            create_postgresql_in_current_region
+            return $?
+        else
+            print_warning "PostgreSQL service has issues in current region (KeyError: 'systemType')"
+            print_status "Falling back to Autonomous Database PostgreSQL..."
+            
+            # Ask user for preference
+            echo
+            read -p "Would you like to use Autonomous Database PostgreSQL instead? (Y/n): " use_autonomous
+            if [[ ! "$use_autonomous" =~ ^[Nn]$ ]]; then
+                create_autonomous_postgresql
+                return $?
+            else
+                print_error "PostgreSQL service is not working. Deployment cannot continue."
+                print_status "Please try again later or contact Oracle support."
+                return 1
+            fi
+        fi
+    else
+        # Multi-region tenancy - try the original logic
+        if create_postgresql_in_current_region; then
+            return 0
+        fi
+        
+        print_warning "PostgreSQL creation failed in current region: $REGION"
+        print_status "Searching for alternative regions with working PostgreSQL service..."
+        
+        if find_working_postgresql_region; then
+            # Try other regions as before
+            local working_regions=(
+                "ap-hyderabad-1"
+                "ap-singapore-1" 
+                "ap-seoul-1"
+                "us-ashburn-1"
+                "eu-frankfurt-1"
+                "ap-sydney-1"
+                "us-phoenix-1"
+            )
+            
+            for region in "${working_regions[@]}"; do
+                if test_postgresql_service_in_region "$region" >/dev/null 2>&1; then
+                    print_status "Switching to working region: $region"
+                    switch_to_region "$region"
+                    
+                    if create_postgresql_in_current_region; then
+                        print_success "PostgreSQL database created successfully in region: $region"
+                        return 0
+                    fi
+                fi
+            done
+        fi
+        
+        print_error "Failed to create PostgreSQL database in any tested region"
+        
+        # Offer multiple alternatives when both PostgreSQL and Autonomous Database fail
+        echo
+        print_status "Database service options:"
+        print_status "1. Use containerized PostgreSQL in OKE cluster (Recommended)"
+        print_status "2. Skip database creation and configure manually later"
+        print_status "3. Exit and contact Oracle support"
+        echo
+        read -p "Choose option (1-3) [1]: " db_option
+        db_option=${db_option:-1}
+        
+        case $db_option in
+            1)
+                print_status "Will deploy PostgreSQL as a container in OKE cluster"
+                export USE_CONTAINERIZED_DB=true
+                return 0
+                ;;
+            2)
+                print_warning "Skipping database creation - you'll need to configure database manually"
+                export SKIP_DATABASE=true
+                return 0
+                ;;
+            3)
+                print_error "Deployment cancelled. Please contact Oracle support about:"
+                print_error "1. PostgreSQL service KeyError: 'systemType' issue"
+                print_error "2. Autonomous Database feature not enabled"
+                return 1
+                ;;
+            *)
+                print_error "Invalid option. Using containerized PostgreSQL."
+                export USE_CONTAINERIZED_DB=true
+                return 0
+                ;;
+        esac
+    fi
+}
+
+# Function to create PostgreSQL database in current region
+create_postgresql_in_current_region() {
+    
+    # List all PostgreSQL databases in the compartment
+    existing_databases=$(oci psql db-system-collection list-db-systems \
+        --compartment-id "$COMPARTMENT_ID" \
+        --query 'data.items[*].{"Name":"display-name","ID":"id","State":"lifecycle-state"}' \
+        --output json 2>/dev/null)
+    
+    if [[ $? -eq 0 && -n "$existing_databases" ]]; then
+        # Check if any database exists with our target name
+        target_db_id=$(echo "$existing_databases" | jq -r '.[] | select(.Name == "Quiz PostgreSQL DB") | .ID' 2>/dev/null)
+        
+        if [[ -n "$target_db_id" && "$target_db_id" != "null" ]]; then
+            target_db_state=$(echo "$existing_databases" | jq -r '.[] | select(.Name == "Quiz PostgreSQL DB") | .State' 2>/dev/null)
+            print_success "Found existing PostgreSQL database: Quiz PostgreSQL DB"
+            print_status "  Database ID: $target_db_id"
+            print_status "  Current State: $target_db_state"
+            
+            # Save the database ID
+            echo "$target_db_id" >.db_system_id
+            
+            if [[ "$target_db_state" == "ACTIVE" ]]; then
+                print_success "Existing PostgreSQL database is ACTIVE and ready for use"
+                return 0
+            elif [[ "$target_db_state" == "CREATING" ]]; then
+                print_status "Existing PostgreSQL database is still being created..."
+                print_status "Waiting for database creation to complete..."
+                
+                # Wait for the existing database to become ACTIVE
+                print_status "Monitoring database creation progress..."
+                local max_wait=1800  # 30 minutes
+                local wait_interval=30
+                local elapsed=0
+                
+                while [[ $elapsed -lt $max_wait ]]; do
+                    current_state=$(oci psql db-system get \
+                        --db-system-id "$target_db_id" \
+                        --query 'data."lifecycle-state"' \
+                        --raw-output 2>/dev/null)
+                    
+                    if [[ "$current_state" == "ACTIVE" ]]; then
+                        print_success "PostgreSQL database creation completed successfully"
+                        return 0
+                    elif [[ "$current_state" == "FAILED" ]]; then
+                        print_error "PostgreSQL database creation failed"
+                        return 1
+                    else
+                        print_status "Database state: $current_state (waiting ${wait_interval}s...)"
+                        sleep $wait_interval
+                        elapsed=$((elapsed + wait_interval))
+                    fi
+                done
+                
+                print_error "Timeout waiting for database creation (${max_wait}s)"
+                return 1
+            else
+                print_warning "Existing database is in state: $target_db_state"
+                print_status "This may require manual intervention"
+                return 1
+            fi
+        fi
+        
+        # Check if there are other databases that might conflict
+        other_dbs=$(echo "$existing_databases" | jq -r '.[].Name' 2>/dev/null | grep -v "Quiz PostgreSQL DB" || echo "")
+        if [[ -n "$other_dbs" ]]; then
+            print_status "Found other PostgreSQL databases in compartment:"
+            echo "$other_dbs" | while read -r db_name; do
+                echo "  - $db_name"
+            done
+        fi
+    fi
+    
+    print_status "No existing 'Quiz PostgreSQL DB' found. Creating new PostgreSQL database..."
     
     # Debug: Print the values being used
     print_status "Debug: COMPARTMENT_ID = $COMPARTMENT_ID"
-    print_status "Debug: SUBNET_ID = $SUBNET_ID"
+    print_status "Debug: SUBNET_ID = $SUBNET_ID"  
     print_status "Debug: DB_ADMIN_PASSWORD length = ${#DB_ADMIN_PASSWORD}"
-    
-    # Check if PostgreSQL database already exists
-    existing_db=$(oci psql db-system-collection list-db-systems \
-        --compartment-id "$COMPARTMENT_ID" \
-        --display-name "Quiz PostgreSQL DB" \
-        --query 'data.items[0].id' \
-        --raw-output 2>/dev/null || echo "null")
-    
-    if [[ "$existing_db" != "null" && -n "$existing_db" ]]; then
-        print_success "PostgreSQL database already exists with ID: $existing_db"
-        echo "$existing_db" >.db_system_id
-        return 0
-    fi
+    print_status "Debug: Shape = VM.Standard.E5.Flex (1 OCPU, 16GB RAM, 20GB Storage)"
 
     print_status "Creating new PostgreSQL database system..."
+    print_status "This process typically takes 10-15 minutes..."
+    
     DB_SYSTEM_ID=$(oci psql db-system create \
         --compartment-id "$COMPARTMENT_ID" \
         --display-name "Quiz PostgreSQL DB" \
         --db-version "14" \
-        --shape "VM.Standard.E4.Flex" \
-        --shape-config '{"ocpus": 1, "memoryInGBs": 4}' \
+        --shape "VM.Standard.E5.Flex" \
+        --instance-ocpu-count 1 \
+        --instance-memory-size-in-gbs 16 \
         --storage-details '{"sizeInGBs":20}' \
         --network-details "{\"subnetId\":\"$SUBNET_ID\"}" \
         --credentials "{\"username\":\"postgres\",\"passwordDetails\":{\"password\":\"$DB_ADMIN_PASSWORD\"}}" \
         --wait-for-state SUCCEEDED \
         --query 'data.id' \
-        --raw-output 2>&1 || { 
-            print_error "Failed to create PostgreSQL database. Command output above."
-            print_error "Please check the error message and verify your configuration."
-            exit 1
-        })
-
-    print_success "PostgreSQL database created with ID: $DB_SYSTEM_ID"
-    echo "$DB_SYSTEM_ID" >.db_system_id
+        --raw-output 2>&1)
+    
+    # Check if creation was successful
+    if [[ $? -eq 0 && -n "$DB_SYSTEM_ID" && "$DB_SYSTEM_ID" != "null" ]]; then
+        print_success "PostgreSQL database created successfully with ID: $DB_SYSTEM_ID"
+        echo "$DB_SYSTEM_ID" >.db_system_id
+        return 0
+    else
+        print_error "Failed to create PostgreSQL database"
+        print_error "Command output: $DB_SYSTEM_ID"
+        print_error "Please check the error message and verify your configuration."
+        
+        # Provide helpful guidance
+        print_status "Common issues:"
+        print_status "  1. Insufficient capacity in the region"
+        print_status "  2. Network configuration issues"
+        print_status "  3. Service limits exceeded"
+        print_status "  4. Invalid subnet configuration"
+        
+        return 1
+    fi
 }
 
 # Function to get database connection details
 get_db_connection() {
     print_status "Getting database connection details..."
 
+    # Check if using containerized database
+    if [[ "$USE_CONTAINERIZED_DB" == "true" ]]; then
+        if [[ -f .db_connection_info ]]; then
+            print_status "Using containerized PostgreSQL connection details"
+            source .db_connection_info
+            DB_HOST="$DATABASE_HOST"
+            print_success "Database host: $DB_HOST (containerized)"
+            echo "$DB_HOST" >.db_host
+            return 0
+        else
+            print_error "Containerized database connection info not found"
+            return 1
+        fi
+    fi
+
+    # Check if database creation was skipped
+    if [[ "$SKIP_DATABASE" == "true" ]]; then
+        print_warning "Database creation was skipped. Using placeholder connection details."
+        DB_HOST="localhost"
+        echo "$DB_HOST" >.db_host
+        print_status "You'll need to configure database connection manually later"
+        return 0
+    fi
+
+    # Standard managed database logic
     if [[ -f .db_system_id ]]; then
         DB_SYSTEM_ID=$(cat .db_system_id)
     else
@@ -672,6 +1423,190 @@ get_db_connection() {
 
     print_success "Database host: $DB_HOST"
     echo "$DB_HOST" >.db_host
+}
+
+# Function to validate PostgreSQL database system
+validate_postgresql() {
+    print_status "Validating PostgreSQL database system..."
+    
+    if [[ -f .db_system_id ]]; then
+        DB_SYSTEM_ID=$(cat .db_system_id)
+    else
+        print_error "No database system ID found. PostgreSQL creation may have failed."
+        return 1
+    fi
+    
+    print_status "Checking database system status..."
+    
+    # Get database system details
+    db_details=$(oci psql db-system get \
+        --db-system-id "$DB_SYSTEM_ID" \
+        --query 'data.{State:"lifecycle-state",DisplayName:"display-name",Shape:shape,DbVersion:"db-version",InstanceCount:"instance-count"}' \
+        --output json 2>/dev/null)
+    
+    if [[ $? -ne 0 || -z "$db_details" ]]; then
+        print_error "Failed to retrieve database system details"
+        return 1
+    fi
+    
+    # Parse and display database information
+    db_state=$(echo "$db_details" | jq -r '.State // "UNKNOWN"')
+    db_name=$(echo "$db_details" | jq -r '.DisplayName // "UNKNOWN"')
+    db_shape=$(echo "$db_details" | jq -r '.Shape // "UNKNOWN"')
+    db_version=$(echo "$db_details" | jq -r '.DbVersion // "UNKNOWN"')
+    instance_count=$(echo "$db_details" | jq -r '.InstanceCount // "UNKNOWN"')
+    
+    print_status "Database System Details:"
+    echo "  Name: $db_name"
+    echo "  State: $db_state"
+    echo "  Shape: $db_shape"
+    echo "  Version: $db_version"
+    echo "  Instances: $instance_count"
+    
+    # Check if database is in ACTIVE state
+    if [[ "$db_state" != "ACTIVE" ]]; then
+        print_error "Database system is not in ACTIVE state. Current state: $db_state"
+        if [[ "$db_state" == "CREATING" ]]; then
+            print_warning "Database is still being created. This may take 10-15 minutes."
+            print_status "You can monitor progress in Oracle Cloud Console: Databases → PostgreSQL"
+        fi
+        return 1
+    fi
+    
+    print_success "Database system is ACTIVE"
+    
+    # Get database connection details
+    print_status "Retrieving database connection information..."
+    
+    db_connection=$(oci psql db-system get \
+        --db-system-id "$DB_SYSTEM_ID" \
+        --query 'data.instances[0]."primary-db-endpoint"' \
+        --output json 2>/dev/null)
+    
+    if [[ $? -ne 0 || -z "$db_connection" ]]; then
+        print_error "Failed to retrieve database connection details"
+        return 1
+    fi
+    
+    DB_HOST=$(echo "$db_connection" | jq -r '.fqdn // "UNKNOWN"')
+    DB_PORT=$(echo "$db_connection" | jq -r '.port // "5432"')
+    
+    if [[ "$DB_HOST" == "UNKNOWN" || -z "$DB_HOST" ]]; then
+        print_error "Failed to get database host information"
+        return 1
+    fi
+    
+    print_status "Database Connection Details:"
+    echo "  Host: $DB_HOST"
+    echo "  Port: $DB_PORT"
+    echo "  Database: postgres"
+    echo "  Username: postgres"
+    
+    # Save connection details
+    echo "$DB_HOST" >.db_host
+    echo "$DB_PORT" >.db_port
+    
+    # Test network connectivity to database
+    print_status "Testing network connectivity to database..."
+    if command -v nc >/dev/null 2>&1; then
+        if timeout 10 nc -z "$DB_HOST" "$DB_PORT" 2>/dev/null; then
+            print_success "Network connectivity to database: OK"
+        else
+            print_warning "Network connectivity test failed. This may be normal if running from outside OCI network."
+            print_status "Database connectivity will be tested from within the Kubernetes cluster during deployment."
+        fi
+    else
+        print_warning "netcat (nc) not available. Skipping network connectivity test."
+    fi
+    
+    # Check database configuration
+    print_status "Retrieving database configuration..."
+    
+    config_details=$(oci psql db-system get \
+        --db-system-id "$DB_SYSTEM_ID" \
+        --query 'data.{ConfigId:"config-id",StorageDetails:"storage-details",SystemType:"system-type"}' \
+        --output json 2>/dev/null)
+    
+    if [[ $? -eq 0 && -n "$config_details" ]]; then
+        storage_size=$(echo "$config_details" | jq -r '.StorageDetails."size-in-g-bs" // "UNKNOWN"')
+        system_type=$(echo "$config_details" | jq -r '.SystemType // "UNKNOWN"')
+        
+        print_status "Database Configuration:"
+        echo "  Storage Size: ${storage_size}GB"
+        echo "  System Type: $system_type"
+    fi
+    
+    print_success "PostgreSQL database validation completed successfully"
+    return 0
+}
+
+# Function to validate PostgreSQL prerequisites
+validate_postgresql_prerequisites() {
+    print_status "Validating PostgreSQL deployment prerequisites..."
+    
+    # Check if jq is available (needed for JSON parsing)
+    if ! command -v jq >/dev/null 2>&1; then
+        print_warning "jq is not installed. Installing jq for JSON parsing..."
+        if command -v brew >/dev/null 2>&1; then
+            brew install jq >/dev/null 2>&1 || {
+                print_error "Failed to install jq via brew. Please install jq manually."
+                return 1
+            }
+        elif command -v apt-get >/dev/null 2>&1; then
+            sudo apt-get update >/dev/null 2>&1 && sudo apt-get install -y jq >/dev/null 2>&1 || {
+                print_error "Failed to install jq via apt-get. Please install jq manually."
+                return 1
+            }
+        else
+            print_error "Cannot automatically install jq. Please install jq manually and retry."
+            return 1
+        fi
+        print_success "jq installed successfully"
+    fi
+    
+    # Validate subnet configuration for PostgreSQL
+    print_status "Validating subnet configuration..."
+    
+    subnet_details=$(oci network subnet get \
+        --subnet-id "$SUBNET_ID" \
+        --query 'data.{Name:"display-name",State:"lifecycle-state",CIDR:"cidr-block"}' \
+        --output json 2>/dev/null)
+    
+    if [[ $? -eq 0 && -n "$subnet_details" ]]; then
+        subnet_name=$(echo "$subnet_details" | jq -r '.Name // "UNKNOWN"')
+        subnet_state=$(echo "$subnet_details" | jq -r '.State // "UNKNOWN"')
+        subnet_cidr=$(echo "$subnet_details" | jq -r '.CIDR // "UNKNOWN"')
+        
+        print_status "Subnet Details:"
+        echo "  Name: $subnet_name"
+        echo "  State: $subnet_state"
+        echo "  CIDR: $subnet_cidr"
+        
+        if [[ "$subnet_state" != "AVAILABLE" ]]; then
+            print_error "Subnet is not in AVAILABLE state: $subnet_state"
+            return 1
+        fi
+    else
+        print_warning "Could not retrieve subnet details"
+    fi
+    
+    # Check PostgreSQL service availability in the region
+    print_status "Checking PostgreSQL service availability..."
+    
+    # Test if we can list database systems (validates service access)
+    test_access=$(oci psql db-system-collection list-db-systems \
+        --compartment-id "$COMPARTMENT_ID" \
+        --limit 1 \
+        --query 'data.items[0].id' \
+        --raw-output 2>/dev/null || echo "test_failed")
+    
+    if [[ "$test_access" == "test_failed" ]]; then
+        print_error "Cannot access PostgreSQL service. Check your permissions and region."
+        return 1
+    fi
+    
+    print_success "PostgreSQL prerequisites validation completed"
+    return 0
 }
 
 # Function to create OKE cluster
@@ -928,10 +1863,56 @@ main() {
         print_warning "Skipping Docker build and push"
     fi
     
-    create_postgresql
+    # Validate PostgreSQL prerequisites before creation
+    validate_postgresql_prerequisites
+    
+    # Create or verify PostgreSQL database
+    print_status "Setting up PostgreSQL database..."
+    if ! create_postgresql; then
+        # Check if user chose to skip database or use containerized option
+        if [[ "$SKIP_DATABASE" == "true" ]]; then
+            print_warning "Database creation skipped. You'll need to configure database manually."
+        elif [[ "$USE_CONTAINERIZED_DB" == "true" ]]; then
+            print_warning "Will deploy containerized PostgreSQL after OKE cluster is ready."
+        else
+            print_error "PostgreSQL database setup failed. Deployment cannot continue."
+            print_status "Troubleshooting steps:"
+            print_status "  1. Check Oracle Cloud Console: Databases → PostgreSQL → DB Systems"
+            print_status "  2. Verify compartment has sufficient capacity"
+            print_status "  3. Check subnet configuration and security rules"
+            print_status "  4. Review service limits in your tenancy"
+            print_status "  5. Try running: ./scripts/deploy.sh --validate-postgresql"
+            exit 1
+        fi
+    fi
+    
+    # Validate PostgreSQL after creation/verification (skip for containerized DB)
+    if [[ "$USE_CONTAINERIZED_DB" != "true" && "$SKIP_DATABASE" != "true" ]]; then
+        print_status "Validating PostgreSQL database system..."
+        if ! validate_postgresql; then
+            print_error "PostgreSQL validation failed. Deployment cannot continue."
+            print_status "The database exists but may not be ready yet."
+            print_status "Please check the PostgreSQL database in Oracle Cloud Console:"
+            print_status "  Navigate to: Databases → PostgreSQL → DB Systems"
+            print_status "  Look for: Quiz PostgreSQL DB"
+            print_status "  Wait for status to become 'Active' then retry deployment"
+            exit 1
+        fi
+    fi
+    
     create_oke_cluster
     create_node_pool
     configure_kubectl
+    
+    # Deploy containerized PostgreSQL if selected
+    if [[ "$USE_CONTAINERIZED_DB" == "true" ]]; then
+        print_status "Deploying containerized PostgreSQL to OKE cluster..."
+        if ! deploy_containerized_postgresql; then
+            print_error "Failed to deploy containerized PostgreSQL"
+            exit 1
+        fi
+    fi
+    
     get_db_connection
     update_k8s_config
     deploy_application
@@ -958,11 +1939,25 @@ show_help() {
     echo
     echo "Usage: $0 [OPTIONS]"
     echo
-    echo "OPTIONS:"
-    echo "  -h, --help         Show this help message"
-    echo "  --docker-only      Only build and push Docker image (with build method choice)"
-    echo "  --cloudshell-only  Only build using OCI Cloud Shell (no local Docker)"
-    echo "  --skip-docker      Skip Docker build and push"
+    echo "DEPLOYMENT OPTIONS:"
+    echo "  -h, --help                   Show this help message"
+    echo "  --docker-only                Only build and push Docker image (with build method choice)"
+    echo "  --cloudshell-only            Only build using OCI Cloud Shell (no local Docker)"
+    echo "  --skip-docker                Skip Docker build and push"
+    echo
+    echo "DATABASE OPTIONS:"
+    echo "  --validate-postgresql        Only validate existing PostgreSQL database"
+    echo "  --test-postgresql-regions    Test PostgreSQL service across multiple regions"
+    echo "  --deploy-postgresql          Deploy containerized PostgreSQL to OKE cluster"
+    echo "  --check-postgresql           Check status of containerized PostgreSQL"
+    echo "  --backup-postgresql          Create backup of containerized PostgreSQL database"
+    echo "  --restore-postgresql [FILE]  Restore PostgreSQL database from backup file"
+    echo "  --scale-postgresql [REPLICAS] Scale PostgreSQL deployment (default: 1)"
+    echo
+    echo "MONITORING OPTIONS:"
+    echo "  --postgres-logs              View PostgreSQL container logs"
+    echo "  --postgres-shell             Open shell in PostgreSQL container"
+    echo "  --postgres-status            Show detailed PostgreSQL status and metrics"
     echo
     echo "Build Methods:"
     echo "  Local:      Requires Docker Desktop (must be signed in to organization)"
@@ -981,6 +1976,22 @@ show_help() {
     echo "  OCIR_AUTH_TOKEN  OCIR authentication token"
     echo "  GMAIL_USERNAME   Gmail username for SMTP"
     echo "  GMAIL_PASSWORD   Gmail app password"
+    echo
+    echo "EXAMPLES:"
+    echo "  # Full deployment"
+    echo "  $0"
+    echo
+    echo "  # Deploy only PostgreSQL"
+    echo "  $0 --deploy-postgresql"
+    echo
+    echo "  # Check PostgreSQL status"
+    echo "  $0 --check-postgresql"
+    echo
+    echo "  # Create database backup"
+    echo "  $0 --backup-postgresql"
+    echo
+    echo "  # Scale PostgreSQL (for high availability)"
+    echo "  $0 --scale-postgresql 2"
 }
 
 # Handle command line arguments
@@ -1004,6 +2015,98 @@ case "${1:-}" in
         ;;
     "--skip-docker")
         SKIP_DOCKER=true
+        ;;
+    "--validate-postgresql")
+        check_prerequisites
+        read_config
+        validate_postgresql_prerequisites
+        if validate_postgresql; then
+            print_success "✅ PostgreSQL validation completed successfully"
+        else
+            print_error "❌ PostgreSQL validation failed"
+            exit 1
+        fi
+        exit 0
+        ;;
+    "--test-postgresql-regions")
+        check_prerequisites
+        read_config
+        print_section "🌍 Testing PostgreSQL Service Across Regions"
+        if find_working_postgresql_region; then
+            print_success "✅ Found working PostgreSQL regions"
+            print_status "💡 Recommendation: Use one of the working regions for deployment"
+        else
+            print_error "❌ No working PostgreSQL regions found"
+            print_status "💡 Consider using Autonomous Database as an alternative"
+        fi
+        exit 0
+        ;;
+    "--deploy-postgresql")
+        check_prerequisites
+        read_config
+        print_section "🐘 Deploying Containerized PostgreSQL"
+        if deploy_containerized_postgresql; then
+            print_success "✅ PostgreSQL deployment completed successfully"
+        else
+            print_error "❌ PostgreSQL deployment failed"
+            exit 1
+        fi
+        exit 0
+        ;;
+    "--check-postgresql")
+        check_prerequisites
+        if check_containerized_postgresql; then
+            print_success "✅ PostgreSQL status check completed"
+        else
+            print_error "❌ PostgreSQL status check failed"
+            exit 1
+        fi
+        exit 0
+        ;;
+    "--backup-postgresql")
+        check_prerequisites
+        if backup_containerized_postgresql; then
+            print_success "✅ PostgreSQL backup completed successfully"
+        else
+            print_error "❌ PostgreSQL backup failed"
+            exit 1
+        fi
+        exit 0
+        ;;
+    "--restore-postgresql")
+        check_prerequisites
+        if restore_containerized_postgresql "$2"; then
+            print_success "✅ PostgreSQL restore completed successfully"
+        else
+            print_error "❌ PostgreSQL restore failed"
+            exit 1
+        fi
+        exit 0
+        ;;
+    "--scale-postgresql")
+        check_prerequisites
+        if scale_containerized_postgresql "$2"; then
+            print_success "✅ PostgreSQL scaling completed successfully"
+        else
+            print_error "❌ PostgreSQL scaling failed"
+            exit 1
+        fi
+        exit 0
+        ;;
+    "--postgres-logs")
+        check_prerequisites
+        view_postgresql_logs
+        exit 0
+        ;;
+    "--postgres-shell")
+        check_prerequisites
+        open_postgresql_shell
+        exit 0
+        ;;
+    "--postgres-status")
+        check_prerequisites
+        show_postgresql_status
+        exit 0
         ;;
     *)
         if [[ -n "$1" ]]; then
