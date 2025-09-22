@@ -1,5 +1,11 @@
 # OCI Credentials and Prerequisites Verification Plan
 
+## Implementation Script
+
+**Linked Script**: `oci-deployment/scripts/01-verify-prerequisites.sh`
+
+This plan is implemented by the above script to verify all prerequisites before deployment.
+
 ## Overview
 
 This plan ensures all Oracle Cloud Infrastructure (OCI) credentials, tools, and access permissions are properly configured before beginning the quiz application deployment.

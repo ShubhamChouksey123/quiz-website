@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # OCI Infrastructure Creation Script
-# Based on: specs/infrastructure-creation-plan.md
+# Based on: specs/02-create-infrastructure-plan.md
 #
 # This script creates an OCI compute instance optimized for the quiz application
 # using Always Free tier resources with the Load Balancer subnet

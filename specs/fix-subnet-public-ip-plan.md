@@ -1,5 +1,11 @@
 # Subnet Public IP Fix - Specification Plan
 
+## Implementation Script
+
+**Linked Script**: `oci-deployment/scripts/fix-subnet-public-ip.sh`
+
+This plan was implemented by the above script (now obsolete since we resolved it by using an alternative subnet).
+
 ## Overview
 
 Resolve the subnet public IP assignment limitation to enable compute instance creation with public internet access for the quiz application deployment.
