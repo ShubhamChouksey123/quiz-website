@@ -71,11 +71,13 @@ quiz-website/
 ## Current Project Status
 
 - **Prerequisites**: ✅ Complete (OCI access verified, tools installed)
-- **Infrastructure**: ✅ Complete (instance created at IP 161.118.188.237)
-- **Application Deployment**: 📋 Next step
+- **Infrastructure**: ✅ Complete (instance fully functional, all verification steps passed)
+- **Application Deployment**: 🎯 **READY TO PROCEED** (all infrastructure verified)
 - **Validation**: 📋 After deployment
 
 📋 **Detailed Status**: See `oci-deployment/docs/deployment-checklist.md` for phase-by-phase completion tracking.
+
+🖥️ **Infrastructure Details**: See `oci-deployment/docs/instance-details.md` for complete instance specifications, network configuration, and verification results.
 
 ## Script-Plan Organization
 
