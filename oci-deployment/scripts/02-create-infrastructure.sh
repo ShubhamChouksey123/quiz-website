@@ -276,8 +276,115 @@ while [ $ELAPSED_TIME -lt $CLOUD_INIT_TIMEOUT ]; do
     log_info "Elapsed time: ${MINUTES_ELAPSED} minutes (waiting for cloud-init completion)"
 done
 
-# Phase 5: Final Verification
-log_info "Phase 5: Final Infrastructure Verification..."
+# Phase 5: Security List Configuration
+log_info "Phase 5: Security List Configuration..."
+echo ""
+
+log_info "5.1 Checking current security list configuration..."
+
+# Get security list ID from subnet
+SECURITY_LIST_ID=$(oci network subnet get --subnet-id "$SUBNET_ID" \
+    --query "data.\"security-list-ids\"[0]" --raw-output 2>/dev/null)
+
+if [ -z "$SECURITY_LIST_ID" ] || [ "$SECURITY_LIST_ID" = "null" ]; then
+    log_error "Could not retrieve security list ID from subnet"
+    exit 1
+fi
+
+log_info "Security List ID: $SECURITY_LIST_ID"
+
+# Check current ingress rules
+INGRESS_COUNT=$(oci network security-list get --security-list-id "$SECURITY_LIST_ID" \
+    --query "length(data.\"ingress-security-rules\")" --output json 2>/dev/null || echo "0")
+
+log_info "Current ingress rules count: $INGRESS_COUNT"
+
+if [ "$INGRESS_COUNT" -eq 0 ]; then
+    log_warning "No ingress rules found - SSH access and application ports will not work"
+    log_info "Adding required security rules..."
+
+    # Add comprehensive security rules
+    log_info "Adding ingress and egress rules for SSH, HTTP, HTTPS, and application access..."
+
+    UPDATE_RESULT=$(echo "y" | oci network security-list update \
+        --security-list-id "$SECURITY_LIST_ID" \
+        --ingress-security-rules '[
+        {
+          "protocol": "6",
+          "source": "0.0.0.0/0",
+          "isStateless": false,
+          "tcpOptions": {
+            "destinationPortRange": {
+              "min": 22,
+              "max": 22
+            }
+          },
+          "description": "SSH access"
+        },
+        {
+          "protocol": "6",
+          "source": "0.0.0.0/0",
+          "isStateless": false,
+          "tcpOptions": {
+            "destinationPortRange": {
+              "min": 8080,
+              "max": 8080
+            }
+          },
+          "description": "Quiz application access"
+        },
+        {
+          "protocol": "6",
+          "source": "0.0.0.0/0",
+          "isStateless": false,
+          "tcpOptions": {
+            "destinationPortRange": {
+              "min": 80,
+              "max": 80
+            }
+          },
+          "description": "HTTP access"
+        },
+        {
+          "protocol": "6",
+          "source": "0.0.0.0/0",
+          "isStateless": false,
+          "tcpOptions": {
+            "destinationPortRange": {
+              "min": 443,
+              "max": 443
+            }
+          },
+          "description": "HTTPS access"
+        }
+        ]' \
+        --egress-security-rules '[
+        {
+          "protocol": "all",
+          "destination": "0.0.0.0/0",
+          "isStateless": false,
+          "description": "Allow all outbound traffic"
+        }
+        ]' \
+        --wait-for-state AVAILABLE 2>&1)
+
+    if [ $? -eq 0 ]; then
+        log_success "Security rules added successfully!"
+        log_info "Waiting for security rule changes to take effect..."
+        sleep 10
+    else
+        log_error "Failed to add security rules:"
+        echo "$UPDATE_RESULT"
+        log_warning "You may need to add security rules manually for SSH access"
+    fi
+else
+    log_success "Security list already has ingress rules configured"
+fi
+
+echo ""
+
+# Phase 6: Final Verification
+log_info "Phase 6: Final Infrastructure Verification..."
 
 if [ "$PUBLIC_IP" = "<pending>" ]; then
     log_error "Public IP was not assigned within the timeout period"
@@ -300,7 +407,30 @@ if ssh -i ~/.ssh/id_rsa -o ConnectTimeout=20 -o StrictHostKeyChecking=no opc@"$P
    "docker --version" 2>/dev/null; then
     log_success "Docker installation verified"
 else
-    log_warning "Docker installation not yet complete - cloud-init may still be running"
+    log_warning "Docker installation not yet complete - attempting manual installation..."
+
+    # Manual Docker installation as fallback
+    log_info "Installing Docker CE and required software manually..."
+    ssh -i ~/.ssh/id_rsa -o ConnectTimeout=30 -o StrictHostKeyChecking=no opc@"$PUBLIC_IP" \
+        "sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo && \
+         sudo dnf install -y docker-ce docker-ce-cli containerd.io git && \
+         sudo systemctl start docker && sudo systemctl enable docker && \
+         sudo usermod -aG docker opc && \
+         echo 'Manual software installation completed'" 2>/dev/null
+
+    if [ $? -eq 0 ]; then
+        log_success "Manual software installation completed successfully"
+
+        # Verify Docker again
+        if ssh -i ~/.ssh/id_rsa -o ConnectTimeout=20 -o StrictHostKeyChecking=no opc@"$PUBLIC_IP" \
+           "docker --version" 2>/dev/null; then
+            log_success "Docker installation verified after manual installation"
+        else
+            log_warning "Docker installation verification still pending - may need session restart"
+        fi
+    else
+        log_warning "Manual software installation encountered issues - may need manual intervention"
+    fi
 fi
 
 # Test application directory
@@ -339,15 +469,18 @@ cat > "$INSTANCE_DETAILS_FILE" << EOF
 | **Operating System** | Oracle Linux 8 |
 | **Image ID** | \`$IMAGE_ID\` |
 | **Subnet ID** | \`$SUBNET_ID\` |
+| **Security List ID** | \`$SECURITY_LIST_ID\` |
 
 ## Network Configuration
 
 - **VCN**: Load Balancer subnet (allows public IP)
 - **CIDR**: 10.0.20.0/24
 - **Public IP**: $PUBLIC_IP
-- **SSH Access**: Port 22
-- **Application Access**: Port 8080
-- **Security Lists**: Inherited from OKE configuration
+- **SSH Access**: Port 22 ✅ (Security rules configured)
+- **Application Access**: Port 8080 ✅ (Security rules configured)
+- **HTTP/HTTPS Access**: Ports 80/443 ✅ (Security rules configured)
+- **Internet Access**: ✅ (Egress rules configured for package downloads)
+- **Security Lists**: Configured with required ingress/egress rules
 
 ## Access Information
 
