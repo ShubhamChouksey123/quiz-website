@@ -7,14 +7,21 @@
 - OCI access and permissions confirmed
 - Environment variables configured
 - SSH keys generated
-- Free tier resources available (3/6 instances, 2 block volumes)
+- Free tier resources available (4/6 instances, 2 block volumes)
+
+**✅ Infrastructure Phase: COMPLETE**
+- OCI compute instance created and running
+- Public IP assigned: **161.118.188.237**
+- Network configuration validated (Load Balancer subnet)
+- Cloud-init software installation in progress
 
 **✅ Issues Resolved:**
 - Subnet public IP assignment issue resolved by switching to Load Balancer subnet
 
-**🎯 Ready for Next Phase:**
-- Infrastructure creation (`./02-create-infrastructure.sh`)
-- Remote build and deployment approach validated
+**🎯 Current Status:**
+- Instance running but SSH not yet available (cloud-init in progress)
+- Expected ready time: 22:25-22:30 IST (15-20 minutes after creation)
+- Next phase: Application deployment once SSH is available
 
 **📝 Deployment Strategy:**
 Remote Build Approach - Docker image built on OCI instance (no local Docker required)
@@ -52,14 +59,16 @@ Remote Build Approach - Docker image built on OCI instance (no local Docker requ
 
 ## Deployment Execution
 
-### 🖥️ Phase 5: Infrastructure Creation
-- [ ] Run `./02-create-infrastructure.sh`
-- [ ] Compute instance created successfully
-- [ ] Instance assigned public IP (address subnet limitation)
-- [ ] SSH access to instance working
-- [ ] Cloud-init completed successfully
-- [ ] Docker and required software installed via cloud-init
-- [ ] Application directories created
+### ✅ Phase 5: Infrastructure Creation
+- [x] Run `./02-create-infrastructure.sh` - ✅ Completed
+- [x] Compute instance created successfully - ✅ Instance ID: `ocid1.instance.oc1.ap-mumbai-1.anrg6ljrsob7awicfu6ixptydvlb3fh2njsdfzazfqptq4bx2hdy3euq5l3a`
+- [x] Instance assigned public IP - ✅ Public IP: **161.118.188.237**
+- [x] Instance running in Load Balancer subnet - ✅ Private IP: 10.0.20.25
+- [x] VM.Standard.A1.Flex shape configured - ✅ 2 OCPUs, 4GB RAM, Oracle Linux 8
+- [ ] SSH access to instance working - ⏳ **PENDING** (Cloud-init still in progress)
+- [ ] Cloud-init completed successfully - ⏳ **IN PROGRESS** (Expected completion: 22:25-22:30 IST)
+- [ ] Docker and required software installed via cloud-init - ⏳ **PENDING** (Installing)
+- [ ] Application directories created - ⏳ **PENDING** (Cloud-init creating `/opt/quiz-app/`)
 
 ### 🚀 Phase 6: Application Build and Deployment
 - [ ] Run `./03-deploy-application.sh`
@@ -85,7 +94,7 @@ Remote Build Approach - Docker image built on OCI instance (no local Docker requ
 ## Post-Deployment Verification
 
 ### 🌐 Functional Testing
-- [ ] Access application: `http://<public-ip>:8080`
+- [ ] Access application: `http://161.118.188.237:8080`
 - [ ] Home page displays correctly
 - [ ] Quiz creation and taking works
 - [ ] User scoring system operational
@@ -113,10 +122,14 @@ Remote Build Approach - Docker image built on OCI instance (no local Docker requ
 
 ### 🔧 Common Issues Resolution
 - [ ] If authentication fails: Regenerate API keys and auth tokens
+- [ ] If SSH connection times out: Wait for cloud-init completion (check `/opt/quiz-app/.cloud-init-complete`)
 - [ ] If network issues: Check security lists and route tables
 - [ ] If container issues: Check resource limits and environment variables
 - [ ] If database issues: Verify PostgreSQL container health
 - [ ] If performance issues: Check resource allocation and usage
+
+### 📊 Instance Information
+📋 **Detailed Instance Info**: See `oci-deployment/docs/instance-details.md` for complete instance specifications, management commands, and current status.
 
 ### 📝 Documentation Updates
 - [ ] Update CLAUDE.md with any new deployment insights
