@@ -1,5 +1,11 @@
 # Infrastructure Creation Plan - OCI Compute Instance
 
+## Implementation Script
+
+**Linked Script**: `oci-deployment/scripts/02-create-infrastructure.sh`
+
+This plan is implemented by the above script to create the OCI compute instance.
+
 ## Overview
 
 Create an OCI compute instance optimized for the quiz application deployment using the Always Free tier resources with the Load Balancer subnet that supports public IP assignment.

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # OCI Prerequisites Verification Script
-# Based on: specs/oci-credentials-verification-plan.md
+# Based on: specs/01-verify-prerequisites-plan.md
 #
 # This script verifies all prerequisites for OCI deployment including:
 # - OCI CLI installation and configuration
