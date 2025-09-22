@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Subnet Public IP Fix Script
-# Based on: specs/subnet-public-ip-fix-plan.md
+# Based on: specs/fix-subnet-public-ip-plan.md
 #
 # This script modifies the existing subnet to allow public IP assignment
 # enabling compute instances to have public internet access
