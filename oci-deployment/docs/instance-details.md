@@ -105,26 +105,49 @@ oci compute instance terminate --instance-id ocid1.instance.oc1.ap-mumbai-1.anrg
 - Private IP assigned: 10.0.20.25
 - Network interfaces: AVAILABLE
 
-### ⏳ Cloud-Init: IN PROGRESS
-- **SSH Status**: Connection timeout (port 22 not yet accessible)
-- **Docker Installation**: Pending (cloud-init still running)
-- **Application Directory**: Pending verification
-- **Expected Completion**: 15-20 minutes from creation time (Sat Sep 22 22:05:00 IST)
+### ✅ Infrastructure Verification: COMPLETE
+- **SSH Status**: WORKING ✅ (Security rules added, connection established)
+- **Docker Installation**: COMPLETE ✅ (v26.1.3 with Compose v2.27.0)
+- **Application Directory**: COMPLETE ✅ (Full directory structure created)
+- **Network Connectivity**: COMPLETE ✅ (Internet access working)
+- **Software Installation**: COMPLETE ✅ (All required tools installed)
 
-### 🔄 Verification Results (as of $(date))
+### 🔄 Verification Results (Updated: Mon Sep 22 18:15:00 GMT 2025)
 - **Instance State**: RUNNING ✅
 - **Public IP Assignment**: 161.118.188.237 ✅
 - **Private IP Assignment**: 10.0.20.25 ✅
-- **SSH Connectivity**: ❌ (Timeout - cloud-init in progress)
-- **Docker Installation**: ⏳ (Pending verification)
-- **Application Directory**: ⏳ (Pending verification)
+- **SSH Connectivity**: ✅ WORKING (`ssh -i ~/.ssh/id_rsa opc@161.118.188.237`)
+- **Docker Installation**: ✅ COMPLETE (Docker 26.1.3, Docker Compose v2.27.0)
+- **Application Directory**: ✅ COMPLETE (`/opt/quiz-app/` with proper permissions)
+- **Network Security**: ✅ CONFIGURED (Ingress/egress rules added)
+- **Software Stack**: ✅ COMPLETE (Git 2.43.7, Curl, Vim installed)
+
+### 🔧 Issues Resolved During Verification
+
+#### **1. SSH Connection Timeout**
+- **Issue**: SSH connection timed out, port 22 not accessible
+- **Root Cause**: Security list had no ingress rules configured
+- **Resolution**: Added comprehensive ingress rules for SSH (22), HTTP (80), HTTPS (443), and application (8080)
+- **Status**: ✅ RESOLVED
+
+#### **2. Cloud-Init Package Installation Failure**
+- **Issue**: Cloud-init failed to install Docker and development tools
+- **Root Cause**: Security list had no egress rules, preventing outbound internet access
+- **Resolution**: Added egress rules for all outbound traffic (0.0.0.0/0)
+- **Status**: ✅ RESOLVED
+
+#### **3. Docker Installation Failure**
+- **Issue**: Docker not installed due to cloud-init package failures
+- **Root Cause**: Network connectivity issues during cloud-init
+- **Resolution**: Manual installation of Docker CE after network fix
+- **Status**: ✅ RESOLVED
 
 ### 📋 Next Steps
 
-1. **Wait for Cloud-Init**: Allow additional time for software installation completion
-2. **Monitor SSH Access**: `ssh -i ~/.ssh/id_rsa opc@161.118.188.237`
-3. **Expected Ready Time**: ~22:25:00 IST (20 minutes from creation)
-4. **Deploy Application**: Run `./03-deploy-application.sh` once SSH is available
+1. **Infrastructure Ready**: ✅ All verification steps complete
+2. **SSH Access Available**: `ssh -i ~/.ssh/id_rsa opc@161.118.188.237`
+3. **Ready for Deployment**: Run `./03-deploy-application.sh`
+4. **Application URL**: http://161.118.188.237:8080 (after deployment)
 
 ## Troubleshooting
 
@@ -146,17 +169,18 @@ ssh -i ~/.ssh/id_rsa opc@161.118.188.237 "sudo cloud-init status"
 ssh -i ~/.ssh/id_rsa opc@161.118.188.237 "sudo journalctl -u cloud-init -f"
 ```
 
-### Patience Required ⏰
-- **Instance Created**: Sat Sep 22 22:05:00 IST 2025
-- **Current Status**: Cloud-init is installing Docker, Git, and development tools
-- **SSH Access**: Will be available once cloud-init completes initialization
-- **Total Initialization Time**: 15-25 minutes from creation
-- **Estimated Ready Time**: 22:25:00 - 22:30:00 IST
+### Infrastructure Timeline ⏰
+- **Instance Created**: Sat Sep 22 22:05:00 IST 2025 (16:48:03 UTC)
+- **Initial Issues**: SSH timeout and cloud-init failures due to missing security rules
+- **Network Fix Applied**: Mon Sep 22 18:06:00 GMT 2025 (Security rules added)
+- **Verification Completed**: Mon Sep 22 18:15:00 GMT 2025
+- **Total Setup Time**: ~1.5 hours (including troubleshooting and manual fixes)
 
-### Current Behavior (Normal)
-- **SSH Connection Timeout**: Expected during cloud-init software installation
-- **Port 22 Inaccessible**: SSH daemon will start after cloud-init completes
-- **Instance State**: RUNNING (infrastructure ready, software installing)
+### Current Behavior (Fully Functional)
+- **SSH Access**: WORKING - Immediate connection available
+- **Docker Service**: ACTIVE and ready for container operations
+- **Network Connectivity**: Full internet access for package downloads and OCIR
+- **Instance State**: RUNNING and fully operational
 
 ## Security Notes
 
@@ -168,7 +192,7 @@ ssh -i ~/.ssh/id_rsa opc@161.118.188.237 "sudo journalctl -u cloud-init -f"
 
 ---
 
-**Instance Status**: ✅ RUNNING - Cloud-init in progress
+**Instance Status**: ✅ RUNNING - Fully operational and ready for deployment
 **Documentation Created**: Sat Sep 22 22:05:00 IST 2025
-**Documentation Updated**: $(date)
-**Expected Ready Time**: 22:25:00 - 22:30:00 IST (20-25 minutes from creation)
+**Documentation Updated**: Mon Sep 22 18:15:00 GMT 2025
+**Infrastructure Ready**: ✅ All verification steps completed successfully
