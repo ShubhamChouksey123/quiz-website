@@ -58,20 +58,33 @@ Create an OCI compute instance optimized for the quiz application deployment usi
    - Assign public IP from Load Balancer subnet
    - Configure SSH access
 
-3. **Verify Instance Readiness**
+3. **Configure Security Lists** ⚠️ **CRITICAL STEP ADDED**
+   - **MUST be done immediately after instance creation**
+   - Load Balancer subnet security list starts with NO rules
+   - Add required ingress and egress rules (see Phase 2 below)
+   - **Without this step**: SSH will timeout, cloud-init will fail
+
+4. **Verify Instance Readiness**
    - Wait for instance to reach RUNNING state
-   - Verify SSH connectivity
-   - Confirm cloud-init completion
+   - **FIRST**: Configure security rules (critical for next steps)
+   - **THEN**: Verify SSH connectivity
+   - Confirm cloud-init completion (may require manual intervention)
    - Test Docker installation
 
 ### Phase 2: Security Configuration
-1. **Firewall Rules Verification**
-   - Ensure ports 22 (SSH), 8080 (app), 80/443 (HTTP/HTTPS) are open
-   - Verify security list inheritance from OKE setup
-   - Apply any additional security configurations
+1. **Security List Configuration** ⚠️ **CRITICAL**
+   - **Issue Identified**: Load Balancer subnet security list has NO ingress/egress rules by default
+   - **Required Action**: Configure security list with proper ingress and egress rules
+   - **Ingress Rules Required**:
+     - SSH (Port 22): Protocol TCP, Source 0.0.0.0/0
+     - HTTP (Port 80): Protocol TCP, Source 0.0.0.0/0
+     - HTTPS (Port 443): Protocol TCP, Source 0.0.0.0/0
+     - Application (Port 8080): Protocol TCP, Source 0.0.0.0/0
+   - **Egress Rules Required**:
+     - All Traffic: Protocol All, Destination 0.0.0.0/0 (for package downloads, OCIR access)
 
 2. **SSH Access Setup**
-   - Test SSH connection with generated key pair
+   - Test SSH connection with generated key pair (only after security rules are configured)
    - Verify user permissions (opc user in docker group)
    - Confirm sudo access for administrative tasks
 
@@ -220,6 +233,41 @@ oci compute instance launch \
 - [ ] PostgreSQL data directory prepared
 - [ ] Docker daemon running and accessible
 - [ ] System monitoring scripts operational
+
+## Lessons Learned - Critical Issues Resolved
+
+### Issue 1: Load Balancer Subnet Security List is Empty
+- **Problem**: Load Balancer subnet security list has NO ingress/egress rules by default
+- **Impact**: SSH connection timeouts, cloud-init package installation failures
+- **Solution**: Must configure security rules immediately after instance creation
+- **Prevention**: Added security list configuration as Phase 1, Step 3
+
+### Issue 2: Cloud-Init Package Installation Failures
+- **Problem**: Without egress rules, instance cannot reach internet for package downloads
+- **Additional Issue**: Oracle Linux 8 requires Docker CE repository setup, basic package names fail
+- **Impact**: Docker, Git, and other packages fail to install via cloud-init
+- **Solution**: Add egress rules for outbound traffic, manual package installation with proper repositories
+- **Prevention**: Security configuration must be done before relying on cloud-init
+- **Manual Installation Commands**:
+  ```bash
+  # Add Docker CE repository
+  sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+
+  # Install Docker CE and other tools
+  sudo dnf install -y docker-ce docker-ce-cli containerd.io git
+
+  # Start and enable Docker
+  sudo systemctl start docker && sudo systemctl enable docker
+
+  # Add user to docker group
+  sudo usermod -aG docker opc
+  ```
+
+### Issue 3: Script Execution Order
+- **Problem**: Original script attempted SSH verification before configuring security rules
+- **Impact**: Script failures and incomplete verification
+- **Solution**: Configure security rules first, then verify connectivity
+- **Prevention**: Updated implementation phases with proper sequencing
 
 ## Next Steps After Completion
 
