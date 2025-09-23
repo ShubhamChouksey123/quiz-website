@@ -188,7 +188,7 @@ write_files:
       #!/bin/bash
 
       # Application health check
-      HEALTH_URL="http://localhost:8080/actuator/health"
+      HEALTH_URL="http://localhost:8080/about"
 
       echo "Checking application health..."
 

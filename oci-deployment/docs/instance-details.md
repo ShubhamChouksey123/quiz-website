@@ -39,7 +39,7 @@ ssh -i ~/.ssh/id_rsa opc@161.118.188.237
 
 ### Application URLs (after deployment)
 - **Quiz Application**: http://161.118.188.237:8080
-- **Health Check**: http://161.118.188.237:8080/actuator/health
+- **Health Check**: http://161.118.188.237:8080/about
 
 ## Instance Management Commands
 
