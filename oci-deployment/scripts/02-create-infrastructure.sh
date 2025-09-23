@@ -491,7 +491,7 @@ ssh -i ~/.ssh/id_rsa opc@$PUBLIC_IP
 
 ### Application URLs (after deployment)
 - **Quiz Application**: http://$PUBLIC_IP:8080
-- **Health Check**: http://$PUBLIC_IP:8080/actuator/health
+- **Health Check**: http://$PUBLIC_IP:8080/about
 
 ## Instance Management Commands
 
