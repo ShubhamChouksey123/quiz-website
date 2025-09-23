@@ -23,10 +23,11 @@
 - Network connectivity established with proper egress rules
 
 **🎯 Current Status:**
-- Instance fully functional and ready for deployment
+- ✅ **APPLICATION FULLY DEPLOYED AND OPERATIONAL**
 - SSH access: `ssh -i ~/.ssh/id_rsa opc@161.118.188.237`
 - Docker 26.1.3 with Compose v2.27.0 installed and running
-- Next phase: **Ready for application deployment** (`./03-deploy-application.sh`)
+- Application URL: **http://161.118.188.237:8080** ✅ **LIVE**
+- Next phase: **Ready for validation** (`./04-validate-deployment.sh`)
 
 **📝 Deployment Strategy:**
 Remote Build Approach - Docker image built on OCI instance (no local Docker required)
@@ -76,17 +77,17 @@ Remote Build Approach - Docker image built on OCI instance (no local Docker requ
 - [x] Application directories created - ✅ **COMPLETE** (`/opt/quiz-app/` structure created with proper permissions)
 - [x] Health check endpoint updated in cloud-init.yaml - ✅ **UPDATED** (Changed from `/actuator/health` to `/about` endpoint)
 
-### 🚀 Phase 6: Application Build and Deployment
-- [ ] Run `./03-deploy-application.sh`
-- [ ] Source code copied to instance
-- [ ] Docker image built on OCI instance
-- [ ] Image pushed to OCIR successfully
-- [ ] Configuration files deployed
-- [ ] Docker Compose stack started
-- [ ] PostgreSQL container running and healthy
-- [ ] Application container running and healthy
-- [ ] Database schema created automatically via Hibernate
-- [ ] Container networking configured
+### ✅ Phase 6: Application Build and Deployment
+- [x] Run `./03-deploy-application.sh` - ✅ **COMPLETE** (All 6 phases executed successfully)
+- [x] Source code copied to instance - ✅ **COMPLETE** (App source + Dockerfile transferred)
+- [x] Docker image built on OCI instance - ✅ **COMPLETE** (Remote build successful)
+- [x] Image pushed to OCIR successfully - ✅ **COMPLETE** (Verified image published)
+- [x] Configuration files deployed - ✅ **COMPLETE** (Production docker-compose.yml deployed)
+- [x] Docker Compose stack started - ✅ **COMPLETE** (Using Docker Compose v2 syntax)
+- [x] PostgreSQL container running and healthy - ✅ **COMPLETE** (Health checks passing)
+- [x] Application container running and healthy - ✅ **COMPLETE** (Health checks passing)
+- [x] Database schema created automatically via Hibernate - ✅ **COMPLETE** (Auto-DDL working)
+- [x] Container networking configured - ✅ **COMPLETE** (Bridge network operational)
 
 ### ✅ Phase 7: Deployment Validation
 - [ ] Run `./04-validate-deployment.sh`
@@ -132,6 +133,9 @@ Remote Build Approach - Docker image built on OCI instance (no local Docker requ
 - [x] **RESOLVED**: Cloud-init package installation failures - Network connectivity issues (egress rules added)
 - [x] **RESOLVED**: Docker installation failure - Manual installation completed successfully
 - [x] **RESOLVED**: Health endpoint mismatch - Updated all configurations from `/actuator/health` to `/about` endpoint
+- [x] **RESOLVED**: Source directory creation issue - Added `mkdir -p /opt/quiz-app/source` in deployment script
+- [x] **RESOLVED**: Dockerfile location issue - Added explicit copy of Dockerfile from project root
+- [x] **RESOLVED**: Docker Compose v2 syntax - Updated all `docker-compose` commands to `docker compose`
 - [ ] If network issues: Check security lists and route tables
 - [ ] If container issues: Check resource limits and environment variables
 - [ ] If database issues: Verify PostgreSQL container health
@@ -146,14 +150,39 @@ Remote Build Approach - Docker image built on OCI instance (no local Docker requ
 - [ ] Record instance details for future reference
 - [ ] Update .env with any new variables if needed
 
-## Rollback Plan
+## Cleanup and Rollback Procedures
 
-### 🔄 If Deployment Fails
-- [ ] Stop all containers: `docker-compose down`
-- [ ] Terminate compute instance if needed
-- [ ] Clean up OCIR images if necessary
-- [ ] Review logs for failure analysis
+### 🧹 Clean Instance State After Incomplete Deployment
+If deployment fails or needs to be restarted from clean state:
+
+```bash
+# SSH into instance
+ssh -i ~/.ssh/id_rsa opc@161.118.188.237
+
+# Stop and remove all containers
+cd /opt/quiz-app
+docker compose down
+
+# Remove application files
+rm -f /opt/quiz-app/.env /opt/quiz-app/docker-compose.yml
+rm -rf /opt/quiz-app/source
+
+# Clean Docker images and cache
+docker rmi quiz-app:local 2>/dev/null || true
+docker system prune -af
+
+# Clean data directory if needed (⚠️ DESTROYS DATABASE DATA)
+sudo rm -rf /opt/quiz-app/data/postgres/*
+```
+
+### 🔄 Complete Rollback Plan
+- [ ] Stop all containers: `docker compose down`
+- [ ] Clean Docker images: `docker system prune -af`
+- [ ] Remove application files: `rm -rf /opt/quiz-app/source /opt/quiz-app/.env /opt/quiz-app/docker-compose.yml`
+- [ ] Clean OCIR images if necessary
+- [ ] Review logs for failure analysis: `docker compose logs`
 - [ ] Fix issues and restart deployment process
+- [ ] Terminate compute instance only if infrastructure changes needed
 
 ## Success Criteria
 
