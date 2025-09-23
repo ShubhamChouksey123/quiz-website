@@ -147,14 +147,25 @@ fi
 
 log_info "1.4 Transferring application source code..."
 
-# Transfer application source to instance
+# Create source directory and transfer application source to instance
+log_info "Creating source directory on instance..."
+ssh -i ~/.ssh/id_rsa -o ConnectTimeout=20 -o StrictHostKeyChecking=no opc@"$PUBLIC_IP" "mkdir -p /opt/quiz-app/source"
+
 log_info "Copying application source to instance..."
 scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r ../../app opc@"$PUBLIC_IP":/opt/quiz-app/source/
+
+if [ $? -ne 0 ]; then
+    log_error "Application source transfer failed"
+    exit 1
+fi
+
+log_info "Copying Dockerfile to source directory..."
+scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ../../Dockerfile opc@"$PUBLIC_IP":/opt/quiz-app/source/
 
 if [ $? -eq 0 ]; then
     log_success "Source code transferred successfully"
 else
-    log_error "Source code transfer failed"
+    log_error "Dockerfile transfer failed"
     exit 1
 fi
 
@@ -249,7 +260,7 @@ echo "Starting container deployment..."
 echo "This may take 2-3 minutes for database initialization and application startup..."
 
 # Deploy containers
-docker-compose up -d
+docker compose up -d
 
 if [ $? -eq 0 ]; then
     echo "Containers deployed successfully"
@@ -260,7 +271,7 @@ if [ $? -eq 0 ]; then
 
     # Check container status
     echo "Container status:"
-    docker-compose ps
+    docker compose ps
 else
     echo "Container deployment failed"
     exit 1
@@ -291,11 +302,11 @@ ssh -i ~/.ssh/id_rsa -o ConnectTimeout=30 -o StrictHostKeyChecking=no opc@"$PUBL
 cd /opt/quiz-app
 
 echo "=== Container Status ==="
-docker-compose ps
+docker compose ps
 
 echo ""
 echo "=== Container Health ==="
-if docker-compose exec -T quiz-postgres pg_isready -U postgres -d quiz; then
+if docker compose exec -T quiz-postgres pg_isready -U postgres -d quiz; then
     echo "✅ PostgreSQL: Healthy"
 else
     echo "❌ PostgreSQL: Not ready"
@@ -393,10 +404,10 @@ echo "  📊 Admin Access: SSH to opc@$PUBLIC_IP"
 echo ""
 
 log_info "Container Management:"
-echo "  📋 Status: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker-compose ps'"
-echo "  📜 Logs: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker-compose logs -f'"
-echo "  🔄 Restart: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker-compose restart'"
-echo "  🛑 Stop: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker-compose down'"
+echo "  📋 Status: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker compose ps'"
+echo "  📜 Logs: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker compose logs -f'"
+echo "  🔄 Restart: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker compose restart'"
+echo "  🛑 Stop: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker compose down'"
 echo ""
 
 log_info "Next Steps:"
@@ -407,7 +418,7 @@ echo "  4. Set up regular database backups"
 echo ""
 
 log_info "If application is not immediately accessible, wait 2-3 minutes for full startup"
-log_info "Monitor logs with: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker-compose logs -f quiz-app'"
+log_info "Monitor logs with: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker compose logs -f quiz-app'"
 
 echo ""
 log_success "Deployment completed successfully!"
