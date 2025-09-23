@@ -43,6 +43,27 @@ ssh -i ~/.ssh/id_rsa opc@161.118.188.237
 
 ## Instance Management Commands
 
+### Container Management (Application Deployed)
+```bash
+# Check container status
+ssh opc@161.118.188.237 'cd /opt/quiz-app && docker compose ps'
+
+# View application logs
+ssh opc@161.118.188.237 'cd /opt/quiz-app && docker compose logs -f quiz-app'
+
+# View database logs
+ssh opc@161.118.188.237 'cd /opt/quiz-app && docker compose logs -f postgres'
+
+# Restart containers
+ssh opc@161.118.188.237 'cd /opt/quiz-app && docker compose restart'
+
+# Stop all containers
+ssh opc@161.118.188.237 'cd /opt/quiz-app && docker compose down'
+
+# Start containers
+ssh opc@161.118.188.237 'cd /opt/quiz-app && docker compose up -d'
+```
+
 ### View Instance Status
 ```bash
 oci compute instance get --instance-id ocid1.instance.oc1.ap-mumbai-1.anrg6ljrsob7awicfu6ixptydvlb3fh2njsdfzazfqptq4bx2hdy3euq5l3a \
@@ -84,12 +105,12 @@ oci compute instance terminate --instance-id ocid1.instance.oc1.ap-mumbai-1.anrg
 
 ## Resource Usage (Free Tier)
 
-### Current Allocation
+### Current Allocation (Quiz App Deployed)
 - **Compute Instances**: 4/6 used (after this instance)
-- **ARM OCPUs**: 2/4 used
-- **ARM Memory**: 4GB/24GB used
+- **ARM OCPUs**: 2/4 used (running quiz application + database)
+- **ARM Memory**: 4GB/24GB used (application ~1GB, database ~512MB)
 - **Block Volumes**: 2 used
-- **Public IPs**: 1 used
+- **Public IPs**: 1 used (serving live application)
 
 ### Cost Verification
 - **Compute Cost**: $0.00 (Always Free tier)
