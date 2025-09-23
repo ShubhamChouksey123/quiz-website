@@ -74,6 +74,7 @@ Remote Build Approach - Docker image built on OCI instance (no local Docker requ
 - [x] Cloud-init completed successfully - ✅ **COMPLETE** (Manual setup completed due to network issues)
 - [x] Docker and required software installed via cloud-init - ✅ **COMPLETE** (Docker 26.1.3, Git 2.43.7 installed)
 - [x] Application directories created - ✅ **COMPLETE** (`/opt/quiz-app/` structure created with proper permissions)
+- [x] Health check endpoint updated in cloud-init.yaml - ✅ **UPDATED** (Changed from `/actuator/health` to `/about` endpoint)
 
 ### 🚀 Phase 6: Application Build and Deployment
 - [ ] Run `./03-deploy-application.sh`
@@ -130,6 +131,7 @@ Remote Build Approach - Docker image built on OCI instance (no local Docker requ
 - [x] **RESOLVED**: SSH connection timeout - Security list rules were missing (ingress/egress rules added)
 - [x] **RESOLVED**: Cloud-init package installation failures - Network connectivity issues (egress rules added)
 - [x] **RESOLVED**: Docker installation failure - Manual installation completed successfully
+- [x] **RESOLVED**: Health endpoint mismatch - Updated all configurations from `/actuator/health` to `/about` endpoint
 - [ ] If network issues: Check security lists and route tables
 - [ ] If container issues: Check resource limits and environment variables
 - [ ] If database issues: Verify PostgreSQL container health
