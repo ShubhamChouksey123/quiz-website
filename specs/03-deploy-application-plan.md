@@ -153,7 +153,7 @@ Deploy the quiz application to the OCI compute instance using a remote Docker bu
 
 1. **Application Connectivity Tests**
    - Test HTTP endpoint: `curl http://localhost:8080`
-   - Test health endpoint: `curl http://localhost:8080/actuator/health`
+   - Test health endpoint: `curl http://localhost:8080/about`
    - Verify database schema creation (Hibernate auto-DDL)
 
 2. **External Access Verification**
@@ -199,7 +199,7 @@ DOCKER_IMAGE=ap-mumbai-1.ocir.io/NAMESPACE/quiz-app:latest
 - [ ] Application accessible via http://161.118.188.237:8080
 - [ ] Home page loads correctly with proper styling
 - [ ] Database connectivity established (no connection errors)
-- [ ] Health check endpoint responding: `/actuator/health`
+- [ ] Health check endpoint responding: `/about`
 - [ ] Quiz functionality operational (create, take, submit)
 - [ ] Contact form email functionality working
 
