@@ -3,12 +3,22 @@
 
 ## Overview
 
-
 Welcome to my quiz website repository! This digital platform serves as a showcase of my journey as a software engineer, spotlighting my skills, projects, and experiences. Built with HTML, CSS, and JavaScript for the frontend, and Java with Spring Boot for the backend, it offers visitors profound insights into my expertise and creative endeavors. Leveraging PostgreSQL for database management and Gmail SMTP protocol for seamless communication, it stands as a testament to my commitment to delivering robust and dynamic web solutions.
 
-- The master build is live at: [Quiz-Website](https://quiz-website-g8d7.onrender.com/)
-- To ensure continuous uptime, a monitoring system is in place: [Uptime-Robot-URL](https://uptimerobot.com/dashboard)
-- Scheduled tasks are configured to access the website every 10 minutes: [Cron-Job-URL](https://console.cron-job.org/jobs)
+## Current Deployment Status
+
+**🌐 Live Application**: http://161.118.188.237:8080 ✅ **OPERATIONAL**
+
+- **Platform**: Oracle Cloud Infrastructure (OCI) - Always Free Tier
+- **Instance**: VM.Standard.A1.Flex (2 OCPUs, 4GB RAM, ARM-based)
+- **Database**: PostgreSQL container co-located with application
+- **Deployment**: Docker containerized using remote build approach
+- **Cost**: $0.00 monthly (within OCI Always Free limits)
+
+### Previous Deployments
+- **Render.com**: [Quiz-Website](https://quiz-website-g8d7.onrender.com/) (migrated from)
+- **Monitoring**: [Uptime-Robot-URL](https://uptimerobot.com/dashboard)
+- **Scheduled Tasks**: [Cron-Job-URL](https://console.cron-job.org/jobs)
 
 
 
@@ -22,48 +32,66 @@ Welcome to my quiz website repository! This digital platform serves as a showcas
 
 ## Getting Started
 
-Embark on your quiz journey by visiting the [Quiz Website](https://quiz-website-g8d7.onrender.com/). Navigate through user-friendly interfaces offering options to start new quizzes, access leader boards, view results, and connect through the contact page.
+### Access the Live Application
+Visit the **[Quiz Website](http://161.118.188.237:8080)** to start taking quizzes! Navigate through user-friendly interfaces offering options to start new quizzes, access leader boards, view results, and connect through the contact page.
 
+### Local Development
+For local development, see the [Local Development Guide](#local-development) section below.
 
+## OCI Deployment Documentation
 
+This project has been successfully deployed to Oracle Cloud Infrastructure (OCI). For detailed deployment information:
 
-## Useful Commands and Procedures
+- **📋 Deployment Overview**: [`specs/README.md`](specs/README.md) - Complete OCI deployment strategy and project structure
+- **✅ Deployment Checklist**: [`oci-deployment/docs/deployment-checklist.md`](oci-deployment/docs/deployment-checklist.md) - Phase-by-phase completion tracking
+- **🖥️ Instance Details**: [`oci-deployment/docs/instance-details.md`](oci-deployment/docs/instance-details.md) - Complete instance specifications and management commands
+- **📁 Implementation Files**: [`oci-deployment/`](oci-deployment/) - All deployment scripts, configurations, and documentation
 
-Frequently used commands .
+### Quick Deployment Status
+- **Prerequisites**: ✅ Complete
+- **Infrastructure**: ✅ Complete
+- **Application Deployment**: ✅ Complete
+- **Validation**: 🎯 Ready to proceed
 
+## Local Development
 
-### Docker 
+### Useful Commands and Procedures
 
-*  Build docker without any name and tag  
+#### Docker
 ```shell script
-docker build .
-```
-```shell script
+# Build docker image
 docker build -t quiz-app .
-```
 
-*  Returns all images in the docker
-```shell script
+# Run container
+docker run -p 8080:8080 quiz-app
+
+# View all images
 docker images
 ```
-*  Map port of the docker to external services
+
+#### Java Server
 ```shell script
-docker run -p 8080:8080
-```
+# Start application (from root directory)
+./start.sh
 
-
-## Java Server 
-
-### JinJava Project Start
-
-
-* Make sure the command in start.sh script is correct as per your config files path
-```shell script
+# Manual start (ensure app/.env exists)
 env $(cat app/.env | grep -v "^#" | xargs) java -jar app/target/app-0.0.1-SNAPSHOT.jar
 ```
 
+#### Maven Commands (from app/ directory)
+```shell script
+# Build and install
+./mvnw clean install
 
-## Sample .env File
+# Format code
+./mvnw spotless:apply
+
+# Run tests
+./mvnw test
+```
+
+### Sample .env File
+Create `app/.env` file with your database credentials:
 ```shell script
 # Quiz Website Database credentials
 QUIZ_DB_HOST=localhost
