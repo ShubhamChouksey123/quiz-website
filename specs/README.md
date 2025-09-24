@@ -97,11 +97,7 @@ Each deployment script has a corresponding planning document:
 | Document | Purpose | Status |
 |----------|---------|--------|
 | `oci-migration-overview.md` | High-level migration strategy | ✅ Complete |
-| `database-deployment-plan.md` | Database deployment strategy | ✅ Complete |
-| `ocir-docker-deployment-plan.md` | Docker registry deployment | ✅ Complete |
 | `fix-subnet-public-ip-plan.md` | Subnet issue resolution (obsolete) | ✅ Resolved |
-| `compute-instance-deployment-plan.md` | Detailed compute planning | ✅ Complete |
-| `testing-validation-plan.md` | Comprehensive testing strategy | ✅ Complete |
 
 ## Key Technical Decisions
 
