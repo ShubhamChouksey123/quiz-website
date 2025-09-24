@@ -91,15 +91,27 @@ env $(cat app/.env | grep -v "^#" | xargs) java -jar app/target/app-0.0.1-SNAPSH
 ```
 
 ### Sample .env File
-Create `app/.env` file with your database credentials:
+Create `app/.env` file for local development:
 ```shell script
-# Quiz Website Database credentials
-QUIZ_DB_HOST=localhost
-QUIZ_DB_PORT=5432
-QUIZ_DB_NAME=quiz
-QUIZ_DB_USERNAME=postgres
-QUIZ_DB_PASSWORD=root
-QUIZ_DB_CONFIG_QUERY_STRING=allowPublicKeyRetrieval=true&useSSL=false&sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false&createDatabaseIfNotExist=true
+# Quiz Website - Environment Variables for Local Development
+
+########################################################################################################
+######## Gmail SMTP Configuration ######
+GMAIL_USERNAME=your-email@gmail.com
+GMAIL_PASSWORD=your-gmail-app-password
+
+########################################################################################################
+######## PostgreSQL DB Configuration ######
+DB_NAME=quiz
+DB_USER=postgres
+DB_ADMIN_PASSWORD=your-secure-database-password
+
+# Note: For local development, you may also need:
+# QUIZ_DB_HOST=localhost
+# QUIZ_DB_PORT=5432
+# QUIZ_DB_NAME=quiz
+# QUIZ_DB_USERNAME=postgres
+# QUIZ_DB_PASSWORD=your-secure-database-password
 ```
 
 ## License

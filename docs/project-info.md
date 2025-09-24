@@ -101,14 +101,33 @@ env $(cat app/.env | grep -v "^#" | xargs) java -jar app/target/app-0.0.1-SNAPSH
 ### Sample .env File (for Local Development)
 Create `app/.env` file:
 ```shell script
-# Quiz Website Database credentials
-QUIZ_DB_HOST=localhost
-QUIZ_DB_PORT=5432
-QUIZ_DB_NAME=quiz
-QUIZ_DB_USERNAME=postgres
-QUIZ_DB_PASSWORD=root
-QUIZ_DB_CONFIG_QUERY_STRING=allowPublicKeyRetrieval=true&useSSL=false&sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false&createDatabaseIfNotExist=true
+# Quiz Website - Environment Variables for Local Development
+
+########################################################################################################
+######## Gmail SMTP Configuration ######
+GMAIL_USERNAME=your-email@gmail.com
+GMAIL_PASSWORD=your-gmail-app-password
+
+########################################################################################################
+######## PostgreSQL DB Configuration ######
+DB_NAME=quiz
+DB_USER=postgres
+DB_ADMIN_PASSWORD=your-secure-database-password
+
+# Note: For local development with external PostgreSQL, you may also need:
+# QUIZ_DB_HOST=localhost
+# QUIZ_DB_PORT=5432
+# QUIZ_DB_NAME=quiz
+# QUIZ_DB_USERNAME=postgres
+# QUIZ_DB_PASSWORD=your-secure-database-password
 ```
+
+### Production Environment Variables (OCI Deployment)
+The production deployment uses environment variables defined in docker-compose.yml:
+- Database connection uses container networking (`QUIZ_DB_HOST: postgres`)
+- Gmail SMTP credentials from .env file
+- JVM memory settings optimized for OCI instance resources
+- Connection pooling configured for production workload
 
 ## Project TODO Items
 
