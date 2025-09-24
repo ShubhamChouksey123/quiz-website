@@ -91,6 +91,7 @@ Each deployment script has a corresponding planning document:
 | `02-create-infrastructure.sh` | `02-create-infrastructure-plan.md` | ✅ Complete | OCI compute instance creation |
 | `03-deploy-application.sh` | `03-deploy-application-plan.md` | ✅ Complete | Application deployment with Docker |
 | `04-validate-deployment.sh` | `04-validate-deployment-plan.md` | 📋 Planned | Deployment validation and testing |
+| `05-add-questions-automated.js` | `05-automated-question-addition-plan.md` | 📋 Planned | Automated question addition via API |
 
 ## Supporting Documentation
 
