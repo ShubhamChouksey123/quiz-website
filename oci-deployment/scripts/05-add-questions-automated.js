@@ -238,89 +238,48 @@ class QuizQuestionAdder {
 /**
  * Get predefined sample questions for testing
  */
-function getSampleQuestions() {
-    return [
-        {
-            category: 'GENERAL',
-            difficulty_level: 'LOW',
-            question: 'What is the capital of France?',
-            optionA: 'London',
-            optionB: 'Berlin',
-            optionC: 'Paris',
-            optionD: 'Madrid',
-            answer: 3
-        },
-        {
-            category: 'SCIENCE_AND_TECHNOLOGY',
-            difficulty_level: 'MEDIUM',
-            question: 'What does \'HTTP\' stand for?',
-            optionA: 'HyperText Transfer Protocol',
-            optionB: 'High Tech Transfer Protocol',
-            optionC: 'HyperText Transport Protocol',
-            optionD: 'Home Tool Transfer Protocol',
-            answer: 1
-        },
-        {
-            category: 'HISTORY',
-            difficulty_level: 'MEDIUM',
-            question: 'In which year did World War II end?',
-            optionA: '1944',
-            optionB: '1945',
-            optionC: '1946',
-            optionD: '1947',
-            answer: 2
-        },
-        {
-            category: 'SPORTS',
-            difficulty_level: 'LOW',
-            question: 'How many players are there in a basketball team on the court?',
-            optionA: '4',
-            optionB: '5',
-            optionC: '6',
-            optionD: '7',
-            answer: 2
-        },
-        {
-            category: 'FINANCE',
-            difficulty_level: 'HIGH',
-            question: 'What does \'IPO\' stand for in finance?',
-            optionA: 'Initial Public Offering',
-            optionB: 'International Private Organization',
-            optionC: 'Internal Profit Operation',
-            optionD: 'Investment Portfolio Option',
-            answer: 1
-        },
-        {
-            category: 'ENGINEERING',
-            difficulty_level: 'HIGH',
-            question: 'Which programming paradigm does Java primarily follow?',
-            optionA: 'Functional Programming',
-            optionB: 'Procedural Programming',
-            optionC: 'Object-Oriented Programming',
-            optionD: 'Logic Programming',
-            answer: 3
-        },
-        {
-            category: 'GENERAL',
-            difficulty_level: 'MEDIUM',
-            question: 'Which planet is known as the Red Planet?',
-            optionA: 'Venus',
-            optionB: 'Mars',
-            optionC: 'Jupiter',
-            optionD: 'Saturn',
-            answer: 2
-        },
-        {
-            category: 'SCIENCE_AND_TECHNOLOGY',
-            difficulty_level: 'LOW',
-            question: 'What is the chemical symbol for water?',
-            optionA: 'H2O',
-            optionB: 'CO2',
-            optionC: 'NaCl',
-            optionD: 'O2',
-            answer: 1
+async function getSampleQuestions() {
+    const path = require('path');
+    const scriptDir = __dirname;
+    const dataFilePath = path.join(scriptDir, '..', 'docs', 'data.json');
+
+    try {
+        const fileContent = await fs.readFile(dataFilePath, 'utf-8');
+        const questions = JSON.parse(fileContent);
+
+        if (!Array.isArray(questions)) {
+            throw new Error('data.json must contain an array of questions');
         }
-    ];
+
+        return questions;
+    } catch (error) {
+        console.error(`[ERROR] Failed to load sample questions from ${dataFilePath}: ${error.message}`);
+        console.log('[INFO] Falling back to hardcoded sample questions...');
+
+        // Fallback to hardcoded questions if file loading fails
+        return [
+            {
+                category: 'GENERAL',
+                difficulty_level: 'LOW',
+                question: 'What is the capital of France?',
+                optionA: 'London',
+                optionB: 'Berlin',
+                optionC: 'Paris',
+                optionD: 'Madrid',
+                answer: 3
+            },
+            {
+                category: 'SCIENCE_AND_TECHNOLOGY',
+                difficulty_level: 'MEDIUM',
+                question: 'What does \'HTTP\' stand for?',
+                optionA: 'HyperText Transfer Protocol',
+                optionB: 'High Tech Transfer Protocol',
+                optionC: 'HyperText Transport Protocol',
+                optionD: 'Home Tool Transfer Protocol',
+                answer: 1
+            }
+        ];
+    }
 }
 
 /**
@@ -475,7 +434,7 @@ async function main() {
     // Load questions
     if (config.sample) {
         console.log('Using predefined sample questions...');
-        questions = getSampleQuestions();
+        questions = await getSampleQuestions();
     } else {
         console.log(`Loading questions from file: ${config.file}`);
         questions = await adder.loadQuestionsFromFile(config.file);
