@@ -35,7 +35,7 @@ Based on `QuizController.java:145-164`, the `/submit-add-question` POST endpoint
 ### Technical Specifications
 
 #### Script Name and Location
-- **File**: `scripts/05-add-questions-automated.js`
+- **File**: `oci-deployment/scripts/05-add-questions-automated.js`
 - **Executable**: Pure JavaScript script (no external dependencies)
 
 #### Dependencies
@@ -47,7 +47,7 @@ Based on `QuizController.java:145-164`, the `/submit-add-question` POST endpoint
 
 #### Command Line Interface
 ```bash
-node scripts/05-add-questions-automated.js [options]
+node oci-deployment/scripts/05-add-questions-automated.js [options]
 
 Options:
   --url <url>         Base URL of quiz application (default: http://161.118.188.237:8080)
@@ -207,26 +207,26 @@ Include 6-10 sample questions covering:
 
 ### Add Sample Questions
 ```bash
-node scripts/05-add-questions-automated.js --sample --verbose
+node oci-deployment/scripts/05-add-questions-automated.js --sample --verbose
 ```
 
 ### Add Questions from File
 ```bash
-node scripts/05-add-questions-automated.js --file questions.json --delay 1000
+node oci-deployment/scripts/05-add-questions-automated.js --file questions.json --delay 1000
 ```
 
 ### Test Without Making Changes
 ```bash
-node scripts/05-add-questions-automated.js --file questions.json --dry-run
+node oci-deployment/scripts/05-add-questions-automated.js --file questions.json --dry-run
 ```
 
 ### Use Custom Application URL
 ```bash
-node scripts/05-add-questions-automated.js --url http://localhost:8080 --sample
+node oci-deployment/scripts/05-add-questions-automated.js --url http://localhost:8080 --sample
 ```
 
 ---
 
-**Implementation Reference**: This plan corresponds to the implementation script `scripts/05-add-questions-automated.js`
+**Implementation Reference**: This plan corresponds to the implementation script `oci-deployment/scripts/05-add-questions-automated.js`
 
 **Status**: 📋 Planning Phase - Ready for review and implementation
