@@ -204,6 +204,7 @@ sudo rm -rf /opt/quiz-app/data/postgres/*
 - [ ] Implement CI/CD pipeline
 - [ ] Add reverse proxy (nginx)
 - [ ] Setup custom domain name
+- [ ] Deploy automated question addition script (`05-add-questions-automated.js`)
 
 ### 📊 Ongoing Maintenance
 - [ ] Regular security updates
