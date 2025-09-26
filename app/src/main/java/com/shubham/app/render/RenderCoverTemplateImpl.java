@@ -1,15 +1,14 @@
 package com.shubham.app.render;
 
+import com.shubham.app.emailsender.PrepareAndSendEmail;
+import com.shubham.app.hibernate.dao.ContactQueryDao;
+import com.shubham.app.service.questioncrud.QuestionCrud;
+import com.shubham.app.service.questioncrud.QuestionsUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
-import com.shubham.app.emailsender.PrepareAndSendEmail;
-import com.shubham.app.hibernate.dao.ContactQueryDao;
-import com.shubham.app.service.questioncrud.QuestionCrud;
-import com.shubham.app.service.questioncrud.QuestionsUtils;
 
 @Service
 public class RenderCoverTemplateImpl implements RenderCoverTemplate {

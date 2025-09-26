@@ -1,16 +1,14 @@
 package com.shubham.app.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import com.shubham.app.dto.EachQuestion;
 import com.shubham.app.dto.QuestionSubmissionForm;
 import com.shubham.app.entity.Question;
 import com.shubham.app.service.questioncrud.QuestionCrud;
-
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class QuizSubmissionController {

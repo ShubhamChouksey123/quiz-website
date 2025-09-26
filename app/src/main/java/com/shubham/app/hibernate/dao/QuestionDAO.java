@@ -2,7 +2,6 @@ package com.shubham.app.hibernate.dao;
 
 import com.shubham.app.entity.Question;
 import com.shubham.app.model.ApprovalLevel;
-
 import java.util.List;
 
 public interface QuestionDAO {

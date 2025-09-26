@@ -1,9 +1,9 @@
 package com.shubham.app.entity;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import jakarta.persistence.*;
 
 @Entity(name = "hr_info")
 @Table(name = "hr_info")

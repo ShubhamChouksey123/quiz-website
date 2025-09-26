@@ -1,8 +1,7 @@
 package com.shubham.app.deliver.emailservice;
 
-import org.springframework.core.io.Resource;
-
 import java.util.Map;
+import org.springframework.core.io.Resource;
 
 public class EmailInformation {
 

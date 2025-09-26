@@ -1,5 +1,10 @@
 package com.shubham.app.controller;
 
+import com.shubham.app.model.DifficultyLevel;
+import com.shubham.app.model.QuestionCategory;
+import com.shubham.app.render.RenderQuizTemplate;
+import com.shubham.app.service.questioncrud.exception.InternalServerException;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-
-import com.shubham.app.model.DifficultyLevel;
-import com.shubham.app.model.QuestionCategory;
-import com.shubham.app.render.RenderQuizTemplate;
-import com.shubham.app.service.questioncrud.exception.InternalServerException;
-
-import java.util.Objects;
 
 /**
  * We have used this open-source theme template from
