@@ -75,7 +75,7 @@ quiz-website/
 - **Application Deployment**: ✅ **COMPLETE** (all 6 phases successful, application live)
 - **Validation**: 🎯 **READY TO PROCEED** (application deployed and operational)
 
-🌐 **Live Application**: http://161.118.188.237:8080 ✅ **OPERATIONAL**
+🌐 **Live Application**: http://161.118.188.237:8080 ✅ **OPERATIONAL** (configurable via QUIZ_APP_URL env var)
 
 📋 **Detailed Status**: See `oci-deployment/docs/deployment-checklist.md` for phase-by-phase completion tracking.
 
