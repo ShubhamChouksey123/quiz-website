@@ -4,6 +4,8 @@ services:
   postgres:
     image: postgres:14-alpine
     container_name: quiz-postgres
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_DB: quiz
       POSTGRES_USER: postgres

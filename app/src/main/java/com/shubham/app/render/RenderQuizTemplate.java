@@ -1,10 +1,9 @@
 package com.shubham.app.render;
 
-import org.springframework.ui.Model;
-
 import com.shubham.app.model.DifficultyLevel;
 import com.shubham.app.model.QuestionCategory;
 import com.shubham.app.service.questioncrud.exception.InternalServerException;
+import org.springframework.ui.Model;
 
 public interface RenderQuizTemplate {
     void renderQuizPage(Model model);
