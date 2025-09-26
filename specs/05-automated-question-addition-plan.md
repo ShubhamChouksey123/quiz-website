@@ -50,7 +50,7 @@ Based on `QuizController.java:145-164`, the `/submit-add-question` POST endpoint
 node oci-deployment/scripts/05-add-questions-automated.js [options]
 
 Options:
-  --url <url>         Base URL of quiz application (default: http://161.118.188.237:8080)
+  --url <url>         Base URL of quiz application (default: QUIZ_APP_URL env var or http://161.118.188.237:8080)
   --file <path>       JSON file containing questions to add
   --sample            Use predefined sample questions
   --dry-run           Show what would be sent without sending requests

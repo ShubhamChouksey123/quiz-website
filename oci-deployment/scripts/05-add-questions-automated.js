@@ -10,7 +10,7 @@
  *   node scripts/05-add-questions-automated.js [options]
  *
  * Options:
- *   --url <url>         Base URL of quiz application (default: http://161.118.188.237:8080)
+ *   --url <url>         Base URL of quiz application (default: QUIZ_APP_URL env var or http://161.118.188.237:8080)
  *   --file <path>       JSON file containing questions to add
  *   --sample            Use predefined sample questions
  *   --dry-run           Show what would be sent without sending requests
@@ -41,7 +41,7 @@ const fs = require('fs').promises;
 const { URLSearchParams } = require('url');
 
 class QuizQuestionAdder {
-    constructor(baseUrl = 'http://161.118.188.237:8080', verbose = false, delay = 500) {
+    constructor(baseUrl = process.env.QUIZ_APP_URL || 'http://localhost:8080', verbose = false, delay = 500) {
         this.baseUrl = baseUrl.replace(/\/$/, ''); // Remove trailing slash
         this.verbose = verbose;
         this.delay = delay;
@@ -288,7 +288,7 @@ async function getSampleQuestions() {
 function parseArguments() {
     const args = process.argv.slice(2);
     const config = {
-        url: 'http://161.118.188.237:8080',
+        url: process.env.QUIZ_APP_URL || 'http://161.118.188.237:8080',
         file: null,
         sample: false,
         dryRun: false,
@@ -362,7 +362,7 @@ Usage:
   node scripts/05-add-questions-automated.js [options]
 
 Options:
-  --url <url>         Base URL of quiz application (default: http://161.118.188.237:8080)
+  --url <url>         Base URL of quiz application (default: QUIZ_APP_URL env var or http://161.118.188.237:8080)
   --file <path>       JSON file containing questions to add
   --sample            Use predefined sample questions
   --dry-run           Show what would be sent without sending requests
