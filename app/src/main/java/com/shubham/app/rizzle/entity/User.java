@@ -1,7 +1,7 @@
 package com.shubham.app.rizzle.entity;
 
-import java.util.List;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Table(name = "users")
 @Entity(name = "users")

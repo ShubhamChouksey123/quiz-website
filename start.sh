@@ -18,4 +18,4 @@ echo "Successful Build of app with maven"
 
 # Stating the quiz app - Maven
 echo "Starting quiz app ..."
-env $(cat app/.env | grep -v "^#" | xargs) java -jar app/target/app-0.0.1-SNAPSHOT.jar
+env $(cat local-development/.env.local | grep -v "^#" | xargs) java -jar app/target/app-0.0.1-SNAPSHOT.jar

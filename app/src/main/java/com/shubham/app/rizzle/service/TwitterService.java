@@ -1,14 +1,12 @@
 package com.shubham.app.rizzle.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.shubham.app.rizzle.dao.PostRepository;
 import com.shubham.app.rizzle.dao.UserRepository;
 import com.shubham.app.rizzle.entity.Post;
 import com.shubham.app.rizzle.entity.User;
-
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TwitterService {

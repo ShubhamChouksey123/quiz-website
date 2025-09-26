@@ -3,7 +3,6 @@ package com.shubham.app.entity;
 import com.shubham.app.model.ApprovalLevel;
 import com.shubham.app.model.DifficultyLevel;
 import com.shubham.app.model.QuestionCategory;
-
 import jakarta.persistence.*;
 
 @Entity(name = "question")

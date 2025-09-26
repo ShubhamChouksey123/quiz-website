@@ -1,16 +1,14 @@
 package com.shubham.app.hibernate.dao;
 
+import com.shubham.app.entity.ContactQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.shubham.app.entity.ContactQuery;
-
-import java.util.ArrayList;
-import java.util.List;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 
 @Repository
 @Transactional

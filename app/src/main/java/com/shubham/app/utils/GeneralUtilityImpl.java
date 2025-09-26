@@ -1,12 +1,11 @@
 package com.shubham.app.utils;
 
-import org.springframework.stereotype.Service;
+import static com.shubham.app.controller.QuizController.ZERO_LENGTH_STRING;
 
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
-
-import static com.shubham.app.controller.QuizController.ZERO_LENGTH_STRING;
+import org.springframework.stereotype.Service;
 
 @Service
 public class GeneralUtilityImpl implements GeneralUtility {
