@@ -18,6 +18,27 @@
  *   --delay <ms>        Delay between requests in milliseconds (default: 500)
  *   --help              Show help information
  *
+ * Environment-specific Usage:
+ *
+ * LOCAL DEVELOPMENT:
+ *   # Run against local development server (http://localhost:8080)
+ *   QUIZ_APP_URL=http://localhost:8080 node oci-deployment/scripts/05-add-questions-automated.js --sample --verbose
+ *
+ *   # Or load local environment variables
+ *   export $(grep -v '^#' local-development/.env.local | grep -v '^$' | xargs) && \
+ *   node oci-deployment/scripts/05-add-questions-automated.js --sample --verbose
+ *
+ * PRODUCTION DEPLOYMENT:
+ *   # Run against production server (uses default production URL)
+ *   node oci-deployment/scripts/05-add-questions-automated.js --sample --verbose
+ *
+ *   # Or with explicit production URL
+ *   QUIZ_APP_URL=http://161.118.188.237:8080 node oci-deployment/scripts/05-add-questions-automated.js --sample --verbose
+ *
+ *   # Load production environment variables (if .env file is configured)
+ *   export $(grep -v '^#' .env | grep -v '^$' | xargs) && \
+ *   node oci-deployment/scripts/05-add-questions-automated.js --sample --verbose
+ *
  * JSON Format:
  * [
  *   {
@@ -34,7 +55,7 @@
  *
  * Valid categories: GENERAL, HISTORY, FINANCE, SPORTS, SCIENCE_AND_TECHNOLOGY, ENGINEERING
  * Valid difficulty levels: LOW, MEDIUM, HIGH
- * Answer should be 1-4 (1=A, 2=B, 3=C, 4=D)
+ * Answer should be 0-3 (0=A, 1=B, 2=C, 3=D)
  */
 
 const fs = require('fs').promises;
@@ -92,9 +113,9 @@ class QuizQuestionAdder {
             return false;
         }
 
-        // Validate answer (must be 1-4)
-        if (!Number.isInteger(question.answer) || question.answer < 1 || question.answer > 4) {
-            console.error(`[ERROR] Invalid answer: ${question.answer}. Must be integer between 1-4`);
+        // Validate answer (must be 0-3)
+        if (!Number.isInteger(question.answer) || question.answer < 0 || question.answer > 3) {
+            console.error(`[ERROR] Invalid answer: ${question.answer}. Must be integer between 0-3`);
             return false;
         }
 
@@ -153,11 +174,11 @@ class QuizQuestionAdder {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: formData,
-                redirect: 'manual' // Handle redirects manually to check for success
+                redirect: 'follow' // Follow redirects to complete the form submission
             });
 
-            // The endpoint returns a 302 redirect on success
-            if (response.status === 302) {
+            // The endpoint redirects to /home on success (even if final status is 405)
+            if (response.url.includes('/home')) {
                 this.log(`✅ Successfully added question`);
                 return true;
             } else {
@@ -276,7 +297,7 @@ async function getSampleQuestions() {
                 optionB: 'High Tech Transfer Protocol',
                 optionC: 'HyperText Transport Protocol',
                 optionD: 'Home Tool Transfer Protocol',
-                answer: 1
+                answer: 0
             }
         ];
     }
@@ -371,13 +392,28 @@ Options:
   --help              Show this help information
 
 Examples:
-  # Add sample questions
+
+LOCAL DEVELOPMENT:
+  # Run against local server (localhost:8080)
+  QUIZ_APP_URL=http://localhost:8080 node scripts/05-add-questions-automated.js --sample --verbose
+
+  # Load local environment variables
+  export $(grep -v '^#' local-development/.env.local | grep -v '^$' | xargs) && \\
   node scripts/05-add-questions-automated.js --sample --verbose
 
-  # Add questions from file
+PRODUCTION:
+  # Run against production server (default)
+  node scripts/05-add-questions-automated.js --sample --verbose
+
+  # Load production environment variables
+  export $(grep -v '^#' .env | grep -v '^$' | xargs) && \\
+  node scripts/05-add-questions-automated.js --sample --verbose
+
+GENERAL:
+  # Add questions from custom file
   node scripts/05-add-questions-automated.js --file questions.json --delay 1000
 
-  # Test without making changes
+  # Test without making changes (dry run)
   node scripts/05-add-questions-automated.js --file questions.json --dry-run
 
   # Use custom application URL
@@ -399,7 +435,7 @@ JSON Format:
 
 Valid categories: GENERAL, HISTORY, FINANCE, SPORTS, SCIENCE_AND_TECHNOLOGY, ENGINEERING
 Valid difficulty levels: LOW, MEDIUM, HIGH
-Answer should be 1-4 (1=A, 2=B, 3=C, 4=D)
+Answer should be 0-3 (0=A, 1=B, 2=C, 3=D)
 `);
 }
 

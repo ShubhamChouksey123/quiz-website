@@ -70,7 +70,7 @@ Options:
     "optionB": "Berlin",
     "optionC": "Paris",
     "optionD": "Madrid",
-    "answer": 3
+    "answer": 2
   }
 ]
 ```
@@ -80,7 +80,7 @@ Options:
 2. **Difficulty Level**: Must be LOW, MEDIUM, or HIGH
 3. **Question Text**: Non-empty string, reasonable length (10-500 characters)
 4. **Options**: All four options must be non-empty strings
-5. **Answer**: Integer between 1-4 inclusive
+5. **Answer**: Integer between 0-3 inclusive (0=A, 1=B, 2=C, 3=D)
 6. **Data Types**: Strict type checking for all fields
 
 ### Sample Questions Dataset
