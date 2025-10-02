@@ -61,7 +61,14 @@ Deploy the quiz application to the OCI compute instance using a remote Docker bu
    - Push to Oracle Container Registry
    - Verify image availability in OCIR
 
-3. **Build Verification**
+3. **Container Restart with New Image** ⚠️ **CRITICAL**
+   - Stop existing containers: `docker compose down`
+   - Start containers with newly built image: `docker compose up -d`
+   - Wait for containers to be ready (30 seconds)
+   - Verify container status after restart
+   - **Purpose**: Ensures the application runs with the latest code changes
+
+4. **Build Verification**
    - Test local image functionality
    - Verify image layers and size optimization
    - Confirm Java 17 runtime compatibility
