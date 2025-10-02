@@ -1,15 +1,13 @@
 package com.shubham.app.rizzle.controller;
 
+import com.shubham.app.rizzle.entity.Post;
+import com.shubham.app.rizzle.service.TwitterService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.shubham.app.rizzle.entity.Post;
-import com.shubham.app.rizzle.service.TwitterService;
-
-import java.util.List;
 
 @Controller
 public class TwitterController {

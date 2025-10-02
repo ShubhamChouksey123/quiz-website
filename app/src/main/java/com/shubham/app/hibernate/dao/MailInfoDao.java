@@ -1,7 +1,6 @@
 package com.shubham.app.hibernate.dao;
 
 import com.shubham.app.entity.HRInfo;
-
 import java.math.BigInteger;
 import java.util.List;
 

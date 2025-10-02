@@ -75,7 +75,7 @@ quiz-website/
 - **Application Deployment**: ✅ **COMPLETE** (all 6 phases successful, application live)
 - **Validation**: 🎯 **READY TO PROCEED** (application deployed and operational)
 
-🌐 **Live Application**: http://161.118.188.237:8080 ✅ **OPERATIONAL**
+🌐 **Live Application**: http://161.118.188.237:8080 ✅ **OPERATIONAL** (configurable via QUIZ_APP_URL env var)
 
 📋 **Detailed Status**: See `oci-deployment/docs/deployment-checklist.md` for phase-by-phase completion tracking.
 
@@ -91,6 +91,7 @@ Each deployment script has a corresponding planning document:
 | `02-create-infrastructure.sh` | `02-create-infrastructure-plan.md` | ✅ Complete | OCI compute instance creation |
 | `03-deploy-application.sh` | `03-deploy-application-plan.md` | ✅ Complete | Application deployment with Docker |
 | `04-validate-deployment.sh` | `04-validate-deployment-plan.md` | 📋 Planned | Deployment validation and testing |
+| `05-add-questions-automated.js` | `05-automated-question-addition-plan.md` | ✅ Complete | Automated question addition via API |
 
 ## Supporting Documentation
 

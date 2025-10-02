@@ -1,5 +1,16 @@
 package com.shubham.app.deliver.emailservice.providerapi.gmail;
 
+import com.shubham.app.deliver.emailservice.EmailInformation;
+import com.shubham.app.deliver.emailservice.EmailProvider;
+import com.shubham.app.deliver.emailservice.providerapi.gmail.config.GmailProperties;
+import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
+import java.util.Date;
+import java.util.Map;
+import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +22,6 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-
-import com.shubham.app.deliver.emailservice.EmailInformation;
-import com.shubham.app.deliver.emailservice.EmailProvider;
-import com.shubham.app.deliver.emailservice.providerapi.gmail.config.GmailProperties;
-
-import java.util.Date;
-import java.util.Map;
-import java.util.Properties;
-import jakarta.mail.*;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeBodyPart;
-import jakarta.mail.internet.MimeMessage;
-import jakarta.mail.internet.MimeMultipart;
 
 @Service
 public class GmailSenderService implements EmailProvider {

@@ -1,12 +1,10 @@
 package com.shubham.app.rizzle.dao;
 
+import com.shubham.app.rizzle.entity.Post;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.shubham.app.rizzle.entity.Post;
-
-import jakarta.persistence.EntityManager;
 
 @Repository
 @Transactional

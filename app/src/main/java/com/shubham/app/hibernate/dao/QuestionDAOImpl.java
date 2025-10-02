@@ -1,16 +1,8 @@
 package com.shubham.app.hibernate.dao;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.shubham.app.entity.Question;
 import com.shubham.app.entity.Question_;
 import com.shubham.app.model.ApprovalLevel;
-
-import java.util.ArrayList;
-import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
@@ -18,6 +10,12 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
@@ -93,16 +91,22 @@ public class QuestionDAOImpl implements QuestionDAO {
     @Override
     public boolean deleteQuestion(Long questionId) {
 
-        Question question = null;
         try {
-            question = em.find(Question.class, questionId);
-            /** TODO : finish this */
-            // em.delete(question);
-            return true;
+            Question question = em.find(Question.class, questionId);
+            if (question != null) {
+                logger.info("Deleting question with ID: {}", questionId);
+                em.remove(question);
+                em.flush(); // Ensure the deletion is executed immediately
+                logger.info("Successfully deleted question with ID: {}", questionId);
+                return true;
+            } else {
+                logger.warn("Question with ID {} not found for deletion", questionId);
+                return false;
+            }
         } catch (Exception e) {
-            logger.error("Question with {} doesn't exist !", questionId);
+            logger.error("Error deleting question with ID {}: {}", questionId, e.getMessage(), e);
+            return false;
         }
-        return false;
     }
 
     @Override

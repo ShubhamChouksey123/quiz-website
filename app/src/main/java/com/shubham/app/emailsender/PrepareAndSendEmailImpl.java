@@ -1,5 +1,15 @@
 package com.shubham.app.emailsender;
 
+import static java.util.Map.entry;
+
+import com.shubham.app.deliver.emailservice.EmailInformation;
+import com.shubham.app.deliver.emailservice.EmailSenderService;
+import com.shubham.app.entity.HRInfo;
+import com.shubham.app.entity.MailInfo;
+import com.shubham.app.utils.GeneralUtility;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,18 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-
-import com.shubham.app.deliver.emailservice.EmailInformation;
-import com.shubham.app.deliver.emailservice.EmailSenderService;
-import com.shubham.app.entity.HRInfo;
-import com.shubham.app.entity.MailInfo;
-import com.shubham.app.utils.GeneralUtility;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import static java.util.Map.entry;
 
 @Service
 public class PrepareAndSendEmailImpl implements PrepareAndSendEmail {
