@@ -76,10 +76,11 @@ Deploy the quiz application to the OCI compute instance using a remote Docker bu
    - Port mapping: `5432:5432` (internal to Docker network)
 
 2. **Data Directory Setup**
-   - Ensure `/opt/quiz-app/data/postgres` has correct permissions (999:999)
-   - Set directory permissions to 750 for security (PostgreSQL user needs read/write/execute)
+   - Verify `/opt/quiz-app/data/postgres` has correct permissions (999:999) - **Should be configured during infrastructure creation**
+   - Confirm directory permissions are 750 for security (PostgreSQL user needs read/write/execute)
    - Create database initialization if needed
-   - **CRITICAL**: Must set ownership to `999:999` before container startup to prevent permission denied errors
+   - **NOTE**: Permissions should already be set by infrastructure creation script (`02-create-infrastructure.sh`)
+   - **FALLBACK**: If permissions are incorrect, fix them before container startup to prevent permission denied errors
 
 3. **Database Container Deployment**
    ```bash
