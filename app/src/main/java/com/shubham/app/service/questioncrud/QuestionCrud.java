@@ -77,7 +77,7 @@ public class QuestionCrud {
             Integer userOptedAnswers = userOptedAnswersList.get(i);
             Integer ansActual = mp.get(Long.valueOf(questionId));
 
-            logger.debug("questionId : {} & userOptedAnswers : {} & ansActual : {}", questionId, userOptedAnswers,
+            logger.info("questionId : {} & userOptedAnswers : {} & ansActual : {}", questionId, userOptedAnswers,
                     ansActual);
             if (ansActual != null && userOptedAnswers != null
                     && Objects.equals(ansActual, Math.toIntExact(userOptedAnswers))) {
