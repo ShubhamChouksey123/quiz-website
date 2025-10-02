@@ -64,7 +64,19 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         List<Integer> questionIdsList = questionsUtils.convertStringQuestionsToList(questionIdsString);
         List<Integer> userOptedAnswersList = questionsUtils.convertStringQuestionsToList(userOptedAnswers);
 
-        List<Question> questions = questionCrud.getQuestionsFromQuestionIds(questionIdsList);
+        List<Question> questionsFromDb = questionCrud.getQuestionsFromQuestionIds(questionIdsList);
+
+        // Sort questions to match the order of questionIdsList
+        // Database query with IN clause doesn't guarantee order
+        List<Question> questions = new ArrayList<>();
+        for (Integer questionId : questionIdsList) {
+            for (Question q : questionsFromDb) {
+                if (q.getQuestionId().equals(Long.valueOf(questionId))) {
+                    questions.add(q);
+                    break;
+                }
+            }
+        }
 
         List<EachQuestion> questionsResults = new ArrayList<>();
 
@@ -78,7 +90,7 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
             questionsResults.add(eachQuestion);
 
             setAllBorderColorsOfOptions(eachQuestion);
-            logger.debug("eachQuestion : {}", eachQuestion);
+            logger.info("eachQuestion : {}", eachQuestion);
         }
 
         Integer score = questionCrud.calculateAndSaveScore(name, email, questionIdsList, userOptedAnswersList,
@@ -105,13 +117,19 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
     }
 
     private String getBorderColor(Integer ans, Integer userOptedAnswer, Integer option) {
+        logger.debug("getBorderColor - ans: {}, userOptedAnswer: {}, option: {}", ans, userOptedAnswer, option);
+
         if (Objects.equals(ans, userOptedAnswer) && Objects.equals(userOptedAnswer, option)) {
+            logger.debug("Returning blue-border");
             return "blue-border";
         } else if (!Objects.equals(ans, option) && Objects.equals(userOptedAnswer, option)) {
+            logger.debug("Returning red-border");
             return "red-border";
         } else if (Objects.equals(ans, option) && !Objects.equals(userOptedAnswer, option)) {
+            logger.debug("Returning green-border");
             return "green-border";
         }
+        logger.debug("Returning default-border");
         return "default-border";
     }
 

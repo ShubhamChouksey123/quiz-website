@@ -76,13 +76,14 @@ public class QuestionDAOImpl implements QuestionDAO {
         Root<Question> root = query.from(Question.class);
 
         query.select(root);
-        logger.info("fetching n : {} questions ", n);
+        // Order by random to get random questions from database
+        query.orderBy(cb.asc(cb.function("RANDOM", Double.class)));
 
         List<Question> questionList = new ArrayList<>();
         try {
             questionList = em.createQuery(query).setMaxResults(n).getResultList();
         } catch (Exception e) {
-            logger.warn("Couldn't find a suitable claim : {}", e.getMessage());
+            logger.error("Error fetching random questions: {}", e.getMessage());
         }
 
         return questionList;
