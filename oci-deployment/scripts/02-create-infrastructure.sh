@@ -445,9 +445,9 @@ fi
 # Set up PostgreSQL data directory with correct permissions
 log_info "Setting up PostgreSQL data directory with correct permissions..."
 ssh -i ~/.ssh/id_rsa -o ConnectTimeout=20 -o StrictHostKeyChecking=no opc@"$PUBLIC_IP" << 'EOF'
-# Create PostgreSQL data directory with correct permissions
+# Create PostgreSQL data directory with correct permissions for PostgreSQL 14-alpine (UID 70, GID 70)
 sudo mkdir -p /opt/quiz-app/data/postgres
-sudo chown -R 999:999 /opt/quiz-app/data/postgres
+sudo chown -R 70:70 /opt/quiz-app/data/postgres
 sudo find /opt/quiz-app/data/postgres -type d -exec chmod 750 {} \; 2>/dev/null || true
 sudo find /opt/quiz-app/data/postgres -type f -exec chmod 640 {} \; 2>/dev/null || true
 
@@ -455,7 +455,7 @@ sudo find /opt/quiz-app/data/postgres -type f -exec chmod 640 {} \; 2>/dev/null 
 sudo mkdir -p /opt/quiz-app/logs
 sudo chown -R opc:opc /opt/quiz-app/logs
 
-echo "PostgreSQL data directory permissions configured"
+echo "PostgreSQL data directory permissions configured (UID 70, GID 70 for postgres:14-alpine)"
 
 # Verify permissions
 echo "Verifying PostgreSQL data directory permissions:"

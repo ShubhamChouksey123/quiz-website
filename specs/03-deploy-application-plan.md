@@ -76,9 +76,10 @@ Deploy the quiz application to the OCI compute instance using a remote Docker bu
    - Port mapping: `5432:5432` (internal to Docker network)
 
 2. **Data Directory Setup**
-   - Verify `/opt/quiz-app/data/postgres` has correct permissions (999:999) - **Should be configured during infrastructure creation**
+   - Verify `/opt/quiz-app/data/postgres` has correct permissions (70:70) - **Should be configured during infrastructure creation**
    - Confirm directory permissions are 750 for security (PostgreSQL user needs read/write/execute)
    - Create database initialization if needed
+   - **NOTE**: PostgreSQL 14-alpine uses UID 70, GID 70 (not 999)
    - **NOTE**: Permissions should already be set by infrastructure creation script (`02-create-infrastructure.sh`)
    - **FALLBACK**: If permissions are incorrect, fix them before container startup to prevent permission denied errors
 
@@ -255,9 +256,9 @@ DOCKER_IMAGE=ap-mumbai-1.ocir.io/NAMESPACE/quiz-app:latest
 
 4. **PostgreSQL Permission Denied Errors**
    - **Symptoms**: PostgreSQL logs show "FATAL: could not open file global/pg_filenode.map: Permission denied"
-   - **Root Cause**: Data directory `/opt/quiz-app/data/postgres` has incorrect ownership
-   - **Solution**: Stop containers, run `sudo chown -R 999:999 /opt/quiz-app/data/postgres && sudo chmod -R 750 /opt/quiz-app/data/postgres`, restart containers
-   - **Prevention**: Ensure proper permissions are set during initial deployment
+   - **Root Cause**: Data directory `/opt/quiz-app/data/postgres` has incorrect ownership (PostgreSQL 14-alpine uses UID 70, GID 70)
+   - **Solution**: Stop containers, run `sudo chown -R 70:70 /opt/quiz-app/data/postgres && sudo chmod -R 750 /opt/quiz-app/data/postgres`, restart containers
+   - **Prevention**: Ensure proper permissions (70:70) are set during initial deployment
 
 4. **OCIR Authentication Issues**
    - Verify auth token validity

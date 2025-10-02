@@ -170,7 +170,7 @@ FATAL: could not open file "global/pg_filenode.map": Permission denied
 ```bash
 ssh -i ~/.ssh/id_rsa opc@161.118.188.237 \
   "cd /opt/quiz-app && docker compose down && \
-   sudo chown -R 999:999 /opt/quiz-app/data/postgres && \
+   sudo chown -R 70:70 /opt/quiz-app/data/postgres && \
    sudo chmod -R 750 /opt/quiz-app/data/postgres && \
    docker compose up -d"
 ```

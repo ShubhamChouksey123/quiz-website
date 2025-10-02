@@ -223,13 +223,14 @@ echo "Checking PostgreSQL data directory status..."
 if [ -d "/opt/quiz-app/data/postgres" ]; then
     echo "PostgreSQL data directory exists"
 
-    # Check ownership
-    OWNER_CHECK=$(stat -c '%U:%G' /opt/quiz-app/data/postgres 2>/dev/null || echo "unknown")
-    if [ "$OWNER_CHECK" = "systemd-coredump:input" ]; then
-        echo "✅ PostgreSQL data directory ownership is correct (999:999)"
+    # Check ownership (PostgreSQL alpine uses UID 70, GID 70)
+    OWNER_UID=$(stat -c '%u' /opt/quiz-app/data/postgres 2>/dev/null || echo "unknown")
+    OWNER_GID=$(stat -c '%g' /opt/quiz-app/data/postgres 2>/dev/null || echo "unknown")
+    if [ "$OWNER_UID" = "70" ] && [ "$OWNER_GID" = "70" ]; then
+        echo "✅ PostgreSQL data directory ownership is correct (70:70)"
         PERMISSIONS_OK=true
     else
-        echo "⚠️  PostgreSQL data directory ownership: $OWNER_CHECK - needs fixing"
+        echo "⚠️  PostgreSQL data directory ownership: $OWNER_UID:$OWNER_GID - needs fixing (should be 70:70)"
         PERMISSIONS_OK=false
     fi
 else
@@ -241,7 +242,7 @@ fi
 if [ "$PERMISSIONS_OK" != "true" ]; then
     echo "Fixing PostgreSQL data directory permissions..."
     sudo mkdir -p /opt/quiz-app/data/postgres
-    sudo chown -R 999:999 /opt/quiz-app/data/postgres
+    sudo chown -R 70:70 /opt/quiz-app/data/postgres
     sudo chmod -R 750 /opt/quiz-app/data/postgres
     echo "PostgreSQL data directory permissions fixed"
 else
@@ -257,11 +258,12 @@ echo "Final verification of PostgreSQL data directory permissions:"
 ls -ld /opt/quiz-app/data/postgres 2>/dev/null || echo "Directory will be created by PostgreSQL"
 
 # Check if ownership is correct after potential fix
-FINAL_OWNER_CHECK=$(stat -c '%U:%G' /opt/quiz-app/data/postgres 2>/dev/null || echo "unknown")
-if [ "$FINAL_OWNER_CHECK" = "systemd-coredump:input" ]; then
-    echo "✅ Final verification: PostgreSQL data directory ownership is correct (999:999)"
+FINAL_UID=$(stat -c '%u' /opt/quiz-app/data/postgres 2>/dev/null || echo "unknown")
+FINAL_GID=$(stat -c '%g' /opt/quiz-app/data/postgres 2>/dev/null || echo "unknown")
+if [ "$FINAL_UID" = "70" ] && [ "$FINAL_GID" = "70" ]; then
+    echo "✅ Final verification: PostgreSQL data directory ownership is correct (70:70)"
 else
-    echo "❌ Final verification: PostgreSQL data directory ownership: $FINAL_OWNER_CHECK"
+    echo "❌ Final verification: PostgreSQL data directory ownership: $FINAL_UID:$FINAL_GID (expected 70:70)"
     echo "This may cause PostgreSQL permission denied errors during startup"
 fi
 EOF
@@ -462,7 +464,7 @@ log_info "Troubleshooting Common Issues:"
 echo "  🔧 PostgreSQL Permission Denied Errors (SHOULD BE PREVENTED):"
 echo "     - Symptoms: PostgreSQL logs show 'FATAL: could not open file global/pg_filenode.map: Permission denied'"
 echo "     - Prevention: This script now verifies and fixes permissions in Phase 3"
-echo "     - Emergency Fix: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker compose down && sudo chown -R 999:999 /opt/quiz-app/data/postgres && sudo chmod -R 750 /opt/quiz-app/data/postgres && docker compose up -d'"
+echo "     - Emergency Fix: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker compose down && sudo chown -R 70:70 /opt/quiz-app/data/postgres && sudo chmod -R 750 /opt/quiz-app/data/postgres && docker compose up -d'"
 echo "  🔧 Application Health Check Failures:"
 echo "     - Wait 2-3 minutes for full startup, check logs for specific errors"
 echo "     - Verify database connectivity: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker compose logs postgres'"
