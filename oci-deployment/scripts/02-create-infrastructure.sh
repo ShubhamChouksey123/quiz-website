@@ -442,6 +442,32 @@ else
     log_warning "Application directory not yet ready - cloud-init may still be running"
 fi
 
+# Set up PostgreSQL data directory with correct permissions
+log_info "Setting up PostgreSQL data directory with correct permissions..."
+ssh -i ~/.ssh/id_rsa -o ConnectTimeout=20 -o StrictHostKeyChecking=no opc@"$PUBLIC_IP" << 'EOF'
+# Create PostgreSQL data directory with correct permissions
+sudo mkdir -p /opt/quiz-app/data/postgres
+sudo chown -R 999:999 /opt/quiz-app/data/postgres
+sudo find /opt/quiz-app/data/postgres -type d -exec chmod 750 {} \; 2>/dev/null || true
+sudo find /opt/quiz-app/data/postgres -type f -exec chmod 640 {} \; 2>/dev/null || true
+
+# Create logs directory
+sudo mkdir -p /opt/quiz-app/logs
+sudo chown -R opc:opc /opt/quiz-app/logs
+
+echo "PostgreSQL data directory permissions configured"
+
+# Verify permissions
+echo "Verifying PostgreSQL data directory permissions:"
+ls -ld /opt/quiz-app/data/postgres 2>/dev/null || echo "PostgreSQL data directory will be created during deployment"
+EOF
+
+if [ $? -eq 0 ]; then
+    log_success "PostgreSQL data directory permissions configured successfully"
+else
+    log_warning "PostgreSQL data directory setup encountered issues - will be handled during deployment"
+fi
+
 echo ""
 log_success "=== Infrastructure Creation Complete! ==="
 echo ""
