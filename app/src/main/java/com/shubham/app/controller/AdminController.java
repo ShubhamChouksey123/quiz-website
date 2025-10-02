@@ -53,30 +53,30 @@ public class AdminController {
         return new RedirectView("/admin");
     }
 
-    @PostMapping(value = {"/delete-question"})
-    @ResponseBody
-    public RedirectView deleteQuestion(@RequestParam(value = "questionId") Long questionId,
-                                       RedirectAttributes redirectAttrs) {
-
-        logger.info("attempting to delete question with questionId: {}", questionId);
-
-        try {
-            boolean deleted = questionCrud.removeQuestions(questionId);
-            if (deleted) {
-                logger.info("successfully deleted question with questionId: {}", questionId);
-                redirectAttrs.addFlashAttribute("successMessage",
-                        "Question " + questionId + " has been successfully deleted.");
-            } else {
-                logger.warn("failed to delete question with questionId: {}", questionId);
-                redirectAttrs.addFlashAttribute("errorMessage",
-                        "Failed to delete question " + questionId + ". Question may not exist.");
-            }
-        } catch (Exception e) {
-            logger.error("error occurred while deleting question with questionId: {}", questionId, e);
-            redirectAttrs.addFlashAttribute("errorMessage",
-                    "An error occurred while deleting question " + questionId + ": " + e.getMessage());
-        }
-
-        return new RedirectView("/admin");
-    }
+//    @PostMapping(value = {"/delete-question"})
+//    @ResponseBody
+//    public RedirectView deleteQuestion(@RequestParam(value = "questionId") Long questionId,
+//                                       RedirectAttributes redirectAttrs) {
+//
+//        logger.info("attempting to delete question with questionId: {}", questionId);
+//
+//        try {
+//            boolean deleted = questionCrud.removeQuestions(questionId);
+//            if (deleted) {
+//                logger.info("successfully deleted question with questionId: {}", questionId);
+//                redirectAttrs.addFlashAttribute("successMessage",
+//                        "Question " + questionId + " has been successfully deleted.");
+//            } else {
+//                logger.warn("failed to delete question with questionId: {}", questionId);
+//                redirectAttrs.addFlashAttribute("errorMessage",
+//                        "Failed to delete question " + questionId + ". Question may not exist.");
+//            }
+//        } catch (Exception e) {
+//            logger.error("error occurred while deleting question with questionId: {}", questionId, e);
+//            redirectAttrs.addFlashAttribute("errorMessage",
+//                    "An error occurred while deleting question " + questionId + ": " + e.getMessage());
+//        }
+//
+//        return new RedirectView("/admin");
+//    }
 }

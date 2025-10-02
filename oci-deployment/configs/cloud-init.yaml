@@ -41,10 +41,10 @@ runcmd:
   - chown -R opc:opc /opt/quiz-app
   - chmod 755 /opt/quiz-app
 
-  # Create data directory with proper permissions
+  # Create data directory with proper permissions for PostgreSQL 14-alpine (UID 70, GID 70)
   - mkdir -p /opt/quiz-app/data/postgres
-  - chown -R 999:999 /opt/quiz-app/data/postgres
-  - chmod 700 /opt/quiz-app/data/postgres
+  - chown -R 70:70 /opt/quiz-app/data/postgres
+  - chmod 750 /opt/quiz-app/data/postgres
 
   # Configure firewall for application
   - firewall-cmd --permanent --add-port=8080/tcp
