@@ -220,16 +220,29 @@ ssh -i ~/.ssh/id_rsa -o ConnectTimeout=20 -o StrictHostKeyChecking=no opc@"$PUBL
 # Ensure data directory exists with correct permissions
 sudo mkdir -p /opt/quiz-app/data/postgres
 sudo chown -R 999:999 /opt/quiz-app/data/postgres
-sudo chmod 700 /opt/quiz-app/data/postgres
+sudo chmod -R 750 /opt/quiz-app/data/postgres
 
 # Ensure logs directory exists
 sudo mkdir -p /opt/quiz-app/logs
 sudo chown -R opc:opc /opt/quiz-app/logs
 
 echo "Database directory permissions configured"
+
+# Verify permissions are correctly set
+echo "Verifying PostgreSQL data directory permissions..."
+ls -la /opt/quiz-app/data/
+ls -ld /opt/quiz-app/data/postgres
+
+# Check if ownership is correct
+OWNER_CHECK=$(stat -c '%U:%G' /opt/quiz-app/data/postgres 2>/dev/null || echo "unknown")
+if [ "$OWNER_CHECK" = "systemd-coredump:input" ]; then
+    echo "✅ PostgreSQL data directory ownership is correct (999:999)"
+else
+    echo "⚠️  PostgreSQL data directory ownership: $OWNER_CHECK"
+fi
 EOF
 
-log_success "Database directory permissions configured"
+log_success "Database directory permissions configured and verified"
 
 echo ""
 
@@ -419,6 +432,15 @@ echo ""
 
 log_info "If application is not immediately accessible, wait 2-3 minutes for full startup"
 log_info "Monitor logs with: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker compose logs -f quiz-app'"
+
+echo ""
+log_info "Troubleshooting Common Issues:"
+echo "  🔧 PostgreSQL Permission Denied Errors:"
+echo "     - Symptoms: PostgreSQL logs show 'FATAL: could not open file global/pg_filenode.map: Permission denied'"
+echo "     - Fix: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker compose down && sudo chown -R 999:999 /opt/quiz-app/data/postgres && sudo chmod -R 750 /opt/quiz-app/data/postgres && docker compose up -d'"
+echo "  🔧 Application Health Check Failures:"
+echo "     - Wait 2-3 minutes for full startup, check logs for specific errors"
+echo "     - Verify database connectivity: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker compose logs postgres'"
 
 echo ""
 log_success "Deployment completed successfully!"

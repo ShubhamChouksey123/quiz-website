@@ -392,27 +392,15 @@ function showExistingSelectedOption(currentQuestion) {
   var userOptedAnswersArray = JSON.parse(userOptedAnswersJSON);
   var selectedOption = userOptedAnswersArray[currentQuestion - 1];
 
-  document.getElementById("optionALabel").style.background = "null";
-  document.getElementById("optionBLabel").style.background = "null";
-  document.getElementById("optionCLabel").style.background = "null";
-  document.getElementById("optionDLabel").style.background = "null";
-
+  // Reset all option labels to default state
   document.getElementById("optionALabel").style.removeProperty('background');
   document.getElementById("optionBLabel").style.removeProperty('background');
   document.getElementById("optionCLabel").style.removeProperty('background');
   document.getElementById("optionDLabel").style.removeProperty('background');
 
-  if (selectedOption === 0) {
-    document.getElementById("optionALabel").style.background = "#fa2a00";
-  }
-  else if (selectedOption === 1) {
-    document.getElementById("optionBLabel").style.background = "#fa2a00";
-  }
-  else if (selectedOption === 2) {
-    document.getElementById("optionCLabel").style.background = "#fa2a00";
-  }
-  else if (selectedOption === 3) {
-    document.getElementById("optionDLabel").style.background = "#fa2a00";
+  // Only highlight if an option was previously selected (not null/undefined)
+  if (selectedOption !== null && selectedOption !== undefined) {
+    highlightSelectedOption(selectedOption);
   }
 
 }
@@ -468,7 +456,7 @@ function onClickPreviousQuestionButton() {
 }
 
 /**
- * taking user input when he clicks the options 
+ * taking user input when he clicks the options
  */
 function optionSelected(selectedOption) {
   let currentQuestionValue = Number(document.getElementById("questionNumberToShow").value);
@@ -483,7 +471,39 @@ function optionSelected(selectedOption) {
   document.getElementById("userOptedAnswers").value = userOptedAnswersJSONNew;
   console.log("userOptedAnswers new : " + document.getElementById("userOptedAnswers").value);
 
-  showExistingSelectedOption(currentQuestionValue);
+  // Immediately highlight the selected option
+  highlightSelectedOption(selectedOption);
+}
+
+/**
+ * Highlight the selected option with visual feedback
+ */
+function highlightSelectedOption(selectedOption) {
+  // Reset all option labels to default state - remove both inline styles and CSS classes
+  const optionLabels = [
+    document.getElementById("optionALabel"),
+    document.getElementById("optionBLabel"),
+    document.getElementById("optionCLabel"),
+    document.getElementById("optionDLabel")
+  ];
+
+  optionLabels.forEach(label => {
+    label.style.removeProperty('background');
+    label.style.removeProperty('border-color');
+    label.style.removeProperty('color');
+    label.classList.remove('selected');
+  });
+
+  // Add 'selected' class to the chosen option for visual feedback
+  if (selectedOption === 0) {
+    document.getElementById("optionALabel").classList.add('selected');
+  } else if (selectedOption === 1) {
+    document.getElementById("optionBLabel").classList.add('selected');
+  } else if (selectedOption === 2) {
+    document.getElementById("optionCLabel").classList.add('selected');
+  } else if (selectedOption === 3) {
+    document.getElementById("optionDLabel").classList.add('selected');
+  }
 }
 
 
