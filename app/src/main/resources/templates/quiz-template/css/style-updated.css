@@ -42,7 +42,8 @@
     padding: 10px 12px;
     border-radius: 5px;
     cursor: pointer;
-    border: 1px solid #ddd
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
 }
 
 #one:checked~label.first,
@@ -69,7 +70,27 @@
 }
 
 .container1 label.box:hover {
-    background: #fa2a00
+    background: #fa2a00;
+    transform: scale(1.02);
+}
+
+/* Selected option styling */
+.container1 label.box.selected {
+    background: #28a745 !important;
+    border-color: #28a745 !important;
+    color: white !important;
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.container1 label.box.selected .circle {
+    border-color: white !important;
+    background-color: white !important;
+}
+
+.container1 label.box.selected .subject {
+    color: white !important;
+    font-weight: 500;
 }
 
 .container1 label.box .course {
