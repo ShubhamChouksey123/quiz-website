@@ -848,5 +848,3485 @@
         "optionC": "Telephone",
         "optionD": "Radio",
         "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the largest desert in the world?",
+        "optionA": "Sahara Desert",
+        "optionB": "Arabian Desert",
+        "optionC": "Antarctic Desert",
+        "optionD": "Gobi Desert",
+        "answer": 2
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "Who wrote the Declaration of Independence?",
+        "optionA": "George Washington",
+        "optionB": "Thomas Jefferson",
+        "optionC": "Benjamin Franklin",
+        "optionD": "John Adams",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "HIGH",
+        "question": "What is the Heisenberg Uncertainty Principle?",
+        "optionA": "Energy cannot be created or destroyed",
+        "optionB": "You cannot simultaneously know exact position and momentum of a particle",
+        "optionC": "Light always travels at constant speed",
+        "optionD": "Matter and energy are interchangeable",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the maximum break score in snooker?",
+        "optionA": "147",
+        "optionB": "180",
+        "optionC": "150",
+        "optionD": "200",
+        "answer": 0
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "HIGH",
+        "question": "What is quantitative easing?",
+        "optionA": "Raising interest rates",
+        "optionB": "Central bank purchasing government bonds to inject money",
+        "optionC": "Reducing government spending",
+        "optionD": "Increasing taxation",
+        "answer": 1
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "HIGH",
+        "question": "What is the difference between TCP and UDP?",
+        "optionA": "TCP is faster than UDP",
+        "optionB": "UDP guarantees delivery, TCP doesn't",
+        "optionC": "TCP is connection-oriented with guaranteed delivery, UDP is connectionless",
+        "optionD": "There is no difference",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "What is the boiling point of water?",
+        "optionA": "90°C",
+        "optionB": "100°C",
+        "optionC": "110°C",
+        "optionD": "120°C",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "HIGH",
+        "question": "What year did the Roman Empire fall?",
+        "optionA": "410 AD",
+        "optionB": "476 AD",
+        "optionC": "500 AD",
+        "optionD": "550 AD",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the powerhouse of the cell?",
+        "optionA": "Nucleus",
+        "optionB": "Ribosome",
+        "optionC": "Mitochondria",
+        "optionD": "Chloroplast",
+        "answer": 2
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "HIGH",
+        "question": "Which country has won the most Rugby World Cups?",
+        "optionA": "Australia",
+        "optionB": "England",
+        "optionC": "New Zealand",
+        "optionD": "South Africa",
+        "answer": 2
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "MEDIUM",
+        "question": "What does P/E ratio stand for in stock trading?",
+        "optionA": "Profit to Earnings",
+        "optionB": "Price to Equity",
+        "optionC": "Price to Earnings",
+        "optionD": "Performance to Equity",
+        "answer": 2
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "MEDIUM",
+        "question": "What does API stand for?",
+        "optionA": "Application Programming Interface",
+        "optionB": "Advanced Programming Interface",
+        "optionC": "Application Program Integration",
+        "optionD": "Automated Programming Interface",
+        "answer": 0
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "HIGH",
+        "question": "What is the speed of sound in air at sea level?",
+        "optionA": "243 m/s",
+        "optionB": "343 m/s",
+        "optionC": "443 m/s",
+        "optionD": "543 m/s",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "LOW",
+        "question": "In which city was John F. Kennedy assassinated?",
+        "optionA": "New York",
+        "optionB": "Washington D.C.",
+        "optionC": "Dallas",
+        "optionD": "Los Angeles",
+        "answer": 2
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "LOW",
+        "question": "What does DNA stand for?",
+        "optionA": "Deoxyribonucleic Acid",
+        "optionB": "Digital Network Access",
+        "optionC": "Dynamic Natural Algorithm",
+        "optionD": "Detailed Nucleic Arrangement",
+        "answer": 0
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "LOW",
+        "question": "How many rings are on the Olympic flag?",
+        "optionA": "4",
+        "optionB": "5",
+        "optionC": "6",
+        "optionD": "7",
+        "answer": 1
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "LOW",
+        "question": "What is a mortgage?",
+        "optionA": "A type of savings account",
+        "optionB": "A loan to buy property",
+        "optionC": "A credit card",
+        "optionD": "An insurance policy",
+        "answer": 1
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "HIGH",
+        "question": "What is the purpose of a hash function in data structures?",
+        "optionA": "To sort data alphabetically",
+        "optionB": "To map data to fixed-size values for fast lookup",
+        "optionC": "To encrypt sensitive information",
+        "optionD": "To compress large files",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the longest river in the world?",
+        "optionA": "Amazon River",
+        "optionB": "Nile River",
+        "optionC": "Yangtze River",
+        "optionD": "Mississippi River",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "Which ancient wonder is still standing today?",
+        "optionA": "Hanging Gardens of Babylon",
+        "optionB": "Colossus of Rhodes",
+        "optionC": "Great Pyramid of Giza",
+        "optionD": "Lighthouse of Alexandria",
+        "answer": 2
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "HIGH",
+        "question": "What is CRISPR used for?",
+        "optionA": "Weather forecasting",
+        "optionB": "Gene editing",
+        "optionC": "Ocean exploration",
+        "optionD": "Space travel",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the diameter of a basketball hoop in inches?",
+        "optionA": "16 inches",
+        "optionB": "18 inches",
+        "optionC": "20 inches",
+        "optionD": "22 inches",
+        "answer": 1
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "HIGH",
+        "question": "What is a hedge fund?",
+        "optionA": "A government savings program",
+        "optionB": "An investment fund using diverse strategies for high returns",
+        "optionC": "A retirement account",
+        "optionD": "A type of bank account",
+        "answer": 1
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "LOW",
+        "question": "What does USB stand for?",
+        "optionA": "Universal Serial Bus",
+        "optionB": "United System Base",
+        "optionC": "Uniform Serial Bus",
+        "optionD": "Universal System Bus",
+        "answer": 0
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "How many legs does an insect have?",
+        "optionA": "4",
+        "optionB": "6",
+        "optionC": "8",
+        "optionD": "10",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "HIGH",
+        "question": "Who was the first Holy Roman Emperor?",
+        "optionA": "Julius Caesar",
+        "optionB": "Charlemagne",
+        "optionC": "Constantine",
+        "optionD": "Augustus",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "MEDIUM",
+        "question": "What type of bond shares electrons between atoms?",
+        "optionA": "Ionic bond",
+        "optionB": "Covalent bond",
+        "optionC": "Metallic bond",
+        "optionD": "Hydrogen bond",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "LOW",
+        "question": "In which sport would you perform a slam dunk?",
+        "optionA": "Volleyball",
+        "optionB": "Basketball",
+        "optionC": "Tennis",
+        "optionD": "Soccer",
+        "answer": 1
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "MEDIUM",
+        "question": "What is liquidity in finance?",
+        "optionA": "How quickly assets can be converted to cash",
+        "optionB": "Total amount of money in circulation",
+        "optionC": "Interest rate on loans",
+        "optionD": "Stock market volatility",
+        "answer": 0
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "MEDIUM",
+        "question": "What is polymorphism in object-oriented programming?",
+        "optionA": "Having multiple variables",
+        "optionB": "Ability of objects to take multiple forms",
+        "optionC": "Using multiple programming languages",
+        "optionD": "Creating multiple files",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the main ingredient in guacamole?",
+        "optionA": "Tomato",
+        "optionB": "Avocado",
+        "optionC": "Pepper",
+        "optionD": "Onion",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "LOW",
+        "question": "What ship sank in 1912?",
+        "optionA": "Lusitania",
+        "optionB": "Titanic",
+        "optionC": "Britannic",
+        "optionD": "Olympic",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "LOW",
+        "question": "What planet is known as the Red Planet?",
+        "optionA": "Venus",
+        "optionB": "Mars",
+        "optionC": "Jupiter",
+        "optionD": "Saturn",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "HIGH",
+        "question": "What is the only Grand Slam played on grass?",
+        "optionA": "Australian Open",
+        "optionB": "French Open",
+        "optionC": "Wimbledon",
+        "optionD": "US Open",
+        "answer": 2
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "LOW",
+        "question": "What is interest?",
+        "optionA": "Money borrowed",
+        "optionB": "Cost of borrowing money",
+        "optionC": "A type of investment",
+        "optionD": "Monthly payment",
+        "answer": 1
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "HIGH",
+        "question": "What is the purpose of a virtual machine?",
+        "optionA": "To speed up computer processing",
+        "optionB": "To run an operating system within another OS",
+        "optionC": "To store data permanently",
+        "optionD": "To connect to the internet",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "HIGH",
+        "question": "What is the rarest blood type?",
+        "optionA": "O negative",
+        "optionB": "AB negative",
+        "optionC": "A negative",
+        "optionD": "B negative",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "What was the name of the first satellite in space?",
+        "optionA": "Apollo 1",
+        "optionB": "Sputnik 1",
+        "optionC": "Explorer 1",
+        "optionD": "Vostok 1",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the study of fungi called?",
+        "optionA": "Botany",
+        "optionB": "Mycology",
+        "optionC": "Zoology",
+        "optionD": "Ecology",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "MEDIUM",
+        "question": "What is a perfect score in gymnastics?",
+        "optionA": "9",
+        "optionB": "10",
+        "optionC": "100",
+        "optionD": "15",
+        "answer": 1
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "MEDIUM",
+        "question": "What does ROI stand for?",
+        "optionA": "Rate of Interest",
+        "optionB": "Return on Investment",
+        "optionC": "Revenue of Income",
+        "optionD": "Ratio of Inflation",
+        "answer": 1
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "MEDIUM",
+        "question": "What is SQL used for?",
+        "optionA": "Creating websites",
+        "optionB": "Managing databases",
+        "optionC": "Editing images",
+        "optionD": "Playing video games",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "What color is a ruby?",
+        "optionA": "Blue",
+        "optionB": "Green",
+        "optionC": "Red",
+        "optionD": "Yellow",
+        "answer": 2
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "LOW",
+        "question": "Who invented the light bulb?",
+        "optionA": "Nikola Tesla",
+        "optionB": "Thomas Edison",
+        "optionC": "Benjamin Franklin",
+        "optionD": "Alexander Graham Bell",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "HIGH",
+        "question": "What is the Turing Test?",
+        "optionA": "A computer performance benchmark",
+        "optionB": "A test of machine's ability to exhibit intelligent behavior",
+        "optionC": "A network speed test",
+        "optionD": "A security protocol",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "LOW",
+        "question": "How many players are on a volleyball team on the court?",
+        "optionA": "5",
+        "optionB": "6",
+        "optionC": "7",
+        "optionD": "8",
+        "answer": 1
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "HIGH",
+        "question": "What is arbitrage?",
+        "optionA": "Long-term investment strategy",
+        "optionB": "Profiting from price differences in different markets",
+        "optionC": "Government regulation",
+        "optionD": "Tax evasion strategy",
+        "answer": 1
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "LOW",
+        "question": "What does RAM stand for?",
+        "optionA": "Random Access Memory",
+        "optionB": "Rapid Access Memory",
+        "optionC": "Read Access Memory",
+        "optionD": "Remote Access Memory",
+        "answer": 0
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the capital of Australia?",
+        "optionA": "Sydney",
+        "optionB": "Melbourne",
+        "optionC": "Canberra",
+        "optionD": "Brisbane",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "What is the capital of India?",
+        "optionA": "Mumbai",
+        "optionB": "New Delhi",
+        "optionC": "Kolkata",
+        "optionD": "Chennai",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which is the largest state in India by area?",
+        "optionA": "Madhya Pradesh",
+        "optionB": "Maharashtra",
+        "optionC": "Rajasthan",
+        "optionD": "Uttar Pradesh",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "What is the national animal of India?",
+        "optionA": "Lion",
+        "optionB": "Tiger",
+        "optionC": "Elephant",
+        "optionD": "Peacock",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which river is considered the holiest in India?",
+        "optionA": "Yamuna",
+        "optionB": "Godavari",
+        "optionC": "Ganges",
+        "optionD": "Brahmaputra",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "What is the national bird of India?",
+        "optionA": "Peacock",
+        "optionB": "Parrot",
+        "optionC": "Eagle",
+        "optionD": "Sparrow",
+        "answer": 0
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which Indian city is known as the Silicon Valley of India?",
+        "optionA": "Hyderabad",
+        "optionB": "Pune",
+        "optionC": "Bangalore",
+        "optionD": "Chennai",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "HIGH",
+        "question": "How many official languages are recognized in the Indian Constitution?",
+        "optionA": "18",
+        "optionB": "20",
+        "optionC": "22",
+        "optionD": "24",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which monument is also known as the Symbol of Love?",
+        "optionA": "Red Fort",
+        "optionB": "Taj Mahal",
+        "optionC": "Qutub Minar",
+        "optionD": "India Gate",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "In which city is the Taj Mahal located?",
+        "optionA": "Delhi",
+        "optionB": "Jaipur",
+        "optionC": "Agra",
+        "optionD": "Lucknow",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which Indian festival is known as the Festival of Lights?",
+        "optionA": "Holi",
+        "optionB": "Diwali",
+        "optionC": "Navratri",
+        "optionD": "Durga Puja",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "What is the currency of India?",
+        "optionA": "Rupee",
+        "optionB": "Dollar",
+        "optionC": "Pound",
+        "optionD": "Yen",
+        "answer": 0
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "LOW",
+        "question": "When did India gain independence?",
+        "optionA": "1945",
+        "optionB": "1946",
+        "optionC": "1947",
+        "optionD": "1948",
+        "answer": 2
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "Who was the first Prime Minister of India?",
+        "optionA": "Mahatma Gandhi",
+        "optionB": "Jawaharlal Nehru",
+        "optionC": "Sardar Patel",
+        "optionD": "Dr. Rajendra Prasad",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "LOW",
+        "question": "Who is known as the Father of the Nation in India?",
+        "optionA": "Bhagat Singh",
+        "optionB": "Mahatma Gandhi",
+        "optionC": "Subhas Chandra Bose",
+        "optionD": "Jawaharlal Nehru",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "HIGH",
+        "question": "In which year was the Jallianwala Bagh massacre?",
+        "optionA": "1917",
+        "optionB": "1918",
+        "optionC": "1919",
+        "optionD": "1920",
+        "answer": 2
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "Who built the Taj Mahal?",
+        "optionA": "Akbar",
+        "optionB": "Shah Jahan",
+        "optionC": "Aurangzeb",
+        "optionD": "Humayun",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "HIGH",
+        "question": "Who was the founder of the Maurya Empire?",
+        "optionA": "Ashoka",
+        "optionB": "Chandragupta Maurya",
+        "optionC": "Bindusara",
+        "optionD": "Samudragupta",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "Which Indian emperor spread Buddhism across Asia?",
+        "optionA": "Chandragupta",
+        "optionB": "Ashoka",
+        "optionC": "Akbar",
+        "optionD": "Harsha",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "HIGH",
+        "question": "When did the Quit India Movement start?",
+        "optionA": "1940",
+        "optionB": "1941",
+        "optionC": "1942",
+        "optionD": "1943",
+        "answer": 2
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "Who was the first woman Prime Minister of India?",
+        "optionA": "Sonia Gandhi",
+        "optionB": "Indira Gandhi",
+        "optionC": "Pratibha Patil",
+        "optionD": "Sarojini Naidu",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "LOW",
+        "question": "Which is the national sport of India?",
+        "optionA": "Cricket",
+        "optionB": "Hockey",
+        "optionC": "Football",
+        "optionD": "Kabaddi",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "MEDIUM",
+        "question": "Who is known as the Master Blaster in cricket?",
+        "optionA": "Virat Kohli",
+        "optionB": "MS Dhoni",
+        "optionC": "Sachin Tendulkar",
+        "optionD": "Kapil Dev",
+        "answer": 2
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "HIGH",
+        "question": "In which year did India win its first Cricket World Cup?",
+        "optionA": "1975",
+        "optionB": "1979",
+        "optionC": "1983",
+        "optionD": "1987",
+        "answer": 2
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "MEDIUM",
+        "question": "Who was the first Indian to win an individual Olympic gold medal?",
+        "optionA": "PV Sindhu",
+        "optionB": "Abhinav Bindra",
+        "optionC": "Neeraj Chopra",
+        "optionD": "Sushil Kumar",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "HIGH",
+        "question": "Who won the gold medal in javelin throw at Tokyo Olympics 2020?",
+        "optionA": "Abhinav Bindra",
+        "optionB": "Neeraj Chopra",
+        "optionC": "Vijender Singh",
+        "optionD": "Sushil Kumar",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "MEDIUM",
+        "question": "Which Indian cricketer has the highest number of international centuries?",
+        "optionA": "Virat Kohli",
+        "optionB": "Sachin Tendulkar",
+        "optionC": "Rahul Dravid",
+        "optionD": "Sourav Ganguly",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "LOW",
+        "question": "What is the premier cricket league in India called?",
+        "optionA": "IPL",
+        "optionB": "ISL",
+        "optionC": "PKL",
+        "optionD": "IBL",
+        "answer": 0
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "MEDIUM",
+        "question": "Who captained India to victory in the 2011 Cricket World Cup?",
+        "optionA": "Virat Kohli",
+        "optionB": "MS Dhoni",
+        "optionC": "Sachin Tendulkar",
+        "optionD": "Gautam Gambhir",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which Indian state is famous for its backwaters?",
+        "optionA": "Goa",
+        "optionB": "Kerala",
+        "optionC": "Karnataka",
+        "optionD": "Tamil Nadu",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "HIGH",
+        "question": "Which is the highest mountain peak entirely within India?",
+        "optionA": "Kanchenjunga",
+        "optionB": "Nanda Devi",
+        "optionC": "K2",
+        "optionD": "Kamet",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which Indian city is known as the Pink City?",
+        "optionA": "Udaipur",
+        "optionB": "Jodhpur",
+        "optionC": "Jaipur",
+        "optionD": "Jaisalmer",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "Which festival involves playing with colors?",
+        "optionA": "Diwali",
+        "optionB": "Holi",
+        "optionC": "Eid",
+        "optionD": "Christmas",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which is the longest beach in India?",
+        "optionA": "Juhu Beach",
+        "optionB": "Marina Beach",
+        "optionC": "Palolem Beach",
+        "optionD": "Calangute Beach",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "HIGH",
+        "question": "Which Indian state has the highest literacy rate?",
+        "optionA": "Tamil Nadu",
+        "optionB": "Maharashtra",
+        "optionC": "Kerala",
+        "optionD": "Gujarat",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the traditional Indian festival celebrated in January?",
+        "optionA": "Diwali",
+        "optionB": "Makar Sankranti",
+        "optionC": "Holi",
+        "optionD": "Durga Puja",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "Which Indian city is home to Bollywood?",
+        "optionA": "Delhi",
+        "optionB": "Mumbai",
+        "optionC": "Kolkata",
+        "optionD": "Hyderabad",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "LOW",
+        "question": "Who designed the Indian National Flag?",
+        "optionA": "Rabindranath Tagore",
+        "optionB": "Pingali Venkayya",
+        "optionC": "Mahatma Gandhi",
+        "optionD": "Jawaharlal Nehru",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "HIGH",
+        "question": "When was the Indian Constitution adopted?",
+        "optionA": "15th August 1947",
+        "optionB": "26th January 1950",
+        "optionC": "26th November 1949",
+        "optionD": "2nd October 1949",
+        "answer": 2
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "Who wrote the Indian National Anthem?",
+        "optionA": "Bankim Chandra Chatterjee",
+        "optionB": "Rabindranath Tagore",
+        "optionC": "Sarojini Naidu",
+        "optionD": "Subhas Chandra Bose",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "MEDIUM",
+        "question": "Which Indian space mission landed on the Moon's south pole?",
+        "optionA": "Chandrayaan-1",
+        "optionB": "Chandrayaan-2",
+        "optionC": "Chandrayaan-3",
+        "optionD": "Mangalyaan",
+        "answer": 2
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "HIGH",
+        "question": "What is the name of India's first Mars orbiter mission?",
+        "optionA": "Chandrayaan",
+        "optionB": "Mangalyaan",
+        "optionC": "Gaganyaan",
+        "optionD": "Aditya",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the name of India's space agency?",
+        "optionA": "NASA",
+        "optionB": "ISRO",
+        "optionC": "ESA",
+        "optionD": "JAXA",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which Indian festival celebrates the victory of good over evil?",
+        "optionA": "Diwali",
+        "optionB": "Holi",
+        "optionC": "Dussehra",
+        "optionD": "Both A and C",
+        "answer": 3
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "HIGH",
+        "question": "Which Indian state celebrates Onam festival?",
+        "optionA": "Tamil Nadu",
+        "optionB": "Kerala",
+        "optionC": "Karnataka",
+        "optionD": "Andhra Pradesh",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which UNESCO World Heritage Site is known as the symbol of eternal love?",
+        "optionA": "Hampi",
+        "optionB": "Taj Mahal",
+        "optionC": "Khajuraho",
+        "optionD": "Ajanta Caves",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "What is the traditional dress for women in India?",
+        "optionA": "Kimono",
+        "optionB": "Saree",
+        "optionC": "Abaya",
+        "optionD": "Hanbok",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "HIGH",
+        "question": "Which Indian badminton player won Olympic silver medal in 2016?",
+        "optionA": "Saina Nehwal",
+        "optionB": "PV Sindhu",
+        "optionC": "Jwala Gutta",
+        "optionD": "Ashwini Ponnappa",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which Indian city is known as the Garden City of India?",
+        "optionA": "Chandigarh",
+        "optionB": "Bangalore",
+        "optionC": "Mysore",
+        "optionD": "Dehradun",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "Which mountain range separates India from the rest of Asia?",
+        "optionA": "Aravalli",
+        "optionB": "Western Ghats",
+        "optionC": "Himalayas",
+        "optionD": "Vindhyas",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "HIGH",
+        "question": "Which is the largest salt water lake in India?",
+        "optionA": "Dal Lake",
+        "optionB": "Chilika Lake",
+        "optionC": "Vembanad Lake",
+        "optionD": "Loktak Lake",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "What is the capital of France?",
+        "optionA": "London",
+        "optionB": "Berlin",
+        "optionC": "Paris",
+        "optionD": "Madrid",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "How many colors are in a rainbow?",
+        "optionA": "5",
+        "optionB": "6",
+        "optionC": "7",
+        "optionD": "8",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the smallest country in the world by area?",
+        "optionA": "Monaco",
+        "optionB": "Vatican City",
+        "optionC": "San Marino",
+        "optionD": "Liechtenstein",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "How many months have 31 days?",
+        "optionA": "6",
+        "optionB": "7",
+        "optionC": "8",
+        "optionD": "5",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which planet is closest to the Sun?",
+        "optionA": "Venus",
+        "optionB": "Earth",
+        "optionC": "Mercury",
+        "optionD": "Mars",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "What is the largest mammal in the world?",
+        "optionA": "Elephant",
+        "optionB": "Blue Whale",
+        "optionC": "Giraffe",
+        "optionD": "Polar Bear",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which country is home to the kangaroo?",
+        "optionA": "New Zealand",
+        "optionB": "South Africa",
+        "optionC": "Australia",
+        "optionD": "Brazil",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "What do you call a baby dog?",
+        "optionA": "Kitten",
+        "optionB": "Puppy",
+        "optionC": "Cub",
+        "optionD": "Calf",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "LOW",
+        "question": "Who discovered America in 1492?",
+        "optionA": "Ferdinand Magellan",
+        "optionB": "Christopher Columbus",
+        "optionC": "Vasco da Gama",
+        "optionD": "Marco Polo",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "Which war lasted from 1939 to 1945?",
+        "optionA": "World War I",
+        "optionB": "World War II",
+        "optionC": "Korean War",
+        "optionD": "Vietnam War",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "LOW",
+        "question": "In which country were the pyramids built?",
+        "optionA": "Mexico",
+        "optionB": "Egypt",
+        "optionC": "Peru",
+        "optionD": "Greece",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "Who was the first man to walk on the Moon?",
+        "optionA": "Buzz Aldrin",
+        "optionB": "Yuri Gagarin",
+        "optionC": "Neil Armstrong",
+        "optionD": "John Glenn",
+        "answer": 2
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "Which ancient city was destroyed by a volcano?",
+        "optionA": "Athens",
+        "optionB": "Rome",
+        "optionC": "Pompeii",
+        "optionD": "Sparta",
+        "answer": 2
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "LOW",
+        "question": "What is the largest planet in our solar system?",
+        "optionA": "Saturn",
+        "optionB": "Jupiter",
+        "optionC": "Neptune",
+        "optionD": "Uranus",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "LOW",
+        "question": "What is H2O commonly known as?",
+        "optionA": "Salt",
+        "optionB": "Water",
+        "optionC": "Oxygen",
+        "optionD": "Hydrogen",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "MEDIUM",
+        "question": "How many bones are in the adult human body?",
+        "optionA": "186",
+        "optionB": "196",
+        "optionC": "206",
+        "optionD": "216",
+        "answer": 2
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "LOW",
+        "question": "What force keeps us on the ground?",
+        "optionA": "Magnetism",
+        "optionB": "Gravity",
+        "optionC": "Electricity",
+        "optionD": "Friction",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the chemical symbol for gold?",
+        "optionA": "Go",
+        "optionB": "Gd",
+        "optionC": "Au",
+        "optionD": "Ag",
+        "answer": 2
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the boiling point of water at sea level in Fahrenheit?",
+        "optionA": "180°F",
+        "optionB": "200°F",
+        "optionC": "212°F",
+        "optionD": "220°F",
+        "answer": 2
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "LOW",
+        "question": "How many players are in a basketball team on the court?",
+        "optionA": "4",
+        "optionB": "5",
+        "optionC": "6",
+        "optionD": "7",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "LOW",
+        "question": "What sport is played at Wimbledon?",
+        "optionA": "Cricket",
+        "optionB": "Tennis",
+        "optionC": "Golf",
+        "optionD": "Badminton",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "MEDIUM",
+        "question": "How many players are on a cricket field for the fielding team?",
+        "optionA": "10",
+        "optionB": "11",
+        "optionC": "12",
+        "optionD": "13",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the maximum number of sets in a men's Grand Slam tennis match?",
+        "optionA": "3",
+        "optionB": "4",
+        "optionC": "5",
+        "optionD": "6",
+        "answer": 2
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "LOW",
+        "question": "What color are the goal posts in football (soccer)?",
+        "optionA": "Red",
+        "optionB": "Blue",
+        "optionC": "White",
+        "optionD": "Yellow",
+        "answer": 2
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "MEDIUM",
+        "question": "How many minutes are in a standard football (soccer) match?",
+        "optionA": "80 minutes",
+        "optionB": "90 minutes",
+        "optionC": "100 minutes",
+        "optionD": "120 minutes",
+        "answer": 1
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "LOW",
+        "question": "What do you call money you owe to someone?",
+        "optionA": "Asset",
+        "optionB": "Debt",
+        "optionC": "Profit",
+        "optionD": "Equity",
+        "answer": 1
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "MEDIUM",
+        "question": "What does APR stand for in finance?",
+        "optionA": "Annual Percentage Rate",
+        "optionB": "Annual Profit Rate",
+        "optionC": "Average Payment Rate",
+        "optionD": "Annual Premium Rate",
+        "answer": 0
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "LOW",
+        "question": "What is the money you receive for work called?",
+        "optionA": "Debt",
+        "optionB": "Loan",
+        "optionC": "Salary",
+        "optionD": "Tax",
+        "answer": 2
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "MEDIUM",
+        "question": "What is a stock market index that tracks 30 large US companies?",
+        "optionA": "NASDAQ",
+        "optionB": "S&P 500",
+        "optionC": "Dow Jones",
+        "optionD": "Russell 2000",
+        "answer": 2
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "MEDIUM",
+        "question": "What is diversification in investing?",
+        "optionA": "Investing all money in one stock",
+        "optionB": "Spreading investments across different assets",
+        "optionC": "Only investing in bonds",
+        "optionD": "Keeping all money in cash",
+        "answer": 1
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "LOW",
+        "question": "What does PDF stand for?",
+        "optionA": "Portable Document Format",
+        "optionB": "Personal Document File",
+        "optionC": "Public Document Format",
+        "optionD": "Printed Document File",
+        "answer": 0
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "LOW",
+        "question": "What is the brain of a computer called?",
+        "optionA": "Monitor",
+        "optionB": "Keyboard",
+        "optionC": "CPU",
+        "optionD": "Mouse",
+        "answer": 2
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "MEDIUM",
+        "question": "What does HTTP stand for?",
+        "optionA": "HyperText Transfer Protocol",
+        "optionB": "High Tech Transfer Protocol",
+        "optionC": "HyperText Transport Protocol",
+        "optionD": "High Transfer Text Protocol",
+        "answer": 0
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "MEDIUM",
+        "question": "What programming language is primarily used for web page styling?",
+        "optionA": "HTML",
+        "optionB": "CSS",
+        "optionC": "JavaScript",
+        "optionD": "Python",
+        "answer": 1
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "LOW",
+        "question": "What is the extension for Microsoft Word documents?",
+        "optionA": ".txt",
+        "optionB": ".doc or .docx",
+        "optionC": ".pdf",
+        "optionD": ".xls",
+        "answer": 1
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "MEDIUM",
+        "question": "What does GPU stand for?",
+        "optionA": "General Processing Unit",
+        "optionB": "Graphics Processing Unit",
+        "optionC": "Global Processing Unit",
+        "optionD": "Game Processing Unit",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "How many vowels are in the English alphabet?",
+        "optionA": "4",
+        "optionB": "5",
+        "optionC": "6",
+        "optionD": "7",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the main language spoken in Brazil?",
+        "optionA": "Spanish",
+        "optionB": "English",
+        "optionC": "Portuguese",
+        "optionD": "French",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "How many sides does a hexagon have?",
+        "optionA": "5",
+        "optionB": "6",
+        "optionC": "7",
+        "optionD": "8",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which ocean is the largest?",
+        "optionA": "Atlantic Ocean",
+        "optionB": "Indian Ocean",
+        "optionC": "Pacific Ocean",
+        "optionD": "Arctic Ocean",
+        "answer": 2
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "LOW",
+        "question": "Which country gifted the Statue of Liberty to the USA?",
+        "optionA": "England",
+        "optionB": "France",
+        "optionC": "Spain",
+        "optionD": "Italy",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "What year did World War I begin?",
+        "optionA": "1912",
+        "optionB": "1914",
+        "optionC": "1916",
+        "optionD": "1918",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "LOW",
+        "question": "How many teeth does an adult human have?",
+        "optionA": "28",
+        "optionB": "30",
+        "optionC": "32",
+        "optionD": "34",
+        "answer": 2
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the hardest mineral on Earth?",
+        "optionA": "Ruby",
+        "optionB": "Sapphire",
+        "optionC": "Diamond",
+        "optionD": "Emerald",
+        "answer": 2
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "LOW",
+        "question": "What sport uses a puck?",
+        "optionA": "Basketball",
+        "optionB": "Ice Hockey",
+        "optionC": "Football",
+        "optionD": "Baseball",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "MEDIUM",
+        "question": "How many holes are played in a typical round of golf?",
+        "optionA": "9",
+        "optionB": "12",
+        "optionC": "18",
+        "optionD": "24",
+        "answer": 2
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "LOW",
+        "question": "What is the term for money saved for emergencies?",
+        "optionA": "Investment fund",
+        "optionB": "Emergency fund",
+        "optionC": "Retirement fund",
+        "optionD": "Mutual fund",
+        "answer": 1
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "LOW",
+        "question": "What does WiFi allow you to do?",
+        "optionA": "Watch TV",
+        "optionB": "Connect to the internet wirelessly",
+        "optionC": "Make phone calls",
+        "optionD": "Print documents",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "What is the fastest land animal?",
+        "optionA": "Lion",
+        "optionB": "Cheetah",
+        "optionC": "Leopard",
+        "optionD": "Tiger",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which vitamin is produced when skin is exposed to sunlight?",
+        "optionA": "Vitamin A",
+        "optionB": "Vitamin C",
+        "optionC": "Vitamin D",
+        "optionD": "Vitamin E",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "How many players are in a chess game?",
+        "optionA": "1",
+        "optionB": "2",
+        "optionC": "3",
+        "optionD": "4",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the capital of Canada?",
+        "optionA": "Toronto",
+        "optionB": "Vancouver",
+        "optionC": "Ottawa",
+        "optionD": "Montreal",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "Which fruit is known as the king of fruits?",
+        "optionA": "Apple",
+        "optionB": "Mango",
+        "optionC": "Banana",
+        "optionD": "Orange",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the smallest bone in the human body?",
+        "optionA": "Femur",
+        "optionB": "Stapes",
+        "optionC": "Tibia",
+        "optionD": "Fibula",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "How many strings does a standard guitar have?",
+        "optionA": "4",
+        "optionB": "5",
+        "optionC": "6",
+        "optionD": "7",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which country is known as the Land of the Rising Sun?",
+        "optionA": "China",
+        "optionB": "Japan",
+        "optionC": "Korea",
+        "optionD": "Thailand",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "LOW",
+        "question": "Who was the first human to journey into outer space?",
+        "optionA": "Neil Armstrong",
+        "optionB": "Yuri Gagarin",
+        "optionC": "Buzz Aldrin",
+        "optionD": "John Glenn",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "Which empire was ruled by Julius Caesar?",
+        "optionA": "Greek Empire",
+        "optionB": "Persian Empire",
+        "optionC": "Roman Empire",
+        "optionD": "Ottoman Empire",
+        "answer": 2
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "LOW",
+        "question": "What was the name of the ship that carried the Pilgrims to America?",
+        "optionA": "Santa Maria",
+        "optionB": "Mayflower",
+        "optionC": "Titanic",
+        "optionD": "Victoria",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "Which famous leader was assassinated on the Ides of March?",
+        "optionA": "Alexander the Great",
+        "optionB": "Julius Caesar",
+        "optionC": "Napoleon Bonaparte",
+        "optionD": "Cleopatra",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "What year did the Cold War end?",
+        "optionA": "1989",
+        "optionB": "1991",
+        "optionC": "1993",
+        "optionD": "1995",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "LOW",
+        "question": "What is the center of an atom called?",
+        "optionA": "Electron",
+        "optionB": "Proton",
+        "optionC": "Nucleus",
+        "optionD": "Neutron",
+        "answer": 2
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the process by which plants make their food?",
+        "optionA": "Respiration",
+        "optionB": "Photosynthesis",
+        "optionC": "Digestion",
+        "optionD": "Fermentation",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "LOW",
+        "question": "What does a thermometer measure?",
+        "optionA": "Pressure",
+        "optionB": "Temperature",
+        "optionC": "Weight",
+        "optionD": "Distance",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the smallest unit of life?",
+        "optionA": "Atom",
+        "optionB": "Molecule",
+        "optionC": "Cell",
+        "optionD": "Organ",
+        "answer": 2
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "LOW",
+        "question": "What color is a typical school bus in the USA?",
+        "optionA": "Red",
+        "optionB": "Yellow",
+        "optionC": "Blue",
+        "optionD": "Green",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the study of weather called?",
+        "optionA": "Geology",
+        "optionB": "Astronomy",
+        "optionC": "Meteorology",
+        "optionD": "Biology",
+        "answer": 2
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "LOW",
+        "question": "In which sport do you score a goal?",
+        "optionA": "Tennis",
+        "optionB": "Football",
+        "optionC": "Golf",
+        "optionD": "Cricket",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the length of an Olympic swimming pool?",
+        "optionA": "25 meters",
+        "optionB": "50 meters",
+        "optionC": "75 meters",
+        "optionD": "100 meters",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "LOW",
+        "question": "Which country hosted the 2016 Summer Olympics?",
+        "optionA": "China",
+        "optionB": "Brazil",
+        "optionC": "England",
+        "optionD": "Japan",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "MEDIUM",
+        "question": "How many points is a free throw worth in basketball?",
+        "optionA": "1 point",
+        "optionB": "2 points",
+        "optionC": "3 points",
+        "optionD": "4 points",
+        "answer": 0
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "LOW",
+        "question": "What do you call three strikes in bowling?",
+        "optionA": "Eagle",
+        "optionB": "Turkey",
+        "optionC": "Birdie",
+        "optionD": "Ace",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "MEDIUM",
+        "question": "Which boxer was known as The Greatest?",
+        "optionA": "Mike Tyson",
+        "optionB": "Muhammad Ali",
+        "optionC": "Floyd Mayweather",
+        "optionD": "George Foreman",
+        "answer": 1
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "LOW",
+        "question": "What is a credit card used for?",
+        "optionA": "To store photos",
+        "optionB": "To borrow money for purchases",
+        "optionC": "To make phone calls",
+        "optionD": "To unlock doors",
+        "answer": 1
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "MEDIUM",
+        "question": "What does the term bear market mean?",
+        "optionA": "Market with rising prices",
+        "optionB": "Market with falling prices",
+        "optionC": "Stable market",
+        "optionD": "Volatile market",
+        "answer": 1
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "LOW",
+        "question": "What is the term for money earned from investments?",
+        "optionA": "Salary",
+        "optionB": "Return",
+        "optionC": "Wage",
+        "optionD": "Bonus",
+        "answer": 1
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "MEDIUM",
+        "question": "What is equity in a home?",
+        "optionA": "The total value of the home",
+        "optionB": "The difference between home value and mortgage debt",
+        "optionC": "The monthly payment",
+        "optionD": "The interest rate",
+        "answer": 1
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "MEDIUM",
+        "question": "What is a 401(k)?",
+        "optionA": "A type of credit card",
+        "optionB": "A retirement savings plan",
+        "optionC": "A loan type",
+        "optionD": "A bank account",
+        "answer": 1
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "LOW",
+        "question": "What does SSD stand for in computers?",
+        "optionA": "Solid State Drive",
+        "optionB": "Super Speed Disk",
+        "optionC": "System Storage Device",
+        "optionD": "Secure Storage Drive",
+        "answer": 0
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the main purpose of an operating system?",
+        "optionA": "To browse the internet",
+        "optionB": "To manage computer hardware and software",
+        "optionC": "To edit photos",
+        "optionD": "To play games",
+        "answer": 1
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "LOW",
+        "question": "What is a bug in programming?",
+        "optionA": "An insect in the computer",
+        "optionB": "An error in the code",
+        "optionC": "A type of virus",
+        "optionD": "A hardware problem",
+        "answer": 1
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "MEDIUM",
+        "question": "What does VPN stand for?",
+        "optionA": "Virtual Private Network",
+        "optionB": "Verified Public Network",
+        "optionC": "Visual Processing Node",
+        "optionD": "Variable Program Network",
+        "answer": 0
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "LOW",
+        "question": "What is the most popular search engine?",
+        "optionA": "Bing",
+        "optionB": "Yahoo",
+        "optionC": "Google",
+        "optionD": "DuckDuckGo",
+        "answer": 2
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "MEDIUM",
+        "question": "What is cloud computing?",
+        "optionA": "Computing using weather data",
+        "optionB": "Storing and accessing data over the internet",
+        "optionC": "Using computers in high altitudes",
+        "optionD": "A type of computer hardware",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "What is the name of the fairy in Peter Pan?",
+        "optionA": "Cinderella",
+        "optionB": "Tinker Bell",
+        "optionC": "Snow White",
+        "optionD": "Belle",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which is the largest organ in the human body?",
+        "optionA": "Heart",
+        "optionB": "Brain",
+        "optionC": "Skin",
+        "optionD": "Liver",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "LOW",
+        "question": "What is the primary color mix of red and yellow?",
+        "optionA": "Green",
+        "optionB": "Orange",
+        "optionC": "Purple",
+        "optionD": "Brown",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "How many zeros are in one million?",
+        "optionA": "4",
+        "optionB": "5",
+        "optionC": "6",
+        "optionD": "7",
+        "answer": 2
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "LOW",
+        "question": "What ancient wonder was located in Egypt?",
+        "optionA": "Hanging Gardens",
+        "optionB": "Pyramids of Giza",
+        "optionC": "Colosseum",
+        "optionD": "Parthenon",
+        "answer": 1
+    },
+    {
+        "category": "HISTORY",
+        "difficulty_level": "MEDIUM",
+        "question": "Which year did the American Civil War end?",
+        "optionA": "1863",
+        "optionB": "1864",
+        "optionC": "1865",
+        "optionD": "1866",
+        "answer": 2
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "LOW",
+        "question": "What is the largest organ inside the human body?",
+        "optionA": "Brain",
+        "optionB": "Liver",
+        "optionC": "Stomach",
+        "optionD": "Lungs",
+        "answer": 1
+    },
+    {
+        "category": "SCIENCE_AND_TECHNOLOGY",
+        "difficulty_level": "MEDIUM",
+        "question": "How many planets are in our solar system?",
+        "optionA": "7",
+        "optionB": "8",
+        "optionC": "9",
+        "optionD": "10",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "LOW",
+        "question": "Which sport uses a shuttlecock?",
+        "optionA": "Tennis",
+        "optionB": "Badminton",
+        "optionC": "Squash",
+        "optionD": "Table Tennis",
+        "answer": 1
+    },
+    {
+        "category": "SPORTS",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the national sport of Canada?",
+        "optionA": "Basketball",
+        "optionB": "Ice Hockey",
+        "optionC": "Baseball",
+        "optionD": "Soccer",
+        "answer": 1
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "LOW",
+        "question": "What is the basic unit of currency in the United Kingdom?",
+        "optionA": "Euro",
+        "optionB": "Pound Sterling",
+        "optionC": "Dollar",
+        "optionD": "Franc",
+        "answer": 1
+    },
+    {
+        "category": "FINANCE",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the term for money paid regularly at a particular rate?",
+        "optionA": "Principal",
+        "optionB": "Interest",
+        "optionC": "Dividend",
+        "optionD": "Capital",
+        "answer": 1
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "LOW",
+        "question": "What does the '@' symbol mean in an email address?",
+        "optionA": "And",
+        "optionB": "At",
+        "optionC": "About",
+        "optionD": "After",
+        "answer": 1
+    },
+    {
+        "category": "ENGINEERING",
+        "difficulty_level": "MEDIUM",
+        "question": "What is malware?",
+        "optionA": "A type of hardware",
+        "optionB": "Malicious software designed to harm computers",
+        "optionC": "A programming language",
+        "optionD": "A computer game",
+        "answer": 1
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "LOW",
+        "question": "Which movie features the character Jack Dawson?",
+        "optionA": "The Godfather",
+        "optionB": "Titanic",
+        "optionC": "Avatar",
+        "optionD": "Inception",
+        "answer": 1
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "MEDIUM",
+        "question": "Who played Iron Man in the Marvel Cinematic Universe?",
+        "optionA": "Chris Evans",
+        "optionB": "Chris Hemsworth",
+        "optionC": "Robert Downey Jr.",
+        "optionD": "Mark Ruffalo",
+        "answer": 2
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "HIGH",
+        "question": "Which film won the Academy Award for Best Picture in 2020?",
+        "optionA": "1917",
+        "optionB": "Joker",
+        "optionC": "Parasite",
+        "optionD": "Once Upon a Time in Hollywood",
+        "answer": 2
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "LOW",
+        "question": "What is the name of Harry Potter's owl?",
+        "optionA": "Hedwig",
+        "optionB": "Crookshanks",
+        "optionC": "Scabbers",
+        "optionD": "Fawkes",
+        "answer": 0
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "LOW",
+        "question": "What is the capital of Italy?",
+        "optionA": "Venice",
+        "optionB": "Milan",
+        "optionC": "Rome",
+        "optionD": "Florence",
+        "answer": 2
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "MEDIUM",
+        "question": "Which country has the most natural lakes?",
+        "optionA": "United States",
+        "optionB": "Canada",
+        "optionC": "Russia",
+        "optionD": "Finland",
+        "answer": 1
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "HIGH",
+        "question": "What is the smallest country in South America by area?",
+        "optionA": "Uruguay",
+        "optionB": "Guyana",
+        "optionC": "Suriname",
+        "optionD": "French Guiana",
+        "answer": 2
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "MEDIUM",
+        "question": "Which desert is the largest hot desert in the world?",
+        "optionA": "Sahara Desert",
+        "optionB": "Arabian Desert",
+        "optionC": "Gobi Desert",
+        "optionD": "Kalahari Desert",
+        "answer": 0
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "LOW",
+        "question": "Who wrote 'Romeo and Juliet'?",
+        "optionA": "Charles Dickens",
+        "optionB": "William Shakespeare",
+        "optionC": "Jane Austen",
+        "optionD": "Mark Twain",
+        "answer": 1
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "MEDIUM",
+        "question": "Which novel begins with 'Call me Ishmael'?",
+        "optionA": "The Old Man and the Sea",
+        "optionB": "Moby-Dick",
+        "optionC": "Treasure Island",
+        "optionD": "Robinson Crusoe",
+        "answer": 1
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "HIGH",
+        "question": "Who wrote 'One Hundred Years of Solitude'?",
+        "optionA": "Pablo Neruda",
+        "optionB": "Gabriel García Márquez",
+        "optionC": "Jorge Luis Borges",
+        "optionD": "Octavio Paz",
+        "answer": 1
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "LOW",
+        "question": "What is the name of the wizard in 'The Lord of the Rings'?",
+        "optionA": "Merlin",
+        "optionB": "Dumbledore",
+        "optionC": "Gandalf",
+        "optionD": "Saruman",
+        "answer": 2
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "LOW",
+        "question": "What is the main ingredient in hummus?",
+        "optionA": "Lentils",
+        "optionB": "Chickpeas",
+        "optionC": "Kidney beans",
+        "optionD": "Black beans",
+        "answer": 1
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "MEDIUM",
+        "question": "Which country is the origin of the dish 'Paella'?",
+        "optionA": "Italy",
+        "optionB": "Portugal",
+        "optionC": "Spain",
+        "optionD": "Greece",
+        "answer": 2
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "HIGH",
+        "question": "What is the Japanese term for the fifth taste sensation?",
+        "optionA": "Umami",
+        "optionB": "Wasabi",
+        "optionC": "Teriyaki",
+        "optionD": "Mirin",
+        "answer": 0
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "LOW",
+        "question": "What type of pasta is shaped like little rice grains?",
+        "optionA": "Penne",
+        "optionB": "Fusilli",
+        "optionC": "Orzo",
+        "optionD": "Farfalle",
+        "answer": 2
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "LOW",
+        "question": "What is the largest land animal?",
+        "optionA": "Giraffe",
+        "optionB": "Elephant",
+        "optionC": "Rhinoceros",
+        "optionD": "Hippopotamus",
+        "answer": 1
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "MEDIUM",
+        "question": "Which bird can fly backwards?",
+        "optionA": "Eagle",
+        "optionB": "Hummingbird",
+        "optionC": "Sparrow",
+        "optionD": "Parrot",
+        "answer": 1
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "HIGH",
+        "question": "What is the only mammal capable of true flight?",
+        "optionA": "Flying squirrel",
+        "optionB": "Sugar glider",
+        "optionC": "Bat",
+        "optionD": "Colugo",
+        "answer": 2
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "MEDIUM",
+        "question": "How many hearts does an octopus have?",
+        "optionA": "1",
+        "optionB": "2",
+        "optionC": "3",
+        "optionD": "4",
+        "answer": 2
+    },
+    {
+        "category": "MYTHOLOGY_AND_RELIGION",
+        "difficulty_level": "LOW",
+        "question": "In Greek mythology, who is the king of the gods?",
+        "optionA": "Poseidon",
+        "optionB": "Hades",
+        "optionC": "Zeus",
+        "optionD": "Apollo",
+        "answer": 2
+    },
+    {
+        "category": "MYTHOLOGY_AND_RELIGION",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the sacred text of Islam?",
+        "optionA": "Bible",
+        "optionB": "Torah",
+        "optionC": "Quran",
+        "optionD": "Vedas",
+        "answer": 2
+    },
+    {
+        "category": "MYTHOLOGY_AND_RELIGION",
+        "difficulty_level": "HIGH",
+        "question": "In Norse mythology, what is the name of Thor's hammer?",
+        "optionA": "Gungnir",
+        "optionB": "Mjolnir",
+        "optionC": "Excalibur",
+        "optionD": "Gram",
+        "answer": 1
+    },
+    {
+        "category": "MYTHOLOGY_AND_RELIGION",
+        "difficulty_level": "LOW",
+        "question": "Which religion celebrates Diwali?",
+        "optionA": "Buddhism",
+        "optionB": "Hinduism",
+        "optionC": "Sikhism",
+        "optionD": "Jainism",
+        "answer": 1
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "LOW",
+        "question": "What is the capital of the United States?",
+        "optionA": "New York",
+        "optionB": "Los Angeles",
+        "optionC": "Washington D.C.",
+        "optionD": "Chicago",
+        "answer": 2
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "MEDIUM",
+        "question": "How many members are in the United States Senate?",
+        "optionA": "50",
+        "optionB": "100",
+        "optionC": "435",
+        "optionD": "538",
+        "answer": 1
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "HIGH",
+        "question": "Who was the first woman to serve as Prime Minister of the United Kingdom?",
+        "optionA": "Theresa May",
+        "optionB": "Margaret Thatcher",
+        "optionC": "Angela Merkel",
+        "optionD": "Indira Gandhi",
+        "answer": 1
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the term length for a U.S. President?",
+        "optionA": "2 years",
+        "optionB": "4 years",
+        "optionC": "6 years",
+        "optionD": "8 years",
+        "answer": 1
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "LOW",
+        "question": "Which band was known as the 'Fab Four'?",
+        "optionA": "The Rolling Stones",
+        "optionB": "The Beatles",
+        "optionC": "The Who",
+        "optionD": "Led Zeppelin",
+        "answer": 1
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "MEDIUM",
+        "question": "Who is known as the King of Pop?",
+        "optionA": "Elvis Presley",
+        "optionB": "Prince",
+        "optionC": "Michael Jackson",
+        "optionD": "David Bowie",
+        "answer": 2
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "HIGH",
+        "question": "Which composer wrote 'The Four Seasons'?",
+        "optionA": "Johann Sebastian Bach",
+        "optionB": "Wolfgang Amadeus Mozart",
+        "optionC": "Antonio Vivaldi",
+        "optionD": "Ludwig van Beethoven",
+        "answer": 2
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "LOW",
+        "question": "How many strings does a standard guitar have?",
+        "optionA": "4",
+        "optionB": "5",
+        "optionC": "6",
+        "optionD": "7",
+        "answer": 2
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "LOW",
+        "question": "What color is Mickey Mouse's shorts?",
+        "optionA": "Blue",
+        "optionB": "Red",
+        "optionC": "Green",
+        "optionD": "Yellow",
+        "answer": 1
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "LOW",
+        "question": "What animal is Simba in The Lion King?",
+        "optionA": "Tiger",
+        "optionB": "Lion",
+        "optionC": "Leopard",
+        "optionD": "Cheetah",
+        "answer": 1
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "LOW",
+        "question": "What is the name of the snowman in Frozen?",
+        "optionA": "Olaf",
+        "optionB": "Sven",
+        "optionC": "Kristoff",
+        "optionD": "Hans",
+        "answer": 0
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "LOW",
+        "question": "What color is Superman's cape?",
+        "optionA": "Blue",
+        "optionB": "Green",
+        "optionC": "Red",
+        "optionD": "Yellow",
+        "answer": 2
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "LOW",
+        "question": "What type of fish is Nemo?",
+        "optionA": "Goldfish",
+        "optionB": "Clownfish",
+        "optionC": "Angelfish",
+        "optionD": "Starfish",
+        "answer": 1
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "LOW",
+        "question": "What is the name of the boy who never grows up?",
+        "optionA": "Harry Potter",
+        "optionB": "Peter Pan",
+        "optionC": "Tom Sawyer",
+        "optionD": "Oliver Twist",
+        "answer": 1
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "LOW",
+        "question": "What color is Shrek?",
+        "optionA": "Blue",
+        "optionB": "Purple",
+        "optionC": "Green",
+        "optionD": "Yellow",
+        "answer": 2
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "LOW",
+        "question": "What is the largest continent?",
+        "optionA": "Africa",
+        "optionB": "Asia",
+        "optionC": "Europe",
+        "optionD": "North America",
+        "answer": 1
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "LOW",
+        "question": "Which country is famous for the Eiffel Tower?",
+        "optionA": "Italy",
+        "optionB": "Spain",
+        "optionC": "France",
+        "optionD": "Germany",
+        "answer": 2
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "LOW",
+        "question": "What is the capital of England?",
+        "optionA": "Paris",
+        "optionB": "London",
+        "optionC": "Berlin",
+        "optionD": "Madrid",
+        "answer": 1
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "LOW",
+        "question": "Which ocean is the largest?",
+        "optionA": "Atlantic",
+        "optionB": "Indian",
+        "optionC": "Pacific",
+        "optionD": "Arctic",
+        "answer": 2
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "LOW",
+        "question": "What country has a maple leaf on its flag?",
+        "optionA": "United States",
+        "optionB": "Canada",
+        "optionC": "Mexico",
+        "optionD": "Australia",
+        "answer": 1
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "LOW",
+        "question": "Which continent is the coldest?",
+        "optionA": "Asia",
+        "optionB": "Europe",
+        "optionC": "Antarctica",
+        "optionD": "Australia",
+        "answer": 2
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "LOW",
+        "question": "What is the capital of Spain?",
+        "optionA": "Barcelona",
+        "optionB": "Madrid",
+        "optionC": "Seville",
+        "optionD": "Valencia",
+        "answer": 1
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "LOW",
+        "question": "Who wrote Cinderella?",
+        "optionA": "Brothers Grimm",
+        "optionB": "Hans Christian Andersen",
+        "optionC": "Charles Perrault",
+        "optionD": "All of the above",
+        "answer": 3
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "LOW",
+        "question": "What is the first book of the Harry Potter series?",
+        "optionA": "Chamber of Secrets",
+        "optionB": "Philosopher's Stone",
+        "optionC": "Prisoner of Azkaban",
+        "optionD": "Goblet of Fire",
+        "answer": 1
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "LOW",
+        "question": "What animal is in The Cat in the Hat?",
+        "optionA": "Dog",
+        "optionB": "Cat",
+        "optionC": "Mouse",
+        "optionD": "Bird",
+        "answer": 1
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "LOW",
+        "question": "Who wrote Charlotte's Web?",
+        "optionA": "Dr. Seuss",
+        "optionB": "E.B. White",
+        "optionC": "Roald Dahl",
+        "optionD": "J.K. Rowling",
+        "answer": 1
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "LOW",
+        "question": "What type of animal is Winnie-the-Pooh?",
+        "optionA": "Cat",
+        "optionB": "Dog",
+        "optionC": "Bear",
+        "optionD": "Rabbit",
+        "answer": 2
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "LOW",
+        "question": "Who wrote The Jungle Book?",
+        "optionA": "Rudyard Kipling",
+        "optionB": "Mark Twain",
+        "optionC": "Lewis Carroll",
+        "optionD": "Jules Verne",
+        "answer": 0
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "LOW",
+        "question": "What color is a banana when ripe?",
+        "optionA": "Green",
+        "optionB": "Yellow",
+        "optionC": "Red",
+        "optionD": "Orange",
+        "answer": 1
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "LOW",
+        "question": "What is the main ingredient in bread?",
+        "optionA": "Rice",
+        "optionB": "Flour",
+        "optionC": "Sugar",
+        "optionD": "Butter",
+        "answer": 1
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "LOW",
+        "question": "What do bees make that we can eat?",
+        "optionA": "Honey",
+        "optionB": "Milk",
+        "optionC": "Butter",
+        "optionD": "Cheese",
+        "answer": 0
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "LOW",
+        "question": "What fruit is red and often called a vegetable?",
+        "optionA": "Apple",
+        "optionB": "Cherry",
+        "optionC": "Tomato",
+        "optionD": "Strawberry",
+        "answer": 2
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "LOW",
+        "question": "What is pizza traditionally topped with?",
+        "optionA": "Ice cream",
+        "optionB": "Cheese",
+        "optionC": "Chocolate",
+        "optionD": "Candy",
+        "answer": 1
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "LOW",
+        "question": "What drink comes from cows?",
+        "optionA": "Juice",
+        "optionB": "Milk",
+        "optionC": "Tea",
+        "optionD": "Soda",
+        "answer": 1
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "LOW",
+        "question": "What vegetable makes you cry when you cut it?",
+        "optionA": "Carrot",
+        "optionB": "Potato",
+        "optionC": "Onion",
+        "optionD": "Lettuce",
+        "answer": 2
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "LOW",
+        "question": "What do caterpillars turn into?",
+        "optionA": "Butterflies",
+        "optionB": "Birds",
+        "optionC": "Bees",
+        "optionD": "Beetles",
+        "answer": 0
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "LOW",
+        "question": "What color is a polar bear's fur?",
+        "optionA": "Brown",
+        "optionB": "Black",
+        "optionC": "White",
+        "optionD": "Gray",
+        "answer": 2
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "LOW",
+        "question": "How many legs does a spider have?",
+        "optionA": "6",
+        "optionB": "8",
+        "optionC": "10",
+        "optionD": "12",
+        "answer": 1
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "LOW",
+        "question": "What do pandas eat?",
+        "optionA": "Meat",
+        "optionB": "Fish",
+        "optionC": "Bamboo",
+        "optionD": "Insects",
+        "answer": 2
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "LOW",
+        "question": "What is a baby frog called?",
+        "optionA": "Puppy",
+        "optionB": "Kitten",
+        "optionC": "Tadpole",
+        "optionD": "Calf",
+        "answer": 2
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "LOW",
+        "question": "What animal says 'moo'?",
+        "optionA": "Pig",
+        "optionB": "Sheep",
+        "optionC": "Cow",
+        "optionD": "Horse",
+        "answer": 2
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "LOW",
+        "question": "What is the tallest animal?",
+        "optionA": "Elephant",
+        "optionB": "Horse",
+        "optionC": "Giraffe",
+        "optionD": "Camel",
+        "answer": 2
+    },
+    {
+        "category": "MYTHOLOGY_AND_RELIGION",
+        "difficulty_level": "LOW",
+        "question": "In which city was Jesus born?",
+        "optionA": "Jerusalem",
+        "optionB": "Bethlehem",
+        "optionC": "Nazareth",
+        "optionD": "Galilee",
+        "answer": 1
+    },
+    {
+        "category": "MYTHOLOGY_AND_RELIGION",
+        "difficulty_level": "LOW",
+        "question": "What day of the week is the Christian Sabbath?",
+        "optionA": "Friday",
+        "optionB": "Saturday",
+        "optionC": "Sunday",
+        "optionD": "Monday",
+        "answer": 2
+    },
+    {
+        "category": "MYTHOLOGY_AND_RELIGION",
+        "difficulty_level": "LOW",
+        "question": "What is the holy book of Christianity?",
+        "optionA": "Quran",
+        "optionB": "Torah",
+        "optionC": "Bible",
+        "optionD": "Vedas",
+        "answer": 2
+    },
+    {
+        "category": "MYTHOLOGY_AND_RELIGION",
+        "difficulty_level": "LOW",
+        "question": "How many apostles did Jesus have?",
+        "optionA": "10",
+        "optionB": "12",
+        "optionC": "14",
+        "optionD": "16",
+        "answer": 1
+    },
+    {
+        "category": "MYTHOLOGY_AND_RELIGION",
+        "difficulty_level": "LOW",
+        "question": "What is the symbol of Christianity?",
+        "optionA": "Star",
+        "optionB": "Moon",
+        "optionC": "Cross",
+        "optionD": "Circle",
+        "answer": 2
+    },
+    {
+        "category": "MYTHOLOGY_AND_RELIGION",
+        "difficulty_level": "LOW",
+        "question": "What do Muslims celebrate at the end of Ramadan?",
+        "optionA": "Christmas",
+        "optionB": "Diwali",
+        "optionC": "Eid",
+        "optionD": "Hanukkah",
+        "answer": 2
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "LOW",
+        "question": "How many stars are on the American flag?",
+        "optionA": "48",
+        "optionB": "50",
+        "optionC": "52",
+        "optionD": "55",
+        "answer": 1
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "LOW",
+        "question": "What color is the White House?",
+        "optionA": "Blue",
+        "optionB": "Red",
+        "optionC": "White",
+        "optionD": "Yellow",
+        "answer": 2
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "LOW",
+        "question": "Who is the head of state in a monarchy?",
+        "optionA": "President",
+        "optionB": "Prime Minister",
+        "optionC": "King or Queen",
+        "optionD": "Governor",
+        "answer": 2
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "LOW",
+        "question": "What is the capital of Japan?",
+        "optionA": "Beijing",
+        "optionB": "Seoul",
+        "optionC": "Tokyo",
+        "optionD": "Bangkok",
+        "answer": 2
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "LOW",
+        "question": "In which city is the United Nations headquarters?",
+        "optionA": "London",
+        "optionB": "Paris",
+        "optionC": "New York",
+        "optionD": "Geneva",
+        "answer": 2
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "LOW",
+        "question": "What do you call a government ruled by the people?",
+        "optionA": "Monarchy",
+        "optionB": "Dictatorship",
+        "optionC": "Democracy",
+        "optionD": "Oligarchy",
+        "answer": 2
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "LOW",
+        "question": "How many stripes are on the American flag?",
+        "optionA": "11",
+        "optionB": "13",
+        "optionC": "15",
+        "optionD": "17",
+        "answer": 1
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "LOW",
+        "question": "What is the highest female singing voice?",
+        "optionA": "Alto",
+        "optionB": "Soprano",
+        "optionC": "Tenor",
+        "optionD": "Bass",
+        "answer": 1
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "LOW",
+        "question": "How many keys are on a standard piano?",
+        "optionA": "78",
+        "optionB": "88",
+        "optionC": "98",
+        "optionD": "108",
+        "answer": 1
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "LOW",
+        "question": "What instrument has black and white keys?",
+        "optionA": "Guitar",
+        "optionB": "Drum",
+        "optionC": "Piano",
+        "optionD": "Flute",
+        "answer": 2
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "LOW",
+        "question": "What do you call a group of musicians playing together?",
+        "optionA": "Team",
+        "optionB": "Band",
+        "optionC": "Club",
+        "optionD": "Group",
+        "answer": 1
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "LOW",
+        "question": "What musical instrument do you blow into?",
+        "optionA": "Piano",
+        "optionB": "Flute",
+        "optionC": "Guitar",
+        "optionD": "Drum",
+        "answer": 1
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "LOW",
+        "question": "How many notes are in a musical scale?",
+        "optionA": "5",
+        "optionB": "7",
+        "optionC": "9",
+        "optionD": "10",
+        "answer": 1
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "LOW",
+        "question": "What do you use to play a drum?",
+        "optionA": "Bow",
+        "optionB": "Sticks",
+        "optionC": "Pick",
+        "optionD": "Reed",
+        "answer": 1
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "HIGH",
+        "question": "In the critically acclaimed television series 'Breaking Bad', what is the street name that Walter White adopts for his methamphetamine manufacturing alter ego, which becomes synonymous with the highest quality product in the drug trade?",
+        "optionA": "Heisenberg",
+        "optionB": "Scarface",
+        "optionC": "Captain Cook",
+        "optionD": "Mr. Mayhew",
+        "answer": 0
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "HIGH",
+        "question": "The Atacama Desert, considered one of the driest places on Earth where some weather stations have never recorded any rainfall, is primarily located in which South American country along the Pacific coast?",
+        "optionA": "Peru",
+        "optionB": "Chile",
+        "optionC": "Argentina",
+        "optionD": "Bolivia",
+        "answer": 1
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "HIGH",
+        "question": "In James Joyce's modernist masterpiece 'Ulysses', the narrative follows the journey of Leopold Bloom through Dublin on June 16, 1904, paralleling the structure of which ancient Greek epic poem attributed to Homer?",
+        "optionA": "The Iliad",
+        "optionB": "The Odyssey",
+        "optionC": "The Aeneid",
+        "optionD": "The Argonautica",
+        "answer": 1
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "HIGH",
+        "question": "Molecular gastronomy pioneer Ferran Adrià, who revolutionized modern cuisine with techniques like spherification and foam creation, was the head chef of which legendary Spanish restaurant that held three Michelin stars for over a decade before closing in 2011?",
+        "optionA": "Mugaritz",
+        "optionB": "El Celler de Can Roca",
+        "optionC": "El Bulli",
+        "optionD": "Arzak",
+        "answer": 2
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "HIGH",
+        "question": "The axolotl, a critically endangered amphibian native to the lake complex of Xochimilco near Mexico City, possesses the remarkable ability to regenerate entire limbs, organs, and even parts of its brain, and exhibits which unique biological phenomenon where it reaches sexual maturity while retaining juvenile characteristics?",
+        "optionA": "Metamorphosis",
+        "optionB": "Neoteny",
+        "optionC": "Parthenogenesis",
+        "optionD": "Polymorphism",
+        "answer": 1
+    },
+    {
+        "category": "MYTHOLOGY_AND_RELIGION",
+        "difficulty_level": "HIGH",
+        "question": "In Hindu mythology, the Trimurti represents the three supreme divine forms responsible for the creation, maintenance, and destruction of the universe. Which deity is specifically associated with the cosmic function of destruction and transformation, often depicted with a third eye and dancing the Tandava?",
+        "optionA": "Brahma",
+        "optionB": "Vishnu",
+        "optionC": "Shiva",
+        "optionD": "Indra",
+        "answer": 2
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "HIGH",
+        "question": "The Treaty of Westphalia, signed in 1648 following the devastating Thirty Years' War, established fundamental principles of international relations including state sovereignty and non-interference in domestic affairs, effectively creating what modern concept that forms the basis of contemporary international law?",
+        "optionA": "The United Nations Charter",
+        "optionB": "The Westphalian sovereignty system",
+        "optionC": "The League of Nations framework",
+        "optionD": "The Concert of Europe",
+        "answer": 1
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "HIGH",
+        "question": "Arnold Schoenberg, a pivotal figure in 20th-century classical music, developed a revolutionary compositional technique that abandoned traditional tonal hierarchy and treated all twelve chromatic pitches as equal, known as the twelve-tone or what specific method that influenced countless modern composers?",
+        "optionA": "Serialism",
+        "optionB": "Minimalism",
+        "optionC": "Impressionism",
+        "optionD": "Expressionism",
+        "answer": 0
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "HIGH",
+        "question": "Director Stanley Kubrick's 1968 science fiction masterpiece '2001: A Space Odyssey', based on Arthur C. Clarke's short story, features an artificial intelligence system aboard the spacecraft Discovery One that becomes the film's antagonist. What is the name of this iconic HAL series computer?",
+        "optionA": "HAL 8000",
+        "optionB": "HAL 9000",
+        "optionC": "HAL 7000",
+        "optionD": "HAL 10000",
+        "answer": 1
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "HIGH",
+        "question": "The exclave of Kaliningrad, formerly known as Königsberg and famous for the Seven Bridges problem that inspired Euler's graph theory, is a Russian territory on the Baltic Sea that is geographically separated from mainland Russia and bordered by which two European Union member states?",
+        "optionA": "Latvia and Estonia",
+        "optionB": "Poland and Lithuania",
+        "optionC": "Finland and Sweden",
+        "optionD": "Germany and Denmark",
+        "answer": 1
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "LOW",
+        "question": "In the beloved Disney animated film released in 1994, which tells the story of a young lion cub who must reclaim his rightful place as king of the Pride Lands after the tragic death of his father Mufasa, what is the name of the main protagonist lion character?",
+        "optionA": "Mufasa",
+        "optionB": "Simba",
+        "optionC": "Scar",
+        "optionD": "Kovu",
+        "answer": 1
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "LOW",
+        "question": "The Marvel Cinematic Universe has introduced numerous superheroes to audiences worldwide, including a character who is a genius billionaire inventor that builds a high-tech armored suit to fight crime and protect the world. What is the superhero name of Tony Stark's armored alter ego?",
+        "optionA": "Captain America",
+        "optionB": "Thor",
+        "optionC": "Iron Man",
+        "optionD": "Hulk",
+        "answer": 2
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "LOW",
+        "question": "The United States of America, one of the world's largest countries by land area and population, has its seat of federal government located in a special district that is not part of any state. What is the name of this capital city where the President lives in the White House?",
+        "optionA": "New York City",
+        "optionB": "Los Angeles",
+        "optionC": "Washington D.C.",
+        "optionD": "Chicago",
+        "answer": 2
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "LOW",
+        "question": "Among the seven continents that make up Earth's major landmasses, including Africa, Antarctica, Australia, Europe, North America, and South America, which continent is the largest in terms of both total land area and population, stretching from the Middle East to the Pacific Ocean?",
+        "optionA": "Africa",
+        "optionB": "Asia",
+        "optionC": "Europe",
+        "optionD": "North America",
+        "answer": 1
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "LOW",
+        "question": "The timeless tale of star-crossed lovers from feuding families in Renaissance Verona, Italy, is one of William Shakespeare's most famous tragic plays, featuring characters like Mercutio, Tybalt, and Friar Laurence. What are the first names of the two young lovers at the center of this romantic tragedy?",
+        "optionA": "Romeo and Juliet",
+        "optionB": "Hamlet and Ophelia",
+        "optionC": "Othello and Desdemona",
+        "optionD": "Macbeth and Lady Macbeth",
+        "answer": 0
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "LOW",
+        "question": "J.K. Rowling's globally successful fantasy book series follows a young orphaned wizard who discovers his magical heritage on his eleventh birthday and attends Hogwarts School of Witchcraft and Wizardry, where he battles the dark wizard Lord Voldemort. What is the name of this famous boy wizard protagonist?",
+        "optionA": "Ron Weasley",
+        "optionB": "Harry Potter",
+        "optionC": "Draco Malfoy",
+        "optionD": "Neville Longbottom",
+        "answer": 1
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "LOW",
+        "question": "This popular Italian dish, believed to have originated in Naples, traditionally consists of a round, flat base of leavened wheat-based dough topped with tomato sauce, cheese (usually mozzarella), and various other ingredients, then baked at high temperature in an oven. What is this beloved food called?",
+        "optionA": "Pasta",
+        "optionB": "Pizza",
+        "optionC": "Lasagna",
+        "optionD": "Risotto",
+        "answer": 1
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "LOW",
+        "question": "This sweet viscous food substance, produced by honeybees and some related insects from the nectar of flowers, has been used by humans for thousands of years as a natural sweetener and is known for its antimicrobial properties. What is this golden-colored natural product called?",
+        "optionA": "Maple syrup",
+        "optionB": "Honey",
+        "optionC": "Molasses",
+        "optionD": "Agave nectar",
+        "answer": 1
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "LOW",
+        "question": "This remarkable insect undergoes one of nature's most dramatic transformations, beginning life as a caterpillar that feeds on leaves, then forming a chrysalis or cocoon, and finally emerging as a beautiful flying creature with colorful wings. What is this transformed adult insect called?",
+        "optionA": "Butterfly",
+        "optionB": "Dragonfly",
+        "optionC": "Moth",
+        "optionD": "Beetle",
+        "answer": 0
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "LOW",
+        "question": "The African savanna is home to this magnificent herbivorous mammal, which holds the distinction of being the tallest living terrestrial animal on Earth, with an extremely long neck that allows it to reach leaves high up in acacia trees that other animals cannot access. What is this tall spotted animal called?",
+        "optionA": "Elephant",
+        "optionB": "Zebra",
+        "optionC": "Giraffe",
+        "optionD": "Antelope",
+        "answer": 2
+    },
+    {
+        "category": "MYTHOLOGY_AND_RELIGION",
+        "difficulty_level": "LOW",
+        "question": "In the ancient Greek pantheon of gods and goddesses who were believed to reside on Mount Olympus, there was a supreme deity who ruled over all other gods, controlled the sky and thunder, and was often depicted holding a lightning bolt as his weapon. Who was this king of the Greek gods?",
+        "optionA": "Poseidon",
+        "optionB": "Hades",
+        "optionC": "Zeus",
+        "optionD": "Apollo",
+        "answer": 2
+    },
+    {
+        "category": "MYTHOLOGY_AND_RELIGION",
+        "difficulty_level": "LOW",
+        "question": "Christians around the world celebrate this major religious holiday each year, commemorating the resurrection of Jesus Christ from the dead three days after his crucifixion, typically observed in March or April with traditions including decorated eggs and special church services. What is this important Christian festival called?",
+        "optionA": "Christmas",
+        "optionB": "Easter",
+        "optionC": "Pentecost",
+        "optionD": "Epiphany",
+        "answer": 1
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "LOW",
+        "question": "In a democratic system of government, citizens exercise their right to participate in the political process by casting ballots to choose their representatives and leaders, with each person's choice being kept confidential to ensure freedom of expression. What is this fundamental democratic process called?",
+        "optionA": "Voting",
+        "optionB": "Lobbying",
+        "optionC": "Protesting",
+        "optionD": "Petitioning",
+        "answer": 0
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "LOW",
+        "question": "The flag of the United States of America is a powerful national symbol featuring thirteen horizontal red and white stripes representing the original colonies, and a blue canton in the upper left corner containing white stars. How many white stars appear on the current American flag, each representing a state in the union?",
+        "optionA": "48",
+        "optionB": "50",
+        "optionC": "52",
+        "optionD": "13",
+        "answer": 1
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "LOW",
+        "question": "This large keyboard instrument, often considered the king of instruments, produces sound by pressing keys that cause hammers to strike strings of varying lengths, creating a wide range of musical notes from very low bass tones to high treble pitches. What is this versatile musical instrument called?",
+        "optionA": "Organ",
+        "optionB": "Harpsichord",
+        "optionC": "Piano",
+        "optionD": "Synthesizer",
+        "answer": 2
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "LOW",
+        "question": "This legendary British rock band from Liverpool, consisting of John Lennon, Paul McCartney, George Harrison, and Ringo Starr, revolutionized popular music in the 1960s with hits like 'Hey Jude', 'Let It Be', and 'Yesterday', and are often referred to by what nickname?",
+        "optionA": "The Rolling Stones",
+        "optionB": "The Beatles",
+        "optionC": "The Who",
+        "optionD": "The Kinks",
+        "answer": 1
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "LOW",
+        "question": "This beloved animated Disney character, created by Walt Disney and Ub Iwerks in 1928, is an anthropomorphic mouse who wears red shorts with white buttons, yellow shoes, and white gloves, and serves as the official mascot of The Walt Disney Company. What is the name of this iconic cartoon character?",
+        "optionA": "Donald Duck",
+        "optionB": "Goofy",
+        "optionC": "Mickey Mouse",
+        "optionD": "Pluto",
+        "answer": 2
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "LOW",
+        "question": "This massive body of water is the largest and deepest ocean on planet Earth, covering more than 60 million square miles and containing more than half of the world's free water, stretching from the Arctic in the north to Antarctica in the south. What is the name of this enormous ocean?",
+        "optionA": "Atlantic Ocean",
+        "optionB": "Indian Ocean",
+        "optionC": "Pacific Ocean",
+        "optionD": "Arctic Ocean",
+        "answer": 2
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "LOW",
+        "question": "This classic children's book by E.B. White tells the heartwarming story of a barn spider named Charlotte who befriends a pig named Wilbur and works to save him from being slaughtered by writing messages in her web that convince the farmer that Wilbur is special. What is the title of this beloved story?",
+        "optionA": "Stuart Little",
+        "optionB": "Charlotte's Web",
+        "optionC": "The Trumpet of the Swan",
+        "optionD": "Babe",
+        "answer": 1
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "LOW",
+        "question": "This massive marine mammal is the largest animal ever known to have lived on Earth, even bigger than the largest dinosaurs, with adults reaching lengths of up to 100 feet and weights of up to 200 tons, feeding primarily on tiny krill in the world's oceans. What is this enormous creature called?",
+        "optionA": "Great White Shark",
+        "optionB": "Blue Whale",
+        "optionC": "Elephant Seal",
+        "optionD": "Giant Squid",
+        "answer": 1
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "MEDIUM",
+        "question": "Which streaming platform produced the hit series 'Stranger Things'?",
+        "optionA": "Amazon Prime",
+        "optionB": "Netflix",
+        "optionC": "Hulu",
+        "optionD": "Disney+",
+        "answer": 1
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the capital city of Brazil?",
+        "optionA": "Rio de Janeiro",
+        "optionB": "São Paulo",
+        "optionC": "Brasília",
+        "optionD": "Salvador",
+        "answer": 2
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "MEDIUM",
+        "question": "Who wrote the novel '1984'?",
+        "optionA": "Aldous Huxley",
+        "optionB": "George Orwell",
+        "optionC": "Ray Bradbury",
+        "optionD": "H.G. Wells",
+        "answer": 1
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "MEDIUM",
+        "question": "What type of pastry is used to make a croissant?",
+        "optionA": "Puff pastry",
+        "optionB": "Shortcrust pastry",
+        "optionC": "Laminated dough",
+        "optionD": "Choux pastry",
+        "answer": 2
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the fastest bird in the world when diving?",
+        "optionA": "Golden Eagle",
+        "optionB": "Peregrine Falcon",
+        "optionC": "Bald Eagle",
+        "optionD": "Hawk",
+        "answer": 1
+    },
+    {
+        "category": "MYTHOLOGY_AND_RELIGION",
+        "difficulty_level": "MEDIUM",
+        "question": "In Egyptian mythology, who is the god of the dead and the afterlife?",
+        "optionA": "Ra",
+        "optionB": "Anubis",
+        "optionC": "Horus",
+        "optionD": "Set",
+        "answer": 1
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the minimum age required to become President of the United States?",
+        "optionA": "30 years",
+        "optionB": "35 years",
+        "optionC": "40 years",
+        "optionD": "45 years",
+        "answer": 1
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "MEDIUM",
+        "question": "Which instrument is Yo-Yo Ma famous for playing?",
+        "optionA": "Violin",
+        "optionB": "Cello",
+        "optionC": "Viola",
+        "optionD": "Double Bass",
+        "answer": 1
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "MEDIUM",
+        "question": "Who directed the film 'Jurassic Park'?",
+        "optionA": "James Cameron",
+        "optionB": "Steven Spielberg",
+        "optionC": "George Lucas",
+        "optionD": "Peter Jackson",
+        "answer": 1
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "HIGH",
+        "question": "Which African country has the most pyramids?",
+        "optionA": "Egypt",
+        "optionB": "Sudan",
+        "optionC": "Libya",
+        "optionD": "Ethiopia",
+        "answer": 1
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "HIGH",
+        "question": "What is the name of the fictional African country in 'Black Panther'?",
+        "optionA": "Wakanda",
+        "optionB": "Zamunda",
+        "optionC": "Genovia",
+        "optionD": "Latveria",
+        "answer": 0
+    },
+    {
+        "category": "FOOD_AND_CUISINE",
+        "difficulty_level": "LOW",
+        "question": "Which fruit is known for having its seeds on the outside?",
+        "optionA": "Raspberry",
+        "optionB": "Strawberry",
+        "optionC": "Blackberry",
+        "optionD": "Blueberry",
+        "answer": 1
+    },
+    {
+        "category": "NATURE_AND_WILDLIFE",
+        "difficulty_level": "HIGH",
+        "question": "What is a group of crows called?",
+        "optionA": "A flock",
+        "optionB": "A murder",
+        "optionC": "A parliament",
+        "optionD": "A gaggle",
+        "answer": 1
+    },
+    {
+        "category": "MYTHOLOGY_AND_RELIGION",
+        "difficulty_level": "HIGH",
+        "question": "In Japanese mythology, what are the supernatural beings called that inhabit all things?",
+        "optionA": "Yokai",
+        "optionB": "Kami",
+        "optionC": "Oni",
+        "optionD": "Kitsune",
+        "answer": 1
+    },
+    {
+        "category": "POLITICS",
+        "difficulty_level": "HIGH",
+        "question": "Which country has the world's oldest continuous parliament?",
+        "optionA": "England",
+        "optionB": "Iceland",
+        "optionC": "Greece",
+        "optionD": "Italy",
+        "answer": 1
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "HIGH",
+        "question": "What is the term for a piece of music written for nine instruments?",
+        "optionA": "Octet",
+        "optionB": "Nonet",
+        "optionC": "Dectet",
+        "optionD": "Septet",
+        "answer": 1
+    },
+    {
+        "category": "ENTERTAINMENT",
+        "difficulty_level": "LOW",
+        "question": "What is the name of the dragon in 'The Hobbit'?",
+        "optionA": "Drogon",
+        "optionB": "Smaug",
+        "optionC": "Toothless",
+        "optionD": "Draco",
+        "answer": 1
+    },
+    {
+        "category": "GEOGRAPHY",
+        "difficulty_level": "LOW",
+        "question": "Which country is both in Europe and Asia?",
+        "optionA": "Russia",
+        "optionB": "Kazakhstan",
+        "optionC": "Turkey",
+        "optionD": "All of the above",
+        "answer": 3
+    },
+    {
+        "category": "LITERATURE",
+        "difficulty_level": "LOW",
+        "question": "Who wrote 'The Adventures of Tom Sawyer'?",
+        "optionA": "Mark Twain",
+        "optionB": "Charles Dickens",
+        "optionC": "Ernest Hemingway",
+        "optionD": "F. Scott Fitzgerald",
+        "answer": 0
+    },
+    {
+        "category": "MUSIC",
+        "difficulty_level": "LOW",
+        "question": "Which singer is known as the 'Queen of Pop'?",
+        "optionA": "Whitney Houston",
+        "optionB": "Madonna",
+        "optionC": "Beyoncé",
+        "optionD": "Lady Gaga",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the most widely spoken language in the world by number of native speakers?",
+        "optionA": "English",
+        "optionB": "Spanish",
+        "optionC": "Mandarin Chinese",
+        "optionD": "Hindi",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which planet in our solar system has the most moons?",
+        "optionA": "Jupiter",
+        "optionB": "Saturn",
+        "optionC": "Uranus",
+        "optionD": "Neptune",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the largest island in the world?",
+        "optionA": "New Guinea",
+        "optionB": "Borneo",
+        "optionC": "Greenland",
+        "optionD": "Madagascar",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "In which year did the Titanic sink?",
+        "optionA": "1910",
+        "optionB": "1912",
+        "optionC": "1914",
+        "optionD": "1916",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the chemical formula for table salt?",
+        "optionA": "NaCl",
+        "optionB": "KCl",
+        "optionC": "CaCl2",
+        "optionD": "MgCl2",
+        "answer": 0
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which organ in the human body produces insulin?",
+        "optionA": "Liver",
+        "optionB": "Kidney",
+        "optionC": "Pancreas",
+        "optionD": "Spleen",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the name of the world's longest river?",
+        "optionA": "Amazon",
+        "optionB": "Nile",
+        "optionC": "Yangtze",
+        "optionD": "Mississippi",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "How many time zones does Russia have?",
+        "optionA": "9",
+        "optionB": "11",
+        "optionC": "13",
+        "optionD": "15",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What percentage of Earth's surface is covered by water?",
+        "optionA": "50%",
+        "optionB": "60%",
+        "optionC": "71%",
+        "optionD": "80%",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which metal is liquid at room temperature?",
+        "optionA": "Mercury",
+        "optionB": "Gallium",
+        "optionC": "Cesium",
+        "optionD": "Francium",
+        "answer": 0
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the approximate speed of light in a vacuum?",
+        "optionA": "200,000 km/s",
+        "optionB": "250,000 km/s",
+        "optionC": "300,000 km/s",
+        "optionD": "350,000 km/s",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which blood type is known as the universal donor?",
+        "optionA": "A positive",
+        "optionB": "B negative",
+        "optionC": "AB positive",
+        "optionD": "O negative",
+        "answer": 3
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the term for a word that reads the same backward as forward?",
+        "optionA": "Anagram",
+        "optionB": "Palindrome",
+        "optionC": "Homonym",
+        "optionD": "Synonym",
+        "answer": 1
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "Which country has the most UNESCO World Heritage Sites?",
+        "optionA": "China",
+        "optionB": "France",
+        "optionC": "Italy",
+        "optionD": "Spain",
+        "answer": 2
+    },
+    {
+        "category": "GENERAL",
+        "difficulty_level": "MEDIUM",
+        "question": "What is the primary component of natural gas?",
+        "optionA": "Propane",
+        "optionB": "Butane",
+        "optionC": "Methane",
+        "optionD": "Ethane",
+        "answer": 2
     }
 ]

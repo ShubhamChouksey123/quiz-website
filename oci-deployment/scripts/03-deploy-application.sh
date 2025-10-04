@@ -207,41 +207,6 @@ log_info "2.2 Preparing image for local deployment..."
 # We'll use the local image first, then push to OCIR after successful deployment
 log_success "Docker image ready for local deployment"
 
-log_info "2.3 Restarting containers to use new image..."
-
-# Restart containers to use the newly built image
-ssh -i ~/.ssh/id_rsa -o ConnectTimeout=180 -o StrictHostKeyChecking=no opc@"$PUBLIC_IP" << 'EOF'
-cd /opt/quiz-app
-
-echo "Stopping existing containers..."
-docker compose down
-
-echo "Starting containers with new image..."
-docker compose up -d
-
-if [ $? -eq 0 ]; then
-    echo "Containers restarted successfully with new image"
-
-    # Wait for containers to be ready
-    echo "Waiting for containers to start..."
-    sleep 30
-
-    # Check container status
-    echo "Container status:"
-    docker compose ps
-else
-    echo "Container restart failed"
-    exit 1
-fi
-EOF
-
-if [ $? -eq 0 ]; then
-    log_success "Containers restarted with new image successfully"
-else
-    log_error "Container restart failed"
-    exit 1
-fi
-
 echo ""
 
 # Phase 3: Database Container Deployment

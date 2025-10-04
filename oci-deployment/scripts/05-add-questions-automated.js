@@ -70,7 +70,8 @@ class QuizQuestionAdder {
         // Valid enum values from Java backend
         this.validCategories = [
             'GENERAL', 'HISTORY', 'FINANCE', 'SPORTS',
-            'SCIENCE_AND_TECHNOLOGY', 'ENGINEERING'
+            'SCIENCE_AND_TECHNOLOGY', 'ENGINEERING', 'ENTERTAINMENT', 'GEOGRAPHY', 'LITERATURE', 'FOOD_AND_CUISINE',
+            'NATURE_AND_WILDLIFE', 'MYTHOLOGY_AND_RELIGION', 'POLITICS', 'MUSIC'
         ];
         this.validDifficultyLevels = ['LOW', 'MEDIUM', 'HIGH'];
     }
