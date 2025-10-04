@@ -16,7 +16,7 @@ Based on `QuizController.java:145-164`, the `/submit-add-question` POST endpoint
 - `difficulty_level`: DifficultyLevel enum - LOW, MEDIUM, HIGH
 - `question`: String - The question text
 - `optionA`, `optionB`, `optionC`, `optionD`: String - Multiple choice options
-- `answer`: Integer - Correct answer (1-4, where 1=A, 2=B, 3=C, 4=D)
+- `answer`: Integer - Correct answer (0-3, where 0=A, 1=B, 2=C, 3=D)
 
 ### Response Behavior
 - Success: Returns 302 redirect to `/home` with flash message "Added new question."
