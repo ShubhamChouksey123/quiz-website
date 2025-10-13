@@ -1,9 +1,9 @@
 package com.shubham.app.dto;
 
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import jakarta.validation.constraints.NotNull;
 
 public class HRInfoDTO {
 

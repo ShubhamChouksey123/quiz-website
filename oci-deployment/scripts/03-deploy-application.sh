@@ -213,23 +213,62 @@ echo ""
 log_info "Phase 3: Database Container Deployment"
 echo ""
 
-log_info "3.1 Setting up PostgreSQL data directory permissions..."
+log_info "3.1 Verifying PostgreSQL data directory permissions..."
 
-# Set up database directory permissions
+# Verify and fix database directory permissions if needed
 ssh -i ~/.ssh/id_rsa -o ConnectTimeout=20 -o StrictHostKeyChecking=no opc@"$PUBLIC_IP" << 'EOF'
-# Ensure data directory exists with correct permissions
-sudo mkdir -p /opt/quiz-app/data/postgres
-sudo chown -R 999:999 /opt/quiz-app/data/postgres
-sudo chmod 700 /opt/quiz-app/data/postgres
+# Check if directory exists and has correct permissions
+echo "Checking PostgreSQL data directory status..."
+
+if [ -d "/opt/quiz-app/data/postgres" ]; then
+    echo "PostgreSQL data directory exists"
+
+    # Check ownership (PostgreSQL alpine uses UID 70, GID 70)
+    OWNER_UID=$(stat -c '%u' /opt/quiz-app/data/postgres 2>/dev/null || echo "unknown")
+    OWNER_GID=$(stat -c '%g' /opt/quiz-app/data/postgres 2>/dev/null || echo "unknown")
+    if [ "$OWNER_UID" = "70" ] && [ "$OWNER_GID" = "70" ]; then
+        echo "✅ PostgreSQL data directory ownership is correct (70:70)"
+        PERMISSIONS_OK=true
+    else
+        echo "⚠️  PostgreSQL data directory ownership: $OWNER_UID:$OWNER_GID - needs fixing (should be 70:70)"
+        PERMISSIONS_OK=false
+    fi
+else
+    echo "⚠️  PostgreSQL data directory does not exist - creating with correct permissions"
+    PERMISSIONS_OK=false
+fi
+
+# Fix permissions if needed
+if [ "$PERMISSIONS_OK" != "true" ]; then
+    echo "Fixing PostgreSQL data directory permissions..."
+    sudo mkdir -p /opt/quiz-app/data/postgres
+    sudo chown -R 70:70 /opt/quiz-app/data/postgres
+    sudo chmod -R 750 /opt/quiz-app/data/postgres
+    echo "PostgreSQL data directory permissions fixed"
+else
+    echo "PostgreSQL data directory permissions are already correct"
+fi
 
 # Ensure logs directory exists
 sudo mkdir -p /opt/quiz-app/logs
 sudo chown -R opc:opc /opt/quiz-app/logs
 
-echo "Database directory permissions configured"
+# Final verification
+echo "Final verification of PostgreSQL data directory permissions:"
+ls -ld /opt/quiz-app/data/postgres 2>/dev/null || echo "Directory will be created by PostgreSQL"
+
+# Check if ownership is correct after potential fix
+FINAL_UID=$(stat -c '%u' /opt/quiz-app/data/postgres 2>/dev/null || echo "unknown")
+FINAL_GID=$(stat -c '%g' /opt/quiz-app/data/postgres 2>/dev/null || echo "unknown")
+if [ "$FINAL_UID" = "70" ] && [ "$FINAL_GID" = "70" ]; then
+    echo "✅ Final verification: PostgreSQL data directory ownership is correct (70:70)"
+else
+    echo "❌ Final verification: PostgreSQL data directory ownership: $FINAL_UID:$FINAL_GID (expected 70:70)"
+    echo "This may cause PostgreSQL permission denied errors during startup"
+fi
 EOF
 
-log_success "Database directory permissions configured"
+log_success "PostgreSQL data directory permissions verified and configured"
 
 echo ""
 
@@ -306,7 +345,7 @@ docker compose ps
 
 echo ""
 echo "=== Container Health ==="
-if docker compose exec -T quiz-postgres pg_isready -U postgres -d quiz; then
+if docker compose exec -T postgres pg_isready -U postgres -d quiz; then
     echo "✅ PostgreSQL: Healthy"
 else
     echo "❌ PostgreSQL: Not ready"
@@ -419,6 +458,18 @@ echo ""
 
 log_info "If application is not immediately accessible, wait 2-3 minutes for full startup"
 log_info "Monitor logs with: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker compose logs -f quiz-app'"
+
+echo ""
+log_info "Troubleshooting Common Issues:"
+echo "  🔧 PostgreSQL Permission Denied Errors (SHOULD BE PREVENTED):"
+echo "     - Symptoms: PostgreSQL logs show 'FATAL: could not open file global/pg_filenode.map: Permission denied'"
+echo "     - Prevention: This script now verifies and fixes permissions in Phase 3"
+echo "     - Emergency Fix: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker compose down && sudo chown -R 70:70 /opt/quiz-app/data/postgres && sudo chmod -R 750 /opt/quiz-app/data/postgres && docker compose up -d'"
+echo "  🔧 Application Health Check Failures:"
+echo "     - Wait 2-3 minutes for full startup, check logs for specific errors"
+echo "     - Verify database connectivity: ssh opc@$PUBLIC_IP 'cd /opt/quiz-app && docker compose logs postgres'"
+echo "  🔧 Docker Health Check Issues:"
+echo "     - Health check may show 'unhealthy' due to missing curl in container - this is cosmetic if application responds"
 
 echo ""
 log_success "Deployment completed successfully!"

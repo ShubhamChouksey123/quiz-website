@@ -97,6 +97,9 @@ Create an OCI compute instance optimized for the quiz application deployment usi
 2. **Application Directory Structure**
    - Verify `/opt/quiz-app` directory creation
    - Confirm proper permissions for application deployment
+   - **CRITICAL**: Set up PostgreSQL data directory with correct permissions
+   - Set ownership to `70:70` (PostgreSQL 14-alpine uses UID 70, GID 70)
+   - Set directory permissions to `750` and file permissions to `640`
    - Test volume mounts for PostgreSQL data persistence
 
 ## Resource Allocation Strategy
@@ -268,6 +271,21 @@ oci compute instance launch \
 - **Impact**: Script failures and incomplete verification
 - **Solution**: Configure security rules first, then verify connectivity
 - **Prevention**: Updated implementation phases with proper sequencing
+
+### Issue 4: PostgreSQL Data Directory Permissions
+- **Problem**: PostgreSQL Docker container requires specific ownership (`70:70` for postgres:14-alpine) and permissions (`750`) for data directory
+- **Impact**: Container fails with "Permission denied" errors when accessing database files (`FATAL: could not open file "global/pg_filenode.map": Permission denied`)
+- **Root Cause**: PostgreSQL 14-alpine uses UID 70, GID 70 (not 999 as in standard PostgreSQL)
+- **Solution**: Set proper ownership and permissions during infrastructure creation, not deployment
+- **Prevention**: Configure PostgreSQL data directory permissions in Phase 3 of infrastructure creation
+- **Required Commands**:
+  ```bash
+  # Create PostgreSQL data directory with correct permissions for PostgreSQL 14-alpine
+  sudo mkdir -p /opt/quiz-app/data/postgres
+  sudo chown -R 70:70 /opt/quiz-app/data/postgres
+  sudo find /opt/quiz-app/data/postgres -type d -exec chmod 750 {} \;
+  sudo find /opt/quiz-app/data/postgres -type f -exec chmod 640 {} \;
+  ```
 
 ## Next Steps After Completion
 

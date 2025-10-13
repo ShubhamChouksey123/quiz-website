@@ -1,13 +1,11 @@
 package com.shubham.app.service;
 
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.shubham.app.dto.HRInfoDTO;
 import com.shubham.app.entity.HRInfo;
 import com.shubham.app.service.questioncrud.exception.InvalidRequest;
-
 import java.math.BigInteger;
 import java.util.List;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public interface HRInfoService {
     List<HRInfoDTO> getHRInfo(BigInteger firstResult, BigInteger maxResults, String searchText);

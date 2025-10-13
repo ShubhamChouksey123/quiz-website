@@ -1,10 +1,7 @@
 package com.shubham.app.render;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
+import static com.shubham.app.controller.QuizController.ZERO_LENGTH_STRING;
+import static com.shubham.app.controller.QuizSubmissionController.TOTAL_QUESTIONS_TO_ASK;
 
 import com.shubham.app.dto.EachQuestion;
 import com.shubham.app.emailsender.PrepareAndSendEmail;
@@ -18,13 +15,14 @@ import com.shubham.app.model.QuestionCategory;
 import com.shubham.app.service.questioncrud.QuestionCrud;
 import com.shubham.app.service.questioncrud.QuestionsUtils;
 import com.shubham.app.service.questioncrud.exception.InternalServerException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static com.shubham.app.controller.QuizController.ZERO_LENGTH_STRING;
-import static com.shubham.app.controller.QuizSubmissionController.TOTAL_QUESTIONS_TO_ASK;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 @Service
 public class RenderQuizTemplateImpl implements RenderQuizTemplate {
@@ -66,7 +64,19 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         List<Integer> questionIdsList = questionsUtils.convertStringQuestionsToList(questionIdsString);
         List<Integer> userOptedAnswersList = questionsUtils.convertStringQuestionsToList(userOptedAnswers);
 
-        List<Question> questions = questionCrud.getQuestionsFromQuestionIds(questionIdsList);
+        List<Question> questionsFromDb = questionCrud.getQuestionsFromQuestionIds(questionIdsList);
+
+        // Sort questions to match the order of questionIdsList
+        // Database query with IN clause doesn't guarantee order
+        List<Question> questions = new ArrayList<>();
+        for (Integer questionId : questionIdsList) {
+            for (Question q : questionsFromDb) {
+                if (q.getQuestionId().equals(Long.valueOf(questionId))) {
+                    questions.add(q);
+                    break;
+                }
+            }
+        }
 
         List<EachQuestion> questionsResults = new ArrayList<>();
 
@@ -80,7 +90,7 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
             questionsResults.add(eachQuestion);
 
             setAllBorderColorsOfOptions(eachQuestion);
-            logger.debug("eachQuestion : {}", eachQuestion);
+            logger.info("eachQuestion : {}", eachQuestion);
         }
 
         Integer score = questionCrud.calculateAndSaveScore(name, email, questionIdsList, userOptedAnswersList,
@@ -107,13 +117,19 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
     }
 
     private String getBorderColor(Integer ans, Integer userOptedAnswer, Integer option) {
+        logger.debug("getBorderColor - ans: {}, userOptedAnswer: {}, option: {}", ans, userOptedAnswer, option);
+
         if (Objects.equals(ans, userOptedAnswer) && Objects.equals(userOptedAnswer, option)) {
+            logger.debug("Returning blue-border");
             return "blue-border";
         } else if (!Objects.equals(ans, option) && Objects.equals(userOptedAnswer, option)) {
+            logger.debug("Returning red-border");
             return "red-border";
         } else if (Objects.equals(ans, option) && !Objects.equals(userOptedAnswer, option)) {
+            logger.debug("Returning green-border");
             return "green-border";
         }
+        logger.debug("Returning default-border");
         return "default-border";
     }
 

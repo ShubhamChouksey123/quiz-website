@@ -61,7 +61,14 @@ Deploy the quiz application to the OCI compute instance using a remote Docker bu
    - Push to Oracle Container Registry
    - Verify image availability in OCIR
 
-3. **Build Verification**
+3. **Container Restart with New Image** ⚠️ **CRITICAL**
+   - Stop existing containers: `docker compose down`
+   - Start containers with newly built image: `docker compose up -d`
+   - Wait for containers to be ready (30 seconds)
+   - Verify container status after restart
+   - **Purpose**: Ensures the application runs with the latest code changes
+
+4. **Build Verification**
    - Test local image functionality
    - Verify image layers and size optimization
    - Confirm Java 17 runtime compatibility
@@ -76,9 +83,12 @@ Deploy the quiz application to the OCI compute instance using a remote Docker bu
    - Port mapping: `5432:5432` (internal to Docker network)
 
 2. **Data Directory Setup**
-   - Ensure `/opt/quiz-app/data/postgres` has correct permissions (999:999)
-   - Set directory permissions to 700 for security
+   - Verify `/opt/quiz-app/data/postgres` has correct permissions (70:70) - **Should be configured during infrastructure creation**
+   - Confirm directory permissions are 750 for security (PostgreSQL user needs read/write/execute)
    - Create database initialization if needed
+   - **NOTE**: PostgreSQL 14-alpine uses UID 70, GID 70 (not 999)
+   - **NOTE**: Permissions should already be set by infrastructure creation script (`02-create-infrastructure.sh`)
+   - **FALLBACK**: If permissions are incorrect, fix them before container startup to prevent permission denied errors
 
 3. **Database Container Deployment**
    ```bash
@@ -250,6 +260,12 @@ DOCKER_IMAGE=ap-mumbai-1.ocir.io/NAMESPACE/quiz-app:latest
    - Verify PostgreSQL container is running
    - Check database credentials and connection string
    - Test network connectivity between containers
+
+4. **PostgreSQL Permission Denied Errors**
+   - **Symptoms**: PostgreSQL logs show "FATAL: could not open file global/pg_filenode.map: Permission denied"
+   - **Root Cause**: Data directory `/opt/quiz-app/data/postgres` has incorrect ownership (PostgreSQL 14-alpine uses UID 70, GID 70)
+   - **Solution**: Stop containers, run `sudo chown -R 70:70 /opt/quiz-app/data/postgres && sudo chmod -R 750 /opt/quiz-app/data/postgres`, restart containers
+   - **Prevention**: Ensure proper permissions (70:70) are set during initial deployment
 
 4. **OCIR Authentication Issues**
    - Verify auth token validity

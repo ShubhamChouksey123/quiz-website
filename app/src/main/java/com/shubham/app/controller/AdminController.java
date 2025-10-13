@@ -1,5 +1,8 @@
 package com.shubham.app.controller;
 
+import com.shubham.app.model.ApprovalLevel;
+import com.shubham.app.render.RenderAdminTemplate;
+import com.shubham.app.service.questioncrud.QuestionCrud;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.shubham.app.model.ApprovalLevel;
-import com.shubham.app.render.RenderAdminTemplate;
-
 /**
  * We have used this open-source theme template from
  * <a href="https://themewagon.com/themes/vintagefur/">Theme-wagon template</a>
@@ -24,6 +24,8 @@ public class AdminController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Autowired
     private RenderAdminTemplate renderAdminTemplate;
+    @Autowired
+    private QuestionCrud questionCrud;
 
     @GetMapping({"/admin",})
     public String renderAdminAllQuestion(
@@ -50,4 +52,31 @@ public class AdminController {
 
         return new RedirectView("/admin");
     }
+
+//    @PostMapping(value = {"/delete-question"})
+//    @ResponseBody
+//    public RedirectView deleteQuestion(@RequestParam(value = "questionId") Long questionId,
+//                                       RedirectAttributes redirectAttrs) {
+//
+//        logger.info("attempting to delete question with questionId: {}", questionId);
+//
+//        try {
+//            boolean deleted = questionCrud.removeQuestions(questionId);
+//            if (deleted) {
+//                logger.info("successfully deleted question with questionId: {}", questionId);
+//                redirectAttrs.addFlashAttribute("successMessage",
+//                        "Question " + questionId + " has been successfully deleted.");
+//            } else {
+//                logger.warn("failed to delete question with questionId: {}", questionId);
+//                redirectAttrs.addFlashAttribute("errorMessage",
+//                        "Failed to delete question " + questionId + ". Question may not exist.");
+//            }
+//        } catch (Exception e) {
+//            logger.error("error occurred while deleting question with questionId: {}", questionId, e);
+//            redirectAttrs.addFlashAttribute("errorMessage",
+//                    "An error occurred while deleting question " + questionId + ": " + e.getMessage());
+//        }
+//
+//        return new RedirectView("/admin");
+//    }
 }

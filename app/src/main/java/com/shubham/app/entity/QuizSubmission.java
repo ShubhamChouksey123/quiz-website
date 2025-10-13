@@ -1,7 +1,7 @@
 package com.shubham.app.entity;
 
-import java.util.Date;
 import jakarta.persistence.*;
+import java.util.Date;
 
 @Entity(name = "quiz_submission")
 @Table(name = "quiz_submission")
