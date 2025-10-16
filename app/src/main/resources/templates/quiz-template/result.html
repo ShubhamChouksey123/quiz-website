@@ -108,9 +108,11 @@
                <div class="question-review-card" th:each="question, iterStat : ${questions}">
                   <div class="question-review-header">
                      <span class="question-number">Question <span th:text="${iterStat.index + 1}">1</span></span>
-                     <span class="answer-status" th:classappend="${question.ans == question.useOptedAnswer ? 'correct' : 'incorrect'}">
-                        <i class="fas" th:classappend="${question.ans == question.useOptedAnswer ? 'fa-check-circle' : 'fa-times-circle'}"></i>
-                        <span th:text="${question.ans == question.useOptedAnswer ? 'Correct' : 'Incorrect'}">Correct</span>
+                     <span class="answer-status"
+                        th:classappend="${question.useOptedAnswer == -1 ? 'unattempted' : (question.ans == question.useOptedAnswer ? 'correct' : 'incorrect')}">
+                        <i class="fas"
+                           th:classappend="${question.useOptedAnswer == -1 ? 'fa-circle-minus' : (question.ans == question.useOptedAnswer ? 'fa-check-circle' : 'fa-times-circle')}"></i>
+                        <span th:text="${question.useOptedAnswer == -1 ? 'Unattempted' : (question.ans == question.useOptedAnswer ? 'Correct' : 'Incorrect')}">Correct</span>
                      </span>
                   </div>
 

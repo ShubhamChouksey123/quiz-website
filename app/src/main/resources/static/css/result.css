@@ -335,6 +335,11 @@ body {
     color: #e74c3c;
 }
 
+.answer-status.unattempted {
+    background: #fff3cd;
+    color: #856404;
+}
+
 .question-statement {
     font-size: 20px;
     font-weight: 600;
