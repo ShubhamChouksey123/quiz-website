@@ -1,7 +1,10 @@
 package com.shubham.app.controller;
 
 import com.shubham.app.model.ApprovalLevel;
+import com.shubham.app.model.DifficultyLevel;
+import com.shubham.app.model.QuestionCategory;
 import com.shubham.app.render.RenderAdminTemplate;
+import com.shubham.app.render.RenderQuizTemplate;
 import com.shubham.app.service.questioncrud.QuestionCrud;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +28,8 @@ public class AdminController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Autowired
     private RenderAdminTemplate renderAdminTemplate;
+    @Autowired
+    private RenderQuizTemplate renderQuizTemplate;
     @Autowired
     private QuestionCrud questionCrud;
 
@@ -57,6 +63,34 @@ public class AdminController {
             return new RedirectView("/admin?approvalLevel=" + currentView);
         }
 
+        return new RedirectView("/admin");
+    }
+
+    @GetMapping({"/add-question"})
+    public String renderAddQuestion(@ModelAttribute("questionId") String questionId, Model model) {
+        logger.info("rendering add/edit question page with questionId: {}", questionId);
+        renderQuizTemplate.renderDesiredQuestionEditPage(questionId, model);
+        return "quiz-template/admin-add-question";
+    }
+
+    @PostMapping(value = {"/submit-add-question"})
+    @ResponseBody
+    public RedirectView submitAddQuestion(@RequestParam(value = "question_id", required = false) Long questionId,
+            @RequestParam(value = "category") QuestionCategory category,
+            @RequestParam(value = "difficulty_level") DifficultyLevel difficultyLevel,
+            @RequestParam(value = "question") String question, @RequestParam(value = "optionA") String optionA,
+            @RequestParam(value = "optionB") String optionB, @RequestParam(value = "optionC") String optionC,
+            @RequestParam(value = "optionD") String optionD, @RequestParam(value = "answer") Integer answer,
+            Model model, RedirectAttributes redirectAttrs) {
+
+        logger.info(
+                "post method submitted a new question with questionId : {} category : {}, question : {}, optionA : {}, optionB : {}, optionC : {}, optionD : {} and answer : {}",
+                questionId, category, question, optionA, optionB, optionC, optionD, answer);
+
+        renderQuizTemplate.submitNewAddQuestion(questionId, category, question, optionA, optionB, optionC, optionD,
+                answer, difficultyLevel);
+
+        redirectAttrs.addFlashAttribute("successMessage", "Question saved successfully.");
         return new RedirectView("/admin");
     }
 
