@@ -1,155 +1,210 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <link rel="stylesheet" type="text/css" href="css/style-admin.css">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Quiz Admin - Dashboard</title>
 
-   <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-   <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-   <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+   <!-- Font Awesome for icons -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+   <!-- Custom Admin CSS -->
+   <link rel="stylesheet" type="text/css" href="/css/admin-dashboard.css">
 
+   <!-- jQuery -->
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
+   <div class="admin-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+         <div class="sidebar-header">
+            <h2>Quiz Admin</h2>
+            <p>Management Panel</p>
+         </div>
 
+         <nav class="sidebar-nav">
+            <a href="javascript:void(0);" class="nav-item active" onclick="showDashboard()">
+               <i class="fas fa-chart-bar"></i>
+               <span>Dashboard</span>
+            </a>
+            <a href="javascript:void(0);" class="nav-item" onclick="showQuestions()">
+               <i class="fas fa-question-circle"></i>
+               <span>Questions</span>
+            </a>
+            <a href="/add-question" class="nav-item">
+               <i class="fas fa-clipboard-list"></i>
+               <span>Add Question</span>
+            </a>
+            <a href="/" class="nav-item">
+               <i class="fas fa-home"></i>
+               <span>Home</span>
+            </a>
+            <a href="/leaderboard" class="nav-item">
+               <i class="fas fa-trophy"></i>
+               <span>Leaderboard</span>
+            </a>
+            <a href="/contact" class="nav-item">
+               <i class="fas fa-envelope"></i>
+               <span>Contact</span>
+            </a>
+         </nav>
+      </aside>
 
+      <!-- Main Content -->
+      <main class="main-content">
+         <!-- Dashboard View -->
+         <div id="dashboardView" class="content-view active">
+            <div class="content-header">
+               <h1>Dashboard Overview</h1>
+               <p class="subtitle">Welcome back, Admin!</p>
+            </div>
 
-   <div class="heading">
-      <h1>Admin : Question Bank</h1>
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+               <div class="stat-card">
+                  <div class="stat-icon red">
+                     <i class="fas fa-question-circle"></i>
+                  </div>
+                  <div class="stat-info">
+                     <h3 th:text="${totalQuestions != null ? totalQuestions : '0'}">1,247</h3>
+                     <p>Total Questions</p>
+                  </div>
+               </div>
 
-      <h4>
-         Design a Horizontal group Radio
-         Button using jQuery Mobile
-      </h4>
+               <div class="stat-card">
+                  <div class="stat-icon yellow">
+                     <i class="fas fa-edit"></i>
+                  </div>
+                  <div class="stat-info">
+                     <h3 th:text="${activeQuizzes != null ? activeQuizzes : '0'}">156</h3>
+                     <p>Active Quizzes</p>
+                  </div>
+               </div>
 
-      <form style="width: 50%; margin: auto;">
-         <fieldset data-role="controlgroup" data-type="horizontal">
-            <label for="radioButtonApproved">Approved</label>
-            <input type="radio" name="radioButtonApproved" id="radioButtonApproved" class="custom"
-               onclick="approvedQuestionPage();">
+               <div class="stat-card">
+                  <div class="stat-icon blue">
+                     <i class="fas fa-users"></i>
+                  </div>
+                  <div class="stat-info">
+                     <h3 th:text="${registeredUsers != null ? registeredUsers : '0'}">3,892</h3>
+                     <p>Registered Users</p>
+                  </div>
+               </div>
 
-            <label for="radioButtonNeedApproval">Needs Approval</label>
-            <input type="radio" name="radioButtonNeedApproval" id="radioButtonNeedApproval" class="custom" checked
-               onclick="newQuestionPage();">
+               <div class="stat-card">
+                  <div class="stat-icon green">
+                     <i class="fas fa-check-circle"></i>
+                  </div>
+                  <div class="stat-info">
+                     <h3 th:text="${completions != null ? completions : '0'}">12,456</h3>
+                     <p>Completions</p>
+                  </div>
+               </div>
+            </div>
 
-            <label for="radioButtonDiscarded">Discarded</label>
-            <input type="radio" name="radioButtonDiscarded" id="radioButtonDiscarded" class="custom"
-               onclick="discardedQuestionPage();">
+            <!-- Recent Questions Table -->
+            <div class="table-section">
+               <h2>Recent Questions</h2>
+               <div class="table-container">
+                  <table class="data-table">
+                     <thead>
+                        <tr>
+                           <th>ID</th>
+                           <th>QUESTION TITLE</th>
+                           <th>CATEGORY</th>
+                           <th>STATUS</th>
+                           <th>DIFFICULTY</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr th:each="question, iterStat : ${questions}" th:if="${iterStat.index < 10}">
+                           <td th:text="'#' + ${question.questionId}">#1247</td>
+                           <td th:text="${question.statement}">What is Spring Boot?</td>
+                           <td th:text="${question.category != null ? question.category : 'General'}">Java</td>
+                           <td>
+                              <span class="status-badge"
+                                    th:classappend="${question.approvalLevel != null && question.approvalLevel.name() == 'APPROVED'} ? 'active' : 'draft'"
+                                    th:text="${question.approvalLevel != null && question.approvalLevel.name() == 'APPROVED'} ? 'Active' : 'Draft'">
+                                 Active
+                              </span>
+                           </td>
+                           <td th:text="${question.difficulty != null ? question.difficulty : 'N/A'}">Medium</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
 
-         </fieldset>
-      </form>
+         <!-- Questions Management View -->
+         <div id="questionsView" class="content-view">
+            <div class="content-header">
+               <h1>Questions Management</h1>
+               <p class="subtitle">Review and manage quiz questions</p>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+               <button class="filter-tab" data-filter="NEW" id="tabNeedApproval" onclick="filterQuestions('NEW')">
+                  <i class="fas fa-clock"></i> Needs Approval
+               </button>
+               <button class="filter-tab active" data-filter="APPROVED" id="tabApproved" onclick="filterQuestions('APPROVED')">
+                  <i class="fas fa-check"></i> Approved
+               </button>
+               <button class="filter-tab" data-filter="DISCARD" id="tabDiscarded" onclick="filterQuestions('DISCARD')">
+                  <i class="fas fa-times"></i> Discarded
+               </button>
+            </div>
+
+            <!-- Questions List -->
+            <div class="questions-list">
+               <div class="question-card" th:each="question : ${questions}">
+                  <div class="question-header">
+                     <span class="question-id" th:text="'#' + ${question.questionId}">#1247</span>
+                     <span class="question-category" th:text="${question.category != null ? question.category : 'General'}">Java</span>
+                  </div>
+
+                  <h3 class="question-title" th:text="${question.statement}">What is the capital of France?</h3>
+
+                  <div class="question-options">
+                     <div class="option-row">
+                        <div class="option" th:text="'A. ' + ${question.optionA}">A. Berlin</div>
+                        <div class="option" th:text="'B. ' + ${question.optionB}">B. London</div>
+                     </div>
+                     <div class="option-row">
+                        <div class="option" th:text="'C. ' + ${question.optionC}">C. Paris</div>
+                        <div class="option" th:text="'D. ' + ${question.optionD}">D. Rome</div>
+                     </div>
+                  </div>
+
+                  <div class="question-actions">
+                     <button class="btn btn-approve approve-button" th:attr="onclick=|approveQuestion('${question.questionId}')|">
+                        <i class="fas fa-check"></i> Approve
+                     </button>
+                     <button class="btn btn-edit" th:attr="onclick=|editQuestion('${question.questionId}')|">
+                        <i class="fas fa-edit"></i> Edit
+                     </button>
+                     <button class="btn btn-discard discard-button" th:attr="onclick=|discardQuestion('${question.questionId}')|">
+                        <i class="fas fa-times"></i> Discard
+                     </button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </main>
    </div>
 
-
-   <form id="changeCategorySubmitForm" class="changeCategorySubmitForm" method="post" action="/change-category">
+   <!-- Hidden form for category changes -->
+   <form id="changeCategorySubmitForm" method="post" action="/change-category" style="display: none;">
       <input type="hidden" id="questionId" name="questionId" value="" />
       <input type="hidden" id="approvalLevel" name="approvalLevel" value="" />
    </form>
 
-
-   <tr th:each="question: ${questions}">
-      <div class="each-question">
-         <h1 th:text="${question.getStatement()}">What is the capital of France?</h1>
-
-         <div class="flex-container">
-            <div class="each-row">
-               <div class="each-option" th:text="${question.getOptionA()}">1. Berlin</div>
-               <div class="each-option" th:text="${question.getOptionB()}">2. London</div>
-            </div>
-            <div class="each-row">
-               <div class="each-option" th:text="${question.getOptionC()}">3. Paris</div>
-               <div class="each-option" th:text="${question.getOptionD()}">4. Rome</div>
-            </div>
-         </div>
-
-         <div class="flex-container">
-            <div class="each-row approve-button" style="padding: 0px;">
-               <button type="button" class="btn btn-primary"
-                  th:attr="onclick=|approveQuestion('${question.getQuestionId()}')|">Approve</button>
-            </div>
-            <div class="each-row edit-button" style="padding: 0px;">
-               <button type="button" class="btn btn-primary"
-                  th:attr="onclick=|editQuestion('${question.getQuestionId()}')|">Edit</button>
-            </div>
-            <div class="each-row discard-button" style="padding: 0px;">
-               <button type="button" class="btn btn-primary"
-                  th:attr="onclick=|discardQuestion('${question.getQuestionId()}')|">Discard</button>
-            </div>
-         </div>
-
-
-
-
-      </div>
-   </tr>
-
-
-
-
-   <!-- footer section start -->
-   <div class="footer_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <div class="col-lg-4 col-sm-6">
-               <h1 class="customer_text">INFORMATION</h1>
-               <p class="footer_lorem_text">Whether you're a trivia master or just starting your quiz journey, Quiz-Wizz
-                  is the perfect place to challenge yourself and have a great time.
-               </p>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-               <h1 class="customer_text">LET US HELP YOU</h1>
-               <p class="footer_lorem_text">We are passionate about testing your knowledge and providing
-                  a platform for fun and learning.
-               </p>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-               <h1 class="customer_text">UseFul Links</h1>
-               <p class="footer_lorem_text1">
-                  <a href="/#about" style="color: #ffffff;">About Us</a><br>
-                  <a href="https://shubhamchouksey123.github.io/portfolio/" style="color: #ffffff;">Visit My
-                     website</a><br>
-                  <a href="https://shubhamchouksey123.github.io/autoCV/cv.pdf" style="color: #ffffff;">Check My
-                     Resume</a><br>
-                  <a href="/add-question" style="color: #ffffff;">Contribute : Question Set</a><br>
-                  <a href="/admin" style="color: #ffffff;">Contribute : Admin</a><br>
-                  <a href="/web/mails" style="color: #ffffff;">Contribute : Admin Mail Sender</a><br>
-                  <a href="/cover" style="color: #ffffff;">Cover Letter Generator</a><br>
-                  Press & News<br>
-                  Competitions<br>
-                  Terms & Conditions
-               </p>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!--  footer section end -->
-
-   <!-- copyright section start -->
-   <div class="copyright_section">
-      <div class="container">
-         <p class="copyright_text">2023 All Rights Reserved. Design by <a href="https://html.design">Shubham Chouksey
-         </p>
-      </div>
-
-      <!-- copyright section end -->
-      <!-- Javascript files-->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery-3.0.0.min.js"></script>
-      <script src="js/plugin.js"></script>
-      <!-- sidebar -->
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="js/custom.js"></script>
-      <!-- javascript -->
-      <script src="js/owl.carousel.js"></script>
-      <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-         crossorigin="anonymous"></script>
-      <script src="js/main-admin.js"></script>
-   </div>
+   <!-- Custom Admin Dashboard JavaScript -->
+   <script src="/js/admin-dashboard.js"></script>
 
 </body>
 
