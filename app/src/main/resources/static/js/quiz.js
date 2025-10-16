@@ -8,6 +8,7 @@
     let startTime = Date.now();
     let timerInterval;
     let isSubmitting = false;
+    let isLoadingQuestion = false;
 
     // DOM Elements
     const elements = {
@@ -78,6 +79,9 @@
     function loadQuestion(index) {
         if (index < 0 || index >= totalQuestions) return;
 
+        // Set flag to prevent change events during loading
+        isLoadingQuestion = true;
+
         currentQuestionIndex = index;
 
         // Update question content
@@ -111,6 +115,9 @@
 
         // Update current question number
         elements.currentQuestionNum.textContent = index + 1;
+
+        // Clear flag after loading is complete
+        isLoadingQuestion = false;
     }
 
     // Update Progress
@@ -141,6 +148,9 @@
         // Option selection
         elements.optionInputs.forEach((input, index) => {
             input.addEventListener('change', function() {
+                // Ignore change events while loading a question
+                if (isLoadingQuestion) return;
+
                 if (this.checked) {
                     userAnswers[currentQuestionIndex] = parseInt(this.value);
                     updateDots();
