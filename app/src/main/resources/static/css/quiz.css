@@ -1,0 +1,528 @@
+/* ==================== Reset & Base Styles ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* ==================== Quiz Container ==================== */
+.quiz-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    min-height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==================== Header ==================== */
+.quiz-header {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.quiz-header .logo a {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quiz-header .logo i {
+    font-size: 28px;
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* ==================== Progress Container ==================== */
+.progress-container {
+    padding: 30px 40px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e0e6ed;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.current-question {
+    font-size: 18px;
+    color: #667eea;
+}
+
+.total-questions {
+    font-size: 16px;
+    color: #7f8c8d;
+}
+
+.progress-bar {
+    height: 12px;
+    background: #e0e6ed;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    transition: width 0.4s ease;
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+}
+
+.progress-percentage {
+    text-align: right;
+    font-size: 14px;
+    color: #7f8c8d;
+    font-weight: 600;
+}
+
+.progress-percentage span {
+    color: #667eea;
+    font-weight: 700;
+}
+
+/* ==================== Main Quiz Section ==================== */
+.quiz-main {
+    flex: 1;
+    padding: 40px;
+}
+
+/* ==================== Question Card ==================== */
+.question-card {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.question-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.question-timer {
+    background: #f8f9fa;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c3e50;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.question-timer i {
+    color: #667eea;
+}
+
+.question-text {
+    font-size: 24px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+/* ==================== Options Container ==================== */
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.option {
+    position: relative;
+}
+
+.option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.option label {
+    display: flex;
+    align-items: center;
+    padding: 20px 24px;
+    background: #f8f9fa;
+    border: 2px solid #e0e6ed;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.option label:hover {
+    background: #f0f3f8;
+    border-color: #667eea;
+    transform: translateX(4px);
+}
+
+.option input[type="radio"]:checked + label {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.option-letter {
+    width: 40px;
+    height: 40px;
+    background: #667eea;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    margin-right: 16px;
+    flex-shrink: 0;
+}
+
+.option input[type="radio"]:checked + label .option-letter {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.option-text {
+    flex: 1;
+    font-size: 16px;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.option-check {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #e0e6ed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    transition: all 0.3s ease;
+    margin-left: 12px;
+}
+
+.option input[type="radio"]:checked + label .option-check {
+    background: #667eea;
+    border-color: #667eea;
+    color: white;
+}
+
+/* ==================== Quiz Navigation ==================== */
+.quiz-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.btn-nav {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-previous {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-previous:hover:not(:disabled) {
+    background: #7f8c8d;
+    transform: translateX(-4px);
+}
+
+.btn-next {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-next:hover:not(:disabled) {
+    transform: translateX(4px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.3);
+}
+
+.btn-nav:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ==================== Question Dots ==================== */
+.question-dots {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 400px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #e0e6ed;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot:hover {
+    transform: scale(1.3);
+}
+
+.dot.answered {
+    background: #667eea;
+}
+
+.dot.active {
+    background: #764ba2;
+    transform: scale(1.4);
+}
+
+/* ==================== Submit Section ==================== */
+.submit-section {
+    padding: 40px;
+}
+
+.submit-card {
+    background: white;
+    border-radius: 16px;
+    padding: 50px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.submit-icon {
+    font-size: 64px;
+    color: #667eea;
+    margin-bottom: 20px;
+}
+
+.submit-card h2 {
+    font-size: 32px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.submit-info {
+    font-size: 18px;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+}
+
+.submit-info span {
+    color: #667eea;
+    font-weight: 700;
+}
+
+.submit-warning {
+    background: #fff3cd;
+    color: #856404;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.submit-card .form-group {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.submit-card label {
+    display: block;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.submit-card input {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #e0e6ed;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.submit-card input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.submit-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.btn-submit {
+    padding: 16px 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* ==================== Footer ==================== */
+.quiz-footer {
+    background: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    color: #7f8c8d;
+    border-top: 1px solid #e0e6ed;
+}
+
+.quiz-footer a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.quiz-footer a:hover {
+    text-decoration: underline;
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+    }
+
+    .quiz-container {
+        border-radius: 0;
+        min-height: 100vh;
+    }
+
+    .quiz-header {
+        padding: 15px 20px;
+    }
+
+    .quiz-header .logo a {
+        font-size: 20px;
+    }
+
+    .progress-container {
+        padding: 20px;
+    }
+
+    .quiz-main {
+        padding: 20px;
+    }
+
+    .question-card {
+        padding: 24px;
+    }
+
+    .question-text {
+        font-size: 20px;
+    }
+
+    .quiz-navigation {
+        flex-wrap: wrap;
+    }
+
+    .question-dots {
+        order: 3;
+        width: 100%;
+        margin-top: 16px;
+    }
+
+    .submit-card {
+        padding: 30px 20px;
+    }
+
+    .submit-card h2 {
+        font-size: 24px;
+    }
+
+    .submit-actions {
+        flex-direction: column;
+    }
+
+    .submit-actions button {
+        width: 100%;
+    }
+}

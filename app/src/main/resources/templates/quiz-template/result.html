@@ -1,269 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <!-- basic -->
-   <meta charset="utf-8">
+   <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!-- mobile metas -->
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-   <!-- site metas -->
-   <title>Quiz Wizz</title>
-   <meta name="keywords" content="Quiz App Quiz-Wizz Shubham Chouksey Software Engineer Developer">
-   <meta name="description"
-      content="Explore my quiz website repository, showcasing my journey as a skilled software engineer. Discover HTML, CSS, and JavaScript frontend development, coupled with Java and Spring Boot backend solutions. Delve into dynamic quizzes sourced from a PostgreSQL database,
-       facilitated by seamless communication through Gmail SMTP. Connect with me to craft innovative web solutions.Designed and developed by Shubham Chouksey, IIT Patna, Software Engineer, Java Spring-boot">
+   <title>Quiz Results - Quiz Wizz</title>
+   <meta name="description" content="Your quiz results - Quiz Wizz">
    <meta name="author" content="Shubham Chouksey">
 
-   <base href="/">
-   <!-- bootstrap css -->
-   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-   <!-- style css -->
-   <link rel="stylesheet" type="text/css" href="css/style.css">
-   <link rel="stylesheet" type="text/css" href="css/style-result.css">
-   <!-- Responsive-->
-   <link rel="stylesheet" href="css/responsive.css">
-   <!-- fevicon -->
-   <link rel="icon" href="images/fevicon.png" type="image/gif" />
-   <!-- Scrollbar Custom CSS -->
-   <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-   <!-- Tweaks for older IEs-->
-   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-   <!-- owl stylesheets -->
-   <link rel="stylesheet" href="css/owl.carousel.min.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
-      media="screen">
+   <!-- Font Awesome -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+   <!-- Custom Result CSS -->
+   <link rel="stylesheet" type="text/css" href="/css/result.css">
+
+   <!-- Favicon -->
+   <link rel="icon" href="/images/fevicon.png" type="image/gif" />
 </head>
 
-
-<script th:inline="javascript">
-
-
-
-
-</script>
-
 <body>
-   <!-- header section start -->
-   <div class="header_section">
-      <div class="container">
-         <nav class="navbar navbar-expand-lg navbar-light bg-nav-bar">
-            <div class="logo"><a href="/home"><img src="images/website-logo-1x.webp"
-                     style="width: 15%; float: left;"></a></div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-               <ul class="navbar-nav mr-auto">
-                  <li class="nav-item">
-                     <a href="#home" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#services" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Services</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#leader_board" class="nav-link scrollto"><i class="bx bx-user"></i>
-                        <span>LeaderBoard</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="/quiz">Start Quiz</a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#contact" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Contact</span></a>
-                  </li>
-               </ul>
-            </div>
-         </nav>
-      </div>
-   </div>
-   <!-- header section end -->
+   <!-- Results Container -->
+   <div class="results-container">
+      <!-- Header -->
+      <header class="results-header">
+         <div class="logo">
+            <a href="/"><i class="fas fa-graduation-cap"></i> Quiz Wizz</a>
+         </div>
+         <div class="header-actions">
+            <a href="/" class="btn-secondary"><i class="fas fa-home"></i> Home</a>
+            <a href="/quiz" class="btn-primary"><i class="fas fa-redo"></i> Retake Quiz</a>
+         </div>
+      </header>
 
-
-   <!-- quiz section start -->
-   <div class="quiz_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <h1 class="about_text">Quiz</h1>
-
-            <p class="success_message">
-               Congratulations on achieving a score of <span class="score">[(${score})]</span> out of <span
-                  class="max_score">[(${maxScore})] </span>.
-            </p>
-
-
-            <div class="col-12">
-               <div class="d-flex justify-content-centre" style="justify-content: flex-end;">
-                  <button class="btn btn-primary px-4 py-2 fw-bold button-flex">
-                     <a href="/home"><i class="bx bx-home"></i> <span style="color:white"> Home </span></a>
-                  </button>
-               </div>
+      <!-- Main Results Section -->
+      <main class="results-main">
+         <!-- Score Card -->
+         <div class="score-card">
+            <div class="score-header">
+               <i class="fas fa-trophy trophy-icon"></i>
+               <h1>Quiz Completed!</h1>
+               <p class="congratulations-text">Congratulations on finishing the quiz</p>
             </div>
 
-
-            <div class="container1 mb-5">
-               <div class="question p-3 border-bottom">
-                  <div class="d-flex flex-row justify-content-between align-items-center mcq">
-                     <h4>MCQ Quiz</h4><span id="questionNumberInfo">(1 of [(${totalQuestions})] )</span>
-                  </div>
-               </div>
-               </br>
-
-               <div class="row">
-                  <tr th:each="question: ${questions}">
-                     <div class="col-12">
-                        <p id="questionDescription" class="fw-bold mt-5" th:text="${question.getStatement()}">2.
-                        </p>
-                        <div>
-                           <div class="row">
-                              <div class="col-md-6">
-                                 <input type="radio" name="optionSelected" id="optionAButton" value="0"> <label
-                                    for="optionAButton" id="optionALabel" class="box fifth w-100"
-                                    th:classappend="${question.getBorderColorOptionA()}">
-                                    <div class="course"> <span class="circle"></span>
-                                       <span class="subject" id="optionADescription" th:text="${question.getOptionA()}">
-                                       </span>
-                                    </div>
-                                 </label>
-                              </div>
-                              <div class="col-md-6">
-                                 <input type="radio" name="optionSelected" id="optionBButton" value="1"> <label
-                                    for="optionBButton" id="optionBLabel" class="box sixth w-100"
-                                    th:classappend="${question.getBorderColorOptionB()}">
-                                    <div class="course"> <span class="circle"></span> <span class="subject"
-                                          id="optionBDescription" th:text="${question.getOptionB()}"> </span>
-                                    </div>
-                                 </label>
-                              </div>
-                              <div class="col-md-6">
-                                 <input type="radio" name="optionSelected" id="optionCButton" value="2"> <label
-                                    for="optionCButton" id="optionCLabel" class="box seveth w-100"
-                                    th:classappend="${question.getBorderColorOptionC()}">
-                                    <div class="course"> <span class="circle"></span> <span class="subject"
-                                          id="optionCDescription" th:text="${question.getOptionC()}">
-                                       </span> </div>
-                                 </label>
-                              </div>
-                              <div class="col-md-6">
-                                 <input type="radio" name="optionSelected" id="optionDButton" value="3"> <label
-                                    for="optionDButton" id="optionDLabel" class="box eighth w-100"
-                                    th:classappend="${question.getBorderColorOptionD()}">
-                                    <div class="course"> <span class="circle"></span> <span class="subject"
-                                          id="optionDDescription" th:text="${question.getOptionD()}">
-                                       </span> </div>
-                                 </label>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </tr>
-
-
-
-                  <div class="col-12">
-                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary px-4 py-2 fw-bold">continue1</button>
-                     </div>
+            <div class="score-display">
+               <div class="score-circle">
+                  <svg viewBox="0 0 200 200">
+                     <defs>
+                        <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                           <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                           <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                        </linearGradient>
+                     </defs>
+                     <circle class="score-circle-bg" cx="100" cy="100" r="90"></circle>
+                     <circle class="score-circle-progress" cx="100" cy="100" r="90"
+                        th:attr="stroke-dashoffset=${565.5 - (565.5 * score / maxScore)}"></circle>
+                  </svg>
+                  <div class="score-text">
+                     <span class="score-number" th:text="${score}">8</span>
+                     <span class="score-divider">/</span>
+                     <span class="score-max" th:text="${maxScore}">10</span>
                   </div>
                </div>
 
-               <div class="d-flex flex-row justify-content-between align-items-center p-3">
-                  <button id="previousQuestionButton" class="btn btn-primary d-flex align-items-center btn-danger"
-                     type="button">
-                     <i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;previous
-                  </button>
-                  <button id="nextQuestionButton" class="btn btn-primary border-success align-items-center btn-success"
-                     type="button">Next
-                     <i class="fa fa-angle-right ml-2"></i>
-                  </button>
+               <div class="performance-badge" th:classappend="${score >= maxScore * 0.8 ? 'excellent' : (score >= maxScore * 0.6 ? 'good' : 'needs-improvement')}">
+                  <i class="fas" th:classappend="${score >= maxScore * 0.8 ? 'fa-star' : (score >= maxScore * 0.6 ? 'fa-thumbs-up' : 'fa-book')}"></i>
+                  <span th:text="${score >= maxScore * 0.8 ? 'Excellent!' : (score >= maxScore * 0.6 ? 'Good Job!' : 'Keep Learning!')}">Excellent!</span>
+               </div>
+            </div>
+
+            <div class="stats-grid">
+               <div class="stat-item">
+                  <i class="fas fa-check-circle stat-icon correct"></i>
+                  <div class="stat-info">
+                     <span class="stat-value" th:text="${score}">8</span>
+                     <span class="stat-label">Correct</span>
+                  </div>
                </div>
 
-            </div>
+               <div class="stat-item">
+                  <i class="fas fa-times-circle stat-icon incorrect"></i>
+                  <div class="stat-info">
+                     <span class="stat-value" th:text="${maxScore - score}">2</span>
+                     <span class="stat-label">Incorrect</span>
+                  </div>
+               </div>
 
-         </div>
-
-
-
-      </div>
-
-   </div>
-   <!-- quiz section end -->
-
-
-
-
-
-   <!-- footer section start -->
-   <div class="footer_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <div class="col-lg-4 col-sm-6">
-               <h1 class="customer_text">INFORMATION</h1>
-               <p class="footer_lorem_text">Whether you're a trivia master or just starting your quiz journey, Quiz-Wizz
-                  is the perfect place to challenge yourself and have a great time.
-               </p>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-               <h1 class="customer_text">LET US HELP YOU</h1>
-               <p class="footer_lorem_text">We are passionate about testing your knowledge and providing
-                  a platform for fun and learning.
-               </p>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-               <h1 class="customer_text">UseFul Links</h1>
-               <p class="footer_lorem_text1">
-                  <a href="/#about" style="color: #ffffff;">About Us</a><br>
-                  <a href="https://shubhamchouksey123.github.io/portfolio/" style="color: #ffffff;">Visit My
-                     website</a><br>
-                  <a href="https://shubhamchouksey123.github.io/autoCV/cv.pdf" style="color: #ffffff;">Check My
-                     Resume</a><br>
-                  <a href="/add-question" style="color: #ffffff;">Contribute : Question Set</a><br>
-                  <a href="/admin" style="color: #ffffff;">Contribute : Admin</a><br>
-                  <a href="/web/mails" style="color: #ffffff;">Contribute : Admin Mail Sender</a><br>
-                  <a href="/cover" style="color: #ffffff;">Cover Letter Generator</a><br>
-                  Press & News<br>
-                  Competitions<br>
-                  Terms & Conditions
-               </p>
+               <div class="stat-item">
+                  <i class="fas fa-percentage stat-icon percentage"></i>
+                  <div class="stat-info">
+                     <span class="stat-value" th:text="${#numbers.formatDecimal(score * 100.0 / maxScore, 1, 1) + '%'}">80%</span>
+                     <span class="stat-label">Accuracy</span>
+                  </div>
+               </div>
             </div>
          </div>
-      </div>
-   </div>
-   <!--  footer section end -->
 
-   <!-- copyright section start -->
-   <div class="copyright_section">
-      <div class="container">
-         <p class="copyright_text">2023 All Rights Reserved. Design by <a href="https://html.design">Shubham Chouksey
-         </p>
-      </div>
+         <!-- Answer Review Section -->
+         <div class="review-section">
+            <div class="review-header">
+               <h2><i class="fas fa-list-check"></i> Answer Review</h2>
+               <p>Review your answers and learn from mistakes</p>
+            </div>
 
-      <!-- copyright section end -->
-      <!-- Javascript files-->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery-3.0.0.min.js"></script>
-      <script src="js/plugin.js"></script>
-      <!-- sidebar -->
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="js/custom.js"></script>
-      <!-- javascript -->
-      <script src="js/owl.carousel.js"></script>
-      <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-         crossorigin="anonymous"></script>
-      <script src="js/main-result.js"></script>
+            <div class="questions-review">
+               <div class="question-review-card" th:each="question, iterStat : ${questions}">
+                  <div class="question-review-header">
+                     <span class="question-number">Question <span th:text="${iterStat.index + 1}">1</span></span>
+                     <span class="answer-status" th:classappend="${question.ans == question.useOptedAnswer ? 'correct' : 'incorrect'}">
+                        <i class="fas" th:classappend="${question.ans == question.useOptedAnswer ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                        <span th:text="${question.ans == question.useOptedAnswer ? 'Correct' : 'Incorrect'}">Correct</span>
+                     </span>
+                  </div>
+
+                  <div class="question-statement" th:text="${question.statement}">
+                     What is the capital of France?
+                  </div>
+
+                  <div class="options-review">
+                     <div class="option-review"
+                        th:classappend="${question.ans == 0 ? 'correct-answer' : ''} + ' ' + ${question.useOptedAnswer == 0 && question.ans != 0 ? 'wrong-answer' : ''}">
+                        <span class="option-letter">A</span>
+                        <span class="option-text" th:text="${question.optionA}">Paris</span>
+                        <span class="option-indicator">
+                           <i th:if="${question.ans == 0}" class="fas fa-check correct-icon"></i>
+                           <i th:if="${question.useOptedAnswer == 0 && question.ans != 0}" class="fas fa-times wrong-icon"></i>
+                        </span>
+                     </div>
+
+                     <div class="option-review"
+                        th:classappend="${question.ans == 1 ? 'correct-answer' : ''} + ' ' + ${question.useOptedAnswer == 1 && question.ans != 1 ? 'wrong-answer' : ''}">
+                        <span class="option-letter">B</span>
+                        <span class="option-text" th:text="${question.optionB}">London</span>
+                        <span class="option-indicator">
+                           <i th:if="${question.ans == 1}" class="fas fa-check correct-icon"></i>
+                           <i th:if="${question.useOptedAnswer == 1 && question.ans != 1}" class="fas fa-times wrong-icon"></i>
+                        </span>
+                     </div>
+
+                     <div class="option-review"
+                        th:classappend="${question.ans == 2 ? 'correct-answer' : ''} + ' ' + ${question.useOptedAnswer == 2 && question.ans != 2 ? 'wrong-answer' : ''}">
+                        <span class="option-letter">C</span>
+                        <span class="option-text" th:text="${question.optionC}">Berlin</span>
+                        <span class="option-indicator">
+                           <i th:if="${question.ans == 2}" class="fas fa-check correct-icon"></i>
+                           <i th:if="${question.useOptedAnswer == 2 && question.ans != 2}" class="fas fa-times wrong-icon"></i>
+                        </span>
+                     </div>
+
+                     <div class="option-review"
+                        th:classappend="${question.ans == 3 ? 'correct-answer' : ''} + ' ' + ${question.useOptedAnswer == 3 && question.ans != 3 ? 'wrong-answer' : ''}">
+                        <span class="option-letter">D</span>
+                        <span class="option-text" th:text="${question.optionD}">Rome</span>
+                        <span class="option-indicator">
+                           <i th:if="${question.ans == 3}" class="fas fa-check correct-icon"></i>
+                           <i th:if="${question.useOptedAnswer == 3 && question.ans != 3}" class="fas fa-times wrong-icon"></i>
+                        </span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <!-- Action Buttons -->
+         <div class="action-section">
+            <a href="/quiz" class="btn-action btn-retake">
+               <i class="fas fa-redo"></i> Take Another Quiz
+            </a>
+            <a href="/leaderboard" class="btn-action btn-leaderboard">
+               <i class="fas fa-trophy"></i> View Leaderboard
+            </a>
+            <a href="/" class="btn-action btn-home">
+               <i class="fas fa-home"></i> Back to Home
+            </a>
+         </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="results-footer">
+         <p>&copy; 2024 Quiz Wizz. Designed by <a href="https://shubhamchouksey123.github.io/portfolio/" target="_blank">Shubham Chouksey</a></p>
+      </footer>
    </div>
 
 </body>

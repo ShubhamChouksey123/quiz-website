@@ -1,0 +1,561 @@
+/* ==================== Reset & Base Styles ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* ==================== Results Container ==================== */
+.results-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    min-height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==================== Header ==================== */
+.results-header {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.results-header .logo a {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.results-header .logo i {
+    font-size: 28px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-secondary, .btn-primary {
+    padding: 10px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.btn-primary {
+    background: rgba(255, 255, 255, 0.9);
+    color: #2c3e50;
+}
+
+.btn-secondary:hover, .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ==================== Main Results Section ==================== */
+.results-main {
+    flex: 1;
+    padding: 40px;
+}
+
+/* ==================== Score Card ==================== */
+.score-card {
+    background: white;
+    border-radius: 16px;
+    padding: 50px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 40px;
+}
+
+.score-header {
+    margin-bottom: 40px;
+}
+
+.trophy-icon {
+    font-size: 64px;
+    color: #f39c12;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.score-header h1 {
+    font-size: 36px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.congratulations-text {
+    font-size: 18px;
+    color: #7f8c8d;
+}
+
+/* ==================== Score Display ==================== */
+.score-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.score-circle {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 30px;
+}
+
+.score-circle svg {
+    transform: rotate(-90deg);
+}
+
+.score-circle-bg {
+    fill: none;
+    stroke: #e0e6ed;
+    stroke-width: 12;
+}
+
+.score-circle-progress {
+    fill: none;
+    stroke: url(#scoreGradient);
+    stroke-width: 12;
+    stroke-linecap: round;
+    stroke-dasharray: 565.5;
+    stroke-dashoffset: 141.375;
+    transition: stroke-dashoffset 1.5s ease-in-out;
+}
+
+.score-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 700;
+}
+
+.score-number {
+    font-size: 56px;
+    color: #667eea;
+}
+
+.score-divider {
+    font-size: 40px;
+    color: #7f8c8d;
+    margin: 0 4px;
+}
+
+.score-max {
+    font-size: 36px;
+    color: #95a5a6;
+}
+
+/* ==================== Performance Badge ==================== */
+.performance-badge {
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-size: 24px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.performance-badge.excellent {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: white;
+}
+
+.performance-badge.good {
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+    color: white;
+}
+
+.performance-badge.needs-improvement {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+}
+
+/* ==================== Stats Grid ==================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+}
+
+.stat-icon {
+    font-size: 40px;
+}
+
+.stat-icon.correct {
+    color: #27ae60;
+}
+
+.stat-icon.incorrect {
+    color: #e74c3c;
+}
+
+.stat-icon.percentage {
+    color: #667eea;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #7f8c8d;
+    font-weight: 600;
+}
+
+/* ==================== Review Section ==================== */
+.review-section {
+    margin-bottom: 40px;
+}
+
+.review-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.review-header h2 {
+    font-size: 32px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.review-header p {
+    font-size: 16px;
+    color: #7f8c8d;
+}
+
+/* ==================== Question Review Cards ==================== */
+.questions-review {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.question-review-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.question-review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.question-number {
+    font-size: 16px;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.answer-status {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.answer-status.correct {
+    background: #d4edda;
+    color: #27ae60;
+}
+
+.answer-status.incorrect {
+    background: #f8d7da;
+    color: #e74c3c;
+}
+
+.question-statement {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* ==================== Options Review ==================== */
+.options-review {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option-review {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    background: #f8f9fa;
+    border: 2px solid #e0e6ed;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.option-review.correct-answer {
+    background: #d4edda;
+    border-color: #27ae60;
+}
+
+.option-review.wrong-answer {
+    background: #f8d7da;
+    border-color: #e74c3c;
+}
+
+.option-letter {
+    width: 36px;
+    height: 36px;
+    background: #667eea;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    margin-right: 16px;
+    flex-shrink: 0;
+}
+
+.option-review.correct-answer .option-letter {
+    background: #27ae60;
+}
+
+.option-review.wrong-answer .option-letter {
+    background: #e74c3c;
+}
+
+.option-text {
+    flex: 1;
+    font-size: 16px;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.option-indicator {
+    margin-left: 12px;
+    font-size: 20px;
+}
+
+.correct-icon {
+    color: #27ae60;
+}
+
+.wrong-icon {
+    color: #e74c3c;
+}
+
+/* ==================== Action Section ==================== */
+.action-section {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.btn-action {
+    padding: 16px 32px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-retake {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-leaderboard {
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+    color: white;
+}
+
+.btn-home {
+    background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+    color: white;
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ==================== Footer ==================== */
+.results-footer {
+    background: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    color: #7f8c8d;
+    border-top: 1px solid #e0e6ed;
+}
+
+.results-footer a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.results-footer a:hover {
+    text-decoration: underline;
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+    }
+
+    .results-container {
+        border-radius: 0;
+        min-height: 100vh;
+    }
+
+    .results-header {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+    }
+
+    .results-header .logo a {
+        font-size: 20px;
+    }
+
+    .header-actions {
+        width: 100%;
+        margin-top: 10px;
+        justify-content: space-between;
+    }
+
+    .results-main {
+        padding: 20px;
+    }
+
+    .score-card {
+        padding: 30px 20px;
+    }
+
+    .score-header h1 {
+        font-size: 28px;
+    }
+
+    .trophy-icon {
+        font-size: 48px;
+    }
+
+    .score-circle {
+        width: 160px;
+        height: 160px;
+    }
+
+    .score-number {
+        font-size: 44px;
+    }
+
+    .score-divider {
+        font-size: 32px;
+    }
+
+    .score-max {
+        font-size: 28px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .question-review-card {
+        padding: 20px;
+    }
+
+    .question-statement {
+        font-size: 18px;
+    }
+
+    .action-section {
+        flex-direction: column;
+    }
+
+    .btn-action {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Add gradient definition for SVG */
+svg defs {
+    display: none;
+}
