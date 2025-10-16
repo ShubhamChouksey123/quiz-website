@@ -38,7 +38,9 @@ public class AdminController {
     @PostMapping(value = {"/change-category"})
     @ResponseBody
     public RedirectView changeCategory(@RequestParam(value = "questionId") Long questionId,
-            @RequestParam(value = "approvalLevel") ApprovalLevel approvalLevel, Model model,
+            @RequestParam(value = "approvalLevel") ApprovalLevel approvalLevel,
+            @RequestParam(value = "currentView", required = false) String currentView,
+            Model model,
             RedirectAttributes redirectAttrs) {
 
         logger.info("submitted the changeCategory with questionId : {} and approvalLevel : {}", questionId,
@@ -48,6 +50,11 @@ public class AdminController {
         redirectAttrs.addFlashAttribute("questionId", questionId);
         if (approvalLevel == ApprovalLevel.EDIT) {
             return new RedirectView("/add-question");
+        }
+
+        // Redirect back to the same filtered view if currentView is specified
+        if (currentView != null && !currentView.isEmpty()) {
+            return new RedirectView("/admin?approvalLevel=" + currentView);
         }
 
         return new RedirectView("/admin");

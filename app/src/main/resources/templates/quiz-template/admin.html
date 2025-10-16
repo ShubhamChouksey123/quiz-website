@@ -201,6 +201,7 @@
    <form id="changeCategorySubmitForm" method="post" action="/change-category" style="display: none;">
       <input type="hidden" id="questionId" name="questionId" value="" />
       <input type="hidden" id="approvalLevel" name="approvalLevel" value="" />
+      <input type="hidden" id="currentView" name="currentView" th:value="${param.approvalLevel != null ? param.approvalLevel[0] : ''}" />
    </form>
 
    <!-- Custom Admin Dashboard JavaScript -->
