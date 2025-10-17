@@ -172,7 +172,7 @@ public class RenderQuizTemplateImpl implements RenderQuizTemplate {
         if (questionId == null || Objects.equals(questionId, ZERO_LENGTH_STRING)) {
             question = new Question(null, "", "", "", "", "", 0, null, null, null);
         } else {
-            question = questionCrud.getAllQuestions(Long.valueOf(questionId));
+            question = questionCrud.getQuestion(Long.valueOf(questionId));
         }
 
         model.addAttribute("question", question);

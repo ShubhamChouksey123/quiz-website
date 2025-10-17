@@ -51,7 +51,7 @@ public class QuestionCrud {
         return questionDAO.getAllQuestion(approvalLevel);
     }
 
-    public Question getAllQuestions(Long questionId) {
+    public Question getQuestion(Long questionId) {
         return questionDAO.questionById(questionId);
     }
 

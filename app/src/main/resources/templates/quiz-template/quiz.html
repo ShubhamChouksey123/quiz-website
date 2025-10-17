@@ -1,316 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <!-- basic -->
-   <meta charset="utf-8">
+   <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!-- mobile metas -->
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-   <!-- site metas -->
-   <title>Quiz Wizz</title>
-   <meta name="keywords" content="Quiz App Quiz-Wizz Shubham Chouksey Software Engineer Developer">
-   <meta name="description"
-      content="Explore my quiz website repository, showcasing my journey as a skilled software engineer. Discover HTML, CSS, and JavaScript frontend development, coupled with Java and Spring Boot backend solutions. Delve into dynamic quizzes sourced from a PostgreSQL database,
-       facilitated by seamless communication through Gmail SMTP. Connect with me to craft innovative web solutions.Designed and developed by Shubham Chouksey, IIT Patna, Software Engineer, Java Spring-boot">
+   <title>Quiz Wizz - Take Quiz</title>
+   <meta name="description" content="Test your knowledge with Quiz Wizz - Interactive quiz platform">
    <meta name="author" content="Shubham Chouksey">
 
-   <base href="/">
-   <!-- bootstrap css -->
-   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-   <!-- style css -->
-   <link rel="stylesheet" type="text/css" href="css/style.css">
-   <link rel="stylesheet" type="text/css" href="css/style-updated.css">
-   <!-- Responsive-->
-   <link rel="stylesheet" href="css/responsive.css">
-   <!-- fevicon -->
-   <link rel="icon" href="images/fevicon.png" type="image/gif" />
-   <!-- Scrollbar Custom CSS -->
-   <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-   <!-- Tweaks for older IEs-->
-   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-   <!-- owl stylesheets -->
-   <link rel="stylesheet" href="css/owl.carousel.min.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
-      media="screen">
+   <!-- Font Awesome -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+   <!-- Custom Quiz CSS -->
+   <link rel="stylesheet" type="text/css" href="/css/quiz.css">
+
+   <!-- Favicon -->
+   <link rel="icon" href="/images/fevicon.png" type="image/gif" />
 </head>
 
-
-<script th:inline="javascript">
-
-   function showDesiredNumberQuestion(number) {
-      var wholeNumber = Number(number) + 1;
-      console.log("rendering question number : " + wholeNumber);
-      var usersQuestionArray = [[${ questions }]];
-
-      var wholeNumber = Number(number) + 1;
-
-      if (number >= 0 && number < usersQuestionArray.length) {
-         document.getElementById("questionDescription").innerHTML = wholeNumber + ".  " + usersQuestionArray[number].statement;
-
-         document.getElementById("optionADescription").innerHTML = usersQuestionArray[number].optionA;
-         document.getElementById("optionBDescription").innerHTML = usersQuestionArray[number].optionB;
-         document.getElementById("optionCDescription").innerHTML = usersQuestionArray[number].optionC;
-         document.getElementById("optionDDescription").innerHTML = usersQuestionArray[number].optionD;
-
-      }
-   }
-
-   function setOptionIds() {
-      let totalQuestionValue = Number(document.getElementById("totalQuestions").value);
-      console.log("totalQuestionValue : " + totalQuestionValue);
-
-      var usersQuestionArray = [[${ questions }]];
-
-      var questionIdsArray = Array.from(Array(totalQuestionValue));
-      for (let i = 0; i < totalQuestionValue; i++) {
-         questionIdsArray[i] = usersQuestionArray[i].questionId;
-      }
-
-      var questionIdsArrayJSON = JSON.stringify(questionIdsArray);
-      document.getElementById("questionIds").value = questionIdsArrayJSON;
-
-      console.log("questionIds : " + document.getElementById("questionIds").value);
-   }
-</script>
-
 <body>
-   <!-- header section start -->
-   <div class="header_section">
-      <div class="container">
-         <nav class="navbar navbar-expand-lg navbar-light bg-nav-bar">
-            <div class="logo"><a href="/home"><img src="images/website-logo-1x.webp"
-                     style="width: 15%; float: left;"></a></div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-               <ul class="navbar-nav mr-auto">
-                  <li class="nav-item">
-                     <a href="#home" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#services" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Services</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#leader_board" class="nav-link scrollto"><i class="bx bx-user"></i>
-                        <span>LeaderBoard</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="/quiz">Start Quiz</a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#contact" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Contact</span></a>
-                  </li>
-               </ul>
-            </div>
-         </nav>
-      </div>
-   </div>
-   <!-- header section end -->
-
-
-   <!-- quiz section start -->
-   <div class="quiz_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <h1 class="about_text">Quiz</h1>
-
-
-
-            <input type="hidden" id="questionNumberToShow" name="questionNumberToShow"
-               th:value="${questionNumberToShow}" />
-            <input type="hidden" id="totalQuestions" name="totalQuestions" th:value="${totalQuestions}" />
-
-
-
-            <div class="col-12">
-               <div class="d-flex justify-content-centre" style="justify-content: flex-end;">
-                  <button id="submit_quiz_request_button" class="btn btn-primary px-4 py-2 fw-bold button-flex"><a
-                        href="#submit_quiz_form" class="scrollto active"><i class="bx bx-home"></i> <span
-                           style="color:white">Submit Quiz
-                        </span></a>
-                  </button>
-
-                  <button class="btn btn-primary px-4 py-2 fw-bold button-flex">End Quiz</button>
-               </div>
-            </div>
-
-
-            <div class="container1 mb-5">
-               <div class="question p-3 border-bottom">
-                  <div class="d-flex flex-row justify-content-between align-items-center mcq">
-                     <h4>MCQ Quiz</h4><span id="questionNumberInfo">(1 of [(${totalQuestions})])</span>
-                  </div>
-               </div>
-               </br>
-
-               <div class="row">
-
-                  <div class="col-12">
-                     <p id="questionDescription" class="fw-bold mt-5">2.
-                     </p>
-                     <div>
-                        <div class="row">
-                           <div class="col-md-6">
-                              <input type="radio" name="optionSelected" id="optionAButton" value="0"
-                                 onclick="optionSelected(0);"> <label for="optionAButton" id="optionALabel"
-                                 class="box fifth w-100">
-                                 <div class="course"> <span class="circle"></span>
-                                    <span class="subject" id="optionADescription"> </span>
-                                 </div>
-                              </label>
-                           </div>
-                           <div class="col-md-6">
-                              <input type="radio" name="optionSelected" id="optionBButton" value="1"
-                                 onclick="optionSelected(1);"> <label for="optionBButton" id="optionBLabel"
-                                 class="box sixth w-100">
-                                 <div class="course"> <span class="circle"></span> <span class="subject"
-                                       id="optionBDescription"> </span>
-                                 </div>
-                              </label>
-                           </div>
-                           <div class="col-md-6">
-                              <input type="radio" name="optionSelected" id="optionCButton" value="2"
-                                 onclick="optionSelected(2);"> <label for="optionCButton" id="optionCLabel"
-                                 class="box seveth w-100">
-                                 <div class="course"> <span class="circle"></span> <span class="subject"
-                                       id="optionCDescription">
-                                    </span> </div>
-                              </label>
-                           </div>
-                           <div class="col-md-6">
-                              <input type="radio" name="optionSelected" id="optionDButton" value="3"
-                                 onclick="optionSelected(3);"> <label for="optionDButton" id="optionDLabel"
-                                 class="box eighth w-100">
-                                 <div class="course"> <span class="circle"></span> <span class="subject"
-                                       id="optionDDescription">
-                                    </span> </div>
-                              </label>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-
-
-
-               </div>
-               <div class="d-flex flex-row justify-content-between align-items-center p-3">
-                  <button id="previousQuestionButton" class="btn btn-primary d-flex align-items-center btn-danger"
-                     type="button">
-                     <i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;previous
-                  </button>
-                  <button id="nextQuestionButton" class="btn btn-primary border-success align-items-center btn-success"
-                     type="button">Next
-                     <i class="fa fa-angle-right ml-2"></i>
-                  </button>
-               </div>
-
-            </div>
-
+   <!-- Quiz Container -->
+   <div class="quiz-container">
+      <!-- Header -->
+      <header class="quiz-header">
+         <div class="logo">
+            <a href="/"><i class="fas fa-graduation-cap"></i> Quiz Wizz</a>
          </div>
-
-
-         <div id="submit_quiz_form" class="row formSubmitQuiz" style="display: none;">
-            <form id="quizSubmitForm" class="formSubmitDiv" method="post" action="/submit-quiz">
-               <div class="row mail_sectin" style="max-width: 600px; margin: auto;">
-                  <input type="text" id="userName" class="email-bt" placeholder="Name" name="name">
-                  <input type="email" id="userEmail" class="email-bt" placeholder="Email" name="email">
-                  <input type="hidden" id="userOptedAnswers" name="userOptedAnswers" value="" />
-                  <input type="hidden" id="questionIds" name="questionIds" value="" />
-                  <div class="read_bt_main">
-                     <div class="read_bt">
-                        <a onclick="submitQuizForm();">Submit</a>
-                     </div>
-                  </div>
-
-               </div>
-            </form>
+         <div class="header-actions">
+            <a href="/" class="btn-secondary"><i class="fas fa-home"></i> Home</a>
          </div>
+      </header>
 
-      </div>
-
-   </div>
-   <!-- quiz section end -->
-
-
-
-
-
-   <!-- footer section start -->
-   <div class="footer_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <div class="col-lg-4 col-sm-6">
-               <h1 class="customer_text">INFORMATION</h1>
-               <p class="footer_lorem_text">Whether you're a trivia master or just starting your quiz journey, Quiz-Wizz
-                  is the perfect place to challenge yourself and have a great time.
-               </p>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-               <h1 class="customer_text">LET US HELP YOU</h1>
-               <p class="footer_lorem_text">We are passionate about testing your knowledge and providing
-                  a platform for fun and learning.
-               </p>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-               <h1 class="customer_text">UseFul Links</h1>
-               <p class="footer_lorem_text1">
-                  <a href="/#about" style="color: #ffffff;">About Us</a><br>
-                  <a href="https://shubhamchouksey123.github.io/portfolio/" style="color: #ffffff;">Visit My
-                     website</a><br>
-                  <a href="https://shubhamchouksey123.github.io/autoCV/cv.pdf" style="color: #ffffff;">Check My
-                     Resume</a><br>
-                  <a href="/add-question" style="color: #ffffff;">Contribute : Question Set</a><br>
-                  <a href="/admin" style="color: #ffffff;">Contribute : Admin</a><br>
-                  <a href="/web/mails" style="color: #ffffff;">Contribute : Admin Mail Sender</a><br>
-                  <a href="/cover" style="color: #ffffff;">Cover Letter Generator</a><br>
-                  Press & News<br>
-                  Competitions<br>
-                  Terms & Conditions
-               </p>
-            </div>
+      <!-- Progress Bar -->
+      <div class="progress-container">
+         <div class="progress-info">
+            <span class="current-question">Question <span id="currentQuestionNum">1</span></span>
+            <span class="total-questions">of <span th:text="${totalQuestions}">10</span></span>
+         </div>
+         <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+         </div>
+         <div class="progress-percentage">
+            <span id="progressPercent">10%</span> Complete
          </div>
       </div>
+
+      <!-- Main Quiz Section -->
+      <main class="quiz-main">
+         <!-- Question Card -->
+         <div class="question-card">
+            <div class="question-header">
+               <span class="question-badge"><i class="fas fa-question-circle"></i> Multiple Choice</span>
+               <span class="question-timer" id="timer">
+                  <i class="fas fa-clock"></i> <span id="timeElapsed">00:00</span>
+               </span>
+            </div>
+
+            <h2 class="question-text" id="questionDescription">Loading question...</h2>
+
+            <!-- Options -->
+            <div class="options-container" id="optionsContainer">
+               <div class="option" data-option="0">
+                  <input type="radio" name="answer" id="optionA" value="0">
+                  <label for="optionA">
+                     <span class="option-letter">A</span>
+                     <span class="option-text" id="optionADescription">Option A</span>
+                     <span class="option-check"><i class="fas fa-check"></i></span>
+                  </label>
+               </div>
+
+               <div class="option" data-option="1">
+                  <input type="radio" name="answer" id="optionB" value="1">
+                  <label for="optionB">
+                     <span class="option-letter">B</span>
+                     <span class="option-text" id="optionBDescription">Option B</span>
+                     <span class="option-check"><i class="fas fa-check"></i></span>
+                  </label>
+               </div>
+
+               <div class="option" data-option="2">
+                  <input type="radio" name="answer" id="optionC" value="2">
+                  <label for="optionC">
+                     <span class="option-letter">C</span>
+                     <span class="option-text" id="optionCDescription">Option C</span>
+                     <span class="option-check"><i class="fas fa-check"></i></span>
+                  </label>
+               </div>
+
+               <div class="option" data-option="3">
+                  <input type="radio" name="answer" id="optionD" value="3">
+                  <label for="optionD">
+                     <span class="option-letter">D</span>
+                     <span class="option-text" id="optionDDescription">Option D</span>
+                     <span class="option-check"><i class="fas fa-check"></i></span>
+                  </label>
+               </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="quiz-navigation">
+               <button class="btn-nav btn-previous" id="previousBtn" disabled>
+                  <i class="fas fa-arrow-left"></i> Previous
+               </button>
+
+               <div class="question-dots" id="questionDots">
+                  <!-- Dots will be generated by JavaScript -->
+               </div>
+
+               <button class="btn-nav btn-next" id="nextBtn">
+                  Next <i class="fas fa-arrow-right"></i>
+               </button>
+            </div>
+         </div>
+
+         <!-- Submit Section (Hidden initially) -->
+         <div class="submit-section" id="submitSection" style="display: none;">
+            <div class="submit-card">
+               <div class="submit-icon">
+                  <i class="fas fa-check-circle"></i>
+               </div>
+               <h2>Ready to Submit?</h2>
+               <p class="submit-info">
+                  You've answered <span id="answeredCount">0</span> out of <span th:text="${totalQuestions}">10</span> questions.
+               </p>
+               <p class="submit-warning" id="unansweredWarning" style="display: none;">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  You have <span id="unansweredCount">0</span> unanswered question(s).
+               </p>
+
+               <form id="quizForm" method="post" action="/submit-quiz">
+                  <div class="form-group">
+                     <label for="userName"><i class="fas fa-user"></i> Your Name</label>
+                     <input type="text" id="userName" name="name" placeholder="Enter your name" required>
+                  </div>
+
+                  <div class="form-group">
+                     <label for="userEmail"><i class="fas fa-envelope"></i> Your Email</label>
+                     <input type="email" id="userEmail" name="email" placeholder="Enter your email" required>
+                  </div>
+
+                  <input type="hidden" id="userOptedAnswers" name="userOptedAnswers" value="">
+                  <input type="hidden" id="questionIds" name="questionIds" value="">
+
+                  <div class="submit-actions">
+                     <button type="button" class="btn-secondary" id="backToQuizBtn">
+                        <i class="fas fa-arrow-left"></i> Back to Quiz
+                     </button>
+                     <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i> Submit Quiz
+                     </button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="quiz-footer">
+         <p>&copy; 2024 Quiz Wizz. Designed by <a href="https://shubhamchouksey123.github.io/portfolio/" target="_blank">Shubham Chouksey</a></p>
+      </footer>
    </div>
-   <!--  footer section end -->
 
-   <!-- copyright section start -->
-   <div class="copyright_section">
-      <div class="container">
-         <p class="copyright_text">2023 All Rights Reserved. Design by <a href="https://html.design">Shubham Chouksey
-         </p>
-      </div>
+   <!-- Hidden Data -->
+   <input type="hidden" id="questionNumberToShow" th:value="${questionNumberToShow}">
+   <input type="hidden" id="totalQuestions" th:value="${totalQuestions}">
+   <script th:inline="javascript">
+      var questionsData = [[${questions}]];
+   </script>
 
-      <!-- copyright section end -->
-      <!-- Javascript files-->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery-3.0.0.min.js"></script>
-      <script src="js/plugin.js"></script>
-      <!-- sidebar -->
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="js/custom.js"></script>
-      <!-- javascript -->
-      <script src="js/owl.carousel.js"></script>
-      <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-         crossorigin="anonymous"></script>
-      <script src="js/main.js"></script>
-   </div>
-
+   <!-- Quiz JavaScript -->
+   <script src="/js/quiz.js"></script>
 </body>
 
 </html>

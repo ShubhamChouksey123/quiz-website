@@ -1,0 +1,293 @@
+/* ==================== Contact Page Specific Styles ==================== */
+
+/* Contact Hero Section */
+.contact-hero-section {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 150px 5% 80px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-hero-content {
+    max-width: 800px;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+}
+
+/* ==================== Contact Main Section ==================== */
+.contact-main-section {
+    padding: 100px 5%;
+    background: white;
+}
+
+/* ==================== Map Section ==================== */
+.map-section {
+    padding: 80px 5%;
+    background: #f8f9fa;
+}
+
+.map-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.map-container h2 {
+    text-align: center;
+    font-size: 42px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 40px;
+}
+
+.map-responsive {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.map-responsive iframe {
+    display: block;
+}
+
+/* ==================== FAQ Section ==================== */
+.faq-section {
+    padding: 100px 5%;
+    background: white;
+}
+
+.faq-section .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.faq-section .section-header h2 {
+    font-size: 48px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 16px;
+}
+
+.faq-section .section-header p {
+    font-size: 18px;
+    color: #7f8c8d;
+}
+
+.faq-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.faq-card {
+    background: #f8f9fa;
+    padding: 40px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e6ed;
+}
+
+.faq-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.faq-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.faq-card h3 {
+    font-size: 22px;
+    color: #2c3e50;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.faq-card p {
+    font-size: 16px;
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+/* ==================== CTA Section ==================== */
+.cta-section {
+    padding: 100px 5%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    text-align: center;
+}
+
+.cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-content h2 {
+    font-size: 48px;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.cta-content p {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 40px;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 1024px) {
+    .faq-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-hero-section {
+        padding: 120px 5% 60px;
+        min-height: 50vh;
+    }
+
+    .hero-title {
+        font-size: 36px;
+    }
+
+    .contact-main-section {
+        padding: 80px 5%;
+    }
+
+    .map-section {
+        padding: 60px 5%;
+    }
+
+    .map-container h2 {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    .map-responsive iframe {
+        height: 350px;
+    }
+
+    .faq-section {
+        padding: 80px 5%;
+    }
+
+    .faq-grid {
+        gap: 20px;
+    }
+
+    .faq-card {
+        padding: 30px;
+    }
+
+    .faq-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+
+    .faq-card h3 {
+        font-size: 20px;
+    }
+
+    .cta-content h2 {
+        font-size: 32px;
+    }
+
+    .cta-content p {
+        font-size: 16px;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cta-buttons a {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-hero-section {
+        padding: 100px 5% 40px;
+    }
+
+    .hero-title {
+        font-size: 28px;
+    }
+
+    .hero-subtitle {
+        font-size: 16px;
+    }
+
+    .contact-main-section {
+        padding: 60px 5%;
+    }
+
+    .map-section {
+        padding: 40px 5%;
+    }
+
+    .map-container h2 {
+        font-size: 28px;
+    }
+
+    .map-responsive iframe {
+        height: 300px;
+    }
+
+    .faq-section {
+        padding: 60px 5%;
+    }
+
+    .faq-card {
+        padding: 24px;
+    }
+
+    .faq-card h3 {
+        font-size: 18px;
+    }
+
+    .faq-card p {
+        font-size: 15px;
+    }
+
+    .cta-content h2 {
+        font-size: 28px;
+    }
+
+    .cta-content p {
+        font-size: 14px;
+    }
+}
