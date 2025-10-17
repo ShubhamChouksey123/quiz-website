@@ -1,0 +1,588 @@
+/* ==================== About Page Specific Styles ==================== */
+
+/* About Hero Section */
+.about-hero-section {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 150px 5% 80px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-hero-content {
+    max-width: 800px;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+}
+
+/* ==================== Story Section ==================== */
+.about-story-section {
+    padding: 100px 5%;
+    background: white;
+}
+
+.story-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.story-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.story-text h2 {
+    font-size: 48px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 24px;
+}
+
+.story-text p {
+    font-size: 18px;
+    color: #7f8c8d;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.story-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.story-stat {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.story-stat:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+}
+
+.stat-info h3 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 4px;
+}
+
+.stat-info p {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin: 0;
+}
+
+.story-image {
+    position: relative;
+}
+
+.story-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 2;
+}
+
+.image-decoration {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.decoration-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    opacity: 0.2;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* ==================== Mission Section ==================== */
+.mission-section {
+    padding: 100px 5%;
+    background: #f8f9fa;
+}
+
+.mission-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.mission-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.mission-card {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e6ed;
+}
+
+.mission-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.mission-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    margin-bottom: 24px;
+}
+
+.mission-icon.purple {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.mission-icon.blue {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+}
+
+.mission-icon.orange {
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+    color: white;
+}
+
+.mission-icon.green {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: white;
+}
+
+.mission-card h3 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.mission-card p {
+    font-size: 16px;
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+/* ==================== Technology Section ==================== */
+.tech-section {
+    padding: 100px 5%;
+    background: white;
+}
+
+.tech-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tech-content {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.tech-image {
+    position: relative;
+    height: 400px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.tech-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    color: white;
+    font-size: 80px;
+    opacity: 0.9;
+}
+
+.tech-badge span {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.tech-text h2 {
+    font-size: 42px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.tech-text > p {
+    font-size: 18px;
+    color: #7f8c8d;
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+.tech-features {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.tech-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.tech-feature:hover {
+    background: white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.tech-feature > i {
+    font-size: 24px;
+    color: #667eea;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.tech-feature-text h4 {
+    font-size: 18px;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.tech-feature-text p {
+    font-size: 15px;
+    color: #7f8c8d;
+    margin: 0;
+}
+
+/* ==================== Developer Section ==================== */
+.developer-section {
+    padding: 100px 5%;
+    background: #f8f9fa;
+}
+
+.developer-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.developer-card {
+    background: white;
+    padding: 60px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-top: 60px;
+}
+
+.developer-avatar {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid #667eea;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.developer-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.developer-card h3 {
+    font-size: 32px;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.developer-title {
+    font-size: 18px;
+    color: #667eea;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.developer-bio {
+    font-size: 16px;
+    color: #7f8c8d;
+    line-height: 1.8;
+    margin-bottom: 32px;
+}
+
+.developer-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.dev-link {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.dev-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* ==================== CTA Section ==================== */
+.cta-section {
+    padding: 100px 5%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    text-align: center;
+}
+
+.cta-content h2 {
+    font-size: 48px;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.cta-content p {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 40px;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 1024px) {
+    .story-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .story-image {
+        order: -1;
+    }
+
+    .story-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .mission-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tech-content {
+        grid-template-columns: 1fr;
+    }
+
+    .tech-image {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-hero-section {
+        padding: 120px 5% 60px;
+        min-height: 50vh;
+    }
+
+    .hero-title {
+        font-size: 36px;
+    }
+
+    .story-text h2 {
+        font-size: 36px;
+    }
+
+    .story-stats {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .story-stat {
+        padding: 15px;
+    }
+
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .stat-info h3 {
+        font-size: 24px;
+    }
+
+    .mission-grid {
+        gap: 20px;
+    }
+
+    .mission-card {
+        padding: 30px;
+    }
+
+    .tech-text h2 {
+        font-size: 32px;
+    }
+
+    .tech-image {
+        height: 250px;
+    }
+
+    .tech-badge {
+        font-size: 60px;
+    }
+
+    .tech-badge span {
+        font-size: 18px;
+    }
+
+    .developer-card {
+        padding: 40px 30px;
+    }
+
+    .developer-card h3 {
+        font-size: 28px;
+    }
+
+    .developer-links {
+        flex-direction: column;
+    }
+
+    .dev-link {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .cta-content h2 {
+        font-size: 32px;
+    }
+
+    .cta-content p {
+        font-size: 16px;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cta-buttons a {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-hero-section {
+        padding: 100px 5% 40px;
+    }
+
+    .hero-title {
+        font-size: 28px;
+    }
+
+    .hero-subtitle {
+        font-size: 16px;
+    }
+
+    .story-text h2 {
+        font-size: 28px;
+    }
+
+    .story-text p {
+        font-size: 16px;
+    }
+
+    .mission-card h3 {
+        font-size: 20px;
+    }
+
+    .tech-text h2 {
+        font-size: 28px;
+    }
+
+    .tech-text > p {
+        font-size: 16px;
+    }
+
+    .developer-avatar {
+        width: 120px;
+        height: 120px;
+    }
+
+    .developer-card h3 {
+        font-size: 24px;
+    }
+
+    .developer-title {
+        font-size: 16px;
+    }
+
+    .cta-content h2 {
+        font-size: 28px;
+    }
+}

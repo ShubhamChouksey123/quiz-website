@@ -1,632 +1,347 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <!-- basic -->
-   <meta charset="utf-8">
+   <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <!-- mobile metas -->
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-   <!-- site metas -->
-   <title>Quiz Wizz</title>
-   <meta name="keywords" content="Quiz App Quiz-Wizz Shubham Chouksey Software Engineer Developer">
-   <meta name="description"
-      content="Explore my quiz website repository, showcasing my journey as a skilled software engineer. Discover HTML, CSS, and JavaScript frontend development, coupled with Java and Spring Boot backend solutions. Delve into dynamic quizzes sourced from a PostgreSQL database,
-       facilitated by seamless communication through Gmail SMTP. Connect with me to craft innovative web solutions.Designed and developed by Shubham Chouksey, IIT Patna, Software Engineer, Java Spring-boot">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <title>Quiz Wizz - Test Your Knowledge</title>
+   <meta name="description" content="Challenge yourself with Quiz Wizz - The ultimate quiz platform">
    <meta name="author" content="Shubham Chouksey">
 
-   <!-- bootstrap css -->
-   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-   <!-- style css -->
-   <link rel="stylesheet" type="text/css" href="css/style.css">
-   <link rel="stylesheet" type="text/css" href="css/style-updated.css">
+   <!-- Font Awesome -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+   <!-- Custom Home CSS -->
+   <link rel="stylesheet" type="text/css" href="/css/home.css">
 
-   <!-- Responsive-->
-   <link rel="stylesheet" href="css/responsive.css">
-   <!-- fevicon -->
-   <link rel="icon" href="images/fevicon.png" type="image/gif" />
-   <!-- Scrollbar Custom CSS -->
-   <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-   <!-- Tweaks for older IEs-->
-   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-   <!-- owl stylesheets -->
-   <link rel="stylesheet" href="css/owl.carousel.min.css">
-   <link rel="stylesheet" href="css/owl.theme.default.min.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
-      media="screen">
+   <!-- Favicon -->
+   <link rel="icon" href="/images/fevicon.png" type="image/gif" />
 </head>
 
 <body>
-   <!-- header section start -->
-   <div id="home" class="header_section">
-      <div class="container">
-         <nav class="navbar navbar-expand-lg navbar-light bg-nav-bar">
-            <div class="logo"><a href="/home"><img src="images/website-logo-1x.webp"
-                     style="width: 15%; float: left;"></a></div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-               <ul class="navbar-nav mr-auto">
-                  <li class="nav-item">
-                     <a href="#home" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#services" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Services</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#leader_board" class="nav-link scrollto"><i class="bx bx-user"></i>
-                        <span>LeaderBoard</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="/quiz">Start Quiz</a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#contact" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Contact</span></a>
-                  </li>
-               </ul>
-            </div>
+   <!-- Home Container -->
+   <div class="home-container">
+      <!-- Header -->
+      <header class="home-header">
+         <div class="logo">
+            <a href="/"><img src="/images/website-logo-1x.webp" alt="Quiz Wizz" class="logo-img"> Quiz Wizz</a>
+         </div>
+         <nav class="main-nav">
+            <a href="#hero" class="nav-link active">Home</a>
+            <a href="/about" class="nav-link">About</a>
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#leaderboard" class="nav-link">Leaderboard</a>
+            <a href="/contact" class="nav-link">Contact</a>
+            <a href="/quiz" class="btn-start-quiz"><i class="fas fa-play"></i> Start Quiz</a>
          </nav>
+         <div class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+         </div>
+      </header>
+
+      <!-- Mobile Navigation -->
+      <div class="mobile-nav" id="mobileNav">
+         <a href="#hero" class="mobile-nav-link">Home</a>
+         <a href="/about" class="mobile-nav-link">About</a>
+         <a href="#features" class="mobile-nav-link">Features</a>
+         <a href="#leaderboard" class="mobile-nav-link">Leaderboard</a>
+         <a href="/contact" class="mobile-nav-link">Contact</a>
+         <a href="/quiz" class="mobile-nav-link">Start Quiz</a>
       </div>
 
+      <!-- Success Message -->
+      <div th:if="${successValue == true}" class="success-banner">
+         <i class="fas fa-check-circle"></i>
+         <span th:text="${contactMessage}">Thank you for contacting us!</span>
+      </div>
 
-      <!--      Plain background-->
-      <!--      <p style="color: green;text-align: center; background-color: #f1e4e4a6">Thank You for contacting, we will connect to you at the earliest.</p>-->
-
-      <!--      background green transparent-->
-      <!--      <div class="alert alert-success" style="text-align: center;max-width: 500px;margin: auto;background-color: #b4ddbed9;margin-top:20px;width:90%;" role="alert">-->
-      <!--         Thank You for contacting, we will connect to you at the earliest!.-->
-      <!--      </div>-->
-
-      <span th:if="${successValue == true}">
-         <div class="alert alert-success"
-            style="text-align: center;max-width: 500px;margin: auto;background-color: #b4ddbed9;margin-top:20px;width:90%;"
-            role="alert">
-            <span th:text="${contactMessage}"></span>
-         </div>
-      </span>
-
-      <!-- banner section start -->
-      <div class="banner_section layout_padding">
-         <div class="container">
-            <div id="costum_slider" class="carousel slide" data-ride="carousel">
-               <div class="carousel-inner">
-                  <div class="carousel-item active" style="backdrop-filter: blur(6px);">
-                     <h1 class="furniture_text">Quiz Wizz ?</h1>
-                     <p class="there_text">Are you smarter than 90% of the population of your age ?</p>
-                     <div class="contact_bt_main">
-                        <div class="contact_bt"><a href="/quiz">Start Quiz</a></div>
-                     </div>
-                  </div>
-                  <div class="carousel-item" style="backdrop-filter: blur(6px);">
-                     <h1 class="furniture_text">Random Facts</h1>
-                     <p class="there_text">Dive into a world of random facts.</p>
-                     <div class="contact_bt_main">
-                        <div class="contact_bt"><a target="_blank" rel="noopener noreferrer"
-                              href="https://shubhamchouksey123.github.io/facts-and-news-website/#fact">Check Now</a>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="carousel-item" style="backdrop-filter: blur(6px);">
-                     <h1 class="furniture_text">Daily News</h1>
-                     <p class="there_text">Explore a curated collection of the latest trending news. Utilize a
-                        convenient search bar to find news related to specific topics. Navigate through distinct
-                        categories including travel, photography, style, food & drinks, and culture.</p>
-                     <div class="contact_bt_main">
-                        <div class="contact_bt"><a target="_blank" rel="noopener noreferrer"
-                              href="https://shubhamchouksey123.github.io/facts-and-news-website/">Check Now</a></div>
-                     </div>
-                  </div>
-               </div>
-               <a class="carousel-control-prev" href="#costum_slider" role="button" data-slide="prev">
-                  <i class=""><img src="images/left-arrow.png"></i>
+      <!-- Hero Section -->
+      <section id="hero" class="hero-section">
+         <div class="hero-content">
+            <div class="hero-badge">
+               <i class="fas fa-star"></i> #1 Quiz Platform
+            </div>
+            <h1 class="hero-title">
+               Test Your Knowledge with
+               <span class="gradient-text">Quiz Wizz</span>
+            </h1>
+            <p class="hero-subtitle">
+               Challenge yourself with engaging quizzes and compete with others on the leaderboard!
+            </p>
+            <div class="hero-cta">
+               <a href="/quiz" class="btn-primary-large">
+                  <i class="fas fa-play-circle"></i> Start Quiz Now
                </a>
-               <a class="carousel-control-next" href="#costum_slider" role="button" data-slide="next">
-                  <i class=""><img src="images/right-arrow.png"></i>
+               <a href="#features" class="btn-secondary-large">
+                  <i class="fas fa-info-circle"></i> Learn More
                </a>
             </div>
-         </div>
-      </div>
-      <!-- banner section end -->
-   </div>
-   <!-- header section end -->
 
-   <!-- services section start -->
-   <div id="services" class="services_section layout_padding">
-      <div class="container">
-         <h1 class="services_taital">our services</h1>
-         <p class="many_taital">There are many variations of passages of Lorem Ipsum </p>
-         <div class="services_section2 layout_padding">
-            <div class="row">
-               <div class="col-lg-3 col-sm-6">
-                  <div class="icon_1"><img src="images/icon-quiz-new.png"></div>
-                  <h2 class="furnitures_text">quiz</h2>
-                  <p class="dummy_text">Free online quiz </p>
-                  <div class="read_bt_main">
-                     <div class="read_bt"><a href="/quiz">Read More</a></div>
-                  </div>
+            <!-- Hero Stats -->
+            <div class="hero-stats">
+               <div class="stat-item">
+                  <div class="stat-number">1000+</div>
+                  <div class="stat-label">Questions</div>
                </div>
-               <div class="col-lg-3 col-sm-6 testimonial-img">
-                  <div class="icon_1"><img src="images/icon-facts-new.png"></div>
-                  <h2 class="furnitures_text">facts</h2>
-                  <p class="dummy_text">Daily random facts</p>
-                  <div class="read_bt_main">
-                     <div class="read_bt"><a target="_blank" rel="noopener noreferrer"
-                           href="https://shubhamchouksey123.github.io/facts-and-news-website/#fact">Read More</a></div>
-                  </div>
+               <div class="stat-item">
+                  <div class="stat-number"><span th:text="${performers != null ? #lists.size(performers) : '0'}">150</span>+</div>
+                  <div class="stat-label">Players</div>
                </div>
-               <div class="col-lg-3 col-sm-6">
-                  <div class="icon_1"><img src="images/icon-news-new.png"></div>
-                  <h2 class="furnitures_text">News</h2>
-                  <p class="dummy_text">Daily latest news in shorts</p>
-                  <div class="read_bt_main">
-                     <div class="read_bt"><a target="_blank" rel="noopener noreferrer"
-                           href="https://shubhamchouksey123.github.io/facts-and-news-website/">Read
-                           More</a></div>
-                  </div>
-               </div>
-               <div class="col-lg-3 col-sm-6 testimonial-img">
-                  <div class="icon_1"><img src="images/icon-blog-new.png"></div>
-                  <h2 class="furnitures_text">Blog</h2>
-                  <p class="dummy_text">Read my blogs</p>
-                  <div class="read_bt_main">
-                     <div class="read_bt"><a href="#">Read More</a></div>
-                  </div>
+               <div class="stat-item">
+                  <div class="stat-number">10+</div>
+                  <div class="stat-label">Categories</div>
                </div>
             </div>
          </div>
-      </div>
-   </div>
-   <!-- services section end -->
 
-   <!-- about section start -->
-   <div id="about" class="about_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-6">
-               <h1 class="about_text">About Us</h1>
-               <p class="lorem_text">Helping you compare !</p>
-               <p class="lorem_text">We aim to help you compare you with with your colleges of your same age.</p>
-               <div class="read_bt1"><a href="#">Read More</a></div>
+         <!-- Floating Elements -->
+         <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+         </div>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features" class="features-section">
+         <div class="section-header">
+            <h2>Why Choose Quiz Wizz?</h2>
+            <p>Discover what makes our platform special</p>
+         </div>
+
+         <div class="features-grid">
+            <div class="feature-card">
+               <div class="feature-icon purple">
+                  <i class="fas fa-brain"></i>
+               </div>
+               <h3>Smart Questions</h3>
+               <p>Carefully curated questions across multiple categories to test your knowledge effectively.</p>
             </div>
-            <div class="col-md-6">
-               <div class="image_1"><img src="images/img-1.png"></div>
+
+            <div class="feature-card">
+               <div class="feature-icon blue">
+                  <i class="fas fa-chart-line"></i>
+               </div>
+               <h3>Track Progress</h3>
+               <p>Monitor your performance and see how you stack up against other quiz takers.</p>
+            </div>
+
+            <div class="feature-card">
+               <div class="feature-icon orange">
+                  <i class="fas fa-trophy"></i>
+               </div>
+               <h3>Leaderboard</h3>
+               <p>Compete for the top spot and earn bragging rights among your peers.</p>
+            </div>
+
+            <div class="feature-card">
+               <div class="feature-icon green">
+                  <i class="fas fa-clock"></i>
+               </div>
+               <h3>Instant Results</h3>
+               <p>Get immediate feedback with detailed explanations for each question.</p>
+            </div>
+
+            <div class="feature-card">
+               <div class="feature-icon pink">
+                  <i class="fas fa-mobile-alt"></i>
+               </div>
+               <h3>Mobile Friendly</h3>
+               <p>Take quizzes anywhere, anytime on any device with our responsive design.</p>
+            </div>
+
+            <div class="feature-card">
+               <div class="feature-icon teal">
+                  <i class="fas fa-infinity"></i>
+               </div>
+               <h3>Unlimited Attempts</h3>
+               <p>Practice as much as you want! No limits on the number of quizzes you can take.</p>
             </div>
          </div>
-      </div>
-   </div>
-   <!-- about section end -->
+      </section>
 
-   <!-- leader board section start -->
-   <div id="leader_board" class="furnitures_section layout_padding">
-      <div class="container">
-         <h1 class="our_text">Leader board</h1>
-         <p class="ipsum_text">There are many variations of passages of Lorem Ipsum </p>
-      </div>
-   </div>
+      <!-- Leaderboard Section -->
+      <section id="leaderboard" class="leaderboard-section">
+         <div class="section-header">
+            <h2><i class="fas fa-trophy"></i> Leaderboard</h2>
+            <p>Top performers this month</p>
+         </div>
 
-   <table class="table table-striped" style="table-layout: auto;width: 100%; max-width: 1000px; margin: auto;">
-      <thead>
-         <tr>
-            <th scope="col">Position</th>
-            <th scope="col">Name</th>
-            <!-- <th scope="col">Email</th> -->
-            <th scope="col">Score</th>
-         </tr>
-      </thead>
-      <tbody>
-         <tr th:each="performer, iterStat: ${performers}">
-            <td>
-               <span th:if="${iterStat.index == 0}">
-                  <img src="images/badge-first.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
-               </span>
-               <span th:if="${iterStat.index == 1}">
-                  <img src="images/badge-second.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
-               </span>
-               <span th:if="${iterStat.index == 2}">
-                  <img src="images/badge-third.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
-               </span>
-               <span th:if="${iterStat.index > 2}">
-                  <img src="images/badge-rest.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
-               </span>
-            </td>
-            <th scope="row" th:text="${performer.getName()}">Naman Chouksey</th>
-            <!-- <td>naman.chouksey@gmail.com</td> -->
-            <td th:text="${performer.score}">7</td>
-         </tr>
-      </tbody>
-   </table>
-   <!-- leader board section end -->
+         <div class="leaderboard-container">
+            <div class="leaderboard-table">
+               <div class="leaderboard-header">
+                  <div class="col-rank">Rank</div>
+                  <div class="col-name">Name</div>
+                  <div class="col-score">Score</div>
+               </div>
 
-   <!-- who section start -->
-   <!-- <div class="who_section layout_padding">
-      <div class="container">
-         <h1 class="who_taital">who we are ?</h1>
-         <h4 class="designer_text">DESIGNERS & INNOVATORS</h4>
-         <p class="lorem_ipsum_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-            laboris nisi utLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-         </p>
-      </div>
-      <div class="get_bt_main">
-         <div class="get_bt"><a href="#">Get A Quote</a></div>
-      </div>
-   </div> -->
-   <!-- who section end -->
-
-   <!-- projects section start -->
-   <!-- <div id="projects" class="projects_section layout_padding">
-      <div class="container">
-         <h1 class="our_text">Our projects</h1>
-         <p class="ipsum_text">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
-         <div id="main_slider" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-               <div class="carousel-item active">
-                  <div class="projects_section2">
-                     <div class="container_main2">
-                        <div class="row">
-                           <div class="col-sm-4">
-                              <div class="container_main1">
-                                 <img src="images/img-4.png" alt="Avatar" class="image" style="width:100%">
-                                 <h1 class="modern_text">Modern home designe</h1>
-                                 <div class="middle">
-                                    <div class="text">VIEW MORE</div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-sm-4">
-                              <div class="container_main1">
-                                 <img src="images/img-5.png" alt="Avatar" class="image" style="width:100%">
-                                 <h1 class="modern_text">Modern home designe</h1>
-                                 <div class="middle">
-                                    <div class="text">VIEW MORE</div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-sm-4">
-                              <div class="container_main1">
-                                 <img src="images/img-6.png" alt="Avatar" class="image" style="width:100%">
-                                 <h1 class="modern_text">Modern home designe</h1>
-                                 <div class="middle">
-                                    <div class="text">VIEW MORE</div>
-                                 </div>
-                              </div>
-                           </div>
+               <div class="leaderboard-body">
+                  <div class="leaderboard-row" th:each="performer, iterStat : ${performers}" th:if="${iterStat.index < 10}">
+                     <div class="col-rank">
+                        <span class="rank-badge" th:classappend="${iterStat.index < 3 ? 'top-3' : ''}">
+                           <i th:if="${iterStat.index == 0}" class="fas fa-crown" style="color: #FFD700;"></i>
+                           <i th:if="${iterStat.index == 1}" class="fas fa-medal" style="color: #C0C0C0;"></i>
+                           <i th:if="${iterStat.index == 2}" class="fas fa-medal" style="color: #CD7F32;"></i>
+                           <span th:text="${iterStat.index + 1}">1</span>
+                        </span>
+                     </div>
+                     <div class="col-name">
+                        <div class="player-info">
+                           <div class="player-avatar" th:text="${#strings.substring(performer.name, 0, 1)}">S</div>
+                           <span th:text="${performer.name}">John Doe</span>
                         </div>
                      </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="projects_section2">
-                     <div class="container_main1">
-                        <div class="row">
-                           <div class="col-sm-4">
-                              <div class="container_main1">
-                                 <img src="images/img-4.png" alt="Avatar" class="image" style="width:100%">
-                                 <h1 class="modern_text">Modern home designe</h1>
-                                 <div class="middle">
-                                    <div class="text">VIEW MORE</div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-sm-4">
-                              <div class="container_main1">
-                                 <img src="images/img-5.png" alt="Avatar" class="image" style="width:100%">
-                                 <h1 class="modern_text">Modern home designe</h1>
-                                 <div class="middle">
-                                    <div class="text">VIEW MORE</div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-sm-4">
-                              <div class="container_main1">
-                                 <img src="images/img-6.png" alt="Avatar" class="image" style="width:100%">
-                                 <h1 class="modern_text">Modern home designe</h1>
-                                 <div class="middle">
-                                    <div class="text">VIEW MORE</div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="projects_section2">
-                     <div class="container_main1">
-                        <div class="row">
-                           <div class="col-sm-4">
-                              <div class="container_main1">
-                                 <img src="images/img-4.png" alt="Avatar" class="image" style="width:100%">
-                                 <h1 class="modern_text">Modern home designe</h1>
-                                 <div class="middle">
-                                    <div class="text">VIEW MORE</div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-sm-4">
-                              <div class="container_main1">
-                                 <img src="images/img-5.png" alt="Avatar" class="image" style="width:100%">
-                                 <h1 class="modern_text">Modern home designe</h1>
-                                 <div class="middle">
-                                    <div class="text">VIEW MORE</div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-sm-4">
-                              <div class="container_main1">
-                                 <img src="images/img-6.png" alt="Avatar" class="image" style="width:100%">
-                                 <h1 class="modern_text">Modern home designe</h1>
-                                 <div class="middle">
-                                    <div class="text">VIEW MORE</div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
+                     <div class="col-score">
+                        <span class="score-value" th:text="${performer.score}">95</span>
                      </div>
                   </div>
                </div>
             </div>
-            <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
-               <i class="fa fa-angle-left"></i>
-            </a>
-            <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
-               <i class="fa fa-angle-right"></i>
-            </a>
-         </div>
-      </div>
-   </div> -->
-   <!-- projects section end -->
 
-   <!-- client section start -->
-   <!-- <div class="clients_section layout_padding">
-      <div class="container">
-         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-               <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-               <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-               <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-            </ol>
-            <div class="carousel-inner">
-               <div class="carousel-item active">
-                  <h1 class="client_text">what is says our clients</h1>
-                  <p class="ipsum_text">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
-                  <div class="clients_section2 layout_padding">
-                     <div class="client_1">
-                        <div class="row">
-                           <div class="col-sm-3">
-                              <div class="image_7"><img src="images/img-7.png"></div>
-                              <div class="quote_icon"><img src="images/quote-icon.png"></div>
-                           </div>
-                           <div class="col-sm-9">
-                              <h1 class="loksans_text">loksans</h1>
-                              <p class="dolor_ipsum_text">ipsum dolor sit amet, consectetur adipiscing elit, sed veniam,
-                                 quis nostrud exercitation ullamco laboris nisi ut reprehenderit in voluptate velit</p>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="client_2">
-                        <div class="row">
-                           <div class="col-sm-3">
-                              <div class="image_7"><img src="images/img-8.png"></div>
-                              <div class="quote_icon"><img src="images/quote-icon.png"></div>
-                           </div>
-                           <div class="col-sm-9">
-                              <h1 class="loksans_text">loksans</h1>
-                              <p class="dolor_ipsum_text">ipsum dolor sit amet, consectetur adipiscing elit, sed veniam,
-                                 quis nostrud exercitation ullamco laboris nisi ut reprehenderit in voluptate velit</p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <h1 class="client_text">what is says our clients</h1>
-                  <p class="ipsum_text">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
-                  <div class="clients_section2 layout_padding">
-                     <div class="client_1">
-                        <div class="row">
-                           <div class="col-sm-3">
-                              <div class="image_7"><img src="images/img-7.png"></div>
-                              <div class="quote_icon"><img src="images/quote-icon.png"></div>
-                           </div>
-                           <div class="col-sm-9">
-                              <h1 class="loksans_text">loksans</h1>
-                              <p class="dolor_ipsum_text">ipsum dolor sit amet, consectetur adipiscing elit, sed veniam,
-                                 quis nostrud exercitation ullamco laboris nisi ut reprehenderit in voluptate velit</p>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="client_2">
-                        <div class="row">
-                           <div class="col-sm-3">
-                              <div class="image_7"><img src="images/img-8.png"></div>
-                              <div class="quote_icon"><img src="images/quote-icon.png"></div>
-                           </div>
-                           <div class="col-sm-9">
-                              <h1 class="loksans_text">loksans</h1>
-                              <p class="dolor_ipsum_text">ipsum dolor sit amet, consectetur adipiscing elit, sed veniam,
-                                 quis nostrud exercitation ullamco laboris nisi ut reprehenderit in voluptate velit</p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <h1 class="client_text">what is says our clients</h1>
-                  <p class="ipsum_text">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
-                  <div class="clients_section2 layout_padding">
-                     <div class="client_1">
-                        <div class="row">
-                           <div class="col-sm-3">
-                              <div class="image_7"><img src="images/img-7.png"></div>
-                              <div class="quote_icon"><img src="images/quote-icon.png"></div>
-                           </div>
-                           <div class="col-sm-9">
-                              <h1 class="loksans_text">loksans</h1>
-                              <p class="dolor_ipsum_text">ipsum dolor sit amet, consectetur adipiscing elit, sed veniam,
-                                 quis nostrud exercitation ullamco laboris nisi ut reprehenderit in voluptate velit</p>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="client_2">
-                        <div class="row">
-                           <div class="col-sm-3">
-                              <div class="image_7"><img src="images/img-8.png"></div>
-                              <div class="quote_icon"><img src="images/quote-icon.png"></div>
-                           </div>
-                           <div class="col-sm-9">
-                              <h1 class="loksans_text">loksans</h1>
-                              <p class="dolor_ipsum_text">ipsum dolor sit amet, consectetur adipiscing elit, sed veniam,
-                                 quis nostrud exercitation ullamco laboris nisi ut reprehenderit in voluptate velit</p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <h1 class="client_text">what is says our clients</h1>
-                  <p class="ipsum_text">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
-                  <div class="clients_section2 layout_padding">
-                     <div class="client_1">
-                        <div class="row">
-                           <div class="col-sm-3">
-                              <div class="image_7"><img src="images/img-7.png"></div>
-                              <div class="quote_icon"><img src="images/quote-icon.png"></div>
-                           </div>
-                           <div class="col-sm-9">
-                              <h1 class="loksans_text">loksans</h1>
-                              <p class="dolor_ipsum_text">ipsum dolor sit amet, consectetur adipiscing elit, sed veniam,
-                                 quis nostrud exercitation ullamco laboris nisi ut reprehenderit in voluptate velit</p>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="client_2">
-                        <div class="row">
-                           <div class="col-sm-3">
-                              <div class="image_7"><img src="images/img-8.png"></div>
-                              <div class="quote_icon"><img src="images/quote-icon.png"></div>
-                           </div>
-                           <div class="col-sm-9">
-                              <h1 class="loksans_text">loksans</h1>
-                              <p class="dolor_ipsum_text">ipsum dolor sit amet, consectetur adipiscing elit, sed veniam,
-                                 quis nostrud exercitation ullamco laboris nisi ut reprehenderit in voluptate velit</p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+            <div class="leaderboard-cta">
+               <a href="/leaderboard" class="btn-view-all">
+                  View Full Leaderboard <i class="fas fa-arrow-right"></i>
+               </a>
             </div>
          </div>
-      </div>
-   </div> -->
-   <!-- client section end -->
+      </section>
 
-   <!-- contact section start -->
-   <div id="contact" class="contact_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-6">
-               <h1 class="contact_text">CONTACT US</h1>
-               <div class="mail_sectin">
-                  <p style="color: green"><span th:text="${contactMessage}"></span></p>
-                  <form id="contactQueryForm" method="post" action="/submit-contact">
-                     <input type="text" class="email-bt" placeholder="Name" name="name">
-                     <input type="text" class="email-bt" placeholder="Email" name="email">
-                     <input type="text" class="email-bt" placeholder="Phone Number" name="phoneNumber">
-                     <textarea class="massage-bt" placeholder="Message" rows="5" id="comment" name="message"></textarea>
-                     <div class="read_bt_main">
-                        <div class="read_bt"><a onclick="submitContactQueryForm();">SEND</a></div>
+      <!-- Contact Section -->
+      <section id="contact" class="contact-section">
+         <div class="contact-wrapper">
+            <div class="section-header">
+               <h2>Get In Touch</h2>
+               <p>Have questions or suggestions? We'd love to hear from you!</p>
+            </div>
+
+            <div class="contact-container">
+               <div class="contact-info-card">
+                  <div class="contact-image">
+                     <img src="/images/contact-img3.jpg" alt="Contact Us">
+                     <div class="contact-overlay">
+                        <h3>Let's Connect</h3>
+                        <p>We're here to help you succeed</p>
                      </div>
+                  </div>
+
+                  <div class="contact-details">
+                     <div class="contact-item">
+                        <div class="contact-icon">
+                           <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                           <h4>Email Us</h4>
+                           <p>shubhamchouksey1998@gmail.com</p>
+                           <a href="mailto:shubhamchouksey1998@gmail.com" class="contact-link">Send Email <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                     </div>
+
+                     <div class="contact-item">
+                        <div class="contact-icon">
+                           <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                           <h4>Our Location</h4>
+                           <p>Boston Living<br>Hyderabad, Telangana, India</p>
+                           <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.1167182740537!2d78.36337727568873!3d17.45412678344447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93839778736f%3A0xac87d182280e7845!2sBoston%20Living!5e0!3m2!1sen!2sin!4v1760642771214!5m2!1sen!2sin" target="_blank" class="contact-link">View on Map <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                     </div>
+
+                     <div class="contact-item">
+                        <div class="contact-icon">
+                           <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-text">
+                           <h4>Response Time</h4>
+                           <p>We typically respond within 24 hours</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="contact-form-card">
+                  <h3>Send Us a Message</h3>
+                  <p class="form-description">Fill out the form below and we'll get back to you soon</p>
+
+                  <form id="contactForm" method="post" action="/submit-contact" class="contact-form">
+                     <div class="form-row">
+                        <div class="form-group">
+                           <label for="name"><i class="fas fa-user"></i> Full Name *</label>
+                           <input type="text" id="name" name="name" placeholder="John Doe" required>
+                        </div>
+
+                        <div class="form-group">
+                           <label for="email"><i class="fas fa-envelope"></i> Email Address *</label>
+                           <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                        </div>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="phoneNumber"><i class="fas fa-phone"></i> Phone Number</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+91 1234567890">
+                     </div>
+
+                     <div class="form-group">
+                        <label for="message"><i class="fas fa-comment"></i> Your Message *</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Tell us how we can help you..." required></textarea>
+                     </div>
+
+                     <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                     </button>
                   </form>
                </div>
             </div>
-            <div class="col-md-6">
-               <div class="map_main">
-                  <div class="map-responsive">
-                     <!-- iframe Delhi -->
-                     <!--                     <iframe title="frameGoggleMapDelhi" width="600" height="500" frameborder="0"-->
-                     <!--                        style="border:0; width: 100%; border: black-solid 4px;" allowfullscreen=""-->
-                     <!--                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56062.11306740246!2d77.0038955642826!3d28.573303878181285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1a9c31eec4e1%3A0x39493976cba4c89a!2sDwarka%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1688882430519!5m2!1sen!2sin"></iframe>-->
-                     <!-- iframe Salichouka Road -->
-                     <iframe title="frameGoggleMapDelhi" width="600" height="500" frameborder="0"
-                        style="border:0; width: 100%; border: black-solid 4px;" allowfullscreen=""
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3677.1933569159055!2d78.67236027513464!3d22.83233477930759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397fad21182f8e0d%3A0x9414b5e37de9b2ab!2sSalichouka%20Rd%2C%20Babai%20Kalan%2C%20Madhya%20Pradesh%20487881!5e0!3m2!1sen!2sin!4v1702783484765!5m2!1sen!2sin"></iframe>
-                  </div>
+         </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="home-footer">
+         <div class="footer-content">
+            <div class="footer-section">
+               <h3><img src="/images/footer-logo.png" alt="Quiz Wizz" class="footer-logo-img"> Quiz Wizz</h3>
+               <p>Challenge yourself with engaging quizzes and compete with others. Test your knowledge across various categories!</p>
+            </div>
+
+            <div class="footer-section">
+               <h4>Quick Links</h4>
+               <ul>
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/quiz">Take Quiz</a></li>
+                  <li><a href="/leaderboard">Leaderboard</a></li>
+                  <li><a href="/admin">Admin</a></li>
+               </ul>
+            </div>
+
+            <div class="footer-section">
+               <h4>Resources</h4>
+               <ul>
+                  <li><a href="https://shubhamchouksey123.github.io/portfolio/" target="_blank">Portfolio</a></li>
+                  <li><a href="https://shubhamchouksey123.github.io/autoCV/cv.pdf" target="_blank">Resume</a></li>
+                  <li><a href="https://shubhamchouksey123.github.io/facts-and-news-website/" target="_blank">News</a></li>
+               </ul>
+            </div>
+
+            <div class="footer-section">
+               <h4>Connect</h4>
+               <div class="social-links">
+                  <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                  <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                  <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                </div>
             </div>
          </div>
-      </div>
-   </div>
-   <!-- contact section end -->
 
-   <!-- footer section start -->
-   <div class="footer_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <div class="col-lg-4 col-sm-6">
-               <h1 class="customer_text">INFORMATION</h1>
-               <p class="footer_lorem_text">Whether you're a trivia master or just starting your quiz journey, Quiz-Wizz
-                  is the perfect place to challenge yourself and have a great time.
-               </p>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-               <h1 class="customer_text">LET US HELP YOU</h1>
-               <p class="footer_lorem_text">We are passionate about testing your knowledge and providing
-                  a platform for fun and learning.
-               </p>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-               <h1 class="customer_text">UseFul Links</h1>
-               <p class="footer_lorem_text1">
-                  <a href="/#about" style="color: #ffffff;">About Us</a><br>
-                  <a href="https://shubhamchouksey123.github.io/portfolio/" style="color: #ffffff;">Visit My
-                     website</a><br>
-                  <a href="https://shubhamchouksey123.github.io/autoCV/cv.pdf" style="color: #ffffff;">Check My
-                     Resume</a><br>
-                  <a href="/add-question" style="color: #ffffff;">Contribute : Question Set</a><br>
-                  <a href="/admin" style="color: #ffffff;">Contribute : Admin</a><br>
-                  <a href="/web/mails" style="color: #ffffff;">Contribute : Admin Mail Sender</a><br>
-                  <a href="/cover" style="color: #ffffff;">Cover Letter Generator</a><br>
-                  Press & News<br>
-                  Competitions<br>
-                  Terms & Conditions
-               </p>
-            </div>
+         <div class="footer-bottom">
+            <p>&copy; 2024 Quiz Wizz. Designed by <a href="https://shubhamchouksey123.github.io/portfolio/" target="_blank">Shubham Chouksey</a></p>
          </div>
-      </div>
+      </footer>
    </div>
-   <!--  footer section end -->
 
-   <!-- copyright section start -->
-   <div class="copyright_section">
-      <div class="container">
-         <p class="copyright_text">2023 All Rights Reserved. Design by <a href="https://html.design">Shubham Chouksey
-         </p>
-      </div>
-      <!-- copyright section end -->
-      <!-- Javascript files-->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery-3.0.0.min.js"></script>
-      <script src="js/plugin.js"></script>
-      <!-- sidebar -->
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="js/custom.js"></script>
-      <!-- javascript -->
-      <script src="js/owl.carousel.js"></script>
-      <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-      <script src="js/main.js"></script>
-   </div>
+   <!-- JavaScript -->
+   <script src="/js/home.js"></script>
 </body>
 
 </html>

@@ -1,156 +1,316 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <!-- basic -->
-   <meta charset="utf-8">
+   <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!-- mobile metas -->
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-   <!-- site metas -->
-   <title>Quiz Wizz</title>
-   <meta name="keywords" content="Quiz App Quiz-Wizz Shubham Chouksey Software Engineer Developer">
-   <meta name="description"
-      content="Explore my quiz website repository, showcasing my journey as a skilled software engineer. Discover HTML, CSS, and JavaScript frontend development, coupled with Java and Spring Boot backend solutions. Delve into dynamic quizzes sourced from a PostgreSQL database,
-       facilitated by seamless communication through Gmail SMTP. Connect with me to craft innovative web solutions.Designed and developed by Shubham Chouksey, IIT Patna, Software Engineer, Java Spring-boot">
+   <title>About Us - Quiz Wizz</title>
+   <meta name="description" content="Learn more about Quiz Wizz - Your ultimate quiz platform for testing knowledge">
    <meta name="author" content="Shubham Chouksey">
 
-   <!-- bootstrap css -->
-   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-   <!-- style css -->
-   <link rel="stylesheet" type="text/css" href="css/style.css">
-   <!-- Responsive-->
-   <link rel="stylesheet" href="css/responsive.css">
-   <!-- fevicon -->
-   <link rel="icon" href="images/fevicon.png" type="image/gif" />
-   <!-- Scrollbar Custom CSS -->
-   <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-   <!-- Tweaks for older IEs-->
-   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-   <!-- owl stylesheets -->
-   <link rel="stylesheet" href="css/owl.carousel.min.css">
-   <link rel="stylesheet" href="css/owl.theme.default.min.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
-      media="screen">
+   <!-- Font Awesome -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+   <!-- Custom Home CSS (reusing the same theme) -->
+   <link rel="stylesheet" type="text/css" href="/css/home.css">
+   <link rel="stylesheet" type="text/css" href="/css/about.css">
+
+   <!-- Favicon -->
+   <link rel="icon" href="/images/fevicon.png" type="image/gif" />
 </head>
 
 <body>
-   <!-- header section start -->
-   <div class="header_section">
-      <div class="container">
-         <nav class="navbar navbar-expand-lg navbar-light bg-nav-bar">
-            <div class="logo"><a href="/home"><img src="images/website-logo-1x.webp"
-                     style="width: 15%; float: left;"></a></div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-               <ul class="navbar-nav mr-auto">
-                  <li class="nav-item">
-                     <a href="#home" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#services" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Services</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#leader_board" class="nav-link scrollto"><i class="bx bx-user"></i>
-                        <span>LeaderBoard</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="/quiz">Start Quiz</a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#contact" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Contact</span></a>
-                  </li>
+   <!-- About Container -->
+   <div class="about-container">
+      <!-- Header -->
+      <header class="home-header">
+         <div class="logo">
+            <a href="/"><img src="/images/website-logo-1x.webp" alt="Quiz Wizz" class="logo-img"> Quiz Wizz</a>
+         </div>
+         <nav class="main-nav">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/about" class="nav-link active">About</a>
+            <a href="/#features" class="nav-link">Features</a>
+            <a href="/leaderboard" class="nav-link">Leaderboard</a>
+            <a href="/#contact" class="nav-link">Contact</a>
+            <a href="/quiz" class="btn-start-quiz"><i class="fas fa-play"></i> Start Quiz</a>
+         </nav>
+         <div class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+         </div>
+      </header>
+
+      <!-- Mobile Navigation -->
+      <div class="mobile-nav" id="mobileNav">
+         <a href="/" class="mobile-nav-link">Home</a>
+         <a href="/about" class="mobile-nav-link">About</a>
+         <a href="/#features" class="mobile-nav-link">Features</a>
+         <a href="/leaderboard" class="mobile-nav-link">Leaderboard</a>
+         <a href="/#contact" class="mobile-nav-link">Contact</a>
+         <a href="/quiz" class="mobile-nav-link">Start Quiz</a>
+      </div>
+
+      <!-- Hero Section -->
+      <section class="about-hero-section">
+         <div class="about-hero-content">
+            <div class="hero-badge">
+               <i class="fas fa-info-circle"></i> About Quiz Wizz
+            </div>
+            <h1 class="hero-title">
+               Empowering Knowledge Through
+               <span class="gradient-text">Interactive Quizzes</span>
+            </h1>
+            <p class="hero-subtitle">
+               We're on a mission to make learning fun, engaging, and accessible to everyone
+            </p>
+         </div>
+
+         <!-- Floating Elements -->
+         <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+         </div>
+      </section>
+
+      <!-- About Story Section -->
+      <section class="about-story-section">
+         <div class="story-container">
+            <div class="story-content">
+               <div class="story-text">
+                  <h2>Our Story</h2>
+                  <p>Quiz Wizz was born from a simple idea: learning should be enjoyable and accessible to everyone. We believe that the best way to test and improve your knowledge is through interactive, engaging quizzes that challenge your thinking and expand your horizons.</p>
+                  <p>What started as a passion project has grown into a comprehensive quiz platform that serves thousands of learners worldwide. We're constantly evolving, adding new questions, categories, and features to provide the best quiz experience possible.</p>
+                  <div class="story-stats">
+                     <div class="story-stat">
+                        <div class="stat-icon">
+                           <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                           <h3>1000+</h3>
+                           <p>Active Users</p>
+                        </div>
+                     </div>
+                     <div class="story-stat">
+                        <div class="stat-icon">
+                           <i class="fas fa-question-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                           <h3>5000+</h3>
+                           <p>Questions</p>
+                        </div>
+                     </div>
+                     <div class="story-stat">
+                        <div class="stat-icon">
+                           <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-info">
+                           <h3>10K+</h3>
+                           <p>Quizzes Taken</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="story-image">
+                  <img src="/images/img-1.png" alt="About Quiz Wizz">
+                  <div class="image-decoration">
+                     <div class="decoration-circle"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <!-- Mission Section -->
+      <section class="mission-section">
+         <div class="mission-container">
+            <div class="section-header">
+               <h2>Our Mission & Values</h2>
+               <p>What drives us to create the best quiz platform</p>
+            </div>
+
+            <div class="mission-grid">
+               <div class="mission-card">
+                  <div class="mission-icon purple">
+                     <i class="fas fa-lightbulb"></i>
+                  </div>
+                  <h3>Make Learning Fun</h3>
+                  <p>We believe that education doesn't have to be boring. Our interactive quizzes make learning an enjoyable experience that keeps you coming back for more.</p>
+               </div>
+
+               <div class="mission-card">
+                  <div class="mission-icon blue">
+                     <i class="fas fa-universal-access"></i>
+                  </div>
+                  <h3>Accessible to All</h3>
+                  <p>Knowledge should be free and accessible. We're committed to providing a platform that anyone can use, regardless of their background or experience level.</p>
+               </div>
+
+               <div class="mission-card">
+                  <div class="mission-icon orange">
+                     <i class="fas fa-chart-line"></i>
+                  </div>
+                  <h3>Track Your Progress</h3>
+                  <p>Understanding your strengths and weaknesses is key to improvement. Our platform helps you monitor your progress and identify areas for growth.</p>
+               </div>
+
+               <div class="mission-card">
+                  <div class="mission-icon green">
+                     <i class="fas fa-users"></i>
+                  </div>
+                  <h3>Build Community</h3>
+                  <p>Learning is better together. Our leaderboard and competitive features foster a community of learners who motivate and challenge each other.</p>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <!-- Technology Section -->
+      <section class="tech-section">
+         <div class="tech-container">
+            <div class="tech-content">
+               <div class="tech-image">
+                  <div class="tech-badge">
+                     <i class="fas fa-code"></i>
+                     <span>Modern Tech Stack</span>
+                  </div>
+               </div>
+               <div class="tech-text">
+                  <h2>Built with Modern Technology</h2>
+                  <p>Quiz Wizz is built using cutting-edge technologies to ensure a fast, reliable, and secure experience for all users.</p>
+
+                  <div class="tech-features">
+                     <div class="tech-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="tech-feature-text">
+                           <h4>Spring Boot Backend</h4>
+                           <p>Robust and scalable Java-based server architecture</p>
+                        </div>
+                     </div>
+                     <div class="tech-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="tech-feature-text">
+                           <h4>PostgreSQL Database</h4>
+                           <p>Reliable data storage for questions and user records</p>
+                        </div>
+                     </div>
+                     <div class="tech-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="tech-feature-text">
+                           <h4>Responsive Design</h4>
+                           <p>Beautiful interface that works on all devices</p>
+                        </div>
+                     </div>
+                     <div class="tech-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="tech-feature-text">
+                           <h4>Real-time Updates</h4>
+                           <p>Instant feedback and dynamic leaderboard updates</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <!-- Developer Section -->
+      <section class="developer-section">
+         <div class="developer-container">
+            <div class="section-header">
+               <h2>Meet the Developer</h2>
+               <p>The mind behind Quiz Wizz</p>
+            </div>
+
+            <div class="developer-card">
+               <div class="developer-avatar">
+                  <img src="/images/profile-img.webp" alt="Shubham Chouksey">
+               </div>
+               <h3>Shubham Chouksey</h3>
+               <p class="developer-title">Full Stack Developer | IIT Patna</p>
+               <p class="developer-bio">
+                  Passionate software engineer with expertise in Java, Spring Boot, and modern web technologies.
+                  Created Quiz Wizz to combine my love for education with innovative technology solutions.
+               </p>
+               <div class="developer-links">
+                  <a href="https://shubhamchouksey123.github.io/portfolio/" target="_blank" class="dev-link">
+                     <i class="fas fa-globe"></i> Portfolio
+                  </a>
+                  <a href="https://shubhamchouksey123.github.io/autoCV/cv.pdf" target="_blank" class="dev-link">
+                     <i class="fas fa-file-pdf"></i> Resume
+                  </a>
+                  <a href="mailto:shubhamchouksey1998@gmail.com" class="dev-link">
+                     <i class="fas fa-envelope"></i> Contact
+                  </a>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="cta-section">
+         <div class="cta-content">
+            <h2>Ready to Test Your Knowledge?</h2>
+            <p>Join thousands of learners and start your quiz journey today!</p>
+            <div class="cta-buttons">
+               <a href="/quiz" class="btn-primary-large">
+                  <i class="fas fa-play-circle"></i> Start Quiz Now
+               </a>
+               <a href="/leaderboard" class="btn-secondary-large">
+                  <i class="fas fa-trophy"></i> View Leaderboard
+               </a>
+            </div>
+         </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="home-footer">
+         <div class="footer-content">
+            <div class="footer-section">
+               <h3><img src="/images/footer-logo.png" alt="Quiz Wizz" class="footer-logo-img"> Quiz Wizz</h3>
+               <p>Challenge yourself with engaging quizzes and compete with others. Test your knowledge across various categories!</p>
+            </div>
+
+            <div class="footer-section">
+               <h4>Quick Links</h4>
+               <ul>
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/about">About</a></li>
+                  <li><a href="/quiz">Take Quiz</a></li>
+                  <li><a href="/leaderboard">Leaderboard</a></li>
+                  <li><a href="/admin">Admin</a></li>
                </ul>
             </div>
-         </nav>
-      </div>
-   </div>
-   <!-- header section end -->
-   <!-- about section start -->
-   <div class="about_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-6">
-               <h1 class="about_text">About Us</h1>
-               <p class="lorem_text">There are many variations of passages of Lorem Ipsum available, but the majority
-                  have suffered alteration in some form, by injected humour, or randomised words which don't look even
-                  slightly believableThere are many variations of passages of Lorem Ipsum available, but the majority
-                  have able</p>
-               <div class="read_bt1"><a href="#">Read More</a></div>
+
+            <div class="footer-section">
+               <h4>Resources</h4>
+               <ul>
+                  <li><a href="https://shubhamchouksey123.github.io/portfolio/" target="_blank">Portfolio</a></li>
+                  <li><a href="https://shubhamchouksey123.github.io/autoCV/cv.pdf" target="_blank">Resume</a></li>
+                  <li><a href="https://shubhamchouksey123.github.io/facts-and-news-website/" target="_blank">News</a></li>
+               </ul>
             </div>
-            <div class="col-md-6">
-               <div class="image_1"><img src="images/img-1.png"></div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- about section end -->
-   <!-- footer section start -->
-   <div class="footer_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <div class="col-lg-4 col-sm-6">
-               <h1 class="customer_text">INFORMATION</h1>
-               <p class="footer_lorem_text">Whether you're a trivia master or just starting your quiz journey, Quiz-Wizz
-                  is the perfect place to challenge yourself and have a great time.
-               </p>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-               <h1 class="customer_text">LET US HELP YOU</h1>
-               <p class="footer_lorem_text">We are passionate about testing your knowledge and providing
-                  a platform for fun and learning.
-               </p>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-               <h1 class="customer_text">UseFul Links</h1>
-               <p class="footer_lorem_text1">
-                  <a href="/#about" style="color: #ffffff;">About Us</a><br>
-                  <a href="https://shubhamchouksey123.github.io/portfolio/" style="color: #ffffff;">Visit My
-                     website</a><br>
-                  <a href="https://shubhamchouksey123.github.io/autoCV/cv.pdf" style="color: #ffffff;">Check My
-                     Resume</a><br>
-                  <a href="/add-question" style="color: #ffffff;">Contribute : Question Set</a><br>
-                  <a href="/admin" style="color: #ffffff;">Contribute : Admin</a><br>
-                  <a href="/web/mails" style="color: #ffffff;">Contribute : Admin Mail Sender</a><br>
-                  <a href="/cover" style="color: #ffffff;">Cover Letter Generator</a><br>
-                  Press & News<br>
-                  Competitions<br>
-                  Terms & Conditions
-               </p>
+
+            <div class="footer-section">
+               <h4>Connect</h4>
+               <div class="social-links">
+                  <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                  <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                  <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+               </div>
             </div>
          </div>
-      </div>
+
+         <div class="footer-bottom">
+            <p>&copy; 2024 Quiz Wizz. Designed by <a href="https://shubhamchouksey123.github.io/portfolio/" target="_blank">Shubham Chouksey</a></p>
+         </div>
+      </footer>
    </div>
-   <!--  footer section end -->
-   <!-- copyright section start -->
-   <div class="copyright_section">
-      <div class="container">
-         <p class="copyright_text">2023 All Rights Reserved. Design by <a href="https://html.design">Shubham Chouksey
-         </p>
-      </div>
-      <!-- copyright section end -->
-      <!-- Javascript files-->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery-3.0.0.min.js"></script>
-      <script src="js/plugin.js"></script>
-      <!-- sidebar -->
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="js/custom.js"></script>
-      <!-- javascript -->
-      <script src="js/owl.carousel.js"></script>
-      <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-   </div>
+
+   <!-- JavaScript -->
+   <script src="/js/home.js"></script>
 </body>
 
 </html>
