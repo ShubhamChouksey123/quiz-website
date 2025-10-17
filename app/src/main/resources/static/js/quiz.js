@@ -192,9 +192,9 @@
         // Show/hide unanswered warning
         if (unansweredQuestions > 0) {
             elements.unansweredCount.textContent = unansweredQuestions;
-            elements.unansweredWarning.style.display = 'block';
+            elements.unansweredWarning.classList.add('show');
         } else {
-            elements.unansweredWarning.style.display = 'none';
+            elements.unansweredWarning.classList.remove('show');
         }
 
         // Hide question card and show submit section
