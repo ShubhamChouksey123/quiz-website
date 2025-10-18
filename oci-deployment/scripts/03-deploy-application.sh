@@ -356,7 +356,12 @@ echo "This may take 2-3 minutes for database initialization and application star
 echo "Stopping existing containers..."
 docker compose down
 
-echo "Starting containers with latest image..."
+# Override DOCKER_IMAGE to use the locally built image instead of OCIR
+# This ensures we deploy the freshly built image with the latest code
+echo "Setting DOCKER_IMAGE to use locally built image..."
+export DOCKER_IMAGE=quiz-app:local
+
+echo "Starting containers with latest locally built image..."
 docker compose up -d
 
 if [ $? -eq 0 ]; then
