@@ -236,8 +236,9 @@ cd /opt/quiz-app/source
 echo "Starting Docker build process..."
 echo "This may take 5-10 minutes for Maven dependencies and compilation..."
 
-# Build the Docker image
-docker build -t quiz-app:local .
+# Build the Docker image with --no-cache to ensure latest code is used
+# This forces a complete rebuild, preventing stale layers from being used
+docker build --no-cache -t quiz-app:local .
 
 if [ $? -eq 0 ]; then
     echo "Docker build completed successfully"
