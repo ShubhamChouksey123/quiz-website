@@ -91,7 +91,8 @@ public class QuizController {
 
     @GetMapping({"/shop"})
     public String renderShop() {
-        return "quiz-template/shop";
+        return "hello from new branch";
+//        return "quiz-template/shop";
     }
 
     @GetMapping({"/contact"})
