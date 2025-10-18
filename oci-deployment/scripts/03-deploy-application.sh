@@ -145,27 +145,79 @@ else
     exit 1
 fi
 
-log_info "1.4 Transferring application source code..."
+log_info "1.4 Pulling latest application source from GitHub..."
 
-# Create source directory and transfer application source to instance
-log_info "Creating source directory on instance..."
-ssh -i ~/.ssh/id_rsa -o ConnectTimeout=20 -o StrictHostKeyChecking=no opc@"$PUBLIC_IP" "mkdir -p /opt/quiz-app/source"
+# Pull latest code from GitHub master branch (clone or update)
+ssh -i ~/.ssh/id_rsa -o ConnectTimeout=60 -o StrictHostKeyChecking=no opc@"$PUBLIC_IP" << 'EOF'
+cd /opt/quiz-app
 
-log_info "Copying application source to instance..."
-scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r ../../app opc@"$PUBLIC_IP":/opt/quiz-app/source/
+# Check if source directory exists and is a valid git repository
+if [ -d "source/.git" ]; then
+    echo "📦 Existing repository found - updating with git pull..."
+    cd source
 
-if [ $? -ne 0 ]; then
-    log_error "Application source transfer failed"
-    exit 1
+    # Fetch latest changes
+    git fetch origin master
+
+    # Show current commit before update
+    echo "Current commit: $(git log -1 --oneline)"
+
+    # Reset to latest master (hard reset to avoid merge conflicts)
+    git reset --hard origin/master
+
+    # Clean untracked files
+    git clean -fd
+
+    if [ $? -ne 0 ]; then
+        echo "❌ Failed to update repository"
+        exit 1
+    fi
+
+    echo "✅ Repository updated successfully"
+else
+    echo "📥 No existing repository - cloning from GitHub..."
+
+    # Remove source directory if it exists but is not a git repo
+    if [ -d "source" ]; then
+        echo "Removing non-git source directory..."
+        rm -rf source
+    fi
+
+    # Clone latest from master branch (shallow clone for faster transfer)
+    echo "Cloning repository: https://github.com/ShubhamChouksey123/quiz-website.git"
+    git clone --single-branch --branch master --depth 1 \
+        https://github.com/ShubhamChouksey123/quiz-website.git source
+
+    if [ $? -ne 0 ]; then
+        echo "❌ Failed to clone repository from GitHub"
+        exit 1
+    fi
+
+    cd source
+    echo "✅ Repository cloned successfully"
 fi
 
-log_info "Copying Dockerfile to source directory..."
-scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ../../Dockerfile opc@"$PUBLIC_IP":/opt/quiz-app/source/
+# Display deployed commit information
+echo ""
+echo "=== Deployment Information ==="
+echo "Repository: https://github.com/ShubhamChouksey123/quiz-website"
+echo "Branch: master"
+echo "Deployed commit:"
+git log -1 --oneline --decorate
+echo "Commit author: $(git log -1 --format='%an <%ae>')"
+echo "Commit date: $(git log -1 --format='%ad' --date=format:'%Y-%m-%d %H:%M:%S')"
+echo "Commit message:"
+git log -1 --format='%s'
+echo "==========================="
+echo ""
+EOF
 
 if [ $? -eq 0 ]; then
-    log_success "Source code transferred successfully"
+    log_success "✅ Latest source code from GitHub ready for deployment"
+    log_info "Deploying from master branch (latest commit)"
 else
-    log_error "Dockerfile transfer failed"
+    log_error "Failed to get source code from GitHub"
+    log_error "Check network connectivity and repository access"
     exit 1
 fi
 
@@ -291,18 +343,23 @@ fi
 
 log_info "4.2 Deploying application containers..."
 
-# Deploy containers
+# Deploy containers with forced recreation to ensure latest image is used
 ssh -i ~/.ssh/id_rsa -o ConnectTimeout=180 -o StrictHostKeyChecking=no opc@"$PUBLIC_IP" << 'EOF'
 cd /opt/quiz-app
 
 echo "Starting container deployment..."
 echo "This may take 2-3 minutes for database initialization and application startup..."
 
-# Deploy containers
+# Force recreate containers to use the newly built image
+# This ensures the latest code is deployed even if image tag hasn't changed
+echo "Stopping existing containers..."
+docker compose down
+
+echo "Starting containers with latest image..."
 docker compose up -d
 
 if [ $? -eq 0 ]; then
-    echo "Containers deployed successfully"
+    echo "Containers deployed successfully with latest code"
 
     # Wait for containers to be ready
     echo "Waiting for containers to start..."
@@ -427,7 +484,7 @@ echo ""
 log_info "Deployment Summary:"
 echo "  ✅ Environment configured with secure database password"
 echo "  ✅ OCIR authentication established"
-echo "  ✅ Application source code transferred"
+echo "  ✅ Latest source code pulled from GitHub (master branch)"
 echo "  ✅ Docker image built on production instance"
 echo "  ✅ PostgreSQL database container deployed"
 echo "  ✅ Quiz application container deployed"

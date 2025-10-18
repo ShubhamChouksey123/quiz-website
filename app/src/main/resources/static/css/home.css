@@ -771,7 +771,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
     gap: 40px;
     margin-bottom: 40px;
 }
@@ -779,14 +779,17 @@ body {
 .footer-section h3,
 .footer-section h4 {
     margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+}
+
+.footer-section h3 {
+    display: block;
 }
 
 .footer-logo-img {
-    height: 30px;
+    height: 40px;
     width: auto;
+    display: block;
+    margin-bottom: 10px;
 }
 
 .footer-section p {

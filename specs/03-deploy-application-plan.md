@@ -19,10 +19,26 @@ Deploy the quiz application to the OCI compute instance using a remote Docker bu
 ### Application Requirements (To be verified)
 - [ ] Environment variables configured (`.env` file)
 - [ ] OCIR authentication working
-- [ ] Application source code accessible
+- [ ] GitHub repository accessible (public repository: https://github.com/ShubhamChouksey123/quiz-website)
+- [ ] Git installed on OCI instance (configured during infrastructure setup)
 - [ ] PostgreSQL data directory permissions correct
 
-## Deployment Strategy - Remote Build Approach
+## Deployment Strategy - Remote Build with GitHub Source
+
+**Source Code Strategy**: Deploy directly from GitHub repository instead of local file transfer
+- **Repository**: https://github.com/ShubhamChouksey123/quiz-website
+- **Branch**: master (always latest production code)
+- **Method**: Shallow git clone (`--depth 1`) for faster deployment
+
+**Benefits**:
+- ✅ Always deploys latest committed code from master
+- ✅ Faster than SCP (Git optimized transfers)
+- ✅ CI/CD ready (no dependency on local machine)
+- ✅ Deployment traceability (commit hash, author, date)
+- ✅ Consistent deployments across environments
+- ✅ No local build artifacts transferred
+
+## Build Approach - Remote Docker Build
 
 ### Phase 1: Environment Configuration
 **Objective**: Set up environment variables and OCIR authentication
@@ -38,11 +54,18 @@ Deploy the quiz application to the OCI compute instance using a remote Docker bu
    - Test registry connectivity and push permissions
    - Verify OCIR namespace and image path
 
-3. **Source Code Transfer**
-   - Copy complete application source to `/opt/quiz-app/source/`
-   - Include `app/` directory with Spring Boot application
-   - Transfer `Dockerfile` for multi-stage build
-   - Set proper file permissions and ownership
+3. **Source Code Deployment** (Smart Clone/Update)
+   - **Repository**: `https://github.com/ShubhamChouksey123/quiz-website`
+   - **Initial Deployment**: Clone master branch to `/opt/quiz-app/source/` (shallow clone with `--depth 1`)
+   - **Subsequent Deployments**: Update existing repository with `git fetch` + `git reset --hard origin/master`
+   - **Conflict Resolution**: Hard reset to origin/master (production always matches GitHub)
+   - **Cleanup**: Remove untracked files with `git clean -fd`
+   - **Traceability**: Display commit hash, author, date, and message
+   - **Benefits**:
+     - First deployment: Fast shallow clone
+     - Updates: Even faster (only fetch changes)
+     - Always deploys latest master
+     - CI/CD ready, no local dependencies
 
 ### Phase 2: Application Build Process
 **Objective**: Build the Spring Boot application Docker image on OCI instance
